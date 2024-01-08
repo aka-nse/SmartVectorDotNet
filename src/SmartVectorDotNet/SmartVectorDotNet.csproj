@@ -1,0 +1,186 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <LangVersion>11.0</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="System.Memory" Version="4.5.4" />
+        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="DynamicServices/*.cs" />
+    </ItemGroup>
+
+<!--
+========================================================================================================================
+= ValueOperation =======================================================================================================
+========================================================================================================================
+-->
+
+    <ItemGroup>
+        <None Update="ValueOperation._Binary.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ValueOperation._Binary.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ValueOperation._Binary.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ValueOperation._Binary.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <None Update="ValueOperation._Cast.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ValueOperation._Cast.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ValueOperation._Cast.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ValueOperation._Cast.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="ValueOperation._Comparison.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ValueOperation._Comparison.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ValueOperation._Comparison.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ValueOperation._Comparison.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="ValueOperation._Constant.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ValueOperation._Constant.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ValueOperation._Constant.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ValueOperation._Constant.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="ValueOperation._Math.General.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ValueOperation._Math.General.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ValueOperation._Math.General.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ValueOperation._Math.General.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="ValueOperation._Math.Real.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ValueOperation._Math.Real.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ValueOperation._Math.Real.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ValueOperation._Math.Real.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="ValueOperation._Shift.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ValueOperation._Shift.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ValueOperation._Shift.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ValueOperation._Shift.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="ValueOperation._Unary.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ValueOperation._Unary.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ValueOperation._Unary.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ValueOperation._Unary.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+<!--
+========================================================================================================================
+= VectorOperation ======================================================================================================
+========================================================================================================================
+-->
+
+    <ItemGroup>
+        <None Update="VectorOperation._Binary.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorOperation._Binary.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="VectorOperation._Binary.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorOperation._Binary.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="VectorOperation._Math.Real.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorOperation._Math.Real.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="VectorOperation._Math.Real.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorOperation._Math.Real.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="VectorOperation._Unary.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorOperation._Unary.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="VectorOperation._Unary.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorOperation._Unary.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    
+<!--
+========================================================================================================================
+= DynamicServices ======================================================================================================
+========================================================================================================================
+-->
+
+    <ItemGroup>
+        <None Update="DynamicServices\DynamicVectorizer._Impl.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>DynamicVectorizer._Impl.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="DynamicServices\DynamicVectorizer._Impl.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>DynamicVectorizer._Impl.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+</Project>

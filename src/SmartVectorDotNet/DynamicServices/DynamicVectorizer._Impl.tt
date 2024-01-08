@@ -1,0 +1,78 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".g.cs" #>
+#nullable enable
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Numerics;
+using System.Runtime.InteropServices;
+using System.Text;
+
+namespace SmartVectorDotNet.DynamicServices
+{
+    #region delegates
+<# for(var i = 1; i <= 16; ++i) { #>
+    public delegate void VectorFunc<#=i#><T>(<#=string.Join(", ", Enumerable.Range(1, i).Select(j => $"ReadOnlySpan<T> x{j}"))#>, Span<T> result);
+<# } #>
+    #endregion
+
+
+    partial interface IDynamicVectorizer
+    {
+<# for(var i = 1; i <= 16; ++i) { #>
+        VectorFunc<#=i#><T> Vectorize<T>(Expression<Func<<#=string.Join(", ", Enumerable.Repeat("T", i + 1))#>>> expression)
+            where T : unmanaged;
+
+<# } #>
+    }
+
+
+    partial class DynamicVectorizer : IDynamicVectorizer
+    {
+        private static void GuardSpanSize<T>(Span<T> result, ReadOnlySpan<T> operand, string operandName)
+        {
+            if(result.Length > operand.Length)
+            {
+                throw new ArgumentException($"Any length of operands must be longer than one of result span. '{operandName}' is too short.");
+            }
+        }
+
+<# for(var i = 1; i <= 16; ++i) { #>
+        public VectorFunc<#=i#><T> Vectorize<T>(Expression<Func<<#=string.Join(", ", Enumerable.Repeat("T", i + 1))#>>> expression)
+            where T : unmanaged
+        {
+            var scalarFunc = expression.Compile();
+            var vectorizationVisitor = CreateVisitor();
+            var vectorExpr = (LambdaExpression)vectorizationVisitor.Visit(expression);
+            var alignedSpanExpr = ToSpanFunc<VectorFunc<#=i#><Vector<T>>>(vectorExpr);
+            var alignedSpanFunc = alignedSpanExpr.Compile();
+
+            void core(<#=string.Join(", ", Enumerable.Range(1, i).Select(j => $"ReadOnlySpan<T> x{j}"))#>, Span<T> result)
+            {
+<#   for(var j = 1; j <= i; ++j ) { #>
+                GuardSpanSize(result, x<#=j#>, "x<#=j#>");
+<#   } #>
+                var vectorResult = MemoryMarshal.Cast<T, Vector<T>>(result);
+                var remainResult = result.Slice(Vector<T>.Count * vectorResult.Length);
+<#   for(var j = 1; j <= i; ++j ) { #>
+                var vectorX<#=j#> = MemoryMarshal.Cast<T, Vector<T>>(x<#=j#>);
+                var remainX<#=j#> = x<#=j#>.Slice(Vector<T>.Count * vectorResult.Length);
+<#   } #>
+
+                alignedSpanFunc(<#=string.Join(", ", Enumerable.Range(1, i).Select(j => $"vectorX{j}"))#>, vectorResult);
+                for(var i = 0; i < remainResult.Length; ++i)
+                {
+                    remainResult[i] = scalarFunc(<#=string.Join(", ", Enumerable.Range(1, i).Select(j => $"remainX{j}[i]"))#>);
+                }
+            }
+
+            return core;
+        }
+
+<# } #>
+    }
+}
