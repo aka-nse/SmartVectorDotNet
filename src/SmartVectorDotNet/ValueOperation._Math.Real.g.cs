@@ -25,13 +25,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Sqrt(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Sqrt(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -54,13 +49,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Cos(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Cos(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -83,13 +73,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Sin(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Sin(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -112,13 +97,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Tan(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Tan(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -141,13 +121,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Cosh(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Cosh(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -170,13 +145,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Sinh(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Sinh(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -199,13 +169,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Tanh(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Tanh(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -228,13 +193,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Acos(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Acos(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -257,13 +217,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Asin(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Asin(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -286,13 +241,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Atan(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Atan(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -317,15 +267,9 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var y_ = Reinterpret<T, float>(y);
             var x_ = Reinterpret<T, float>(x);
             return Reinterpret<float, T>(MathF.Atan2(y_, x_));
-        #else
-            var y_ = (double)Reinterpret<T, float>(y);
-            var x_ = (double)Reinterpret<T, float>(x);
-            return Reinterpret<float, T>((float)Math.Atan2(y_, x_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -348,13 +292,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Ceiling(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Ceiling(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -377,13 +316,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Floor(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Floor(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -406,13 +340,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Exp(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Exp(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -437,15 +366,9 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var x_ = Reinterpret<T, float>(x);
             var y_ = Reinterpret<T, float>(y);
             return Reinterpret<float, T>(MathF.Pow(x_, y_));
-        #else
-            var x_ = (double)Reinterpret<T, float>(x);
-            var y_ = (double)Reinterpret<T, float>(y);
-            return Reinterpret<float, T>((float)Math.Pow(x_, y_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -468,13 +391,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Log(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Log(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -499,15 +417,9 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             var newBase_ = Reinterpret<T, float>(newBase);
             return Reinterpret<float, T>(MathF.Log(d_, newBase_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            var newBase_ = (double)Reinterpret<T, float>(newBase);
-            return Reinterpret<float, T>((float)Math.Log(d_, newBase_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -530,13 +442,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Log10(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Log10(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -559,13 +466,8 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Round(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Round(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
@@ -588,17 +490,11 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Truncate(d_));
-        #else
-            var d_ = (double)Reinterpret<T, float>(d);
-            return Reinterpret<float, T>((float)Math.Truncate(d_));
-        #endif
         }
         throw new NotSupportedException();
     }
-
 
 
     /// <summary>
@@ -611,7 +507,6 @@ partial class ValueOperation
     public static T Acosh<T>(T d)
         where T : unmanaged
     {
-        #if NETSTANDARD2_1_OR_GREATER || NET6_0_OR_GREATER
         if(typeof(T) == typeof(double))
         {
             var d_ = Reinterpret<T, double>(d);
@@ -622,7 +517,6 @@ partial class ValueOperation
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Acosh(d_));
         }
-        #endif
         throw new NotSupportedException();
     }
 
@@ -637,7 +531,6 @@ partial class ValueOperation
     public static T Asinh<T>(T d)
         where T : unmanaged
     {
-        #if NETSTANDARD2_1_OR_GREATER || NET6_0_OR_GREATER
         if(typeof(T) == typeof(double))
         {
             var d_ = Reinterpret<T, double>(d);
@@ -648,7 +541,6 @@ partial class ValueOperation
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Asinh(d_));
         }
-        #endif
         throw new NotSupportedException();
     }
 
@@ -663,7 +555,6 @@ partial class ValueOperation
     public static T Atanh<T>(T d)
         where T : unmanaged
     {
-        #if NETSTANDARD2_1_OR_GREATER || NET6_0_OR_GREATER
         if(typeof(T) == typeof(double))
         {
             var d_ = Reinterpret<T, double>(d);
@@ -674,7 +565,6 @@ partial class ValueOperation
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Atanh(d_));
         }
-        #endif
         throw new NotSupportedException();
     }
 
@@ -689,7 +579,6 @@ partial class ValueOperation
     public static T Cbrt<T>(T d)
         where T : unmanaged
     {
-        #if NETSTANDARD2_1_OR_GREATER || NET6_0_OR_GREATER
         if(typeof(T) == typeof(double))
         {
             var d_ = Reinterpret<T, double>(d);
@@ -700,9 +589,9 @@ partial class ValueOperation
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Cbrt(d_));
         }
-        #endif
         throw new NotSupportedException();
     }
+
 
 
     /// <summary>

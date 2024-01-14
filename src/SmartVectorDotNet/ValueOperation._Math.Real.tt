@@ -27,10 +27,10 @@ var realOps = new RealOpDef[]{
     new("Round", "d"),
     new("Truncate", "d"),
 
-    new("Acosh", "d"){ SupportVersionMacro = "NETSTANDARD2_1_OR_GREATER || NET6_0_OR_GREATER", },
-    new("Asinh", "d"){ SupportVersionMacro = "NETSTANDARD2_1_OR_GREATER || NET6_0_OR_GREATER", },
-    new("Atanh", "d"){ SupportVersionMacro = "NETSTANDARD2_1_OR_GREATER || NET6_0_OR_GREATER", },
-    new("Cbrt", "d"){ SupportVersionMacro = "NETSTANDARD2_1_OR_GREATER || NET6_0_OR_GREATER", },
+    new("Acosh", "d"){ },
+    new("Asinh", "d"){ },
+    new("Atanh", "d"){ },
+    new("Cbrt", "d"){ },
     new("Log2", "d"){ SupportVersionMacro = "NET6_0_OR_GREATER", Fallback = "Log(d, ValueOperation.Convert<double, T>(2))", },
 };
 #>
@@ -66,17 +66,10 @@ partial class ValueOperation
         }
         if(typeof(T) == typeof(float))
         {
-        #if NET6_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
 <#     foreach(var a in realOp.Arguments) { #>
             var <#=a#>_ = Reinterpret<T, float>(<#=a#>);
 <#     } #>
             return Reinterpret<float, T>(MathF.<#=realOp#>(<#=realOp.ParamPass#>));
-        #else
-<#     foreach(var a in realOp.Arguments) { #>
-            var <#=a#>_ = (double)Reinterpret<T, float>(<#=a#>);
-<#     } #>
-            return Reinterpret<float, T>((float)Math.<#=realOp#>(<#=realOp.ParamPass#>));
-        #endif
         }
         throw new NotSupportedException();
     }

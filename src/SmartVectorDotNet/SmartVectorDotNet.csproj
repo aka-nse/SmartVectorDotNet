@@ -4,7 +4,7 @@
         <LangVersion>11.0</LangVersion>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
+        <TargetFrameworks>netstandard2.1;net6.0;net7.0</TargetFrameworks>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
@@ -125,6 +125,42 @@
 
 <!--
 ========================================================================================================================
+= VectorCompatible =====================================================================================================
+========================================================================================================================
+-->
+
+<ItemGroup>
+    <None Update="VectorCompatible._FrameworkFallbacks.tt">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>VectorCompatible._FrameworkFallbacks.g.cs</LastGenOutput>
+    </None>
+    <Compile Update="VectorCompatible._FrameworkFallbacks.g.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>VectorCompatible._FrameworkFallbacks.tt</DependentUpon>
+    </Compile>
+</ItemGroup>
+
+<!--
+========================================================================================================================
+= VectorMath ===========================================================================================================
+========================================================================================================================
+-->
+
+    <ItemGroup>
+        <None Update="VectorMath.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorMath.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="VectorMath.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorMath.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+<!--
+========================================================================================================================
 = VectorOperation ======================================================================================================
 ========================================================================================================================
 -->
@@ -181,6 +217,10 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>DynamicVectorizer._Impl.tt</DependentUpon>
         </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="FrameworkCompatibilities\" />
     </ItemGroup>
 
 </Project>

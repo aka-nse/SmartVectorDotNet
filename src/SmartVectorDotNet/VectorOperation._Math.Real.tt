@@ -33,14 +33,17 @@ var realOps = new RealOpDef[]{
     new("Log10", "d"),
     new("Round", "d"),
     new("Truncate", "d"),
+    
+
+    new("Scale", "n", "x"),
 };
 
-var overrideDefinitionPath = Host.ResolvePath("VectorOperation._Math.Real.cs");
-var overrideDefinitionSource = File.ReadAllText(overrideDefinitionPath);
+var vectorMathPath = Host.ResolvePath("VectorMath.cs");
+var vectorMathSource = File.ReadAllText(vectorMathPath);
 
 var matcheds = Regex.Matches(
-    overrideDefinitionSource,
-    @"\[VectorMath(?:Attribute)?\]\s*public\s+static\s+Vector\s*<\s*T\s*>\s+(?<method>\w+)\s*<\s*T\s*>\s*\((?<args>.+)\)\s*where\s+T\s*:\s*unmanaged");
+    vectorMathSource,
+    @"\[VectorMath(?:Attribute)?\]\s*public\s+static\s+(?:partial\s+)?Vector\s*<\s*T\s*>\s+(?<method>\w+)\s*<\s*T\s*>\s*\((?<args>.+)\)\s*where\s+T\s*:\s*unmanaged");
 var opOverrides = matcheds.Cast<Match>().Select(match => new OperatorOverrideDef(match)).ToArray();
 
 var overridedOps = realOps
@@ -166,7 +169,7 @@ public class RealOpDef
 
 public class OperatorOverrideDef
 {
-    private static readonly Regex _ArgumentMatcher = new (@"Vector\s*<\s*T\s*>\s+(?<argname>\w+)");
+    private static readonly Regex _ArgumentMatcher = new (@"in\s+Vector\s*<\s*T\s*>\s+(?<argname>\w+)");
 
     public string Name { get; }
     public string[] Arguments { get; }

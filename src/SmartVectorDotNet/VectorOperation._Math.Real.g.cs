@@ -771,6 +771,40 @@ partial class VectorOperation
             ans[i] = ValueOperation.Truncate(d[i]);
     }
 
+
+    /// <summary>
+    /// Operates scale.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="n"></param>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public void Scale<T>(ReadOnlySpan<T> n, ReadOnlySpan<T> x, Span<T> ans)
+        where T : unmanaged
+    {
+        if(n.Length != ans.Length)
+            throw new ArgumentException(nameof(n));
+        if(x.Length != ans.Length)
+            throw new ArgumentException(nameof(x));
+        ScaleCore(n, x, ans);
+    }
+
+    /// <summary>
+    /// Core implementation for <see cref="Scale" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="n"></param>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    protected internal virtual void ScaleCore<T>(ReadOnlySpan<T> n, ReadOnlySpan<T> x, Span<T> ans)
+        where T : unmanaged
+    {
+        for(var i = 0; i < ans.Length; ++i)
+            ans[i] = ValueOperation.Scale(n[i], x[i]);
+    }
+
 }
 
 
@@ -799,6 +833,118 @@ partial class SimdVectorOperation
             d.Slice(vectorLength).CopyTo(vd);
             var vans = (stackalloc T[Vector<T>.Count]);
             Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Sqrt(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <summary>
+    /// Operates floor.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    protected internal override void FloorCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Floor(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Floor(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <summary>
+    /// Operates exp.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    protected internal override void ExpCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Exp(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Exp(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <summary>
+    /// Operates truncate.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    protected internal override void TruncateCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Truncate(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Truncate(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <summary>
+    /// Operates scale.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="n"></param>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    protected internal override void ScaleCore<T>(ReadOnlySpan<T> n, ReadOnlySpan<T> x, Span<T> ans)
+    {
+        var vectorN = MemoryMarshal.Cast<T, Vector<T>>(n);
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Scale(vectorN[i], vectorX[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vn = (stackalloc T[Vector<T>.Count]);
+            n.Slice(vectorLength).CopyTo(vn);
+            var vx = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vx);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Scale(Unsafe.As<T, Vector<T>>(ref vn[0]), Unsafe.As<T, Vector<T>>(ref vx[0]));
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
