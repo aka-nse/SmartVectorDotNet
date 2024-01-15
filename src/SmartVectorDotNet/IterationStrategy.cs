@@ -36,20 +36,25 @@ public static class IterationStrategy
     /// <summary>
     /// Determines the specified strategy is a default or not.
     /// </summary>
-    /// <param name="strategy"></param>
+    /// <typeparam name="TStrategy"></typeparam>
     /// <returns></returns>
     public static bool IsDefault<TStrategy>()
         where TStrategy : struct, IIterationStrategy
         => typeof(TStrategy) == typeof(DefaultStrategy);
 }
 
+/// <summary>
+/// The implementation of <see cref="IIterationStrategy"/> which uses simple loop.
+/// </summary>
 public readonly struct DefaultStrategy : IIterationStrategy
 {
+    /// <inheritdoc />
     public void For(int fromInclusive, int toExclusive, Action<int> body)
     {
         for (var i = fromInclusive; i < toExclusive; ++i) body(i);
     }
 
+    /// <inheritdoc />
     public void ForEach<T>(IEnumerable<T> source, Action<T> body)
     {
         foreach (var item in source) body(item);

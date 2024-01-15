@@ -70,6 +70,7 @@ partial class VectorOperation
 <#     foreach(var a in realOp.Arguments) { #>
     /// <param name="<#=a#>"></param>
 <#     } #>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void <#=realOp#><T>(<#=realOp.GetArgumentsDeclaration()#>)
@@ -83,13 +84,14 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="<#=realOp#>" />.
+    /// Core implementation for <#=realOp.ToString().ToLower()#>.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
 <#     foreach(var a in realOp.Arguments) { #>
     /// <param name="<#=a#>"></param>
 <#     } #>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void <#=realOp#>Core<T>(<#=realOp.GetArgumentsDeclaration()#>)
         where T : unmanaged
@@ -106,15 +108,7 @@ partial class SimdVectorOperation
 {
 <# foreach(var realOp in overridedOps) { #>
 
-    /// <summary>
-    /// Operates <#=realOp.Name.ToLower()#>.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-<#     foreach(var a in realOp.Arguments) { #>
-    /// <param name="<#=a#>"></param>
-<#     } #>
-    /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <inheritdoc />
     protected internal override void <#=realOp#>Core<T>(<#=realOp.GetArgumentsDeclaration()#>)
     {
 <#     foreach(var a in realOp.Arguments) { #>

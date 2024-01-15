@@ -6,6 +6,14 @@ namespace SmartVectorDotNet;
 
 partial class ValueOperation
 {
+    /// <summary>
+    /// Calculates <c>pow(2, n) * x</c>.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="n"></param>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
     public static T Scale<T>(T n, T x)
         where T : unmanaged
     {

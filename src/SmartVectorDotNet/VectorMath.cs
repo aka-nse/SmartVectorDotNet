@@ -12,6 +12,9 @@ using System.Runtime.Intrinsics.X86;
 namespace SmartVectorDotNet;
 
 
+/// <summary>
+/// Provides vectorized operators of <see cref="System.Math"/>.
+/// </summary>
 public static partial class VectorMath
 {
     [AttributeUsage(AttributeTargets.Method)]
@@ -51,6 +54,7 @@ public static partial class VectorMath
 
     #region Sqrt
 
+    /// <summary> Calculates sqrt. </summary>
     [VectorMath]
     public static Vector<T> Sqrt<T>(in Vector<T> d)
         where T : unmanaged
@@ -60,6 +64,7 @@ public static partial class VectorMath
 
     #region Round
 
+    /// <summary> Calculates round. </summary>
     private static Vector<double> Round(in Vector<double> x)
     {
 #if NET6_0_OR_GREATER
@@ -160,6 +165,7 @@ public static partial class VectorMath
 
     #region Exp
 
+    /// <summary> Calculates exp. </summary>
     [VectorMath]
     public static partial Vector<T> Exp<T>(in Vector<T> d)
         where T : unmanaged;
@@ -228,6 +234,7 @@ public static partial class VectorMath
 
     #region Floor
 
+    /// <summary> Calculates floor. </summary>
     [VectorMath]
     public static partial Vector<T> Floor<T>(in Vector<T> d)
         where T : unmanaged;
@@ -287,6 +294,7 @@ public static partial class VectorMath
 
     #region Truncate
 
+    /// <summary> Calculates truncate. </summary>
     [VectorMath]
     public static partial Vector<T> Truncate<T>(in Vector<T> d)
         where T : unmanaged;

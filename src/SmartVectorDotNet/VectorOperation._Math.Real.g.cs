@@ -15,6 +15,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Sqrt<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -26,11 +27,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Sqrt" />.
+    /// Core implementation for sqrt.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void SqrtCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -45,6 +47,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Cos<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -56,11 +59,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Cos" />.
+    /// Core implementation for cos.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void CosCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -75,6 +79,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Sin<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -86,11 +91,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Sin" />.
+    /// Core implementation for sin.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void SinCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -105,6 +111,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Tan<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -116,11 +123,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Tan" />.
+    /// Core implementation for tan.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void TanCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -135,6 +143,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Cosh<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -146,11 +155,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Cosh" />.
+    /// Core implementation for cosh.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void CoshCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -165,6 +175,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Sinh<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -176,11 +187,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Sinh" />.
+    /// Core implementation for sinh.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void SinhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -195,6 +207,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Tanh<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -206,11 +219,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Tanh" />.
+    /// Core implementation for tanh.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void TanhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -225,6 +239,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Acos<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -236,11 +251,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Acos" />.
+    /// Core implementation for acos.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void AcosCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -255,6 +271,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Asin<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -266,11 +283,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Asin" />.
+    /// Core implementation for asin.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void AsinCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -285,6 +303,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Atan<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -296,11 +315,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Atan" />.
+    /// Core implementation for atan.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void AtanCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -316,6 +336,7 @@ partial class VectorOperation
     /// <typeparam name="T"></typeparam>
     /// <param name="y"></param>
     /// <param name="x"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Atan2<T>(ReadOnlySpan<T> y, ReadOnlySpan<T> x, Span<T> ans)
@@ -329,12 +350,13 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Atan2" />.
+    /// Core implementation for atan2.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="y"></param>
     /// <param name="x"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void Atan2Core<T>(ReadOnlySpan<T> y, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
@@ -349,6 +371,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Acosh<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -360,11 +383,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Acosh" />.
+    /// Core implementation for acosh.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void AcoshCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -379,6 +403,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Asinh<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -390,11 +415,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Asinh" />.
+    /// Core implementation for asinh.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void AsinhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -409,6 +435,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Atanh<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -420,11 +447,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Atanh" />.
+    /// Core implementation for atanh.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void AtanhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -439,6 +467,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Cbrt<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -450,11 +479,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Cbrt" />.
+    /// Core implementation for cbrt.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void CbrtCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -469,6 +499,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Log2<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -480,11 +511,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Log2" />.
+    /// Core implementation for log2.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void Log2Core<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -499,6 +531,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Ceiling<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -510,11 +543,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Ceiling" />.
+    /// Core implementation for ceiling.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void CeilingCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -529,6 +563,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Floor<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -540,11 +575,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Floor" />.
+    /// Core implementation for floor.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void FloorCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -559,6 +595,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Exp<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -570,11 +607,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Exp" />.
+    /// Core implementation for exp.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void ExpCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -590,6 +628,7 @@ partial class VectorOperation
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Pow<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
@@ -603,12 +642,13 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Pow" />.
+    /// Core implementation for pow.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void PowCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
@@ -623,6 +663,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Log<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -634,11 +675,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Log" />.
+    /// Core implementation for log.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void LogCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -654,6 +696,7 @@ partial class VectorOperation
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <param name="newBase"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Log<T>(ReadOnlySpan<T> d, ReadOnlySpan<T> newBase, Span<T> ans)
@@ -667,12 +710,13 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Log" />.
+    /// Core implementation for log.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <param name="newBase"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void LogCore<T>(ReadOnlySpan<T> d, ReadOnlySpan<T> newBase, Span<T> ans)
         where T : unmanaged
@@ -687,6 +731,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Log10<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -698,11 +743,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Log10" />.
+    /// Core implementation for log10.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void Log10Core<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -717,6 +763,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Round<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -728,11 +775,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Round" />.
+    /// Core implementation for round.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void RoundCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -747,6 +795,7 @@ partial class VectorOperation
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Truncate<T>(ReadOnlySpan<T> d, Span<T> ans)
@@ -758,11 +807,12 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Truncate" />.
+    /// Core implementation for truncate.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void TruncateCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
@@ -778,6 +828,7 @@ partial class VectorOperation
     /// <typeparam name="T"></typeparam>
     /// <param name="n"></param>
     /// <param name="x"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public void Scale<T>(ReadOnlySpan<T> n, ReadOnlySpan<T> x, Span<T> ans)
@@ -791,12 +842,13 @@ partial class VectorOperation
     }
 
     /// <summary>
-    /// Core implementation for <see cref="Scale" />.
+    /// Core implementation for scale.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="n"></param>
     /// <param name="x"></param>
+    /// <param name="ans"></param>
     /// <returns></returns>
     protected internal virtual void ScaleCore<T>(ReadOnlySpan<T> n, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
@@ -811,13 +863,7 @@ partial class VectorOperation
 partial class SimdVectorOperation
 {
 
-    /// <summary>
-    /// Operates sqrt.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <inheritdoc />
     protected internal override void SqrtCore<T>(ReadOnlySpan<T> d, Span<T> ans)
     {
         var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
@@ -838,13 +884,7 @@ partial class SimdVectorOperation
     }
 
 
-    /// <summary>
-    /// Operates floor.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <inheritdoc />
     protected internal override void FloorCore<T>(ReadOnlySpan<T> d, Span<T> ans)
     {
         var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
@@ -865,13 +905,7 @@ partial class SimdVectorOperation
     }
 
 
-    /// <summary>
-    /// Operates exp.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <inheritdoc />
     protected internal override void ExpCore<T>(ReadOnlySpan<T> d, Span<T> ans)
     {
         var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
@@ -892,13 +926,7 @@ partial class SimdVectorOperation
     }
 
 
-    /// <summary>
-    /// Operates truncate.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <inheritdoc />
     protected internal override void TruncateCore<T>(ReadOnlySpan<T> d, Span<T> ans)
     {
         var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
@@ -919,14 +947,7 @@ partial class SimdVectorOperation
     }
 
 
-    /// <summary>
-    /// Operates scale.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="n"></param>
-    /// <param name="x"></param>
-    /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <inheritdoc />
     protected internal override void ScaleCore<T>(ReadOnlySpan<T> n, ReadOnlySpan<T> x, Span<T> ans)
     {
         var vectorN = MemoryMarshal.Cast<T, Vector<T>>(n);
