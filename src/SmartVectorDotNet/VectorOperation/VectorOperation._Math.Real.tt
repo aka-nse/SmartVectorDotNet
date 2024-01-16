@@ -38,7 +38,7 @@ var realOps = new RealOpDef[]{
     new("Scale", "n", "x"),
 };
 
-var vectorMathPath = Host.ResolvePath("VectorMath.cs");
+var vectorMathPath = Host.ResolvePath("../VectorMath/VectorMath.cs");
 var vectorMathSource = File.ReadAllText(vectorMathPath);
 
 var matcheds = Regex.Matches(
