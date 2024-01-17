@@ -5,7 +5,7 @@
 using System.Runtime.CompilerServices;
 namespace SmartVectorDotNet;
 
-partial class ScalarOp
+partial class ScalarMath
 {
     /// <summary>
     /// Returns the absolute value.

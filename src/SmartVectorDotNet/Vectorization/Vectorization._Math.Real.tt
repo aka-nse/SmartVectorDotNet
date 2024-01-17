@@ -97,7 +97,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.<#=realOp#>(<#=string.Join(", ", realOp.Arguments.Select(a => $"{a}[i]"))#>);
+            ans[i] = ScalarMath.<#=realOp#>(<#=string.Join(", ", realOp.Arguments.Select(a => $"{a}[i]"))#>);
     }
 
 <# } #>

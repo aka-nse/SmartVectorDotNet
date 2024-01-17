@@ -37,10 +37,10 @@ public static partial class VectorMath
         public static readonly Vector<double> NaN = new(double.NaN);
         public static readonly Vector<double> PInf = new(double.PositiveInfinity);
         public static readonly Vector<double> NInf = new(double.NegativeInfinity);
-        public static readonly Vector<double> ExpMax = new(ScalarOp.Log(double.MaxValue));
-        public static readonly Vector<double> ExpMin = new(ScalarOp.Log(double.Epsilon));
-        public static readonly Vector<double> Log_2_E = new(ScalarOp.Log(Math.E, 2));
-        public static readonly Vector<double> Log_E_2 = new(ScalarOp.Log(2, Math.E));
+        public static readonly Vector<double> ExpMax = new(ScalarMath.Log(double.MaxValue));
+        public static readonly Vector<double> ExpMin = new(ScalarMath.Log(double.Epsilon));
+        public static readonly Vector<double> Log_2_E = new(ScalarMath.Log(Math.E, 2));
+        public static readonly Vector<double> Log_E_2 = new(ScalarMath.Log(2, Math.E));
         public static readonly Vector<long> _1023 = new(1023);
 
         public static readonly Vector<double>[] SinScale;
@@ -65,10 +65,10 @@ public static partial class VectorMath
         public static readonly Vector<float> NaN = new(float.NaN);
         public static readonly Vector<float> PInf = new(float.PositiveInfinity);
         public static readonly Vector<float> NInf = new(float.NegativeInfinity);
-        public static readonly Vector<float> ExpMax = new(ScalarOp.Log(float.MaxValue));
-        public static readonly Vector<float> ExpMin = new(ScalarOp.Log(float.Epsilon));
-        public static readonly Vector<float> Log_2_E = new(ScalarOp.Log((float)Math.E, 2));
-        public static readonly Vector<float> Log_E_2 = new(ScalarOp.Log(2, (float)Math.E));
+        public static readonly Vector<float> ExpMax = new(ScalarMath.Log(float.MaxValue));
+        public static readonly Vector<float> ExpMin = new(ScalarMath.Log(float.Epsilon));
+        public static readonly Vector<float> Log_2_E = new(ScalarMath.Log((float)Math.E, 2));
+        public static readonly Vector<float> Log_E_2 = new(ScalarMath.Log(2, (float)Math.E));
         public static readonly Vector<int> _127 = new(127);
 
         public static readonly Vector<float>[] SinScale = new[] {

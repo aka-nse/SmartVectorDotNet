@@ -19,14 +19,7 @@
         <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Compile Remove="DynamicServices/*.cs" />
-    </ItemGroup>
-
-<!--====================================================================================================================
-= ScalarOp =======================================================================================================
-=====================================================================================================================-->
-
+    <!-- #region ScalarOp -->
     <ItemGroup>
         <None Update="ScalarOp\ScalarOp._Binary.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
@@ -38,7 +31,7 @@
             <DependentUpon>ScalarOp._Binary.tt</DependentUpon>
         </Compile>
     </ItemGroup>
-    
+
     <ItemGroup>
         <None Update="ScalarOp\ScalarOp._Cast.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
@@ -76,30 +69,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="ScalarOp\ScalarOp._Math.General.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarOp._Math.General.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="ScalarOp\ScalarOp._Math.General.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarOp._Math.General.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Update="ScalarOp\ScalarOp._Math.Real.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarOp._Math.Real.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="ScalarOp\ScalarOp._Math.Real.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarOp._Math.Real.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
         <None Update="ScalarOp\ScalarOp._Shift.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>ScalarOp._Shift.g.cs</LastGenOutput>
@@ -122,27 +91,49 @@
             <DependentUpon>ScalarOp._Unary.tt</DependentUpon>
         </Compile>
     </ItemGroup>
+    <!-- #endregion ScalarOp -->
+    
+    <!-- #region ScalarMath -->
+    <ItemGroup>
+        <None Update="ScalarMath\ScalarMath._General.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarMath._General.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarMath\ScalarMath._General.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarMath._General.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
 
-<!--====================================================================================================================
-= VectorOp =====================================================================================================
-=====================================================================================================================-->
+    <ItemGroup>
+        <None Update="ScalarMath\ScalarMath._Real.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarMath._Real.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarMath\ScalarMath._Real.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarMath._Real.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <!-- #endregion ScalarMath -->
 
-<ItemGroup>
-    <None Update="VectorOp\VectorOp._FrameworkFallbacks.tt">
-        <Generator>TextTemplatingFileGenerator</Generator>
-        <LastGenOutput>VectorOp._FrameworkFallbacks.g.cs</LastGenOutput>
-    </None>
-    <Compile Update="VectorOp\VectorOp._FrameworkFallbacks.g.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>VectorOp._FrameworkFallbacks.tt</DependentUpon>
-    </Compile>
-</ItemGroup>
+    <!-- #region VectorOp -->
+    <ItemGroup>
+        <None Update="VectorOp\VectorOp._FrameworkFallbacks.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorOp._FrameworkFallbacks.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="VectorOp\VectorOp._FrameworkFallbacks.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorOp._FrameworkFallbacks.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <!-- #endregion VectorOp -->
 
-<!--====================================================================================================================
-= VectorMath ===========================================================================================================
-=====================================================================================================================-->
-
+    <!-- #region VectorMath -->
     <ItemGroup>
         <None Update="VectorMath\VectorMath.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
@@ -154,11 +145,9 @@
             <DependentUpon>VectorMath.tt</DependentUpon>
         </Compile>
     </ItemGroup>
+    <!-- #endregion VectorMath -->
 
-<!--====================================================================================================================
-= Vectorization ======================================================================================================
-=====================================================================================================================-->
-
+    <!-- #region Vectorization -->
     <ItemGroup>
         <None Update="Vectorization\Vectorization._Binary.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
@@ -194,11 +183,9 @@
             <DependentUpon>Vectorization._Unary.tt</DependentUpon>
         </Compile>
     </ItemGroup>
-    
-<!--====================================================================================================================
-= DynamicServices ======================================================================================================
-=====================================================================================================================-->
+    <!-- #endregion Vectorization -->
 
+    <!-- #region DynamicServices -->
     <ItemGroup>
         <None Update="DynamicServices\DynamicVectorizer._Impl.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
@@ -210,5 +197,10 @@
             <DependentUpon>DynamicVectorizer._Impl.tt</DependentUpon>
         </Compile>
     </ItemGroup>
+    
+    <ItemGroup>
+        <Compile Remove="DynamicServices/*.cs" />
+    </ItemGroup>
+    <!-- #endregion DynamicServices -->
 
 </Project>

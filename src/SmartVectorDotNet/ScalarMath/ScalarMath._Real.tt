@@ -41,7 +41,7 @@ var realOps = new RealOpDef[]{
 using System.Runtime.CompilerServices;
 namespace SmartVectorDotNet;
 
-partial class ScalarOp
+partial class ScalarMath
 {
 <# foreach(var realOp in realOps.Where(x => x.SupportVersionMacro is null)) { #>
 

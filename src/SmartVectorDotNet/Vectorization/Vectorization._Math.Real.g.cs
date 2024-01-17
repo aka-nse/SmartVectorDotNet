@@ -38,7 +38,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Sqrt(d[i]);
+            ans[i] = ScalarMath.Sqrt(d[i]);
     }
 
 
@@ -70,7 +70,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Cos(d[i]);
+            ans[i] = ScalarMath.Cos(d[i]);
     }
 
 
@@ -102,7 +102,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Sin(d[i]);
+            ans[i] = ScalarMath.Sin(d[i]);
     }
 
 
@@ -134,7 +134,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Tan(d[i]);
+            ans[i] = ScalarMath.Tan(d[i]);
     }
 
 
@@ -166,7 +166,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Cosh(d[i]);
+            ans[i] = ScalarMath.Cosh(d[i]);
     }
 
 
@@ -198,7 +198,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Sinh(d[i]);
+            ans[i] = ScalarMath.Sinh(d[i]);
     }
 
 
@@ -230,7 +230,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Tanh(d[i]);
+            ans[i] = ScalarMath.Tanh(d[i]);
     }
 
 
@@ -262,7 +262,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Acos(d[i]);
+            ans[i] = ScalarMath.Acos(d[i]);
     }
 
 
@@ -294,7 +294,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Asin(d[i]);
+            ans[i] = ScalarMath.Asin(d[i]);
     }
 
 
@@ -326,7 +326,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Atan(d[i]);
+            ans[i] = ScalarMath.Atan(d[i]);
     }
 
 
@@ -362,7 +362,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Atan2(y[i], x[i]);
+            ans[i] = ScalarMath.Atan2(y[i], x[i]);
     }
 
 
@@ -394,7 +394,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Acosh(d[i]);
+            ans[i] = ScalarMath.Acosh(d[i]);
     }
 
 
@@ -426,7 +426,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Asinh(d[i]);
+            ans[i] = ScalarMath.Asinh(d[i]);
     }
 
 
@@ -458,7 +458,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Atanh(d[i]);
+            ans[i] = ScalarMath.Atanh(d[i]);
     }
 
 
@@ -490,7 +490,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Cbrt(d[i]);
+            ans[i] = ScalarMath.Cbrt(d[i]);
     }
 
 
@@ -522,7 +522,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Log2(d[i]);
+            ans[i] = ScalarMath.Log2(d[i]);
     }
 
 
@@ -554,7 +554,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Ceiling(d[i]);
+            ans[i] = ScalarMath.Ceiling(d[i]);
     }
 
 
@@ -586,7 +586,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Floor(d[i]);
+            ans[i] = ScalarMath.Floor(d[i]);
     }
 
 
@@ -618,7 +618,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Exp(d[i]);
+            ans[i] = ScalarMath.Exp(d[i]);
     }
 
 
@@ -654,7 +654,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Pow(x[i], y[i]);
+            ans[i] = ScalarMath.Pow(x[i], y[i]);
     }
 
 
@@ -686,7 +686,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Log(d[i]);
+            ans[i] = ScalarMath.Log(d[i]);
     }
 
 
@@ -722,7 +722,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Log(d[i], newBase[i]);
+            ans[i] = ScalarMath.Log(d[i], newBase[i]);
     }
 
 
@@ -754,7 +754,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Log10(d[i]);
+            ans[i] = ScalarMath.Log10(d[i]);
     }
 
 
@@ -786,7 +786,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Round(d[i]);
+            ans[i] = ScalarMath.Round(d[i]);
     }
 
 
@@ -818,7 +818,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Truncate(d[i]);
+            ans[i] = ScalarMath.Truncate(d[i]);
     }
 
 
@@ -854,7 +854,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Scale(n[i], x[i]);
+            ans[i] = ScalarMath.Scale(n[i], x[i]);
     }
 
 }
@@ -879,6 +879,27 @@ partial class SimdVectorization
             d.Slice(vectorLength).CopyTo(vd);
             var vans = (stackalloc T[Vector<T>.Count]);
             Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Sqrt(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void SinCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Sin(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Sin(Unsafe.As<T, Vector<T>>(ref vd[0]));
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
