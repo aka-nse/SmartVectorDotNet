@@ -30,14 +30,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="ValueOperationTest.tt">
+      <None Update="ScalarOpTest.tt">
         <Generator>TextTemplatingFileGenerator</Generator>
-        <LastGenOutput>ValueOperationTest.g.cs</LastGenOutput>
+        <LastGenOutput>ScalarOpTest.g.cs</LastGenOutput>
       </None>
-      <Compile Update="ValueOperationTest.g.cs">
+      <Compile Update="ScalarOpTest.g.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-        <DependentUpon>ValueOperationTest.tt</DependentUpon>
+        <DependentUpon>ScalarOpTest.tt</DependentUpon>
       </Compile>
     </ItemGroup>
 

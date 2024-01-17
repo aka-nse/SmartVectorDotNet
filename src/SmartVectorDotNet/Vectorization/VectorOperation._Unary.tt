@@ -1,0 +1,105 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".g.cs" #>
+<#
+var operations = new OpDef[]
+{
+    new OpDef("UnaryPlus" , (ans, x) => $"{ans} =  {x}"),
+    new OpDef("UnaryMinus", (ans, x) => $"{ans} = -{x}"),
+    new OpDef("Complement", (ans, x) => $"{ans} = ~{x}"),
+};
+#>
+#nullable enable
+using System;
+using System.Collections.Generic;
+using System.Numerics;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+
+namespace SmartVectorDotNet;
+
+<# foreach(var op in operations) { #>
+#region <#=op.Name.ToLower()#>
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates <#=op.Name.ToLower()#> for each corresponding elements of <paramref name="x"/>.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
+    /// </exception>
+    /// <exception cref="NotSupportedException">
+    /// The operation for <typeparamref name="T"/> is not supported.
+    /// </exception>
+    public void <#=op.Name#><T>(ReadOnlySpan<T> x, Span<T> ans)
+        where T : unmanaged
+    {
+        if(x.Length != ans.Length)
+            throw new ArgumentException("`x` and `ans` must have same length.");
+        <#=op.Name#>Core(x, ans);
+    }
+
+    /// <summary>
+    /// Core implementation for <see cref="<#=op.Name#>" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException">
+    /// The operation for <typeparamref name="T"/> is not supported.
+    /// </exception>
+    protected internal virtual void <#=op.Name#>Core<T>(ReadOnlySpan<T> x, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.<#=op.Name#>(x[i]);
+    }
+}
+
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    protected internal override sealed void <#=op.Name#>Core<T>(ReadOnlySpan<T> x, Span<T> ans)
+    {
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            <#=op.GenerateFunc("vectorAns[i]", "vectorX[i]")#>;
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vx);
+            <#=op.GenerateFunc("Unsafe.As<T, Vector<T>>(ref vans[0])", "Unsafe.As<T, Vector<T>>(ref vx[0])")#>; 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+}
+#endregion
+
+
+<# } #>
+<#+
+class OpDef
+{
+    public string Name { get; }
+    public Func<string, string, string> GenerateFunc { get; }
+
+    public OpDef(string name, Func<string, string, string> generateFunc)
+    {
+        Name = name;
+        GenerateFunc = generateFunc;
+    }
+}
+#>

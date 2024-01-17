@@ -24,118 +24,118 @@
     </ItemGroup>
 
 <!--====================================================================================================================
-= ValueOperation =======================================================================================================
+= ScalarOp =======================================================================================================
 =====================================================================================================================-->
 
     <ItemGroup>
-        <None Update="ValueOperation\ValueOperation._Binary.tt">
+        <None Update="ScalarOp\ScalarOp._Binary.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ValueOperation._Binary.g.cs</LastGenOutput>
+            <LastGenOutput>ScalarOp._Binary.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ValueOperation\ValueOperation._Binary.g.cs">
+        <Compile Update="ScalarOp\ScalarOp._Binary.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>ValueOperation._Binary.tt</DependentUpon>
+            <DependentUpon>ScalarOp._Binary.tt</DependentUpon>
         </Compile>
     </ItemGroup>
     
     <ItemGroup>
-        <None Update="ValueOperation\ValueOperation._Cast.tt">
+        <None Update="ScalarOp\ScalarOp._Cast.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ValueOperation._Cast.g.cs</LastGenOutput>
+            <LastGenOutput>ScalarOp._Cast.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ValueOperation\ValueOperation._Cast.g.cs">
+        <Compile Update="ScalarOp\ScalarOp._Cast.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>ValueOperation._Cast.tt</DependentUpon>
+            <DependentUpon>ScalarOp._Cast.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="ValueOperation\ValueOperation._Comparison.tt">
+        <None Update="ScalarOp\ScalarOp._Comparison.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ValueOperation._Comparison.g.cs</LastGenOutput>
+            <LastGenOutput>ScalarOp._Comparison.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ValueOperation\ValueOperation._Comparison.g.cs">
+        <Compile Update="ScalarOp\ScalarOp._Comparison.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>ValueOperation._Comparison.tt</DependentUpon>
+            <DependentUpon>ScalarOp._Comparison.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="ValueOperation\ValueOperation._Constant.tt">
+        <None Update="ScalarOp\ScalarOp._Constant.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ValueOperation._Constant.g.cs</LastGenOutput>
+            <LastGenOutput>ScalarOp._Constant.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ValueOperation\ValueOperation._Constant.g.cs">
+        <Compile Update="ScalarOp\ScalarOp._Constant.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>ValueOperation._Constant.tt</DependentUpon>
+            <DependentUpon>ScalarOp._Constant.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="ValueOperation\ValueOperation._Math.General.tt">
+        <None Update="ScalarOp\ScalarOp._Math.General.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ValueOperation._Math.General.g.cs</LastGenOutput>
+            <LastGenOutput>ScalarOp._Math.General.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ValueOperation\ValueOperation._Math.General.g.cs">
+        <Compile Update="ScalarOp\ScalarOp._Math.General.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>ValueOperation._Math.General.tt</DependentUpon>
+            <DependentUpon>ScalarOp._Math.General.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="ValueOperation\ValueOperation._Math.Real.tt">
+        <None Update="ScalarOp\ScalarOp._Math.Real.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ValueOperation._Math.Real.g.cs</LastGenOutput>
+            <LastGenOutput>ScalarOp._Math.Real.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ValueOperation\ValueOperation._Math.Real.g.cs">
+        <Compile Update="ScalarOp\ScalarOp._Math.Real.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>ValueOperation._Math.Real.tt</DependentUpon>
+            <DependentUpon>ScalarOp._Math.Real.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="ValueOperation\ValueOperation._Shift.tt">
+        <None Update="ScalarOp\ScalarOp._Shift.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ValueOperation._Shift.g.cs</LastGenOutput>
+            <LastGenOutput>ScalarOp._Shift.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ValueOperation\ValueOperation._Shift.g.cs">
+        <Compile Update="ScalarOp\ScalarOp._Shift.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>ValueOperation._Shift.tt</DependentUpon>
+            <DependentUpon>ScalarOp._Shift.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="ValueOperation\ValueOperation._Unary.tt">
+        <None Update="ScalarOp\ScalarOp._Unary.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ValueOperation._Unary.g.cs</LastGenOutput>
+            <LastGenOutput>ScalarOp._Unary.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ValueOperation\ValueOperation._Unary.g.cs">
+        <Compile Update="ScalarOp\ScalarOp._Unary.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>ValueOperation._Unary.tt</DependentUpon>
+            <DependentUpon>ScalarOp._Unary.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
 <!--====================================================================================================================
-= VectorCompatible =====================================================================================================
+= VectorOp =====================================================================================================
 =====================================================================================================================-->
 
 <ItemGroup>
-    <None Update="VectorCompatible\VectorCompatible._FrameworkFallbacks.tt">
+    <None Update="VectorOp\VectorOp._FrameworkFallbacks.tt">
         <Generator>TextTemplatingFileGenerator</Generator>
-        <LastGenOutput>VectorCompatible._FrameworkFallbacks.g.cs</LastGenOutput>
+        <LastGenOutput>VectorOp._FrameworkFallbacks.g.cs</LastGenOutput>
     </None>
-    <Compile Update="VectorCompatible\VectorCompatible._FrameworkFallbacks.g.cs">
+    <Compile Update="VectorOp\VectorOp._FrameworkFallbacks.g.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-        <DependentUpon>VectorCompatible._FrameworkFallbacks.tt</DependentUpon>
+        <DependentUpon>VectorOp._FrameworkFallbacks.tt</DependentUpon>
     </Compile>
 </ItemGroup>
 
@@ -156,42 +156,42 @@
     </ItemGroup>
 
 <!--====================================================================================================================
-= VectorOperation ======================================================================================================
+= Vectorization ======================================================================================================
 =====================================================================================================================-->
 
     <ItemGroup>
-        <None Update="VectorOperation\VectorOperation._Binary.tt">
+        <None Update="Vectorization\Vectorization._Binary.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorOperation._Binary.g.cs</LastGenOutput>
+            <LastGenOutput>Vectorization._Binary.g.cs</LastGenOutput>
         </None>
-        <Compile Update="VectorOperation\VectorOperation._Binary.g.cs">
+        <Compile Update="Vectorization\Vectorization._Binary.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>VectorOperation._Binary.tt</DependentUpon>
+            <DependentUpon>Vectorization._Binary.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="VectorOperation\VectorOperation._Math.Real.tt">
+        <None Update="Vectorization\Vectorization._Math.Real.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorOperation._Math.Real.g.cs</LastGenOutput>
+            <LastGenOutput>Vectorization._Math.Real.g.cs</LastGenOutput>
         </None>
-        <Compile Update="VectorOperation\VectorOperation._Math.Real.g.cs">
+        <Compile Update="Vectorization\Vectorization._Math.Real.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>VectorOperation._Math.Real.tt</DependentUpon>
+            <DependentUpon>Vectorization._Math.Real.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="VectorOperation\VectorOperation._Unary.tt">
+        <None Update="Vectorization\Vectorization._Unary.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorOperation._Unary.g.cs</LastGenOutput>
+            <LastGenOutput>Vectorization._Unary.g.cs</LastGenOutput>
         </None>
-        <Compile Update="VectorOperation\VectorOperation._Unary.g.cs">
+        <Compile Update="Vectorization\Vectorization._Unary.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>VectorOperation._Unary.tt</DependentUpon>
+            <DependentUpon>Vectorization._Unary.tt</DependentUpon>
         </Compile>
     </ItemGroup>
     

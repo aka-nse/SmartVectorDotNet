@@ -1,0 +1,131 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".g.cs" #>
+<#
+var definitions = new MethodDefinition[] {
+    new ("Vector<byte  > ShiftLeft(in Vector<byte  > value, int shiftCount)", "ShiftLeft(value, shiftCount)", "byte"  , "NET7_0_OR_GREATER", element => $"(byte  )({element} << shiftCount)"),
+    new ("Vector<ushort> ShiftLeft(in Vector<ushort> value, int shiftCount)", "ShiftLeft(value, shiftCount)", "ushort", "NET7_0_OR_GREATER", element => $"(ushort)({element} << shiftCount)"),
+    new ("Vector<uint  > ShiftLeft(in Vector<uint  > value, int shiftCount)", "ShiftLeft(value, shiftCount)", "uint"  , "NET7_0_OR_GREATER", element => $"{element} << shiftCount"),
+    new ("Vector<ulong > ShiftLeft(in Vector<ulong > value, int shiftCount)", "ShiftLeft(value, shiftCount)", "ulong" , "NET7_0_OR_GREATER", element => $"{element} << shiftCount"),
+    new ("Vector<nuint > ShiftLeft(in Vector<nuint > value, int shiftCount)", "ShiftLeft(value, shiftCount)", "nuint" , "NET7_0_OR_GREATER", element => $"{element} << shiftCount"),
+    new ("Vector<sbyte > ShiftLeft(in Vector<sbyte > value, int shiftCount)", "ShiftLeft(value, shiftCount)", "sbyte" , "NET7_0_OR_GREATER", element => $"(sbyte)({element} << shiftCount)"),
+    new ("Vector<short > ShiftLeft(in Vector<short > value, int shiftCount)", "ShiftLeft(value, shiftCount)", "short" , "NET7_0_OR_GREATER", element => $"(short)({element} << shiftCount)"),
+    new ("Vector<int   > ShiftLeft(in Vector<int   > value, int shiftCount)", "ShiftLeft(value, shiftCount)", "int"   , "NET7_0_OR_GREATER", element => $"{element} << shiftCount"),
+    new ("Vector<long  > ShiftLeft(in Vector<long  > value, int shiftCount)", "ShiftLeft(value, shiftCount)", "long"  , "NET7_0_OR_GREATER", element => $"{element} << shiftCount"),
+    new ("Vector<nint  > ShiftLeft(in Vector<nint  > value, int shiftCount)", "ShiftLeft(value, shiftCount)", "nint"  , "NET7_0_OR_GREATER", element => $"{element} << shiftCount"),
+    
+    new ("Vector<byte  > ShiftRightLogical(in Vector<byte  > value, int shiftCount)", "ShiftRightLogical(value, shiftCount)", "byte"  , "NET7_0_OR_GREATER", element => $"(byte  )({element} >> shiftCount)"),
+    new ("Vector<ushort> ShiftRightLogical(in Vector<ushort> value, int shiftCount)", "ShiftRightLogical(value, shiftCount)", "ushort", "NET7_0_OR_GREATER", element => $"(ushort)({element} >> shiftCount)"),
+    new ("Vector<uint  > ShiftRightLogical(in Vector<uint  > value, int shiftCount)", "ShiftRightLogical(value, shiftCount)", "uint"  , "NET7_0_OR_GREATER", element => $"(uint  )({element} >> shiftCount)"),
+    new ("Vector<ulong > ShiftRightLogical(in Vector<ulong > value, int shiftCount)", "ShiftRightLogical(value, shiftCount)", "ulong" , "NET7_0_OR_GREATER", element => $"(ulong )({element} >> shiftCount)"),
+    new ("Vector<nuint > ShiftRightLogical(in Vector<nuint > value, int shiftCount)", "ShiftRightLogical(value, shiftCount)", "nuint" , "NET7_0_OR_GREATER", element => $"(nuint )({element} >> shiftCount)"),
+    new ("Vector<sbyte > ShiftRightLogical(in Vector<sbyte > value, int shiftCount)", "ShiftRightLogical(value, shiftCount)", "sbyte" , "NET7_0_OR_GREATER", element => $"(sbyte )((byte  ){element} >> shiftCount)"),
+    new ("Vector<short > ShiftRightLogical(in Vector<short > value, int shiftCount)", "ShiftRightLogical(value, shiftCount)", "short" , "NET7_0_OR_GREATER", element => $"(short )((ushort){element} >> shiftCount)"),
+    new ("Vector<int   > ShiftRightLogical(in Vector<int   > value, int shiftCount)", "ShiftRightLogical(value, shiftCount)", "int"   , "NET7_0_OR_GREATER", element => $"(int   )((uint  ){element} >> shiftCount)"),
+    new ("Vector<long  > ShiftRightLogical(in Vector<long  > value, int shiftCount)", "ShiftRightLogical(value, shiftCount)", "long"  , "NET7_0_OR_GREATER", element => $"(long  )((ulong ){element} >> shiftCount)"),
+    new ("Vector<nint  > ShiftRightLogical(in Vector<nint  > value, int shiftCount)", "ShiftRightLogical(value, shiftCount)", "nint"  , "NET7_0_OR_GREATER", element => $"(nint  )((nuint ){element} >> shiftCount)"),
+    new ("Vector<sbyte > ShiftRightArithmetic(in Vector<sbyte > value, int shiftCount)", "ShiftRightArithmetic(value, shiftCount)", "sbyte" , "NET7_0_OR_GREATER", element => $"(sbyte)({element} >> shiftCount)"),
+    new ("Vector<short > ShiftRightArithmetic(in Vector<short > value, int shiftCount)", "ShiftRightArithmetic(value, shiftCount)", "short" , "NET7_0_OR_GREATER", element => $"(short)({element} >> shiftCount)"),
+    new ("Vector<int   > ShiftRightArithmetic(in Vector<int   > value, int shiftCount)", "ShiftRightArithmetic(value, shiftCount)", "int"   , "NET7_0_OR_GREATER", element => $"(int  )({element} >> shiftCount)"),
+    new ("Vector<long  > ShiftRightArithmetic(in Vector<long  > value, int shiftCount)", "ShiftRightArithmetic(value, shiftCount)", "long"  , "NET7_0_OR_GREATER", element => $"(long )({element} >> shiftCount)"),
+    new ("Vector<nint  > ShiftRightArithmetic(in Vector<nint  > value, int shiftCount)", "ShiftRightArithmetic(value, shiftCount)", "nint"  , "NET7_0_OR_GREATER", element => $"(nint )({element} >> shiftCount)"),
+    
+    new ("Vector<float > Ceiling(in Vector<float > value)", "Ceiling(value)", "float" , "NET6_0_OR_GREATER", element => $"ScalarOp.Ceiling({element})"),
+    new ("Vector<double> Ceiling(in Vector<double> value)", "Ceiling(value)", "double", "NET6_0_OR_GREATER", element => $"ScalarOp.Ceiling({element})"),
+    new ("Vector<float > Floor  (in Vector<float > value)", "Floor  (value)", "float" , "NET6_0_OR_GREATER", element => $"ScalarOp.Floor  ({element})"),
+    new ("Vector<double> Floor  (in Vector<double> value)", "Floor  (value)", "double", "NET6_0_OR_GREATER", element => $"ScalarOp.Floor  ({element})"),
+};
+#>
+// <auto-generated>
+// THIS (.cs) FILE IS GENERATED BY T4. DO NOT CHANGE IT. CHANGE THE .tt FILE INSTEAD.
+// </auto-generated>
+using System;
+using System.Collections.Generic;
+using System.Numerics;
+using System.Runtime.CompilerServices;
+using System.Text;
+using NVector = System.Numerics.Vector;
+
+namespace SmartVectorDotNet;
+
+partial class VectorOp
+{
+<#  foreach(var def in definitions) { #>
+
+    public static partial <#=def.MethodDecl#>
+    {
+#if <#=def.Macro#>
+        return NVector.<#=def.MethodCall#>;
+#else
+        switch(Vector<<#=def.ElementType#>>.Count)
+        {
+<#      foreach(var size in def.VectorSizes) { #>
+        case <#=size#>:
+            return new(stackalloc []{
+<#          for(var i = 0; i < size; ++i) { #>
+                <#=def.CalcElement($"value[{i}]")#>,
+<#          } #>
+            });
+<#      } #>
+        default:
+            {
+                var buffer = (stackalloc <#=def.ElementType#>[Vector<<#=def.ElementType#>>.Count]);
+                for(var i = 0; i < buffer.Length; ++i)
+                {
+                    buffer[i] = <#=def.CalcElement("value[i]")#>;
+                }
+                return Unsafe.As<<#=def.ElementType#>, Vector<<#=def.ElementType#>>>(ref buffer[0]);
+            }
+        }
+        throw new NotImplementedException();
+#endif
+    }
+
+<#  } #>
+}
+<#+
+
+public class MethodDefinition
+{
+    private static Dictionary<string, int[]> _typeSizes = new ()
+    {
+        { "byte"  , new []{ 8, 16, 32,    } },
+        { "ushort", new []{ 4,  8, 16,    } },
+        { "uint"  , new []{ 2,  4,  8,    } },
+        { "ulong" , new []{ 1,  2,  4,    } },
+        { "nuint" , new []{ 1,  2,  4, 8, } },
+        { "sbyte" , new []{ 8, 16, 32,    } },
+        { "short" , new []{ 4,  8, 16,    } },
+        { "int"   , new []{ 2,  4,  8,    } },
+        { "long"  , new []{ 1,  2,  4,    } },
+        { "nint"  , new []{ 1,  2,  4, 8, } },
+        { "float" , new []{ 2,  4,  8,    } },
+        { "double", new []{ 1,  2,  4,    } },
+    };
+
+    public string MethodDecl { get; }
+    public string MethodCall { get; }
+    public string ElementType { get; }
+    public string Macro { get; }
+    public IReadOnlyList<int> VectorSizes => _typeSizes.TryGetValue(ElementType, out var x) ? x : throw new Exception(ElementType);
+    public Func<string, string> CalcElement { get; }
+
+    public MethodDefinition(
+        string methodDecl,
+        string methodCall,
+        string elementType,
+        string macro,
+        Func<string, string> calcElement)
+    {
+        MethodDecl = methodDecl;
+        MethodCall = methodCall;
+        ElementType = elementType;
+        Macro = macro;
+        CalcElement = calcElement;
+    }
+}
+
+#>

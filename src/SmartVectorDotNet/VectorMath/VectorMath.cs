@@ -37,10 +37,10 @@ public static partial class VectorMath
         public static readonly Vector<double> NaN = new(double.NaN);
         public static readonly Vector<double> PInf = new(double.PositiveInfinity);
         public static readonly Vector<double> NInf = new(double.NegativeInfinity);
-        public static readonly Vector<double> ExpMax = new(ValueOperation.Log(double.MaxValue));
-        public static readonly Vector<double> ExpMin = new(ValueOperation.Log(double.Epsilon));
-        public static readonly Vector<double> Log_2_E = new(ValueOperation.Log(Math.E, 2));
-        public static readonly Vector<double> Log_E_2 = new(ValueOperation.Log(2, Math.E));
+        public static readonly Vector<double> ExpMax = new(ScalarOp.Log(double.MaxValue));
+        public static readonly Vector<double> ExpMin = new(ScalarOp.Log(double.Epsilon));
+        public static readonly Vector<double> Log_2_E = new(ScalarOp.Log(Math.E, 2));
+        public static readonly Vector<double> Log_E_2 = new(ScalarOp.Log(2, Math.E));
         public static readonly Vector<long> _1023 = new(1023);
 
         public static readonly Vector<double>[] SinScale;
@@ -65,10 +65,10 @@ public static partial class VectorMath
         public static readonly Vector<float> NaN = new(float.NaN);
         public static readonly Vector<float> PInf = new(float.PositiveInfinity);
         public static readonly Vector<float> NInf = new(float.NegativeInfinity);
-        public static readonly Vector<float> ExpMax = new(ValueOperation.Log(float.MaxValue));
-        public static readonly Vector<float> ExpMin = new(ValueOperation.Log(float.Epsilon));
-        public static readonly Vector<float> Log_2_E = new(ValueOperation.Log((float)Math.E, 2));
-        public static readonly Vector<float> Log_E_2 = new(ValueOperation.Log(2, (float)Math.E));
+        public static readonly Vector<float> ExpMax = new(ScalarOp.Log(float.MaxValue));
+        public static readonly Vector<float> ExpMin = new(ScalarOp.Log(float.Epsilon));
+        public static readonly Vector<float> Log_2_E = new(ScalarOp.Log((float)Math.E, 2));
+        public static readonly Vector<float> Log_E_2 = new(ScalarOp.Log(2, (float)Math.E));
         public static readonly Vector<int> _127 = new(127);
 
         public static readonly Vector<float>[] SinScale = new[] {
@@ -92,7 +92,7 @@ public static partial class VectorMath
     /// <summary> Calculates abs. </summary>
     public static Vector<T> Abs<T>(in Vector<T> d)
         where T : unmanaged
-        => VectorCompatible.Abs(d);
+        => VectorOp.Abs(d);
 
     #endregion
 
@@ -149,9 +149,9 @@ public static partial class VectorMath
 
     private static Vector<double> Exp(in Vector<double> x)
     {
-        var isSaturatedMax = VectorCompatible.GreaterThan(x, DoubleConst.ExpMax);
-        var isSaturatedMin = VectorCompatible.LessThan(x, DoubleConst.ExpMin);
-        var isNormal = VectorCompatible.OnesComplement(VectorCompatible.BitwiseOr(isSaturatedMax, isSaturatedMin));
+        var isSaturatedMax = VectorOp.GreaterThan(x, DoubleConst.ExpMax);
+        var isSaturatedMin = VectorOp.LessThan(x, DoubleConst.ExpMin);
+        var isNormal = VectorOp.OnesComplement(VectorOp.BitwiseOr(isSaturatedMax, isSaturatedMin));
 
         var y = x * DoubleConst.Log_2_E;
         var n = Round(y);
@@ -168,10 +168,10 @@ public static partial class VectorMath
         z = (b / new Vector<double>(1)) * (Vector<double>.One + z);
         z = z + Vector<double>.One;
 
-        return VectorCompatible.ConditionalSelect(
+        return VectorOp.ConditionalSelect(
             isNormal,
             Scale(n, z),
-            VectorCompatible.ConditionalSelect(
+            VectorOp.ConditionalSelect(
                 isSaturatedMin,
                 DoubleConst.NInf,
                 DoubleConst.PInf)
@@ -180,9 +180,9 @@ public static partial class VectorMath
 
     private static Vector<float> Exp(in Vector<float> x)
     {
-        var isSaturatedMax = VectorCompatible.GreaterThan(x, SingleConst.ExpMax);
-        var isSaturatedMin = VectorCompatible.LessThan(x, SingleConst.ExpMin);
-        var isNormal = VectorCompatible.OnesComplement(VectorCompatible.BitwiseOr(isSaturatedMax, isSaturatedMin));
+        var isSaturatedMax = VectorOp.GreaterThan(x, SingleConst.ExpMax);
+        var isSaturatedMin = VectorOp.LessThan(x, SingleConst.ExpMin);
+        var isNormal = VectorOp.OnesComplement(VectorOp.BitwiseOr(isSaturatedMax, isSaturatedMin));
 
         var y = x * SingleConst.Log_2_E;
         var n = Round(y);
@@ -197,12 +197,12 @@ public static partial class VectorMath
         z = (b / new Vector<float>(1)) * (Vector<float>.One + z);
         z = z + Vector<float>.One;
 
-        var p = VectorCompatible.BitwiseAnd(VectorCompatible.AsVectorSingle(isNormal), Scale(n, z));
-        var q = VectorCompatible.BitwiseAnd(VectorCompatible.AsVectorSingle(isSaturatedMax), SingleConst.PInf);
-        var r = VectorCompatible.BitwiseAnd(VectorCompatible.AsVectorSingle(isSaturatedMin), SingleConst.NInf);
-        return VectorCompatible.BitwiseOr(
+        var p = VectorOp.BitwiseAnd(VectorOp.AsVectorSingle(isNormal), Scale(n, z));
+        var q = VectorOp.BitwiseAnd(VectorOp.AsVectorSingle(isSaturatedMax), SingleConst.PInf);
+        var r = VectorOp.BitwiseAnd(VectorOp.AsVectorSingle(isSaturatedMin), SingleConst.NInf);
+        return VectorOp.BitwiseOr(
             p,
-            VectorCompatible.BitwiseOr(q, r)
+            VectorOp.BitwiseOr(q, r)
             );
     }
 
@@ -219,7 +219,7 @@ public static partial class VectorMath
 
     {
 #if NET6_0_OR_GREATER
-        return VectorCompatible.Floor(x);
+        return VectorOp.Floor(x);
 #else
         throw new NotImplementedException();
 #endif
@@ -228,7 +228,7 @@ public static partial class VectorMath
     private static Vector<float> Floor(in Vector<float> x)
     {
 #if NET6_0_OR_GREATER
-        return VectorCompatible.Floor(x);
+        return VectorOp.Floor(x);
 #else
         throw new NotImplementedException();
 #endif
@@ -308,52 +308,52 @@ public static partial class VectorMath
         {
         case 2:
             return new Vector<T>(stackalloc[] {
-                ValueOperation.FusedMultiplyAdd(x[0x00], y[0x00], z[0x00]),
-                ValueOperation.FusedMultiplyAdd(x[0x01], y[0x01], z[0x01]),
+                ScalarOp.FusedMultiplyAdd(x[0x00], y[0x00], z[0x00]),
+                ScalarOp.FusedMultiplyAdd(x[0x01], y[0x01], z[0x01]),
             });
         case 4:
             return new Vector<T>(stackalloc[] {
-                ValueOperation.FusedMultiplyAdd(x[0x00], y[0x00], z[0x00]),
-                ValueOperation.FusedMultiplyAdd(x[0x01], y[0x01], z[0x01]),
-                ValueOperation.FusedMultiplyAdd(x[0x02], y[0x02], z[0x02]),
-                ValueOperation.FusedMultiplyAdd(x[0x03], y[0x03], z[0x03]),
+                ScalarOp.FusedMultiplyAdd(x[0x00], y[0x00], z[0x00]),
+                ScalarOp.FusedMultiplyAdd(x[0x01], y[0x01], z[0x01]),
+                ScalarOp.FusedMultiplyAdd(x[0x02], y[0x02], z[0x02]),
+                ScalarOp.FusedMultiplyAdd(x[0x03], y[0x03], z[0x03]),
             });
         case 8:
             return new Vector<T>(stackalloc[] {
-                ValueOperation.FusedMultiplyAdd(x[0x00], y[0x00], z[0x00]),
-                ValueOperation.FusedMultiplyAdd(x[0x01], y[0x01], z[0x01]),
-                ValueOperation.FusedMultiplyAdd(x[0x02], y[0x02], z[0x02]),
-                ValueOperation.FusedMultiplyAdd(x[0x03], y[0x03], z[0x03]),
-                ValueOperation.FusedMultiplyAdd(x[0x04], y[0x04], z[0x04]),
-                ValueOperation.FusedMultiplyAdd(x[0x05], y[0x05], z[0x05]),
-                ValueOperation.FusedMultiplyAdd(x[0x06], y[0x06], z[0x06]),
-                ValueOperation.FusedMultiplyAdd(x[0x07], y[0x07], z[0x07]),
+                ScalarOp.FusedMultiplyAdd(x[0x00], y[0x00], z[0x00]),
+                ScalarOp.FusedMultiplyAdd(x[0x01], y[0x01], z[0x01]),
+                ScalarOp.FusedMultiplyAdd(x[0x02], y[0x02], z[0x02]),
+                ScalarOp.FusedMultiplyAdd(x[0x03], y[0x03], z[0x03]),
+                ScalarOp.FusedMultiplyAdd(x[0x04], y[0x04], z[0x04]),
+                ScalarOp.FusedMultiplyAdd(x[0x05], y[0x05], z[0x05]),
+                ScalarOp.FusedMultiplyAdd(x[0x06], y[0x06], z[0x06]),
+                ScalarOp.FusedMultiplyAdd(x[0x07], y[0x07], z[0x07]),
             });
         case 16:
             return new Vector<T>(stackalloc[] {
-                ValueOperation.FusedMultiplyAdd(x[0x00], y[0x00], z[0x00]),
-                ValueOperation.FusedMultiplyAdd(x[0x01], y[0x01], z[0x01]),
-                ValueOperation.FusedMultiplyAdd(x[0x02], y[0x02], z[0x02]),
-                ValueOperation.FusedMultiplyAdd(x[0x03], y[0x03], z[0x03]),
-                ValueOperation.FusedMultiplyAdd(x[0x04], y[0x04], z[0x04]),
-                ValueOperation.FusedMultiplyAdd(x[0x05], y[0x05], z[0x05]),
-                ValueOperation.FusedMultiplyAdd(x[0x06], y[0x06], z[0x06]),
-                ValueOperation.FusedMultiplyAdd(x[0x07], y[0x07], z[0x07]),
-                ValueOperation.FusedMultiplyAdd(x[0x08], y[0x08], z[0x08]),
-                ValueOperation.FusedMultiplyAdd(x[0x09], y[0x09], z[0x09]),
-                ValueOperation.FusedMultiplyAdd(x[0x0A], y[0x0A], z[0x0A]),
-                ValueOperation.FusedMultiplyAdd(x[0x0B], y[0x0B], z[0x0B]),
-                ValueOperation.FusedMultiplyAdd(x[0x0C], y[0x0C], z[0x0C]),
-                ValueOperation.FusedMultiplyAdd(x[0x0D], y[0x0D], z[0x0D]),
-                ValueOperation.FusedMultiplyAdd(x[0x0E], y[0x0E], z[0x0E]),
-                ValueOperation.FusedMultiplyAdd(x[0x0F], y[0x0F], z[0x0F]),
+                ScalarOp.FusedMultiplyAdd(x[0x00], y[0x00], z[0x00]),
+                ScalarOp.FusedMultiplyAdd(x[0x01], y[0x01], z[0x01]),
+                ScalarOp.FusedMultiplyAdd(x[0x02], y[0x02], z[0x02]),
+                ScalarOp.FusedMultiplyAdd(x[0x03], y[0x03], z[0x03]),
+                ScalarOp.FusedMultiplyAdd(x[0x04], y[0x04], z[0x04]),
+                ScalarOp.FusedMultiplyAdd(x[0x05], y[0x05], z[0x05]),
+                ScalarOp.FusedMultiplyAdd(x[0x06], y[0x06], z[0x06]),
+                ScalarOp.FusedMultiplyAdd(x[0x07], y[0x07], z[0x07]),
+                ScalarOp.FusedMultiplyAdd(x[0x08], y[0x08], z[0x08]),
+                ScalarOp.FusedMultiplyAdd(x[0x09], y[0x09], z[0x09]),
+                ScalarOp.FusedMultiplyAdd(x[0x0A], y[0x0A], z[0x0A]),
+                ScalarOp.FusedMultiplyAdd(x[0x0B], y[0x0B], z[0x0B]),
+                ScalarOp.FusedMultiplyAdd(x[0x0C], y[0x0C], z[0x0C]),
+                ScalarOp.FusedMultiplyAdd(x[0x0D], y[0x0D], z[0x0D]),
+                ScalarOp.FusedMultiplyAdd(x[0x0E], y[0x0E], z[0x0E]),
+                ScalarOp.FusedMultiplyAdd(x[0x0F], y[0x0F], z[0x0F]),
             });
         default:
             {
                 var buffer = (stackalloc T[Vector<T>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = ValueOperation.FusedMultiplyAdd(x[i], y[i], z[i]);
+                    buffer[i] = ScalarOp.FusedMultiplyAdd(x[i], y[i], z[i]);
                 }
                 return new Vector<T>(buffer);
             }
@@ -487,7 +487,7 @@ public static partial class VectorMath
     [VectorMath]
     public static Vector<T> Sqrt<T>(in Vector<T> d)
         where T : unmanaged
-        => VectorCompatible.SquareRoot(d);
+        => VectorOp.SquareRoot(d);
 
     #endregion
 
@@ -507,18 +507,18 @@ public static partial class VectorMath
     // pow(2, n) * x
     static Vector<double> Scale(in Vector<double> n, Vector<double> x)
     {
-        var nn = VectorCompatible.ConvertToInt64(n);
-        var pow2n = VectorCompatible.ShiftLeft(nn + DoubleConst._1023, 52);
-        return x * VectorCompatible.AsVectorDouble(pow2n);
+        var nn = VectorOp.ConvertToInt64(n);
+        var pow2n = VectorOp.ShiftLeft(nn + DoubleConst._1023, 52);
+        return x * VectorOp.AsVectorDouble(pow2n);
     }
 
 
     // pow(2, n) * x
     static Vector<float> Scale(in Vector<float> n, Vector<float> x)
     {
-        var nn = VectorCompatible.ConvertToInt32(n);
-        var pow2n = VectorCompatible.ShiftLeft(nn + SingleConst._127, 23);
-        return x * VectorCompatible.AsVectorSingle(pow2n);
+        var nn = VectorOp.ConvertToInt32(n);
+        var pow2n = VectorOp.ShiftLeft(nn + SingleConst._127, 23);
+        return x * VectorOp.AsVectorSingle(pow2n);
     }
 
     #endregion
@@ -543,16 +543,16 @@ public static partial class VectorMath
     private static Vector<double> Sin( Vector<double> x)
     {
         x = Modulo(x, DoubleConst.Tau);
-        var lessThan_1_2 = VectorCompatible.LessThan(x, DoubleConst.PI_1_2);
-        var lessThan_2_2 = VectorCompatible.LessThan(x, DoubleConst.PI    );
-        var lessThan_3_2 = VectorCompatible.LessThan(x, DoubleConst.PI_3_2);
-        x = VectorCompatible.ConditionalSelect(
+        var lessThan_1_2 = VectorOp.LessThan(x, DoubleConst.PI_1_2);
+        var lessThan_2_2 = VectorOp.LessThan(x, DoubleConst.PI    );
+        var lessThan_3_2 = VectorOp.LessThan(x, DoubleConst.PI_3_2);
+        x = VectorOp.ConditionalSelect(
             lessThan_1_2,
             x,
-            VectorCompatible.ConditionalSelect(
+            VectorOp.ConditionalSelect(
                 lessThan_2_2,
                 DoubleConst.PI - x,
-                VectorCompatible.ConditionalSelect(
+                VectorOp.ConditionalSelect(
                     lessThan_3_2,
                     x - DoubleConst.PI,
                     -x)
@@ -579,8 +579,8 @@ public static partial class VectorMath
         x = Modulo(x, SingleConst.Tau);
         
 
-        x = VectorCompatible.ConditionalSelect(
-            VectorCompatible.LessThan(x, SingleConst.PI),
+        x = VectorOp.ConditionalSelect(
+            VectorOp.LessThan(x, SingleConst.PI),
             x,
             x - SingleConst.Tau);
 
@@ -604,10 +604,10 @@ public static partial class VectorMath
         where T : unmanaged;
 
     private static Vector<double> Truncate(in Vector<double> d)
-        => VectorCompatible.ConvertToDouble(VectorCompatible.ConvertToInt64(d));
+        => VectorOp.ConvertToDouble(VectorOp.ConvertToInt64(d));
 
     private static Vector<float> Truncate(in Vector<float> d)
-        => VectorCompatible.ConvertToSingle(VectorCompatible.ConvertToInt32(d));
+        => VectorOp.ConvertToSingle(VectorOp.ConvertToInt32(d));
 
     #endregion
 
