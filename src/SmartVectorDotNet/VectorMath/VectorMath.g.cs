@@ -10,6 +10,23 @@ namespace SmartVectorDotNet;
 partial class VectorMath
 {
 
+    public static partial Vector<T> Cos<T>(in Vector<T> x)
+        where T : unmanaged
+    {
+        if(typeof(T) == typeof(double))
+        {
+            ref readonly var x_ = ref Reinterpret<T, double>(x);
+            return Reinterpret<double, T>(Cos(x_));
+        }
+        if(typeof(T) == typeof(float))
+        {
+            ref readonly var x_ = ref Reinterpret<T, float>(x);
+            return Reinterpret<float, T>(Cos(x_));
+        }
+        throw new NotImplementedException();
+    }
+
+
     public static partial Vector<T> Exp<T>(in Vector<T> d)
         where T : unmanaged
     {

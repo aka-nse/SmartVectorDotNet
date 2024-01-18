@@ -23,17 +23,14 @@ public static partial class VectorMath
 
     #region utilities
 
-    private const int _FactorialCacheSize = 32;
-
     static partial class DoubleConst
     {
-
-
+        public static readonly Vector<double> MinusOne = -Vector<double>.One;
         public static readonly Vector<double> E = new(Math.E);
-        public static readonly Vector<double> PI_1_2 = new(0.5 * Math.PI);
-        public static readonly Vector<double> PI     = new(Math.PI);
-        public static readonly Vector<double> PI_3_2 = new(1.5 * Math.PI);
-        public static readonly Vector<double> Tau    = new(2 * Math.PI);
+        public static readonly Vector<double> Pi_1p2 = new(0.5 * Math.PI);
+        public static readonly Vector<double> Pi_2p2 = new(Math.PI);
+        public static readonly Vector<double> Pi_3p2 = new(1.5 * Math.PI);
+        public static readonly Vector<double> Pi_4p2 = new(2 * Math.PI);
         public static readonly Vector<double> NaN = new(double.NaN);
         public static readonly Vector<double> PInf = new(double.PositiveInfinity);
         public static readonly Vector<double> NInf = new(double.NegativeInfinity);
@@ -43,25 +40,31 @@ public static partial class VectorMath
         public static readonly Vector<double> Log_E_2 = new(ScalarMath.Log(2, Math.E));
         public static readonly Vector<long> _1023 = new(1023);
 
-        public static readonly Vector<double>[] SinScale;
+        public static ReadOnlySpan<Vector<double>> ExpCoeffs => _expCoeffs;
+        public static ReadOnlySpan<Vector<double>> CosCoeffs => _cosCoeffs;
+        private static readonly Vector<double>[] _expCoeffs;
+        private static readonly Vector<double>[] _cosCoeffs;
 
         static DoubleConst()
         {
-            SinScale = new Vector<double>[10];
-            for(var i = 0; i < 10; ++i)
+            _expCoeffs = new Vector<double>[11];
+            _cosCoeffs = new Vector<double>[11];
+            for(var i = 0; i <= 10; ++i)
             {
-                SinScale[i] = new Vector<double>(1.0 / ((2 * i + 2) * (2 * i + 3)));
+                _expCoeffs[i] = new Vector<double>(1.0 / (i + 1));
+                _cosCoeffs[i] = new Vector<double>(1.0 / ((2 * i + 1) * (2 * i + 2)));
             }
         }
     }
 
     static partial class SingleConst
     {
+        public static readonly Vector<float> MinusOne = -Vector<float>.One;
         public static readonly Vector<float> E = new((float)Math.E);
-        public static readonly Vector<float> PI_1_2 = new((float)(0.5 * Math.PI));
-        public static readonly Vector<float> PI     = new((float)Math.PI);
-        public static readonly Vector<float> PI_3_2 = new((float)(1.5 * Math.PI));
-        public static readonly Vector<float> Tau    = new((float)(2 * Math.PI));
+        public static readonly Vector<float> Pi_1p2 = new((float)(0.5 * Math.PI));
+        public static readonly Vector<float> Pi_2p2 = new((float)Math.PI);
+        public static readonly Vector<float> Pi_3p2 = new((float)(1.5 * Math.PI));
+        public static readonly Vector<float> Pi_4p2 = new((float)(2 * Math.PI));
         public static readonly Vector<float> NaN = new(float.NaN);
         public static readonly Vector<float> PInf = new(float.PositiveInfinity);
         public static readonly Vector<float> NInf = new(float.NegativeInfinity);
@@ -71,13 +74,22 @@ public static partial class VectorMath
         public static readonly Vector<float> Log_E_2 = new(ScalarMath.Log(2, (float)Math.E));
         public static readonly Vector<int> _127 = new(127);
 
-        public static readonly Vector<float>[] SinScale = new[] {
-            new Vector<float>(1.0f / ( 2 *  3)),
-            new Vector<float>(1.0f / ( 4 *  5)),
-            new Vector<float>(1.0f / ( 6 *  7)),
-            new Vector<float>(1.0f / ( 8 *  9)),
-            new Vector<float>(1.0f / (10 * 11)),
-        };
+
+        public static ReadOnlySpan<Vector<float>> ExpCoeffs => _expCoeffs;
+        public static ReadOnlySpan<Vector<float>> CosCoeffs => _cosCoeffs;
+        private static readonly Vector<float>[] _expCoeffs;
+        private static readonly Vector<float>[] _cosCoeffs;
+
+        static SingleConst()
+        {
+            _expCoeffs = new Vector<float>[6];
+            _cosCoeffs = new Vector<float>[6];
+            for (var i = 0; i < 6; ++i)
+            {
+                _expCoeffs[i] = new Vector<float>(1.0f / (i + 1));
+                _cosCoeffs[i] = new Vector<float>(1.0f / ((2 * i + 1) * (2 * i + 2)));
+            }
+        }
     }
 
     private static ref readonly Vector<TTo> Reinterpret<TFrom, TTo>(in Vector<TFrom> x)
@@ -95,6 +107,157 @@ public static partial class VectorMath
         => VectorOp.Abs(d);
 
     #endregion
+
+    #region trigonometric functions
+
+    #region Cos
+
+    /// <summary>
+    /// Calculates sin(x).
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    [VectorMath]
+    public static partial Vector<T> Cos<T>(in Vector<T> x)
+        where T : unmanaged;
+
+    private static Vector<double> Cos(Vector<double> x)
+    {
+        x = Modulo(x, DoubleConst.Pi_4p2);
+        var lessThan_1_2 = VectorOp.LessThan(x, DoubleConst.Pi_1p2);
+        var lessThan_3_2 = VectorOp.LessThan(x, DoubleConst.Pi_3p2);
+        x = VectorOp.ConditionalSelect(
+            lessThan_1_2,
+            x,
+            VectorOp.ConditionalSelect(
+                lessThan_3_2,
+                DoubleConst.Pi_2p2 - x,
+                x - DoubleConst.Pi_4p2
+                )
+            );
+        var sign = VectorOp.ConditionalSelect(
+            lessThan_1_2,
+            Vector<double>.One,
+            VectorOp.ConditionalSelect(
+                lessThan_3_2,
+                DoubleConst.MinusOne,
+                Vector<double>.One
+                )
+            );
+
+        return sign * CosBounded(x);
+    }
+
+    private static Vector<float> Cos(Vector<float> x)
+    {
+        x = Modulo(x, SingleConst.Pi_4p2);
+        var lessThan_1_2 = VectorOp.LessThan(x, SingleConst.Pi_1p2);
+        var lessThan_3_2 = VectorOp.LessThan(x, SingleConst.Pi_3p2);
+        x = VectorOp.ConditionalSelect(
+            lessThan_1_2,
+            x,
+            VectorOp.ConditionalSelect(
+                lessThan_3_2,
+                SingleConst.Pi_2p2 - x,
+                x - SingleConst.Pi_4p2
+                )
+            );
+        var sign = VectorOp.ConditionalSelect(
+            lessThan_1_2,
+            Vector<float>.One,
+            VectorOp.ConditionalSelect(
+                lessThan_3_2,
+                SingleConst.MinusOne,
+                Vector<float>.One
+                )
+            );
+
+        return sign * CosBounded(x);
+    }
+
+    private static Vector<double> CosBounded(in Vector<double> x)
+    {
+        Vector<double> y;
+        var x2 = x * x;
+        y = x2 * DoubleConst.CosCoeffs[10];
+        y = x2 * DoubleConst.CosCoeffs[9] * (Vector<double>.One - y);
+        y = x2 * DoubleConst.CosCoeffs[8] * (Vector<double>.One - y);
+        y = x2 * DoubleConst.CosCoeffs[7] * (Vector<double>.One - y);
+        y = x2 * DoubleConst.CosCoeffs[6] * (Vector<double>.One - y);
+        y = x2 * DoubleConst.CosCoeffs[5] * (Vector<double>.One - y);
+        y = x2 * DoubleConst.CosCoeffs[4] * (Vector<double>.One - y);
+        y = x2 * DoubleConst.CosCoeffs[3] * (Vector<double>.One - y);
+        y = x2 * DoubleConst.CosCoeffs[2] * (Vector<double>.One - y);
+        y = x2 * DoubleConst.CosCoeffs[1] * (Vector<double>.One - y);
+        y = x2 * DoubleConst.CosCoeffs[0] * (Vector<double>.One - y);
+        return Vector<double>.One - y;
+    }
+
+    private static Vector<float> CosBounded(in Vector<float> x)
+    {
+        Vector<float> y;
+        var x2 = x * x;
+        y = x2 * SingleConst.CosCoeffs[5];
+        y = x2 * SingleConst.CosCoeffs[4] * (Vector<float>.One - y);
+        y = x2 * SingleConst.CosCoeffs[3] * (Vector<float>.One - y);
+        y = x2 * SingleConst.CosCoeffs[2] * (Vector<float>.One - y);
+        y = x2 * SingleConst.CosCoeffs[1] * (Vector<float>.One - y);
+        y = x2 * SingleConst.CosCoeffs[0] * (Vector<float>.One - y);
+        return Vector<float>.One - y;
+    }
+
+    #endregion
+
+    #region Sin
+
+    /// <summary>
+    /// Calculates sin(x).
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    [VectorMath]
+    public static partial Vector<T> Sin<T>(in Vector<T> x)
+        where T : unmanaged;
+
+    private static Vector<double> Sin(Vector<double> x)
+    {
+        x = Modulo(x, DoubleConst.Pi_4p2);
+        var lessThan_2_2 = VectorOp.LessThan(x, DoubleConst.Pi_2p2);
+        x = VectorOp.ConditionalSelect(
+            lessThan_2_2,
+            x - DoubleConst.Pi_1p2,
+            DoubleConst.Pi_3p2 - x
+            );
+        var sign = VectorOp.ConditionalSelect(
+            lessThan_2_2,
+            Vector<double>.One,
+            DoubleConst.MinusOne
+            );
+        return sign * CosBounded(x);
+    }
+
+    private static Vector<float> Sin(Vector<float> x)
+    {
+        x = Modulo(x, SingleConst.Pi_4p2);
+        var lessThan_2_2 = VectorOp.LessThan(x, SingleConst.Pi_2p2);
+        x = VectorOp.ConditionalSelect(
+            lessThan_2_2,
+            x - SingleConst.Pi_1p2,
+            SingleConst.Pi_3p2 - x
+            );
+        var sign = VectorOp.ConditionalSelect(
+            lessThan_2_2,
+            Vector<float>.One,
+            SingleConst.MinusOne
+            );
+        return sign * CosBounded(x);
+    }
+
+    #endregion
+
+#endregion
 
     #region DivRem
 
@@ -158,14 +321,16 @@ public static partial class VectorMath
         var a = y - n;
         var b = a * DoubleConst.Log_E_2;
         var z = Vector<double>.Zero;
-        z = (b / new Vector<double>(8)) * (Vector<double>.One + z);
-        z = (b / new Vector<double>(7)) * (Vector<double>.One + z);
-        z = (b / new Vector<double>(6)) * (Vector<double>.One + z);
-        z = (b / new Vector<double>(5)) * (Vector<double>.One + z);
-        z = (b / new Vector<double>(4)) * (Vector<double>.One + z);
-        z = (b / new Vector<double>(3)) * (Vector<double>.One + z);
-        z = (b / new Vector<double>(2)) * (Vector<double>.One + z);
-        z = (b / new Vector<double>(1)) * (Vector<double>.One + z);
+        z = (b * DoubleConst.ExpCoeffs[9]) * (Vector<double>.One + z);
+        z = (b * DoubleConst.ExpCoeffs[8]) * (Vector<double>.One + z);
+        z = (b * DoubleConst.ExpCoeffs[7]) * (Vector<double>.One + z);
+        z = (b * DoubleConst.ExpCoeffs[6]) * (Vector<double>.One + z);
+        z = (b * DoubleConst.ExpCoeffs[5]) * (Vector<double>.One + z);
+        z = (b * DoubleConst.ExpCoeffs[4]) * (Vector<double>.One + z);
+        z = (b * DoubleConst.ExpCoeffs[3]) * (Vector<double>.One + z);
+        z = (b * DoubleConst.ExpCoeffs[2]) * (Vector<double>.One + z);
+        z = (b * DoubleConst.ExpCoeffs[1]) * (Vector<double>.One + z);
+        z = (b * DoubleConst.ExpCoeffs[0]) * (Vector<double>.One + z);
         z = z + Vector<double>.One;
 
         return VectorOp.ConditionalSelect(
@@ -189,12 +354,12 @@ public static partial class VectorMath
         var a = y - n;
         var b = a * SingleConst.Log_E_2;
         var z = Vector<float>.Zero;
-        z = (b / new Vector<float>(6)) * (Vector<float>.One + z);
-        z = (b / new Vector<float>(5)) * (Vector<float>.One + z);
-        z = (b / new Vector<float>(4)) * (Vector<float>.One + z);
-        z = (b / new Vector<float>(3)) * (Vector<float>.One + z);
-        z = (b / new Vector<float>(2)) * (Vector<float>.One + z);
-        z = (b / new Vector<float>(1)) * (Vector<float>.One + z);
+        z = (b * SingleConst.ExpCoeffs[5]) * (Vector<float>.One + z);
+        z = (b * SingleConst.ExpCoeffs[4]) * (Vector<float>.One + z);
+        z = (b * SingleConst.ExpCoeffs[3]) * (Vector<float>.One + z);
+        z = (b * SingleConst.ExpCoeffs[2]) * (Vector<float>.One + z);
+        z = (b * SingleConst.ExpCoeffs[1]) * (Vector<float>.One + z);
+        z = (b * SingleConst.ExpCoeffs[0]) * (Vector<float>.One + z);
         z = z + Vector<float>.One;
 
         var p = VectorOp.BitwiseAnd(VectorOp.AsVectorSingle(isNormal), Scale(n, z));
@@ -509,79 +674,6 @@ public static partial class VectorMath
         var nn = VectorOp.ConvertToInt32(n);
         var pow2n = VectorOp.ShiftLeft(nn + SingleConst._127, 23);
         return x * VectorOp.AsVectorSingle(pow2n);
-    }
-
-    #endregion
-
-    #region Sin
-
-    /// <summary>
-    /// Calculates sin(x).
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="x"></param>
-    /// <returns></returns>
-    [VectorMath]
-    public static partial Vector<T> Sin<T>(in Vector<T> x)
-        where T : unmanaged;
-
-    // NOTE:
-    //  e^x = \sum_{n=0}^{\infty} \cfrac{x^n}{n!}
-    //  8 members for double precision
-    //  6 members for float precision
-
-    private static Vector<double> Sin( Vector<double> x)
-    {
-        x = Modulo(x, DoubleConst.Tau);
-        var lessThan_1_2 = VectorOp.LessThan(x, DoubleConst.PI_1_2);
-        var lessThan_2_2 = VectorOp.LessThan(x, DoubleConst.PI    );
-        var lessThan_3_2 = VectorOp.LessThan(x, DoubleConst.PI_3_2);
-        x = VectorOp.ConditionalSelect(
-            lessThan_1_2,
-            x,
-            VectorOp.ConditionalSelect(
-                lessThan_2_2,
-                DoubleConst.PI - x,
-                VectorOp.ConditionalSelect(
-                    lessThan_3_2,
-                    x - DoubleConst.PI,
-                    -x)
-                )
-            );
-
-        Vector<double> y;
-        var x2 = x * x;
-        y = x2 * DoubleConst.SinScale[9];
-        y = x2 * DoubleConst.SinScale[8] * (Vector<double>.One - y);
-        y = x2 * DoubleConst.SinScale[7] * (Vector<double>.One - y);
-        y = x2 * DoubleConst.SinScale[6] * (Vector<double>.One - y);
-        y = x2 * DoubleConst.SinScale[5] * (Vector<double>.One - y);
-        y = x2 * DoubleConst.SinScale[4] * (Vector<double>.One - y);
-        y = x2 * DoubleConst.SinScale[3] * (Vector<double>.One - y);
-        y = x2 * DoubleConst.SinScale[2] * (Vector<double>.One - y);
-        y = x2 * DoubleConst.SinScale[1] * (Vector<double>.One - y);
-        y = x2 * DoubleConst.SinScale[0] * (Vector<double>.One - y);
-        return x * (Vector<double>.One - y);
-    }
-
-    private static Vector<float> Sin(Vector<float> x)
-    {
-        x = Modulo(x, SingleConst.Tau);
-        
-
-        x = VectorOp.ConditionalSelect(
-            VectorOp.LessThan(x, SingleConst.PI),
-            x,
-            x - SingleConst.Tau);
-
-        Vector<float> y;
-        var x2 = x * x;
-        y = x2 * SingleConst.SinScale[4];
-        y = x2 * SingleConst.SinScale[3] * (Vector<float>.One - y);
-        y = x2 * SingleConst.SinScale[2] * (Vector<float>.One - y);
-        y = x2 * SingleConst.SinScale[1] * (Vector<float>.One - y);
-        y = x2 * SingleConst.SinScale[0] * (Vector<float>.One - y);
-        return x * (Vector<float>.One - y);
     }
 
     #endregion

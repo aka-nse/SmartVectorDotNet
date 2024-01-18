@@ -38,23 +38,42 @@ public class VectorMathTest
 
         for(var i = -1000; i <= 1000; ++i)
         {
-            var x = i / 1000.0;
+            var x = i / 10.0;
             yield return core(Math.PI * x);
         }
-        /*
-        for(var x = -1000; x <= 1000; x += 10)
-        {
-            yield return core(x);
-        }
-        */
     }
 
     [Theory]
     [MemberData(nameof(TrigonometicTestCases))]
     public void SinTest(double x)
     {
-        var expected = Math.Sin(x);
-        var actual = VectorMath.Sin(new Vector<double>(x))[0];
-        Assert.Equal(1.0, 1.0 + (expected - actual), 10);
+        {
+            var expected = Math.Sin(x);
+            var actual = VectorMath.Sin(new Vector<double>(x))[0];
+            Assert.Equal(expected, actual, 5);
+        }
+        {
+            var xx = (float)x;
+            var expected = MathF.Sin(xx);
+            var actual = VectorMath.Sin(new Vector<float>(xx))[0];
+            Assert.Equal(expected, actual, 5);
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(TrigonometicTestCases))]
+    public void CosTest(double x)
+    {
+        {
+            var expected = Math.Cos(x);
+            var actual = VectorMath.Cos(new Vector<double>(x))[0];
+            Assert.Equal(expected, actual, 5);
+        }
+        {
+            var xx = (float)x;
+            var expected = MathF.Cos(xx);
+            var actual = VectorMath.Cos(new Vector<float>(xx))[0];
+            Assert.Equal(expected, actual, 5);
+        }
     }
 }
