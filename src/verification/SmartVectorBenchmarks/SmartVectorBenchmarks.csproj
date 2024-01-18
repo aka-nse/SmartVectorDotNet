@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="ExponentialBenchmarkContext.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ExponentialBenchmarkContext.tt</DependentUpon>
+    </None>
     <None Include="TrigonometricBenchmarkContext.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -16,6 +21,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ExponentialBenchmarkContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ExponentialBenchmarkContext.g.cs</LastGenOutput>
+    </None>
     <None Update="TrigonometricBenchmarkContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TrigonometricBenchmarkContext.g.cs</LastGenOutput>
@@ -27,6 +40,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="ExponentialBenchmarkContext.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ExponentialBenchmarkContext.tt</DependentUpon>
+    </Compile>
     <Compile Update="TrigonometricBenchmarkContext.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

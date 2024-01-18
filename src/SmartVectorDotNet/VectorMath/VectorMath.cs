@@ -38,7 +38,7 @@ public static partial class VectorMath
         public static readonly Vector<double> PInf = new(double.PositiveInfinity);
         public static readonly Vector<double> NInf = new(double.NegativeInfinity);
         public static readonly Vector<double> ExpMax = new(ScalarMath.Log(double.MaxValue));
-        public static readonly Vector<double> ExpMin = new(ScalarMath.Log(double.Epsilon));
+        public static readonly Vector<double> ExpMin = new(ScalarMath.Log(1 / double.MaxValue));
         public static readonly Vector<double> Log_2_E = new(ScalarMath.Log(Math.E, 2));
         public static readonly Vector<double> Log_E_2 = new(ScalarMath.Log(2, Math.E));
         public static readonly Vector<long> _1023 = new(1023);
@@ -481,16 +481,6 @@ public static partial class VectorMath
 
     #endregion
 
-    #region Sqrt
-
-    /// <summary> Calculates sqrt. </summary>
-    [VectorMath]
-    public static Vector<T> Sqrt<T>(in Vector<T> d)
-        where T : unmanaged
-        => VectorOp.SquareRoot(d);
-
-    #endregion
-
     #region Scale
 
     /// <summary>
@@ -593,6 +583,16 @@ public static partial class VectorMath
         y = x2 * SingleConst.SinScale[0] * (Vector<float>.One - y);
         return x * (Vector<float>.One - y);
     }
+
+    #endregion
+
+    #region Sqrt
+
+    /// <summary> Calculates sqrt. </summary>
+    [VectorMath]
+    public static Vector<T> Sqrt<T>(in Vector<T> d)
+        where T : unmanaged
+        => VectorOp.SquareRoot(d);
 
     #endregion
 
