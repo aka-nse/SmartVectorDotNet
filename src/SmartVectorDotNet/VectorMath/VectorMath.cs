@@ -49,7 +49,7 @@ public static partial class VectorMath
         {
             _expCoeffs = new Vector<double>[11];
             _cosCoeffs = new Vector<double>[11];
-            for(var i = 0; i <= 10; ++i)
+            for (var i = 0; i <= 10; ++i)
             {
                 _expCoeffs[i] = new Vector<double>(1.0 / (i + 1));
                 _cosCoeffs[i] = new Vector<double>(1.0 / ((2 * i + 1) * (2 * i + 2)));
@@ -124,7 +124,7 @@ public static partial class VectorMath
 
     private static Vector<double> Cos(Vector<double> x)
     {
-        x = Modulo(x, DoubleConst.Pi_4p2);
+        x = ModuloByFloor(x, DoubleConst.Pi_4p2);
         var lessThan_1_2 = VectorOp.LessThan(x, DoubleConst.Pi_1p2);
         var lessThan_3_2 = VectorOp.LessThan(x, DoubleConst.Pi_3p2);
         x = VectorOp.ConditionalSelect(
@@ -145,13 +145,21 @@ public static partial class VectorMath
                 Vector<double>.One
                 )
             );
-
+#if DEBUG
+        for(var i = 0; i < Vector<double>.Count; ++i)
+        {
+            if (x[i] < - Math.PI / 2 || Math.PI / 2 < x[i])
+            {
+                throw new InvalidOperationException();
+            }
+        }
+#endif
         return sign * CosBounded(x);
     }
 
     private static Vector<float> Cos(Vector<float> x)
     {
-        x = Modulo(x, SingleConst.Pi_4p2);
+        x = ModuloByFloor(x, SingleConst.Pi_4p2);
         var lessThan_1_2 = VectorOp.LessThan(x, SingleConst.Pi_1p2);
         var lessThan_3_2 = VectorOp.LessThan(x, SingleConst.Pi_3p2);
         x = VectorOp.ConditionalSelect(
@@ -223,7 +231,7 @@ public static partial class VectorMath
 
     private static Vector<double> Sin(Vector<double> x)
     {
-        x = Modulo(x, DoubleConst.Pi_4p2);
+        x = ModuloByFloor(x, DoubleConst.Pi_4p2);
         var lessThan_2_2 = VectorOp.LessThan(x, DoubleConst.Pi_2p2);
         x = VectorOp.ConditionalSelect(
             lessThan_2_2,
@@ -240,7 +248,7 @@ public static partial class VectorMath
 
     private static Vector<float> Sin(Vector<float> x)
     {
-        x = Modulo(x, SingleConst.Pi_4p2);
+        x = ModuloByFloor(x, SingleConst.Pi_4p2);
         var lessThan_2_2 = VectorOp.LessThan(x, SingleConst.Pi_2p2);
         x = VectorOp.ConditionalSelect(
             lessThan_2_2,
@@ -257,7 +265,7 @@ public static partial class VectorMath
 
     #endregion
 
-#endregion
+    #endregion
 
     #region DivRem
 
@@ -290,6 +298,18 @@ public static partial class VectorMath
         if (typeof(T) == typeof(float) || typeof(T) == typeof(double))
         {
             var quotient = Truncate(a / b);
+            reminder = FusedMultiplyAdd(quotient, -b, a);
+            return quotient;
+        }
+        throw new NotSupportedException();
+    }
+
+    private static Vector<T> DivRemByFloor<T>(in Vector<T> a, in Vector<T> b, out Vector<T> reminder)
+        where T : unmanaged
+    {
+        if (typeof(T) == typeof(float) || typeof(T) == typeof(double))
+        {
+            var quotient = Floor(a / b);
             reminder = FusedMultiplyAdd(quotient, -b, a);
             return quotient;
         }
@@ -516,7 +536,7 @@ public static partial class VectorMath
         default:
             {
                 var buffer = (stackalloc T[Vector<T>.Count]);
-                for(var i = 0; i < buffer.Length; ++i)
+                for (var i = 0; i < buffer.Length; ++i)
                 {
                     buffer[i] = ScalarOp.FusedMultiplyAdd(x[i], y[i], z[i]);
                 }
@@ -525,7 +545,7 @@ public static partial class VectorMath
         }
     }
 
-#endregion
+    #endregion
 
     #region Modulo
 
@@ -540,6 +560,13 @@ public static partial class VectorMath
         where T : unmanaged
     {
         DivRem(a, b, out var reminder);
+        return reminder;
+    }
+
+    private static Vector<T> ModuloByFloor<T>(in Vector<T> a, in Vector<T> b)
+        where T : unmanaged
+    {
+        DivRemByFloor(a, b, out var reminder);
         return reminder;
     }
 

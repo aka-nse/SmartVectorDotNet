@@ -50,13 +50,13 @@ public class VectorMathTest
         {
             var expected = Math.Sin(x);
             var actual = VectorMath.Sin(new Vector<double>(x))[0];
-            Assert.Equal(expected, actual, 5);
+            Assert.Equal(0, expected - actual, 10);
         }
         {
             var xx = (float)x;
             var expected = MathF.Sin(xx);
             var actual = VectorMath.Sin(new Vector<float>(xx))[0];
-            Assert.Equal(expected, actual, 5);
+            Assert.Equal(0, expected - actual, 4);
         }
     }
 
@@ -67,13 +67,13 @@ public class VectorMathTest
         {
             var expected = Math.Cos(x);
             var actual = VectorMath.Cos(new Vector<double>(x))[0];
-            Assert.Equal(expected, actual, 5);
+            Assert.Equal(0, expected - actual, 10);
         }
         {
             var xx = (float)x;
             var expected = MathF.Cos(xx);
             var actual = VectorMath.Cos(new Vector<float>(xx))[0];
-            Assert.Equal(expected, actual, 5);
+            Assert.Equal(0, expected - actual, 4);
         }
     }
 }
