@@ -22,8 +22,7 @@ public class VectorMathTest
         }
     }
 
-    [Theory]
-    [MemberData(nameof(ModuloTestCases))]
+    [Theory, MemberData(nameof(ModuloTestCases))]
     public void ModuloTest(double x)
     {
         var expected = x % Math.PI;
@@ -43,8 +42,7 @@ public class VectorMathTest
         }
     }
 
-    [Theory]
-    [MemberData(nameof(TrigonometicTestCases))]
+    [Theory, MemberData(nameof(TrigonometicTestCases))]
     public void SinTest(double x)
     {
         {
@@ -60,8 +58,7 @@ public class VectorMathTest
         }
     }
 
-    [Theory]
-    [MemberData(nameof(TrigonometicTestCases))]
+    [Theory, MemberData(nameof(TrigonometicTestCases))]
     public void CosTest(double x)
     {
         {

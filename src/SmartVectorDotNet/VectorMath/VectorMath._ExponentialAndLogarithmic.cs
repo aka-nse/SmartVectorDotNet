@@ -8,6 +8,14 @@ namespace SmartVectorDotNet;
 
 partial class VectorMath
 {
+    /*
+    NOTE:
+        Maclaurin expansion of expornential function:
+        $$
+        e^x = \sum_{n=0}^{\infty} \cfrac{x^n}{n!}
+        $$
+     */
+
     partial class Const<T>
     {
         public static readonly Vector<T> ExpMax
@@ -89,11 +97,6 @@ partial class VectorMath
     [VectorMath]
     private static partial Vector<T> ExpCore<T>(in Vector<T> d)
         where T : unmanaged;
-
-    // NOTE:
-    //  e^x = \sum_{n=0}^{\infty} \cfrac{x^n}{n!}
-    //  8 members for double precision
-    //  6 members for float precision
 
     private static Vector<double> ExpCore(in Vector<double> x)
     {

@@ -8,6 +8,29 @@ namespace SmartVectorDotNet;
 
 partial class VectorMath
 {
+    /*
+    NOTE:
+        Maclaurin expansion of trigonometric function:
+        $$
+        \cos x = \sum_{n=0}^{\infty} (-1)^n\cfrac{x^{2n}}{(2n)!}
+        $$
+
+        Remap `x` into $-\frac{\pi}{2} \le x' \lt +\frac{\pi}{2}$:
+        $$
+        \begin{split}
+        \sin x &= \begin{cases}
+             \cos(x - \frac{1}{2}\pi) & (0   \le x \lt  \pi) \\
+            -\cos(\frac{3}{2}\pi - x) & (\pi \le x \lt 2\pi)
+        \end{cases}\\
+        \cos x &= \begin{cases}
+             \cos x          & (0              \le x \lt \frac{1}{2}\pi)  \\
+            -\cos (\pi - x)  & (\frac{1}{2}\pi \le x \lt \frac{3}{2}\pi)  \\
+             \cos (x - 2\pi) & (\frac{3}{2}\pi \le x \lt 2\pi)
+        \end{cases}
+        \end{split}
+        $$
+     */
+
     partial class Const<T>
     {
         public static ReadOnlySpan<Vector<T>> CosCoeffs => _cosCoeffs;

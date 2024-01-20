@@ -9,6 +9,22 @@ namespace SmartVectorDotNet;
 // VectorMath.cs
 partial class VectorMath
 {
+    public static partial Vector<T> Ceiling<T>(in Vector<T> d)
+        where T : unmanaged
+    {
+        if(typeof(T) == typeof(double))
+        {
+            ref readonly var d_ = ref Reinterpret<T, double>(d);
+            return Reinterpret<double, T>(Ceiling(d_));
+        }
+        if(typeof(T) == typeof(float))
+        {
+            ref readonly var d_ = ref Reinterpret<T, float>(d);
+            return Reinterpret<float, T>(Ceiling(d_));
+        }
+        throw new NotSupportedException();
+    }
+
     public static partial Vector<T> Floor<T>(in Vector<T> d)
         where T : unmanaged
     {
@@ -21,6 +37,22 @@ partial class VectorMath
         {
             ref readonly var d_ = ref Reinterpret<T, float>(d);
             return Reinterpret<float, T>(Floor(d_));
+        }
+        throw new NotSupportedException();
+    }
+
+    public static partial Vector<T> Round<T>(in Vector<T> x)
+        where T : unmanaged
+    {
+        if(typeof(T) == typeof(double))
+        {
+            ref readonly var x_ = ref Reinterpret<T, double>(x);
+            return Reinterpret<double, T>(Round(x_));
+        }
+        if(typeof(T) == typeof(float))
+        {
+            ref readonly var x_ = ref Reinterpret<T, float>(x);
+            return Reinterpret<float, T>(Round(x_));
         }
         throw new NotSupportedException();
     }
