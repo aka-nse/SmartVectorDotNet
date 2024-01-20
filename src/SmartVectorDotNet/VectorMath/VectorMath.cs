@@ -24,6 +24,7 @@ public static partial class VectorMath
     [AttributeUsage(AttributeTargets.Method)]
     private class VectorMathAttribute : Attribute { }
 
+
     static partial class Const<T>
         where T : unmanaged
     {
@@ -88,6 +89,393 @@ public static partial class VectorMath
         where TTo : unmanaged
         => ref Unsafe.As<Vector<TFrom>, Vector<TTo>>(ref Unsafe.AsRef(x));
 
+    private interface IOperation1<T> { public T Calculate(T x); }
+    private static Vector<T> Emulate<T, TOperation>(in Vector<T> x)
+        where T : unmanaged
+        where TOperation : unmanaged, IOperation1<T>
+    {
+        switch (Vector<T>.Count)
+        {
+        case 2:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00]),
+                default(TOperation).Calculate(x[0x01]),
+            });
+        case 4:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00]),
+                default(TOperation).Calculate(x[0x01]),
+                default(TOperation).Calculate(x[0x02]),
+                default(TOperation).Calculate(x[0x03]),
+            });
+        case 8:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00]),
+                default(TOperation).Calculate(x[0x01]),
+                default(TOperation).Calculate(x[0x02]),
+                default(TOperation).Calculate(x[0x03]),
+                default(TOperation).Calculate(x[0x04]),
+                default(TOperation).Calculate(x[0x05]),
+                default(TOperation).Calculate(x[0x06]),
+                default(TOperation).Calculate(x[0x07]),
+            });
+        case 16:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00]),
+                default(TOperation).Calculate(x[0x01]),
+                default(TOperation).Calculate(x[0x02]),
+                default(TOperation).Calculate(x[0x03]),
+                default(TOperation).Calculate(x[0x04]),
+                default(TOperation).Calculate(x[0x05]),
+                default(TOperation).Calculate(x[0x06]),
+                default(TOperation).Calculate(x[0x07]),
+                default(TOperation).Calculate(x[0x08]),
+                default(TOperation).Calculate(x[0x09]),
+                default(TOperation).Calculate(x[0x0A]),
+                default(TOperation).Calculate(x[0x0B]),
+                default(TOperation).Calculate(x[0x0C]),
+                default(TOperation).Calculate(x[0x0D]),
+                default(TOperation).Calculate(x[0x0E]),
+                default(TOperation).Calculate(x[0x0F]),
+            });
+        case 32:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00]),
+                default(TOperation).Calculate(x[0x01]),
+                default(TOperation).Calculate(x[0x02]),
+                default(TOperation).Calculate(x[0x03]),
+                default(TOperation).Calculate(x[0x04]),
+                default(TOperation).Calculate(x[0x05]),
+                default(TOperation).Calculate(x[0x06]),
+                default(TOperation).Calculate(x[0x07]),
+                default(TOperation).Calculate(x[0x08]),
+                default(TOperation).Calculate(x[0x09]),
+                default(TOperation).Calculate(x[0x0A]),
+                default(TOperation).Calculate(x[0x0B]),
+                default(TOperation).Calculate(x[0x0C]),
+                default(TOperation).Calculate(x[0x0D]),
+                default(TOperation).Calculate(x[0x0E]),
+                default(TOperation).Calculate(x[0x0F]),
+                default(TOperation).Calculate(x[0x10]),
+                default(TOperation).Calculate(x[0x11]),
+                default(TOperation).Calculate(x[0x12]),
+                default(TOperation).Calculate(x[0x13]),
+                default(TOperation).Calculate(x[0x14]),
+                default(TOperation).Calculate(x[0x15]),
+                default(TOperation).Calculate(x[0x16]),
+                default(TOperation).Calculate(x[0x17]),
+                default(TOperation).Calculate(x[0x18]),
+                default(TOperation).Calculate(x[0x19]),
+                default(TOperation).Calculate(x[0x1A]),
+                default(TOperation).Calculate(x[0x1B]),
+                default(TOperation).Calculate(x[0x1C]),
+                default(TOperation).Calculate(x[0x1D]),
+                default(TOperation).Calculate(x[0x1E]),
+                default(TOperation).Calculate(x[0x1F]),
+            });
+        case 64:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00]),
+                default(TOperation).Calculate(x[0x01]),
+                default(TOperation).Calculate(x[0x02]),
+                default(TOperation).Calculate(x[0x03]),
+                default(TOperation).Calculate(x[0x04]),
+                default(TOperation).Calculate(x[0x05]),
+                default(TOperation).Calculate(x[0x06]),
+                default(TOperation).Calculate(x[0x07]),
+                default(TOperation).Calculate(x[0x08]),
+                default(TOperation).Calculate(x[0x09]),
+                default(TOperation).Calculate(x[0x0A]),
+                default(TOperation).Calculate(x[0x0B]),
+                default(TOperation).Calculate(x[0x0C]),
+                default(TOperation).Calculate(x[0x0D]),
+                default(TOperation).Calculate(x[0x0E]),
+                default(TOperation).Calculate(x[0x0F]),
+                default(TOperation).Calculate(x[0x10]),
+                default(TOperation).Calculate(x[0x11]),
+                default(TOperation).Calculate(x[0x12]),
+                default(TOperation).Calculate(x[0x13]),
+                default(TOperation).Calculate(x[0x14]),
+                default(TOperation).Calculate(x[0x15]),
+                default(TOperation).Calculate(x[0x16]),
+                default(TOperation).Calculate(x[0x17]),
+                default(TOperation).Calculate(x[0x18]),
+                default(TOperation).Calculate(x[0x19]),
+                default(TOperation).Calculate(x[0x1A]),
+                default(TOperation).Calculate(x[0x1B]),
+                default(TOperation).Calculate(x[0x1C]),
+                default(TOperation).Calculate(x[0x1D]),
+                default(TOperation).Calculate(x[0x1E]),
+                default(TOperation).Calculate(x[0x1F]),
+                default(TOperation).Calculate(x[0x20]),
+                default(TOperation).Calculate(x[0x21]),
+                default(TOperation).Calculate(x[0x22]),
+                default(TOperation).Calculate(x[0x23]),
+                default(TOperation).Calculate(x[0x24]),
+                default(TOperation).Calculate(x[0x25]),
+                default(TOperation).Calculate(x[0x26]),
+                default(TOperation).Calculate(x[0x27]),
+                default(TOperation).Calculate(x[0x28]),
+                default(TOperation).Calculate(x[0x29]),
+                default(TOperation).Calculate(x[0x2A]),
+                default(TOperation).Calculate(x[0x2B]),
+                default(TOperation).Calculate(x[0x2C]),
+                default(TOperation).Calculate(x[0x2D]),
+                default(TOperation).Calculate(x[0x2E]),
+                default(TOperation).Calculate(x[0x2F]),
+                default(TOperation).Calculate(x[0x30]),
+                default(TOperation).Calculate(x[0x31]),
+                default(TOperation).Calculate(x[0x32]),
+                default(TOperation).Calculate(x[0x33]),
+                default(TOperation).Calculate(x[0x34]),
+                default(TOperation).Calculate(x[0x35]),
+                default(TOperation).Calculate(x[0x36]),
+                default(TOperation).Calculate(x[0x37]),
+                default(TOperation).Calculate(x[0x38]),
+                default(TOperation).Calculate(x[0x39]),
+                default(TOperation).Calculate(x[0x3A]),
+                default(TOperation).Calculate(x[0x3B]),
+                default(TOperation).Calculate(x[0x3C]),
+                default(TOperation).Calculate(x[0x3D]),
+                default(TOperation).Calculate(x[0x3E]),
+                default(TOperation).Calculate(x[0x3F]),
+            });
+        default:
+            {
+                var buffer = (stackalloc T[Vector<T>.Count]);
+                for (var i = 0; i < buffer.Length; ++i)
+                {
+                    buffer[i] = default(TOperation).Calculate(x[i]);
+                }
+                return new Vector<T>(buffer);
+            }
+        }
+    }
+
+    private interface IOperation2<T> { public T Calculate(T x, T y); }
+    private static Vector<T> Emulate<T, TOperation>(in Vector<T> x, in Vector<T> y)
+        where T : unmanaged
+        where TOperation : unmanaged, IOperation2<T>
+    {
+        switch (Vector<T>.Count)
+        {
+        case 2:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00], y[0x00]),
+                default(TOperation).Calculate(x[0x01], y[0x01]),
+            });
+        case 4:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00], y[0x00]),
+                default(TOperation).Calculate(x[0x01], y[0x01]),
+                default(TOperation).Calculate(x[0x02], y[0x02]),
+                default(TOperation).Calculate(x[0x03], y[0x03]),
+            });
+        case 8:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00], y[0x00]),
+                default(TOperation).Calculate(x[0x01], y[0x01]),
+                default(TOperation).Calculate(x[0x02], y[0x02]),
+                default(TOperation).Calculate(x[0x03], y[0x03]),
+                default(TOperation).Calculate(x[0x04], y[0x04]),
+                default(TOperation).Calculate(x[0x05], y[0x05]),
+                default(TOperation).Calculate(x[0x06], y[0x06]),
+                default(TOperation).Calculate(x[0x07], y[0x07]),
+            });
+        case 16:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00], y[0x00]),
+                default(TOperation).Calculate(x[0x01], y[0x01]),
+                default(TOperation).Calculate(x[0x02], y[0x02]),
+                default(TOperation).Calculate(x[0x03], y[0x03]),
+                default(TOperation).Calculate(x[0x04], y[0x04]),
+                default(TOperation).Calculate(x[0x05], y[0x05]),
+                default(TOperation).Calculate(x[0x06], y[0x06]),
+                default(TOperation).Calculate(x[0x07], y[0x07]),
+                default(TOperation).Calculate(x[0x08], y[0x08]),
+                default(TOperation).Calculate(x[0x09], y[0x09]),
+                default(TOperation).Calculate(x[0x0A], y[0x0A]),
+                default(TOperation).Calculate(x[0x0B], y[0x0B]),
+                default(TOperation).Calculate(x[0x0C], y[0x0C]),
+                default(TOperation).Calculate(x[0x0D], y[0x0D]),
+                default(TOperation).Calculate(x[0x0E], y[0x0E]),
+                default(TOperation).Calculate(x[0x0F], y[0x0F]),
+            });
+        case 32:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00], y[0x00]),
+                default(TOperation).Calculate(x[0x01], y[0x01]),
+                default(TOperation).Calculate(x[0x02], y[0x02]),
+                default(TOperation).Calculate(x[0x03], y[0x03]),
+                default(TOperation).Calculate(x[0x04], y[0x04]),
+                default(TOperation).Calculate(x[0x05], y[0x05]),
+                default(TOperation).Calculate(x[0x06], y[0x06]),
+                default(TOperation).Calculate(x[0x07], y[0x07]),
+                default(TOperation).Calculate(x[0x08], y[0x08]),
+                default(TOperation).Calculate(x[0x09], y[0x09]),
+                default(TOperation).Calculate(x[0x0A], y[0x0A]),
+                default(TOperation).Calculate(x[0x0B], y[0x0B]),
+                default(TOperation).Calculate(x[0x0C], y[0x0C]),
+                default(TOperation).Calculate(x[0x0D], y[0x0D]),
+                default(TOperation).Calculate(x[0x0E], y[0x0E]),
+                default(TOperation).Calculate(x[0x0F], y[0x0F]),
+                default(TOperation).Calculate(x[0x10], y[0x10]),
+                default(TOperation).Calculate(x[0x11], y[0x11]),
+                default(TOperation).Calculate(x[0x12], y[0x12]),
+                default(TOperation).Calculate(x[0x13], y[0x13]),
+                default(TOperation).Calculate(x[0x14], y[0x14]),
+                default(TOperation).Calculate(x[0x15], y[0x15]),
+                default(TOperation).Calculate(x[0x16], y[0x16]),
+                default(TOperation).Calculate(x[0x17], y[0x17]),
+                default(TOperation).Calculate(x[0x18], y[0x18]),
+                default(TOperation).Calculate(x[0x19], y[0x19]),
+                default(TOperation).Calculate(x[0x1A], y[0x1A]),
+                default(TOperation).Calculate(x[0x1B], y[0x1B]),
+                default(TOperation).Calculate(x[0x1C], y[0x1C]),
+                default(TOperation).Calculate(x[0x1D], y[0x1D]),
+                default(TOperation).Calculate(x[0x1E], y[0x1E]),
+                default(TOperation).Calculate(x[0x1F], y[0x1F]),
+            });
+        case 64:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00], y[0x00]),
+                default(TOperation).Calculate(x[0x01], y[0x01]),
+                default(TOperation).Calculate(x[0x02], y[0x02]),
+                default(TOperation).Calculate(x[0x03], y[0x03]),
+                default(TOperation).Calculate(x[0x04], y[0x04]),
+                default(TOperation).Calculate(x[0x05], y[0x05]),
+                default(TOperation).Calculate(x[0x06], y[0x06]),
+                default(TOperation).Calculate(x[0x07], y[0x07]),
+                default(TOperation).Calculate(x[0x08], y[0x08]),
+                default(TOperation).Calculate(x[0x09], y[0x09]),
+                default(TOperation).Calculate(x[0x0A], y[0x0A]),
+                default(TOperation).Calculate(x[0x0B], y[0x0B]),
+                default(TOperation).Calculate(x[0x0C], y[0x0C]),
+                default(TOperation).Calculate(x[0x0D], y[0x0D]),
+                default(TOperation).Calculate(x[0x0E], y[0x0E]),
+                default(TOperation).Calculate(x[0x0F], y[0x0F]),
+                default(TOperation).Calculate(x[0x10], y[0x10]),
+                default(TOperation).Calculate(x[0x11], y[0x11]),
+                default(TOperation).Calculate(x[0x12], y[0x12]),
+                default(TOperation).Calculate(x[0x13], y[0x13]),
+                default(TOperation).Calculate(x[0x14], y[0x14]),
+                default(TOperation).Calculate(x[0x15], y[0x15]),
+                default(TOperation).Calculate(x[0x16], y[0x16]),
+                default(TOperation).Calculate(x[0x17], y[0x17]),
+                default(TOperation).Calculate(x[0x18], y[0x18]),
+                default(TOperation).Calculate(x[0x19], y[0x19]),
+                default(TOperation).Calculate(x[0x1A], y[0x1A]),
+                default(TOperation).Calculate(x[0x1B], y[0x1B]),
+                default(TOperation).Calculate(x[0x1C], y[0x1C]),
+                default(TOperation).Calculate(x[0x1D], y[0x1D]),
+                default(TOperation).Calculate(x[0x1E], y[0x1E]),
+                default(TOperation).Calculate(x[0x1F], y[0x1F]),
+                default(TOperation).Calculate(x[0x20], y[0x20]),
+                default(TOperation).Calculate(x[0x21], y[0x21]),
+                default(TOperation).Calculate(x[0x22], y[0x22]),
+                default(TOperation).Calculate(x[0x23], y[0x23]),
+                default(TOperation).Calculate(x[0x24], y[0x24]),
+                default(TOperation).Calculate(x[0x25], y[0x25]),
+                default(TOperation).Calculate(x[0x26], y[0x26]),
+                default(TOperation).Calculate(x[0x27], y[0x27]),
+                default(TOperation).Calculate(x[0x28], y[0x28]),
+                default(TOperation).Calculate(x[0x29], y[0x29]),
+                default(TOperation).Calculate(x[0x2A], y[0x2A]),
+                default(TOperation).Calculate(x[0x2B], y[0x2B]),
+                default(TOperation).Calculate(x[0x2C], y[0x2C]),
+                default(TOperation).Calculate(x[0x2D], y[0x2D]),
+                default(TOperation).Calculate(x[0x2E], y[0x2E]),
+                default(TOperation).Calculate(x[0x2F], y[0x2F]),
+                default(TOperation).Calculate(x[0x30], y[0x30]),
+                default(TOperation).Calculate(x[0x31], y[0x31]),
+                default(TOperation).Calculate(x[0x32], y[0x32]),
+                default(TOperation).Calculate(x[0x33], y[0x33]),
+                default(TOperation).Calculate(x[0x34], y[0x34]),
+                default(TOperation).Calculate(x[0x35], y[0x35]),
+                default(TOperation).Calculate(x[0x36], y[0x36]),
+                default(TOperation).Calculate(x[0x37], y[0x37]),
+                default(TOperation).Calculate(x[0x38], y[0x38]),
+                default(TOperation).Calculate(x[0x39], y[0x39]),
+                default(TOperation).Calculate(x[0x3A], y[0x3A]),
+                default(TOperation).Calculate(x[0x3B], y[0x3B]),
+                default(TOperation).Calculate(x[0x3C], y[0x3C]),
+                default(TOperation).Calculate(x[0x3D], y[0x3D]),
+                default(TOperation).Calculate(x[0x3E], y[0x3E]),
+                default(TOperation).Calculate(x[0x3F], y[0x3F]),
+            });
+        default:
+            {
+                var buffer = (stackalloc T[Vector<T>.Count]);
+                for (var i = 0; i < buffer.Length; ++i)
+                {
+                    buffer[i] = default(TOperation).Calculate(x[i], y[i]);
+                }
+                return new Vector<T>(buffer);
+            }
+        }
+    }
+
+    private interface IOperation3<T> { public T Calculate(T x, T y, T z); }
+    private static Vector<T> Emulate<T, TOperation>(in Vector<T> x, in Vector<T> y, in Vector<T> z)
+        where T : unmanaged
+        where TOperation : unmanaged, IOperation3<T>
+    {
+        switch (Vector<T>.Count)
+        {
+        case 2:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00], y[0x00], z[0x00]),
+                default(TOperation).Calculate(x[0x01], y[0x01], z[0x01]),
+            });
+        case 4:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00], y[0x00], z[0x00]),
+                default(TOperation).Calculate(x[0x01], y[0x01], z[0x01]),
+                default(TOperation).Calculate(x[0x02], y[0x02], z[0x02]),
+                default(TOperation).Calculate(x[0x03], y[0x03], z[0x03]),
+            });
+        case 8:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00], y[0x00], z[0x00]),
+                default(TOperation).Calculate(x[0x01], y[0x01], z[0x01]),
+                default(TOperation).Calculate(x[0x02], y[0x02], z[0x02]),
+                default(TOperation).Calculate(x[0x03], y[0x03], z[0x03]),
+                default(TOperation).Calculate(x[0x04], y[0x04], z[0x04]),
+                default(TOperation).Calculate(x[0x05], y[0x05], z[0x05]),
+                default(TOperation).Calculate(x[0x06], y[0x06], z[0x06]),
+                default(TOperation).Calculate(x[0x07], y[0x07], z[0x07]),
+            });
+        case 16:
+            return new Vector<T>(stackalloc[] {
+                default(TOperation).Calculate(x[0x00], y[0x00], z[0x00]),
+                default(TOperation).Calculate(x[0x01], y[0x01], z[0x01]),
+                default(TOperation).Calculate(x[0x02], y[0x02], z[0x02]),
+                default(TOperation).Calculate(x[0x03], y[0x03], z[0x03]),
+                default(TOperation).Calculate(x[0x04], y[0x04], z[0x04]),
+                default(TOperation).Calculate(x[0x05], y[0x05], z[0x05]),
+                default(TOperation).Calculate(x[0x06], y[0x06], z[0x06]),
+                default(TOperation).Calculate(x[0x07], y[0x07], z[0x07]),
+                default(TOperation).Calculate(x[0x08], y[0x08], z[0x08]),
+                default(TOperation).Calculate(x[0x09], y[0x09], z[0x09]),
+                default(TOperation).Calculate(x[0x0A], y[0x0A], z[0x0A]),
+                default(TOperation).Calculate(x[0x0B], y[0x0B], z[0x0B]),
+                default(TOperation).Calculate(x[0x0C], y[0x0C], z[0x0C]),
+                default(TOperation).Calculate(x[0x0D], y[0x0D], z[0x0D]),
+                default(TOperation).Calculate(x[0x0E], y[0x0E], z[0x0E]),
+                default(TOperation).Calculate(x[0x0F], y[0x0F], z[0x0F]),
+            });
+        default:
+            {
+                var buffer = (stackalloc T[Vector<T>.Count]);
+                for (var i = 0; i < buffer.Length; ++i)
+                {
+                    buffer[i] = default(TOperation).Calculate(x[i], y[i], z[i]);
+                }
+                return new Vector<T>(buffer);
+            }
+        }
+    }
+
     #endregion
 
     #region Abs
@@ -99,20 +487,56 @@ public static partial class VectorMath
 
     #endregion
 
+    #region Ceiling
+
+    /// <summary> Calculates Ceiling. </summary>
+    [VectorMath]
+    public static partial Vector<T> Ceiling<T>(in Vector<T> d)
+        where T : unmanaged;
+    private struct Ceiling_<T> : IOperation1<T>
+        where T : unmanaged
+    {
+        public T Calculate(T x) => ScalarMath.Ceiling(x);
+    }
+
+    private static Vector<double> Ceiling(in Vector<double> x)
+    {
+#if NET6_0_OR_GREATER
+        return VectorOp.Ceiling(x);
+#else
+        return Emulate<double, Ceiling_<double>>(x);
+#endif
+    }
+
+    private static Vector<float> Ceiling(in Vector<float> x)
+    {
+#if NET6_0_OR_GREATER
+        return VectorOp.Ceiling(x);
+#else
+        return Emulate<float, Ceiling_<float>>(x);
+#endif
+    }
+
+    #endregion
+
     #region Floor
 
-    /// <summary> Calculates floor. </summary>
+    /// <summary> Calculates Floor. </summary>
     [VectorMath]
     public static partial Vector<T> Floor<T>(in Vector<T> d)
         where T : unmanaged;
+    private struct Floor_<T> : IOperation1<T>
+        where T : unmanaged
+    {
+        public T Calculate(T x) => ScalarMath.Floor(x);
+    }
 
     private static Vector<double> Floor(in Vector<double> x)
-
     {
 #if NET6_0_OR_GREATER
         return VectorOp.Floor(x);
 #else
-        throw new NotImplementedException();
+        return Emulate<double, Floor_<double>>(x);
 #endif
     }
 
@@ -121,7 +545,7 @@ public static partial class VectorMath
 #if NET6_0_OR_GREATER
         return VectorOp.Floor(x);
 #else
-        throw new NotImplementedException();
+        return Emulate<float, Floor_<float>>(x);
 #endif
     }
 
@@ -195,65 +619,34 @@ public static partial class VectorMath
             }
         }
 #endif
-        switch (Vector<T>.Count)
-        {
-        case 2:
-            return new Vector<T>(stackalloc[] {
-                ScalarOp.FusedMultiplyAdd(x[0x00], y[0x00], z[0x00]),
-                ScalarOp.FusedMultiplyAdd(x[0x01], y[0x01], z[0x01]),
-            });
-        case 4:
-            return new Vector<T>(stackalloc[] {
-                ScalarOp.FusedMultiplyAdd(x[0x00], y[0x00], z[0x00]),
-                ScalarOp.FusedMultiplyAdd(x[0x01], y[0x01], z[0x01]),
-                ScalarOp.FusedMultiplyAdd(x[0x02], y[0x02], z[0x02]),
-                ScalarOp.FusedMultiplyAdd(x[0x03], y[0x03], z[0x03]),
-            });
-        case 8:
-            return new Vector<T>(stackalloc[] {
-                ScalarOp.FusedMultiplyAdd(x[0x00], y[0x00], z[0x00]),
-                ScalarOp.FusedMultiplyAdd(x[0x01], y[0x01], z[0x01]),
-                ScalarOp.FusedMultiplyAdd(x[0x02], y[0x02], z[0x02]),
-                ScalarOp.FusedMultiplyAdd(x[0x03], y[0x03], z[0x03]),
-                ScalarOp.FusedMultiplyAdd(x[0x04], y[0x04], z[0x04]),
-                ScalarOp.FusedMultiplyAdd(x[0x05], y[0x05], z[0x05]),
-                ScalarOp.FusedMultiplyAdd(x[0x06], y[0x06], z[0x06]),
-                ScalarOp.FusedMultiplyAdd(x[0x07], y[0x07], z[0x07]),
-            });
-        case 16:
-            return new Vector<T>(stackalloc[] {
-                ScalarOp.FusedMultiplyAdd(x[0x00], y[0x00], z[0x00]),
-                ScalarOp.FusedMultiplyAdd(x[0x01], y[0x01], z[0x01]),
-                ScalarOp.FusedMultiplyAdd(x[0x02], y[0x02], z[0x02]),
-                ScalarOp.FusedMultiplyAdd(x[0x03], y[0x03], z[0x03]),
-                ScalarOp.FusedMultiplyAdd(x[0x04], y[0x04], z[0x04]),
-                ScalarOp.FusedMultiplyAdd(x[0x05], y[0x05], z[0x05]),
-                ScalarOp.FusedMultiplyAdd(x[0x06], y[0x06], z[0x06]),
-                ScalarOp.FusedMultiplyAdd(x[0x07], y[0x07], z[0x07]),
-                ScalarOp.FusedMultiplyAdd(x[0x08], y[0x08], z[0x08]),
-                ScalarOp.FusedMultiplyAdd(x[0x09], y[0x09], z[0x09]),
-                ScalarOp.FusedMultiplyAdd(x[0x0A], y[0x0A], z[0x0A]),
-                ScalarOp.FusedMultiplyAdd(x[0x0B], y[0x0B], z[0x0B]),
-                ScalarOp.FusedMultiplyAdd(x[0x0C], y[0x0C], z[0x0C]),
-                ScalarOp.FusedMultiplyAdd(x[0x0D], y[0x0D], z[0x0D]),
-                ScalarOp.FusedMultiplyAdd(x[0x0E], y[0x0E], z[0x0E]),
-                ScalarOp.FusedMultiplyAdd(x[0x0F], y[0x0F], z[0x0F]),
-            });
-        default:
-            {
-                var buffer = (stackalloc T[Vector<T>.Count]);
-                for (var i = 0; i < buffer.Length; ++i)
-                {
-                    buffer[i] = ScalarOp.FusedMultiplyAdd(x[i], y[i], z[i]);
-                }
-                return new Vector<T>(buffer);
-            }
-        }
+        return Emulate<T, FusedMultiplyAdd_<T>>(x, y, z);
+    }
+    private struct FusedMultiplyAdd_<T> : IOperation3<T>
+        where T : unmanaged
+    {
+        public T Calculate(T x, T y, T z)
+            => ScalarOp.FusedMultiplyAdd(x, y, z);
     }
 
     #endregion
 
     #region Round
+
+    /// <summary>
+    /// Calculates Round.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    [VectorMath]
+    public static partial Vector<T> Round<T>(in Vector<T> x)
+        where T : unmanaged;
+
+    private struct Round_<T> : IOperation1<T>
+        where T : unmanaged
+    {
+        public T Calculate(T x) => ScalarMath.Round(x);
+    }
 
     /// <summary> Calculates round. </summary>
     private static Vector<double> Round(in Vector<double> x)
@@ -270,30 +663,7 @@ public static partial class VectorMath
             return Sse41.RoundToNearestInteger(xx).AsVector();
         }
 #endif
-        return Vector<double>.Count switch
-        {
-            2 => new Vector<double>(stackalloc[] {
-                Math.Round(x[0]),
-                Math.Round(x[1]),
-            }),
-            4 => new Vector<double>(stackalloc[] {
-                Math.Round(x[0]),
-                Math.Round(x[1]),
-                Math.Round(x[2]),
-                Math.Round(x[3]),
-            }),
-            8 => new Vector<double>(stackalloc[] {
-                Math.Round(x[0]),
-                Math.Round(x[1]),
-                Math.Round(x[2]),
-                Math.Round(x[3]),
-                Math.Round(x[4]),
-                Math.Round(x[5]),
-                Math.Round(x[6]),
-                Math.Round(x[7]),
-            }),
-            _ => throw new NotSupportedException(),
-        };
+        return Emulate<double, Round_<double>>(x);
     }
 
 
@@ -311,44 +681,7 @@ public static partial class VectorMath
             return Sse41.RoundToNearestInteger(xx).AsVector();
         }
 #endif
-        return Vector<float>.Count switch
-        {
-            4 => new Vector<float>(stackalloc[] {
-                MathF.Round(x[0]),
-                MathF.Round(x[1]),
-                MathF.Round(x[2]),
-                MathF.Round(x[3]),
-            }),
-            8 => new Vector<float>(stackalloc[] {
-                MathF.Round(x[0]),
-                MathF.Round(x[1]),
-                MathF.Round(x[2]),
-                MathF.Round(x[3]),
-                MathF.Round(x[4]),
-                MathF.Round(x[5]),
-                MathF.Round(x[6]),
-                MathF.Round(x[7]),
-            }),
-            16 => new Vector<float>(stackalloc[] {
-                MathF.Round(x[0]),
-                MathF.Round(x[1]),
-                MathF.Round(x[2]),
-                MathF.Round(x[3]),
-                MathF.Round(x[4]),
-                MathF.Round(x[5]),
-                MathF.Round(x[6]),
-                MathF.Round(x[7]),
-                MathF.Round(x[8]),
-                MathF.Round(x[9]),
-                MathF.Round(x[10]),
-                MathF.Round(x[11]),
-                MathF.Round(x[12]),
-                MathF.Round(x[13]),
-                MathF.Round(x[14]),
-                MathF.Round(x[15]),
-            }),
-            _ => throw new NotSupportedException(),
-        };
+        return Emulate<float, Round_<float>>(x);
     }
 
 
