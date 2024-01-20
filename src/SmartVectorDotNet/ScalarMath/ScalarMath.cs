@@ -16,6 +16,32 @@ public static partial class ScalarMath
         => Unsafe.As<TFrom, TTo>(ref Unsafe.AsRef(x));
 
 
+    /// <summary>
+    /// Provides mathematical constants.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public static class Const<T>
+        where T : unmanaged
+    {
+        /// <summary> Mathematical PI. </summary>
+        public static readonly T PI;
+
+        /// <summary> Mathematical E. </summary>
+        public static readonly T E;
+
+        static Const()
+        {
+            if (typeof(T) == typeof(float))
+            {
+                PI = Reinterpret<float, T>((float)Math.PI);
+            }
+            if (typeof(T) == typeof(double))
+            {
+                PI = Reinterpret<double, T>(Math.PI);
+            }
+        }
+    }
+
 
     /// <summary>
     /// Calculates <c>pow(2, n) * x</c>.
