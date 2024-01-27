@@ -18,7 +18,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "verification", "verificatio
 		verification\readme.md = verification\readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartVectorBenchmarks", "verification\SmartVectorBenchmarks\SmartVectorBenchmarks.csproj", "{1E3CA682-A97D-4CB2-B6D7-38693905919C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartVectorBenchmarks", "verification\SmartVectorBenchmarks\SmartVectorBenchmarks.csproj", "{1E3CA682-A97D-4CB2-B6D7-38693905919C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartVectorDotNet.Benchmark", "SmartVectorDotNet.Benchmark\SmartVectorDotNet.Benchmark.csproj", "{0311BDCB-9320-44A8-81BC-78F74AF61039}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,10 @@ Global
 		{1E3CA682-A97D-4CB2-B6D7-38693905919C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E3CA682-A97D-4CB2-B6D7-38693905919C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E3CA682-A97D-4CB2-B6D7-38693905919C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0311BDCB-9320-44A8-81BC-78F74AF61039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0311BDCB-9320-44A8-81BC-78F74AF61039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0311BDCB-9320-44A8-81BC-78F74AF61039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0311BDCB-9320-44A8-81BC-78F74AF61039}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +57,7 @@ Global
 		{D246E915-6DEF-4CC9-A62D-C5D232CFDABB} = {532B8E51-7125-431C-B9CB-F424A5BC3BC9}
 		{8A2DD2A4-59CE-47CF-BDC7-C43E7DD04308} = {97CE633B-3302-426F-BAD7-D42324F0A02E}
 		{1E3CA682-A97D-4CB2-B6D7-38693905919C} = {9FF43C57-7190-4F68-9E3B-E210344C38E5}
+		{0311BDCB-9320-44A8-81BC-78F74AF61039} = {97CE633B-3302-426F-BAD7-D42324F0A02E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {96D05709-9A3C-497C-890A-398215F21D05}

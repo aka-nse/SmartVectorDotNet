@@ -12,7 +12,11 @@ partial class VectorMath
     NOTE:
         Maclaurin expansion of trigonometric function:
         $$
-        \cos x = \sum_{n=0}^{\infty} (-1)^n\cfrac{x^{2n}}{(2n)!}
+        \begin{split}
+        \cos x &= \sum_{n=0}^{\infty} (-1)^n\cfrac{x^{2n}}{(2n)!}  \\
+               &= 1 - a_1
+        \end{split}\\
+        \left(a_n := \cfrac{x^2}{(2n - 1)\cdot 2n}(1 - a_{n+1}) \right)
         $$
 
         Remap `x` into $-\frac{\pi}{2} \le x' \lt +\frac{\pi}{2}$:
@@ -40,22 +44,22 @@ partial class VectorMath
             if (IsT<double>())
             {
                 var cosCoeffs = new Vector<double>[11];
-                for (var i = 0; i < 11; ++i)
+                for (var i = 1; i <= 11; ++i)
                 {
-                    cosCoeffs[i] = new Vector<double>(1.0 / ((2 * i + 1) * (2 * i + 2)));
+                    cosCoeffs[i  - 1] = new Vector<double>(1.0 / ((2 * i - 1) * (2 * i)));
                 }
                 return Reinterpret<Vector<double>[], Vector<T>[]>(cosCoeffs);
             }
             if(IsT<float>())
             {
                 var cosCoeffs = new Vector<float>[6];
-                for (var i = 0; i < 6; ++i)
+                for (var i = 1; i <= 6; ++i)
                 {
-                    cosCoeffs[i] = new Vector<float>(1.0f / ((2 * i + 1) * (2 * i + 2)));
+                    cosCoeffs[i - 1] = new Vector<float>(1.0f / ((2 * i - 1) * (2 * i)));
                 }
                 return Reinterpret<Vector<float>[], Vector<T>[]>(cosCoeffs);
             }
-            throw NotSupported();
+            return default!;
         }
     }
 
@@ -124,36 +128,40 @@ partial class VectorMath
         return sign * CosBounded(x);
     }
 
+#pragma warning disable format
+    /// <param name="x"> $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ </param>
     private static Vector<double> CosBounded(in Vector<double> x)
     {
         Vector<double> y;
         var x2 = x * x;
-        y = x2 * Const<double>.CosCoeffs[10];
-        y = x2 * Const<double>.CosCoeffs[9] * (Vector<double>.One - y);
-        y = x2 * Const<double>.CosCoeffs[8] * (Vector<double>.One - y);
-        y = x2 * Const<double>.CosCoeffs[7] * (Vector<double>.One - y);
-        y = x2 * Const<double>.CosCoeffs[6] * (Vector<double>.One - y);
-        y = x2 * Const<double>.CosCoeffs[5] * (Vector<double>.One - y);
-        y = x2 * Const<double>.CosCoeffs[4] * (Vector<double>.One - y);
-        y = x2 * Const<double>.CosCoeffs[3] * (Vector<double>.One - y);
-        y = x2 * Const<double>.CosCoeffs[2] * (Vector<double>.One - y);
-        y = x2 * Const<double>.CosCoeffs[1] * (Vector<double>.One - y);
-        y = x2 * Const<double>.CosCoeffs[0] * (Vector<double>.One - y);
-        return Vector<double>.One - y;
+        y = x2 * Const<double>.CosCoeffs[11 - 1];                             // a_11~
+        y = x2 * Const<double>.CosCoeffs[10 - 1] * (Vector<double>.One - y);  // a_10
+        y = x2 * Const<double>.CosCoeffs[ 9 - 1] * (Vector<double>.One - y);  // a_9
+        y = x2 * Const<double>.CosCoeffs[ 8 - 1] * (Vector<double>.One - y);  // a_8
+        y = x2 * Const<double>.CosCoeffs[ 7 - 1] * (Vector<double>.One - y);  // a_7
+        y = x2 * Const<double>.CosCoeffs[ 6 - 1] * (Vector<double>.One - y);  // a_6
+        y = x2 * Const<double>.CosCoeffs[ 5 - 1] * (Vector<double>.One - y);  // a_5
+        y = x2 * Const<double>.CosCoeffs[ 4 - 1] * (Vector<double>.One - y);  // a_4
+        y = x2 * Const<double>.CosCoeffs[ 3 - 1] * (Vector<double>.One - y);  // a_3
+        y = x2 * Const<double>.CosCoeffs[ 2 - 1] * (Vector<double>.One - y);  // a_2
+        y = x2 * Const<double>.CosCoeffs[ 1 - 1] * (Vector<double>.One - y);  // a_1
+        return Vector<double>.One - y;                                        // 1 - a_1
     }
 
+    /// <param name="x"> $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ </param>
     private static Vector<float> CosBounded(in Vector<float> x)
     {
         Vector<float> y;
         var x2 = x * x;
-        y = x2 * Const<float>.CosCoeffs[5];
-        y = x2 * Const<float>.CosCoeffs[4] * (Vector<float>.One - y);
-        y = x2 * Const<float>.CosCoeffs[3] * (Vector<float>.One - y);
-        y = x2 * Const<float>.CosCoeffs[2] * (Vector<float>.One - y);
-        y = x2 * Const<float>.CosCoeffs[1] * (Vector<float>.One - y);
-        y = x2 * Const<float>.CosCoeffs[0] * (Vector<float>.One - y);
-        return Vector<float>.One - y;
+        y = x2 * Const<float>.CosCoeffs[6 - 1];                            // a_6~
+        y = x2 * Const<float>.CosCoeffs[5 - 1] * (Vector<float>.One - y);  // a_5
+        y = x2 * Const<float>.CosCoeffs[4 - 1] * (Vector<float>.One - y);  // a_4
+        y = x2 * Const<float>.CosCoeffs[3 - 1] * (Vector<float>.One - y);  // a_3
+        y = x2 * Const<float>.CosCoeffs[2 - 1] * (Vector<float>.One - y);  // a_2
+        y = x2 * Const<float>.CosCoeffs[1 - 1] * (Vector<float>.One - y);  // a_1
+        return Vector<float>.One - y;                                      // 1 - a_1
     }
+#pragma warning restore format
 
     #endregion
 

@@ -2,5 +2,6 @@
 
 Console.WriteLine("Hello, Benchmark!");
 
+LogarithmBenchmarkContext.RunBenchmark();
 // ExponentialBenchmarkContext.RunBenchmark();
-TrigonometricBenchmarkContext.RunBenchmark();
+// TrigonometricBenchmarkContext.RunBenchmark();

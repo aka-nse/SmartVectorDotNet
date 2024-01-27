@@ -13,6 +13,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ExponentialBenchmarkContext.tt</DependentUpon>
     </None>
+    <None Include="LogarithmBenchmarkContext.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LogarithmBenchmarkContext.tt</DependentUpon>
+    </None>
     <None Include="TrigonometricBenchmarkContext.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -29,6 +34,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ExponentialBenchmarkContext.g.cs</LastGenOutput>
     </None>
+    <None Update="LogarithmBenchmarkContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LogarithmBenchmarkContext.g.cs</LastGenOutput>
+    </None>
     <None Update="TrigonometricBenchmarkContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TrigonometricBenchmarkContext.g.cs</LastGenOutput>
@@ -44,6 +53,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ExponentialBenchmarkContext.tt</DependentUpon>
+    </Compile>
+    <Compile Update="LogarithmBenchmarkContext.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LogarithmBenchmarkContext.tt</DependentUpon>
     </Compile>
     <Compile Update="TrigonometricBenchmarkContext.g.cs">
       <DesignTime>True</DesignTime>

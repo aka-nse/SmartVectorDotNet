@@ -885,6 +885,27 @@ partial class SimdVectorization
 
 
     /// <inheritdoc />
+    protected internal override void CosCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Cos(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Cos(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
     protected internal override void SinCore<T>(ReadOnlySpan<T> d, Span<T> ans)
     {
         var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
@@ -900,6 +921,27 @@ partial class SimdVectorization
             d.Slice(vectorLength).CopyTo(vd);
             var vans = (stackalloc T[Vector<T>.Count]);
             Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Sin(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void CeilingCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Ceiling(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Ceiling(Unsafe.As<T, Vector<T>>(ref vd[0]));
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -927,21 +969,42 @@ partial class SimdVectorization
 
 
     /// <inheritdoc />
-    protected internal override void ExpCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    protected internal override void LogCore<T>(ReadOnlySpan<T> d, Span<T> ans)
     {
         var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Exp(vectorD[i]);
+            vectorAns[i] = VectorMath.Log(vectorD[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vd = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vd);
             var vans = (stackalloc T[Vector<T>.Count]);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Exp(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void RoundCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Round(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Round(Unsafe.As<T, Vector<T>>(ref vd[0]));
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }

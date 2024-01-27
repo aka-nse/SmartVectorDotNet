@@ -57,24 +57,6 @@ partial class VectorMath
         throw new NotSupportedException();
     }
 
-    public static partial Vector<T> Scale<T>(in Vector<T> n, in Vector<T> x)
-        where T : unmanaged
-    {
-        if(typeof(T) == typeof(double))
-        {
-            ref readonly var n_ = ref Reinterpret<T, double>(n);
-            ref readonly var x_ = ref Reinterpret<T, double>(x);
-            return Reinterpret<double, T>(Scale(n_, x_));
-        }
-        if(typeof(T) == typeof(float))
-        {
-            ref readonly var n_ = ref Reinterpret<T, float>(n);
-            ref readonly var x_ = ref Reinterpret<T, float>(x);
-            return Reinterpret<float, T>(Scale(n_, x_));
-        }
-        throw new NotSupportedException();
-    }
-
     public static partial Vector<T> Truncate<T>(in Vector<T> d)
         where T : unmanaged
     {
@@ -113,6 +95,45 @@ partial class VectorMath
         {
             ref readonly var d_ = ref Reinterpret<T, float>(d);
             return Reinterpret<float, T>(ExpCore(d_));
+        }
+        throw new NotSupportedException();
+    }
+
+    public static partial Vector<T> Log<T>(in Vector<T> x)
+        where T : unmanaged
+    {
+        if(typeof(T) == typeof(double))
+        {
+            ref readonly var x_ = ref Reinterpret<T, double>(x);
+            return Reinterpret<double, T>(Log(x_));
+        }
+        if(typeof(T) == typeof(float))
+        {
+            ref readonly var x_ = ref Reinterpret<T, float>(x);
+            return Reinterpret<float, T>(Log(x_));
+        }
+        throw new NotSupportedException();
+    }
+
+}
+
+// VectorMath._IEEE754Specific.cs
+partial class VectorMath
+{
+    public static partial Vector<T> Scale<T>(in Vector<T> n, in Vector<T> x)
+        where T : unmanaged
+    {
+        if(typeof(T) == typeof(double))
+        {
+            ref readonly var n_ = ref Reinterpret<T, double>(n);
+            ref readonly var x_ = ref Reinterpret<T, double>(x);
+            return Reinterpret<double, T>(Scale(n_, x_));
+        }
+        if(typeof(T) == typeof(float))
+        {
+            ref readonly var n_ = ref Reinterpret<T, float>(n);
+            ref readonly var x_ = ref Reinterpret<T, float>(x);
+            return Reinterpret<float, T>(Scale(n_, x_));
         }
         throw new NotSupportedException();
     }

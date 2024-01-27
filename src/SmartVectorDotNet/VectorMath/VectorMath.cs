@@ -28,18 +28,15 @@ public static partial class VectorMath
     static partial class Const<T>
         where T : unmanaged
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining), DebuggerHidden]
-        private static NotSupportedException NotSupported() => new();
-
         private static bool IsT<TEntity>()
             => typeof(T) == typeof(TEntity);
 
-        private static Vector<T> X(double x)
+        private static Vector<T> AsVector(double x)
             => IsT<double>()
                 ? As(new Vector<double>(x))
             : IsT<float>()
                 ? As(new Vector<float>((float)x))
-            : throw NotSupported();
+            : default;
 
         private static Vector<T> As<TFrom>(in Vector<TFrom> x)
             where TFrom : unmanaged
@@ -48,39 +45,40 @@ public static partial class VectorMath
         public static readonly Vector<T> MinusOne = -Vector<T>.One;
         public static readonly Vector<T> E = new (ScalarMath.Const<T>.E);
         public static readonly Vector<T> PI = new(ScalarMath.Const<T>.PI);
-        public static readonly Vector<T> PI_1p2 = X(0.5) * PI;
-        public static readonly Vector<T> PI_2p2 = X(1.0) * PI;
-        public static readonly Vector<T> PI_3p2 = X(1.5) * PI;
-        public static readonly Vector<T> PI_4p2 = X(2.0) * PI;
-        
+        public static readonly Vector<T> PI_1p2 = AsVector(0.5) * PI;
+        public static readonly Vector<T> PI_2p2 = AsVector(1.0) * PI;
+        public static readonly Vector<T> PI_3p2 = AsVector(1.5) * PI;
+        public static readonly Vector<T> PI_4p2 = AsVector(2.0) * PI;
+
         public static readonly Vector<T> NaN
             = IsT<double>()
                 ? As(new Vector<double>(double.NaN))
             : IsT<float>()
                 ? As(new Vector<float>(float.NaN))
-            : throw NotSupported();
+            : default;
 
         public static readonly Vector<T> PInf
             = IsT<double>()
                 ? As(new Vector<double>(double.PositiveInfinity))
             : IsT<float>()
                 ? As(new Vector<float>(float.PositiveInfinity))
-            : throw NotSupported();
+            : default;
 
         public static readonly Vector<T> NInf
             = IsT<double>()
                 ? As(new Vector<double>(double.NegativeInfinity))
             : IsT<float>()
                 ? As(new Vector<float>(float.NegativeInfinity))
-            : throw NotSupported();
+            : default;
+
+        public static readonly Vector<T> Sqrt2
+            = IsT<double>()
+                ? AsVector(ScalarMath.Sqrt(2.0))
+            : IsT<float>()
+                ? AsVector(ScalarMath.Sqrt(2.0f))
+            : default;
     }
     
-    static partial class Const
-    {
-        public static readonly Vector<long> _1023 = new(1023);
-        public static readonly Vector<int> _127 = new(127);
-    }
-
     private static ref readonly TTo Reinterpret<TFrom, TTo>(in TFrom x)
         => ref Unsafe.As<TFrom, TTo>(ref Unsafe.AsRef(x));
 
@@ -682,39 +680,6 @@ public static partial class VectorMath
         }
 #endif
         return Emulate<float, Round_<float>>(x);
-    }
-
-
-    #endregion
-
-    #region Scale
-
-    /// <summary>
-    /// Calculates <c>pow(2, n) * x</c>.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="n">Must be integer.</param>
-    /// <param name="x"></param>
-    /// <returns></returns>
-    [VectorMath]
-    public static partial Vector<T> Scale<T>(in Vector<T> n, in Vector<T> x)
-        where T : unmanaged;
-
-    // pow(2, n) * x
-    static Vector<double> Scale(in Vector<double> n, Vector<double> x)
-    {
-        var nn = VectorOp.ConvertToInt64(n);
-        var pow2n = VectorOp.ShiftLeft(nn + Const._1023, 52);
-        return x * VectorOp.AsVectorDouble(pow2n);
-    }
-
-
-    // pow(2, n) * x
-    static Vector<float> Scale(in Vector<float> n, Vector<float> x)
-    {
-        var nn = VectorOp.ConvertToInt32(n);
-        var pow2n = VectorOp.ShiftLeft(nn + Const._127, 23);
-        return x * VectorOp.AsVectorSingle(pow2n);
     }
 
     #endregion

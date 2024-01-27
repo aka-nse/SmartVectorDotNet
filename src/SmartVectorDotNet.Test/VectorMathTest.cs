@@ -73,4 +73,48 @@ public class VectorMathTest
             Assert.Equal(0, expected - actual, 4);
         }
     }
+
+
+    public static IEnumerable<object[]> LogTestCases()
+    {
+        static object[] core(double x)
+            => new object[] { x, };
+
+        yield return core(1);
+        yield return core(2);
+        yield return core(3);
+        yield return core(4);
+        yield return core(5);
+        yield return core(1e+1);
+        yield return core(1e+2);
+        yield return core(1e+3);
+        yield return core(1e+4);
+        yield return core(1e+5);
+        yield return core(1e-1);
+        yield return core(1e-2);
+        yield return core(1e-3);
+        yield return core(1e-4);
+        yield return core(1e-5);
+        yield break;
+    }
+
+    [Theory, MemberData(nameof(LogTestCases))]
+    public void LogTest(double x)
+    {
+        static void forDouble(double x)
+        {
+            var expected = Math.Log(x);
+            var actual = VectorMath.Log(new Vector<double>(x))[0];
+            Assert.Equal(0, expected - actual, 6);
+        }
+        static void forSingle(float x)
+        {
+            var expected = Math.Log(x);
+            var actual = VectorMath.Log(new Vector<float>(x))[0];
+            Assert.Equal(0, expected - actual, 5);
+        }
+
+        forDouble(x);
+        forSingle((float)x);
+    }
 }

@@ -12,7 +12,11 @@ partial class VectorMath
     NOTE:
         Maclaurin expansion of expornential function:
         $$
-        e^x = \sum_{n=0}^{\infty} \cfrac{x^n}{n!}
+        \begin{split}
+        e^x &= \sum_{n=0}^{\infty} \cfrac{x^n}{n!}  \\
+            &= a_0
+        \end{split}\\
+        \left(a_n := \frac{x}{n}(1 + a_{n + 1})\right)
         $$
      */
 
@@ -20,58 +24,84 @@ partial class VectorMath
     {
         public static readonly Vector<T> ExpMax
             = IsT<double>()
-                ? As(new Vector<double>(ScalarMath.Log(double.MaxValue)))
+                ? AsVector(ScalarMath.Log(double.MaxValue))
             : IsT<float>()
-                ? As(new Vector<float>(ScalarMath.Log(float.MaxValue)))
-            : throw NotSupported();
+                ? AsVector(ScalarMath.Log(float.MaxValue))
+            : default;
 
         public static readonly Vector<T> ExpMin
             = IsT<double>()
-                ? As(new Vector<double>(ScalarMath.Log(1 / double.MaxValue)))
+                ? AsVector(ScalarMath.Log(1 / double.MaxValue))
             : IsT<float>()
-                ? As(new Vector<float>(ScalarMath.Log(1 / float.MaxValue)))
-            : throw NotSupported();
+                ? AsVector(ScalarMath.Log(1 / float.MaxValue))
+            : default;
 
         public static readonly Vector<T> Log_2_E
             = IsT<double>()
-                ? As(new Vector<double>(ScalarMath.Log(ScalarMath.Const<double>.E, 2)))
+                ? AsVector(ScalarMath.Log(ScalarMath.Const<double>.E, 2))
             : IsT<float>()
-                ? As(new Vector<float>(ScalarMath.Log(ScalarMath.Const<float>.E, 2)))
-            : throw NotSupported();
+                ? AsVector(ScalarMath.Log(ScalarMath.Const<float>.E, 2))
+            : default;
 
 
         public static readonly Vector<T> Log_E_2
             = IsT<double>()
-                ? As(new Vector<double>(ScalarMath.Log(2, ScalarMath.Const<double>.E)))
+                ? AsVector(ScalarMath.Log(2, ScalarMath.Const<double>.E))
             : IsT<float>()
-                ? As(new Vector<float>(ScalarMath.Log(2, ScalarMath.Const<float>.E)))
-            : throw NotSupported();
+                ? AsVector(ScalarMath.Log(2, ScalarMath.Const<float>.E))
+            : default;
 
         public static ReadOnlySpan<Vector<T>> ExpCoeffs => _expCoeffs;
         private static readonly Vector<T>[] _expCoeffs = GetExpCoeffs();
-
         static Vector<T>[] GetExpCoeffs()
         {
             if (IsT<double>())
             {
                 var expCoeffs = new Vector<double>[11];
-                for (var i = 0; i <= 10; ++i)
+                for (var i = 1; i <= 11; ++i)
                 {
-                    expCoeffs[i] = new Vector<double>(1.0 / (i + 1));
+                    expCoeffs[i - 1] = new Vector<double>(1 / (double)i);
                 }
                 return Reinterpret<Vector<double>[], Vector<T>[]>(expCoeffs);
             }
             if (IsT<float>())
             {
-                var expCoeffs = new Vector<float>[11];
-                for (var i = 0; i <= 10; ++i)
+                var expCoeffs = new Vector<float>[6];
+                for (var i = 1; i <= 6; ++i)
                 {
-                    expCoeffs[i] = new Vector<float>(1.0f / (i + 1));
+                    expCoeffs[i - 1] = new Vector<float>(1 / (float)i);
                 }
                 return Reinterpret<Vector<float>[], Vector<T>[]>(expCoeffs);
             }
-            throw NotSupported();
+            return default!;
         }
+
+
+        public static ReadOnlySpan<Vector<T>> LogCoeffs => _logCoeffs;
+        private static readonly Vector<T>[] _logCoeffs = GetLogCoeffs();
+        static Vector<T>[] GetLogCoeffs()
+        {
+            if (IsT<double>())
+            {
+                var logCoeffs = new Vector<double>[10];
+                for (var i = 0; i < logCoeffs.Length; ++i)
+                {
+                    logCoeffs[i] = new(ScalarMath.Pow(-1.0, i) / (i + 1.0));
+                }
+                return Reinterpret<Vector<double>[], Vector<T>[]>(logCoeffs);
+            }
+            if (IsT<float>())
+            {
+                var logCoeffs = new Vector<float>[10];
+                for (var i = 0; i < logCoeffs.Length; ++i)
+                {
+                    logCoeffs[i] = new(ScalarMath.Pow(-1.0f, i) / (i + 1.0f));
+                }
+                return Reinterpret<Vector<float>[], Vector<T>[]>(logCoeffs);
+            }
+            return default!;
+        }
+
     }
 
     #region Exp
@@ -98,24 +128,25 @@ partial class VectorMath
     private static partial Vector<T> ExpCore<T>(in Vector<T> d)
         where T : unmanaged;
 
+#pragma warning disable format
     private static Vector<double> ExpCore(in Vector<double> x)
     {
         var y = x * Const<double>.Log_2_E;
         var n = Round(y);
         var a = y - n;
         var b = a * Const<double>.Log_E_2;
-        var z = Vector<double>.Zero;
-        z = (b * Const<double>.ExpCoeffs[9]) * (Vector<double>.One + z);
-        z = (b * Const<double>.ExpCoeffs[8]) * (Vector<double>.One + z);
-        z = (b * Const<double>.ExpCoeffs[7]) * (Vector<double>.One + z);
-        z = (b * Const<double>.ExpCoeffs[6]) * (Vector<double>.One + z);
-        z = (b * Const<double>.ExpCoeffs[5]) * (Vector<double>.One + z);
-        z = (b * Const<double>.ExpCoeffs[4]) * (Vector<double>.One + z);
-        z = (b * Const<double>.ExpCoeffs[3]) * (Vector<double>.One + z);
-        z = (b * Const<double>.ExpCoeffs[2]) * (Vector<double>.One + z);
-        z = (b * Const<double>.ExpCoeffs[1]) * (Vector<double>.One + z);
-        z = (b * Const<double>.ExpCoeffs[0]) * (Vector<double>.One + z);
-        z = z + Vector<double>.One;
+        var z = Vector<double>.Zero;                                           // a_11~
+        z = (b * Const<double>.ExpCoeffs[10 - 1]) * (Vector<double>.One + z);  // a_10
+        z = (b * Const<double>.ExpCoeffs[ 9 - 1]) * (Vector<double>.One + z);  // a_9
+        z = (b * Const<double>.ExpCoeffs[ 8 - 1]) * (Vector<double>.One + z);  // a_8
+        z = (b * Const<double>.ExpCoeffs[ 7 - 1]) * (Vector<double>.One + z);  // a_7
+        z = (b * Const<double>.ExpCoeffs[ 6 - 1]) * (Vector<double>.One + z);  // a_6
+        z = (b * Const<double>.ExpCoeffs[ 5 - 1]) * (Vector<double>.One + z);  // a_5
+        z = (b * Const<double>.ExpCoeffs[ 4 - 1]) * (Vector<double>.One + z);  // a_4
+        z = (b * Const<double>.ExpCoeffs[ 3 - 1]) * (Vector<double>.One + z);  // a_3
+        z = (b * Const<double>.ExpCoeffs[ 2 - 1]) * (Vector<double>.One + z);  // a_2
+        z = (b * Const<double>.ExpCoeffs[ 1 - 1]) * (Vector<double>.One + z);  // a_1
+        z = z + Vector<double>.One;                                            // a_0
         return Scale(n, z);
     }
 
@@ -125,15 +156,107 @@ partial class VectorMath
         var n = Round(y);
         var a = y - n;
         var b = a * Const<float>.Log_E_2;
-        var z = Vector<float>.Zero;
-        z = (b * Const<float>.ExpCoeffs[5]) * (Vector<float>.One + z);
-        z = (b * Const<float>.ExpCoeffs[4]) * (Vector<float>.One + z);
-        z = (b * Const<float>.ExpCoeffs[3]) * (Vector<float>.One + z);
-        z = (b * Const<float>.ExpCoeffs[2]) * (Vector<float>.One + z);
-        z = (b * Const<float>.ExpCoeffs[1]) * (Vector<float>.One + z);
-        z = (b * Const<float>.ExpCoeffs[0]) * (Vector<float>.One + z);
-        z = z + Vector<float>.One;
+        var z = Vector<float>.Zero;                                         // a_7~
+        z = (b * Const<float>.ExpCoeffs[6 - 1]) * (Vector<float>.One + z);  // a_6
+        z = (b * Const<float>.ExpCoeffs[5 - 1]) * (Vector<float>.One + z);  // a_5
+        z = (b * Const<float>.ExpCoeffs[4 - 1]) * (Vector<float>.One + z);  // a_4
+        z = (b * Const<float>.ExpCoeffs[3 - 1]) * (Vector<float>.One + z);  // a_3
+        z = (b * Const<float>.ExpCoeffs[2 - 1]) * (Vector<float>.One + z);  // a_2
+        z = (b * Const<float>.ExpCoeffs[1 - 1]) * (Vector<float>.One + z);  // a_1
+        z = z + Vector<float>.One;                                          // a_0
         return Scale(n, z);
+    }
+#pragma warning restore format
+
+    #endregion
+
+    #region Log
+
+    /// <summary> Calculates log. </summary>
+    [VectorMath]
+    public static partial Vector<T> Log<T>(in Vector<T> x)
+        where T : unmanaged;
+
+    private static Vector<double> Log(in Vector<double> x)
+    {
+        var isPositive = VectorOp.GreaterThan(x, Vector<double>.Zero);
+        Decompose(x, out var n, out var a);
+        var y = n * Const<double>.Log_E_2 + LogBounded(a);
+        return VectorOp.ConditionalSelect(
+            isPositive,
+            y,
+            Const<double>.NaN);
+    }
+
+    private static Vector<float> Log(in Vector<float> x)
+    {
+        var isPositive = VectorOp.GreaterThan(x, Vector<float>.Zero);
+        Decompose(x, out var n, out var a);
+        var y = n * Const<float>.Log_E_2 + LogBounded(a);
+        return VectorOp.ConditionalSelect(
+            isPositive,
+            y,
+            Const<float>.NaN);
+    }
+
+    /// <summary> Calculates <c>log(x)</c>. </summary>
+    /// <param name="x"> $1 \le x \lt 2$ </param>
+    private static Vector<double> LogBounded(in Vector<double> x)
+    {
+        var preScale = Vector.ConditionalSelect(
+            Vector.LessThan(x, Const<double>.Sqrt2),
+            Vector<double>.One,
+            new Vector<double>(0.5));
+        var postOffset = Vector.ConditionalSelect(
+            Vector.LessThan(x, Const<double>.Sqrt2),
+            Vector<double>.Zero,
+            Const<double>.Log_E_2);
+        var xx = x * preScale - Vector<double>.One;
+        return postOffset
+            + xx * (Const<double>.LogCoeffs[1 - 1]
+            + xx * (Const<double>.LogCoeffs[2 - 1]
+            + xx * (Const<double>.LogCoeffs[3 - 1]
+            + xx * (Const<double>.LogCoeffs[4 - 1]
+            + xx * (Const<double>.LogCoeffs[5 - 1]
+            + xx * (Const<double>.LogCoeffs[6 - 1]
+            + xx * (Const<double>.LogCoeffs[7 - 1]
+            + xx * (Const<double>.LogCoeffs[8 - 1]
+            + xx * (Const<double>.LogCoeffs[9 - 1]
+            + xx * (Const<double>.LogCoeffs[10 - 1]
+            ))))))))));
+    }
+
+    /// <summary> Calculates <c>log(x + 1)</c>. </summary>
+    /// <param name="x"> $1 \le x \lt 2$ </param>
+    //  NOTE:
+    //      $$
+    //      \begin{cases}
+    //      |\ln x| < \left|\ln\frac{x}{2}\right | &(x < \sqrt{2}) \\[1ex]
+    //      |\ln x| = \left|\ln\frac{x}{2}\right | &(x = \sqrt{2}) \\[1ex]
+    //      |\ln x| > \left|\ln\frac{x}{2}\right | &(x > \sqrt{2}) \\
+    //      \end{cases}
+    //      $$
+    private static Vector<float> LogBounded(in Vector<float> x)
+    {
+        var preScale = Vector.ConditionalSelect(
+            Vector.LessThan(x, Const<float>.Sqrt2),
+            Vector<float>.One,
+            new Vector<float>(0.5f));
+        var postOffset = Vector.ConditionalSelect(
+            Vector.LessThan(x, Const<float>.Sqrt2),
+            Vector<float>.Zero,
+            Const<float>.Log_E_2);
+        var xx = x * preScale - Vector<float>.One;
+        return postOffset
+            + xx * (Const<float>.LogCoeffs[1 - 1]
+            + xx * (Const<float>.LogCoeffs[2 - 1]
+            + xx * (Const<float>.LogCoeffs[3 - 1]
+            + xx * (Const<float>.LogCoeffs[4 - 1]
+            + xx * (Const<float>.LogCoeffs[5 - 1]
+            + xx * (Const<float>.LogCoeffs[6 - 1]
+            + xx * (Const<float>.LogCoeffs[7 - 1]
+            + xx * (Const<float>.LogCoeffs[8 - 1]
+            ))))))));
     }
 
     #endregion

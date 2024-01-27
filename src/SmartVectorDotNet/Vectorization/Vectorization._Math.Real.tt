@@ -7,6 +7,10 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".g.cs" #>
 <#
+var vectorMathMatcher = new Regex(
+    @"\[VectorMath(?:Attribute)?\]\s*" +
+    @"public\s+static\s+(?:partial\s+)?Vector\s*<\s*T\s*>\s+(?<method>\w+)\s*<\s*T\s*>\s*\((?<args>.+)\)\s*" +
+    @"where\s+T\s*:\s*unmanaged");
 var realOps = new RealOpDef[]{
     new("Sqrt", "d"),
     new("Cos", "d"),
@@ -38,15 +42,22 @@ var realOps = new RealOpDef[]{
     new("Scale", "n", "x"),
 };
 
-var vectorMathPath = Host.ResolvePath("../VectorMath/VectorMath.cs");
-var vectorMathSource = File.ReadAllText(vectorMathPath);
-
-var matcheds = Regex.Matches(
-    vectorMathSource,
-    @"\[VectorMath(?:Attribute)?\]\s*public\s+static\s+(?:partial\s+)?Vector\s*<\s*T\s*>\s+(?<method>\w+)\s*<\s*T\s*>\s*\((?<args>.+)\)\s*where\s+T\s*:\s*unmanaged");
-var opOverrides = matcheds.Cast<Match>().Select(match => new OperatorOverrideDef(match)).ToArray();
-
-var overridedOps = realOps
+var overridedOps = Array.Empty<RealOpDef>();
+var opOverrides = new List<OperatorOverrideDef>();
+foreach(var vectorMathPath in Directory.GetFiles(Host.ResolvePath("../VectorMath"), "*.cs"))
+{
+    if(vectorMathPath.EndsWith(".g.cs"))
+    {
+        continue;
+    }
+    var vectorMathSource = File.ReadAllText(vectorMathPath);
+    var matcheds = vectorMathMatcher.Matches(vectorMathSource);
+    opOverrides.AddRange(
+        matcheds.Cast<Match>()
+            .Select(match => new OperatorOverrideDef(match))
+            .ToArray());
+}
+overridedOps = realOps
     .Where(x => opOverrides.Any(y => x.Name == y.Name && x.Arguments.Length == y.Arguments.Length))
     .ToArray();
 #>
