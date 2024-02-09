@@ -85,10 +85,10 @@ And following formulas are available to convert argument:
 
 $$
 \begin{aligned}
-&\arctan\cfrac{1}{x} = \mathrm{sgn}\,x\cdot\cfrac{\pi}{2} - \arctan x  && (i)\\
+&\arctan\cfrac{1}{x} = \mathrm{sgn}\,x\cdot\cfrac{\pi}{2} - \arctan x  && (\mathrm{i})\\
 &\arctan x + \arctan y = \arctan\cfrac{x + y}{1 - xy}  \\
 &\Rightarrow \arctan x + \arctan 1 = \arctan x + \cfrac{\pi}{4} = \arctan\cfrac{1 + x}{1 - x}  \\
-&\Rightarrow \arctan x = \arctan\cfrac{1 + x}{1 - x} - \cfrac{\pi}{4} && (ii)
+&\Rightarrow \arctan x = \arctan\cfrac{1 + x}{1 - x} - \cfrac{\pi}{4} && (\mathrm{ii})
 \end{aligned}
 $$
 
