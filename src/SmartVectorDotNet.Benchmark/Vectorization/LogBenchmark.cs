@@ -12,7 +12,7 @@ public class LogBenchmark
     public static readonly float[] X_f32
         = Enumerable
         .Range(-10, 21)
-        .SelectMany(n => Enumerable.Range(0, 512).Select(i => (float)((1 + i / 256.0) * ScalarMath.Pow(2.0, n))))
+        .SelectMany(n => Enumerable.Range(0, 256).Select(i => (float)((1 + i / 256.0) * ScalarMath.Pow(2.0, n))))
         .ToArray();
     public static readonly double[] X_f64
         = Enumerable

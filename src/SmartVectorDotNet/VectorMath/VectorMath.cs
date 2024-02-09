@@ -72,11 +72,13 @@ public static partial class VectorMath
             : default;
 
         public static readonly Vector<T> Sqrt2
-            = IsT<double>()
-                ? AsVector(ScalarMath.Sqrt(2.0))
-            : IsT<float>()
-                ? AsVector(ScalarMath.Sqrt(2.0f))
-            : default;
+            = AsVector(ScalarMath.Sqrt(2.0));
+
+        public static readonly Vector<T> Two
+            = AsVector(2.0);
+
+        public static readonly Vector<T> Half
+            = AsVector(0.5);
     }
     
     private static ref readonly TTo Reinterpret<TFrom, TTo>(in TFrom x)

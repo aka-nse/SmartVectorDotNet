@@ -117,6 +117,11 @@ partial class VectorMath
 
 }
 
+// VectorMath._Hyperbolic.cs
+partial class VectorMath
+{
+}
+
 // VectorMath._IEEE754Specific.cs
 partial class VectorMath
 {
@@ -140,37 +145,58 @@ partial class VectorMath
 
 }
 
+// VectorMath._Sign.cs
+partial class VectorMath
+{
+}
+
 // VectorMath._Trigonometric.cs
 partial class VectorMath
 {
-    public static partial Vector<T> Cos<T>(in Vector<T> x)
+    private static partial Vector<T> CosBounded<T>(in Vector<T> x)
         where T : unmanaged
     {
         if(typeof(T) == typeof(double))
         {
             ref readonly var x_ = ref Reinterpret<T, double>(x);
-            return Reinterpret<double, T>(Cos(x_));
+            return Reinterpret<double, T>(CosBounded(x_));
         }
         if(typeof(T) == typeof(float))
         {
             ref readonly var x_ = ref Reinterpret<T, float>(x);
-            return Reinterpret<float, T>(Cos(x_));
+            return Reinterpret<float, T>(CosBounded(x_));
         }
         throw new NotSupportedException();
     }
 
-    public static partial Vector<T> Sin<T>(in Vector<T> x)
+    private static partial Vector<T> SinBounded<T>(in Vector<T> x)
         where T : unmanaged
     {
         if(typeof(T) == typeof(double))
         {
             ref readonly var x_ = ref Reinterpret<T, double>(x);
-            return Reinterpret<double, T>(Sin(x_));
+            return Reinterpret<double, T>(SinBounded(x_));
         }
         if(typeof(T) == typeof(float))
         {
             ref readonly var x_ = ref Reinterpret<T, float>(x);
-            return Reinterpret<float, T>(Sin(x_));
+            return Reinterpret<float, T>(SinBounded(x_));
+        }
+        throw new NotSupportedException();
+    }
+
+    public static partial Vector<T> Atan<T>(in Vector<T> x)
+        where T : unmanaged
+    {
+        if(typeof(T) == typeof(double))
+        {
+            ref readonly var x_ = ref Reinterpret<T, double>(x);
+            return Reinterpret<double, T>(Atan(x_));
+        }
+        if(typeof(T) == typeof(float))
+        {
+            ref readonly var x_ = ref Reinterpret<T, float>(x);
+            return Reinterpret<float, T>(Atan(x_));
         }
         throw new NotSupportedException();
     }

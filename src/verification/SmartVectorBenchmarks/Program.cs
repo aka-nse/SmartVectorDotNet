@@ -1,7 +1,11 @@
-﻿using SmartVectorBenchmarks;
+﻿using BenchmarkDotNet.Running;
+using SmartVectorBenchmarks;
 
 Console.WriteLine("Hello, Benchmark!");
 
-LogarithmBenchmarkContext.RunBenchmark();
+
+// BenchmarkRunner.Run<FluentIfBenchmarkContext>();
+// LogarithmBenchmarkContext.RunBenchmark();
 // ExponentialBenchmarkContext.RunBenchmark();
 // TrigonometricBenchmarkContext.RunBenchmark();
+AtanBenchmarkContext.RunBenchmark();

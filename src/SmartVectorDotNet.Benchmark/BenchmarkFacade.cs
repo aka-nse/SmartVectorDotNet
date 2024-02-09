@@ -28,11 +28,13 @@ public static class BenchmarkFacade
     public static void Run<T>()
         where T : new()
     {
+#pragma warning disable CS8321
         static void warnNoTest()
         {
             using var _ = new ConsoleScope(ConsoleColor.Yellow);
             Console.Error.WriteLine("\u001b[31m" + "No benchmark was specified." + "\u001b[0m");
         }
+#pragma warning restore CS8321
 
 #if RELEASE
         Console.Error.WriteLine("This project run on release build.");

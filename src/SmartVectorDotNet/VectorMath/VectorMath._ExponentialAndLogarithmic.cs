@@ -22,34 +22,13 @@ partial class VectorMath
 
     partial class Const<T>
     {
-        public static readonly Vector<T> ExpMax
-            = IsT<double>()
-                ? AsVector(ScalarMath.Log(double.MaxValue))
-            : IsT<float>()
-                ? AsVector(ScalarMath.Log(float.MaxValue))
-            : default;
+        public static readonly Vector<T> ExpMax = AsVector(ScalarMath.Log(double.MaxValue));
+        public static readonly Vector<T> ExpMin = AsVector(ScalarMath.Log(1 / double.MaxValue));
+        public static readonly Vector<T> Log_2_E = AsVector(ScalarMath.Log(ScalarMath.Const<double>.E, 2));
+        public static readonly Vector<T> Log_E_2 = AsVector(ScalarMath.Log(2, ScalarMath.Const<double>.E));
 
-        public static readonly Vector<T> ExpMin
-            = IsT<double>()
-                ? AsVector(ScalarMath.Log(1 / double.MaxValue))
-            : IsT<float>()
-                ? AsVector(ScalarMath.Log(1 / float.MaxValue))
-            : default;
-
-        public static readonly Vector<T> Log_2_E
-            = IsT<double>()
-                ? AsVector(ScalarMath.Log(ScalarMath.Const<double>.E, 2))
-            : IsT<float>()
-                ? AsVector(ScalarMath.Log(ScalarMath.Const<float>.E, 2))
-            : default;
-
-
-        public static readonly Vector<T> Log_E_2
-            = IsT<double>()
-                ? AsVector(ScalarMath.Log(2, ScalarMath.Const<double>.E))
-            : IsT<float>()
-                ? AsVector(ScalarMath.Log(2, ScalarMath.Const<float>.E))
-            : default;
+        public static readonly Vector<T> DivideBy_Log_E_2 = Vector<T>.One / Log_E_2;
+        public static readonly Vector<T> DivideBy_Log_E_10 = AsVector(1.0 / ScalarMath.Log(10, ScalarMath.Const<double>.E));
 
         public static ReadOnlySpan<Vector<T>> ExpCoeffs => _expCoeffs;
         private static readonly Vector<T>[] _expCoeffs = GetExpCoeffs();
@@ -180,7 +159,7 @@ partial class VectorMath
     private static Vector<double> Log(in Vector<double> x)
     {
         var isPositive = VectorOp.GreaterThan(x, Vector<double>.Zero);
-        Decompose(x, out var n, out var a);
+        Decompose<double>(x, out var n, out var a);
         var y = n * Const<double>.Log_E_2 + LogBounded(a);
         return VectorOp.ConditionalSelect(
             isPositive,
@@ -191,7 +170,7 @@ partial class VectorMath
     private static Vector<float> Log(in Vector<float> x)
     {
         var isPositive = VectorOp.GreaterThan(x, Vector<float>.Zero);
-        Decompose(x, out var n, out var a);
+        Decompose<float>(x, out var n, out var a);
         var y = n * Const<float>.Log_E_2 + LogBounded(a);
         return VectorOp.ConditionalSelect(
             isPositive,
@@ -206,7 +185,7 @@ partial class VectorMath
         var preScale = Vector.ConditionalSelect(
             Vector.LessThan(x, Const<double>.Sqrt2),
             Vector<double>.One,
-            new Vector<double>(0.5));
+            Const<double>.Half);
         var postOffset = Vector.ConditionalSelect(
             Vector.LessThan(x, Const<double>.Sqrt2),
             Vector<double>.Zero,
@@ -241,7 +220,7 @@ partial class VectorMath
         var preScale = Vector.ConditionalSelect(
             Vector.LessThan(x, Const<float>.Sqrt2),
             Vector<float>.One,
-            new Vector<float>(0.5f));
+            Const<float>.Half);
         var postOffset = Vector.ConditionalSelect(
             Vector.LessThan(x, Const<float>.Sqrt2),
             Vector<float>.Zero,
@@ -258,6 +237,64 @@ partial class VectorMath
             + xx * (Const<float>.LogCoeffs[8 - 1]
             ))))))));
     }
+
+    #endregion
+
+    #region Pow
+
+    /// <summary>
+    /// Calculates pow(a, x).
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="a"></param>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<T> Pow<T>(in Vector<T> a, in Vector<T> x)
+        where T : unmanaged
+        => Exp(x * Log(a));
+
+    #endregion
+
+    #region Log2
+
+    /// <summary>
+    /// Calculates log2(x).
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<T> Log2<T>(in Vector<T> x)
+        where T : unmanaged
+        => Log(x) * Const<T>.DivideBy_Log_E_2;
+
+    #endregion
+
+    #region Log10
+
+    /// <summary>
+    /// Calculates log10(x).
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<T> Log10<T>(in Vector<T> x)
+        where T : unmanaged
+        => Log(x) * Const<T>.DivideBy_Log_E_10;
+
+    #endregion
+
+    #region Log_anyBase
+
+    /// <summary>
+    /// Calculates log(x, newBase).
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <param name="newBase"></param>
+    /// <returns></returns>
+    public static Vector<T> Log<T>(in Vector<T> x, in Vector<T> newBase)
+        where T : unmanaged
+        => Log(x) / Log(newBase);
 
     #endregion
 }

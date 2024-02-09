@@ -29,20 +29,27 @@ public static partial class ScalarMath
     public static partial class Const<T>
         where T : unmanaged
     {
+        private static bool IsT<TEntity>()
+            => typeof(T) == typeof(TEntity);
+
+        private static T Reinterpret<TFrom>(TFrom x)
+            where TFrom : unmanaged
+            => Reinterpret<TFrom, T>(x);
+
         /// <summary> Mathematical PI. </summary>
         public static readonly T PI
-            = typeof(T) == typeof(double)
-                ? Reinterpret<double, T>(Math.PI)
-            : typeof(T) == typeof(float)
-                ? Reinterpret<float, T>((float)Math.PI)
+            = IsT<double>()
+                ? Reinterpret(Math.PI)
+            : IsT<float>()
+                ? Reinterpret((float)Math.PI)
             : default;
 
         /// <summary> Mathematical E. </summary>
         public static readonly T E
-            = typeof(T) == typeof(double)
-                ? Reinterpret<double, T>(Math.E)
-            : typeof(T) == typeof(float)
-                ? Reinterpret<float, T>((float)Math.E)
+            = IsT<double>()
+                ? Reinterpret(Math.E)
+            : IsT<float>()
+                ? Reinterpret((float)Math.E)
             : default;
     }
 

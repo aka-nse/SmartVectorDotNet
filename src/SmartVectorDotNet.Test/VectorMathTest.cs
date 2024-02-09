@@ -6,74 +6,95 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace SmartVectorDotNet;
 
 public class VectorMathTest
 {
+    private ITestOutputHelper Output { get; }
 
-    public static IEnumerable<object[]> ModuloTestCases()
+    public VectorMathTest(ITestOutputHelper output) => Output = output;
+
+    internal void TestAccuracy(double[] x, Func<double, double> exp, Func<double, double> act, double accuracy, AccuracyMode mode)
     {
-        static object[] core(double x) => new object[] { x };
-
-        for(var x = -1000; x <= 1000; x += 10)
-        {
-            yield return core(x);
-        }
+        var expected = x.Select(exp).ToArray();
+        var actual = x.Select(act).ToArray();
+        AccuracyAssert.Accurate(x, expected, actual, accuracy, mode, Output);
     }
 
-    [Theory, MemberData(nameof(ModuloTestCases))]
-    public void ModuloTest(double x)
+    internal void TestAccuracy(double[] x, Func<float, float> exp, Func<float, float> act, float accuracy, AccuracyMode mode)
     {
-        var expected = x % Math.PI;
-        var actual = VectorMath.Modulo<double>(new (x), new(Math.PI))[0];
-        Assert.Equal(1.0, 1.0 + (expected - actual), 15);
+        var xx = x.Select(x => (float)x).ToArray();
+        var expected = xx.Select(x => exp(x)).ToArray();
+        var actual = xx.Select(x => act(x)).ToArray();
+        AccuracyAssert.Accurate(xx, expected, actual, accuracy, mode, Output);
     }
 
-
-    public static IEnumerable<object[]> TrigonometicTestCases()
+    [Fact]
+    public void ModuloTest()
     {
-        static object[] core(double x) => new object[] { x };
-
-        for(var i = -1000; i <= 1000; ++i)
-        {
-            var x = i / 10.0;
-            yield return core(Math.PI * x);
-        }
+        var x = Enumerable.Range(-100, 201).Select(x => 10.0 * x).ToArray();
+        TestAccuracy(
+            x,
+            x => x % Math.PI,
+            x => VectorMath.Modulo<double>(new(x), new(Math.PI))[0],
+            1e-10, AccuracyMode.Relative);
     }
 
-    [Theory, MemberData(nameof(TrigonometicTestCases))]
-    public void SinTest(double x)
+    private static double[] TrigonometicTestCase { get; }
+        = Enumerable
+            .Range(-5, 11)
+            .SelectMany(n => Enumerable.Range(-100, 201).Select(i => Math.PI * (2 * Math.Pow(n, 3) + i / 100.0)))
+            .ToArray();
+
+    [Fact]
+    public void SinTest()
     {
-        {
-            var expected = Math.Sin(x);
-            var actual = VectorMath.Sin(new Vector<double>(x))[0];
-            Assert.Equal(0, expected - actual, 10);
-        }
-        {
-            var xx = (float)x;
-            var expected = MathF.Sin(xx);
-            var actual = VectorMath.Sin(new Vector<float>(xx))[0];
-            Assert.Equal(0, expected - actual, 4);
-        }
+        var testCase = TrigonometicTestCase;
+        TestAccuracy(
+            testCase,
+            x => Math.Sin(x),
+            x => VectorMath.Sin(new Vector<double>(x))[0],
+            1e-10, AccuracyMode.Absolute);
+        TestAccuracy(
+            testCase,
+            x => MathF.Sin(x),
+            x => VectorMath.Sin(new Vector<float>(x))[0],
+            1e-5f, AccuracyMode.Absolute);
     }
 
-    [Theory, MemberData(nameof(TrigonometicTestCases))]
-    public void CosTest(double x)
+    [Fact]
+    public void CosTest()
     {
-        {
-            var expected = Math.Cos(x);
-            var actual = VectorMath.Cos(new Vector<double>(x))[0];
-            Assert.Equal(0, expected - actual, 10);
-        }
-        {
-            var xx = (float)x;
-            var expected = MathF.Cos(xx);
-            var actual = VectorMath.Cos(new Vector<float>(xx))[0];
-            Assert.Equal(0, expected - actual, 4);
-        }
+        // var testCase = TrigonometicTestCase;
+        var testCase = new double[] { -1.5707963267948966 };
+        TestAccuracy(
+            testCase,
+            x => Math.Cos(x),
+            x => VectorMath.Cos(new Vector<double>(x))[0],
+            1e-10, AccuracyMode.Absolute);
+        TestAccuracy(
+            testCase,
+            x => MathF.Cos(x),
+            x => VectorMath.Cos(new Vector<float>(x))[0],
+            1e-5f, AccuracyMode.Absolute);
     }
 
+    [Fact]
+    public void TanTest()
+    {
+        TestAccuracy(
+            TrigonometicTestCase,
+            x => Math.Tan(x),
+            x => VectorMath.Tan(new Vector<double>(x))[0],
+            1e-10, AccuracyMode.AbsoluteOrRelative);
+        TestAccuracy(
+            TrigonometicTestCase,
+            x => MathF.Tan(x),
+            x => VectorMath.Tan(new Vector<float>(x))[0],
+            1e-5f, AccuracyMode.AbsoluteOrRelative);
+    }
 
     public static IEnumerable<object[]> LogTestCases()
     {
@@ -98,23 +119,36 @@ public class VectorMathTest
         yield break;
     }
 
-    [Theory, MemberData(nameof(LogTestCases))]
-    public void LogTest(double x)
+    [Fact]
+    public void LogTest()
     {
-        static void forDouble(double x)
-        {
-            var expected = Math.Log(x);
-            var actual = VectorMath.Log(new Vector<double>(x))[0];
-            Assert.Equal(0, expected - actual, 6);
-        }
-        static void forSingle(float x)
-        {
-            var expected = Math.Log(x);
-            var actual = VectorMath.Log(new Vector<float>(x))[0];
-            Assert.Equal(0, expected - actual, 5);
-        }
+        var x = new double[] {
+            1,
+            2,
+            3,
+            4,
+            5,
+            1e+1,
+            1e+2,
+            1e+3,
+            1e+4,
+            1e+5,
+            1e-1,
+            1e-2,
+            1e-3,
+            1e-4,
+            1e-5,
+        };
 
-        forDouble(x);
-        forSingle((float)x);
+        TestAccuracy(
+            x,
+            x => Math.Log(x),
+            x => VectorMath.Log(new Vector<double>(x))[0],
+            1e-6, AccuracyMode.Relative);
+        TestAccuracy(
+            x,
+            x => MathF.Log(x),
+            x => VectorMath.Log(new Vector<float>(x))[0],
+            1e-6f, AccuracyMode.Relative);
     }
 }

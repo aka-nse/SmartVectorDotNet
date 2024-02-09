@@ -35,7 +35,7 @@ partial class VectorMath
     /// <summary>
     /// Calculates the pair of <c>n</c> and <c>a</c>
     /// which satisfies <c>x = pow(2, n) * a</c>
-    /// (<c>n</c> is non-negative integer, and <c>1 &lt;= abs(a) &lt; 2 or a == 0</c>).
+    /// (<c>n</c> is integer, and <c>1 &lt;= abs(a) &lt; 2 or a == 0</c>).
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
@@ -46,22 +46,22 @@ partial class VectorMath
     {
         if (typeof(T) == typeof(double))
         {
-            Decompose(Reinterpret<T, double>(x), out var nn, out var aa);
-            n = Reinterpret<double, T>(nn);
+            Decompose(Reinterpret<T, double>(x), out Vector<long> nn, out Vector<double> aa);
+            n = Reinterpret<double, T>(Vector.ConvertToDouble(nn));
             a = Reinterpret<double, T>(aa);
             return;
         }
         if (typeof(T) == typeof(float))
         {
-            Decompose(Reinterpret<T, float>(x), out var nn, out var aa);
-            n = Reinterpret<float, T>(nn);
+            Decompose(Reinterpret<T, float>(x), out Vector<int> nn, out Vector<float> aa);
+            n = Reinterpret<float, T>(Vector.ConvertToSingle(nn));
             a = Reinterpret<float, T>(aa);
             return;
         }
         throw new NotSupportedException();
     }
 
-    private static void Decompose(in Vector<double> x, out Vector<double> n, out Vector<double> a)
+    internal static void Decompose(in Vector<double> x, out Vector<long> n, out Vector<double> a)
     {
         var bin = Reinterpret<double, long>(x);
         var s = OP.ShiftRightLogical(
@@ -75,11 +75,11 @@ partial class VectorMath
             OP.Equals(s, Vector<long>.Zero),
             Vector<double>.One,
             -Vector<double>.One);
-        n = OP.ConvertToDouble(e - Const.DoubleExpPartBias);
+        n = e - Const.DoubleExpPartBias;
         a = sign * (Vector<double>.One + OP.ConvertToDouble(m) * Const<double>.FracPartOffsetDenom);
     }
 
-    private static void Decompose(in Vector<float> x, out Vector<float> n, out Vector<float> a)
+    internal static void Decompose(in Vector<float> x, out Vector<int> n, out Vector<float> a)
     {
         var bin = Reinterpret<float, int>(x);
         var s = OP.ShiftRightLogical(
@@ -93,7 +93,7 @@ partial class VectorMath
             OP.Equals(s, Vector<int>.Zero),
             Vector<float>.One,
             -Vector<float>.One);
-        n = OP.ConvertToSingle(e - Const.SingleExpPartBias);
+        n = e - Const.SingleExpPartBias;
         a = sign * (Vector<float>.One + OP.ConvertToSingle(m) * Const<float>.FracPartOffsetDenom);
     }
 

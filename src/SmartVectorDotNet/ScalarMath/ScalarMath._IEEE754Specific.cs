@@ -29,6 +29,30 @@ partial class ScalarMath
     }
 
 
+    partial class Const<T>
+    {
+        /// <summary>
+        /// Gets machine epsilon.
+        /// </summary>
+        public static readonly T MachineEpsilon
+            = IsT<double>()
+                ? Reinterpret(Scale<double>(-DoubleExpBitOffset, 1))
+            : IsT<float>()
+                ? Reinterpret(Scale<float>(-SingleExpBitOffset, 1))
+            : default;
+
+        /// <summary>
+        /// Gets positive minimum normalized number.
+        /// </summary>
+        public static readonly T PositiveMinimumNormalizedNumber
+            = IsT<double>()
+                ? Reinterpret(Scale<double>(1.0 - DoubleExpPartBias, 1))
+            : IsT<float>()
+                ? Reinterpret(Scale<float>(1.0f - SingleExpPartBias, 1))
+            : default;
+    }
+
+
     /// <summary>
     /// Calculates the pair of <c>n</c> and <c>a</c>
     /// which satisfies <c>x = pow(2, n) * a</c>
@@ -43,28 +67,45 @@ partial class ScalarMath
     {
         if (typeof(T) == typeof(double))
         {
-            var bin = Reinterpret<T, ulong>(x);
-            var signBit = (bin & DoubleSignPartMask) >> DoubleSignBitOffset;
-            var sign = signBit == 0 ? 1.0 : -1.0;
-            var e = (bin & DoubleExpPartMask) >> DoubleExpBitOffset;
-            var m = bin & DoubleFracPartMask;
-            n = Reinterpret<double, T>((long)(e - DoubleExpPartBias));
-            a = Reinterpret<double, T>(sign * (1.0 + m * DoubleFracPartOffsetDenom));
+            Decompose(Reinterpret<T, double>(x), out long nn, out double aa);
+            n = Reinterpret<double, T>(nn);
+            a = Reinterpret<double, T>(aa);
             return;
         }
         if (typeof(T) == typeof(float))
         {
-            var bin = Reinterpret<T, uint>(x);
-            var signBit = (bin & SingleSignPartMask) >> SingleSignBitOffset;
-            var sign = signBit == 0 ? 1.0f : -1.0f;
-            var e = (bin & SingleExpPartMask) >> SingleExpBitOffset;
-            var m = bin & SingleFracPartMask;
-            n = Reinterpret<float, T>((int)(e - SingleExpPartBias));
-            a = Reinterpret<float, T>(sign * (1.0f + m * SingleFracPartOffsetDenom));
+            Decompose(Reinterpret<T, float>(x), out int nn, out float aa);
+            n = Reinterpret<float, T>(nn);
+            a = Reinterpret<float, T>(aa);
             return;
         }
         throw new NotSupportedException();
     }
+
+
+    internal static void Decompose(double x, out long n, out double a)
+    {
+        var bin = Reinterpret<double, ulong>(x);
+        var signBit = (bin & DoubleSignPartMask) >> DoubleSignBitOffset;
+        var sign = signBit == 0 ? 1.0 : -1.0;
+        var e = (bin & DoubleExpPartMask) >> DoubleExpBitOffset;
+        var m = bin & DoubleFracPartMask;
+        n = (long)(e - DoubleExpPartBias);
+        a = sign * (1.0 + m * DoubleFracPartOffsetDenom);
+    }
+
+
+    internal static void Decompose(float x, out int n, out float a)
+    {
+        var bin = Reinterpret<float, uint>(x);
+        var signBit = (bin & SingleSignPartMask) >> SingleSignBitOffset;
+        var sign = signBit == 0 ? 1.0f : -1.0f;
+        var e = (bin & SingleExpPartMask) >> SingleExpBitOffset;
+        var m = bin & SingleFracPartMask;
+        n = (int)(e - SingleExpPartBias);
+        a = sign * (1.0f + m * SingleFracPartOffsetDenom);
+    }
+
 
     /// <summary>
     /// Calculates <c>pow(2, n) * x</c>.
@@ -81,13 +122,13 @@ partial class ScalarMath
         {
             var nn = Reinterpret<T, double>(n);
             var xx = Reinterpret<T, double>(x);
-            return Reinterpret<double, T>(Reinterpret<long, double>(((long)nn + 1023) << 52) * xx);
+            return Reinterpret<double, T>(Reinterpret<long, double>(((long)nn + (long)DoubleExpPartBias) << 52) * xx);
         }
         if (typeof(T) == typeof(float))
         {
             var nn = Reinterpret<T, float>(n);
             var xx = Reinterpret<T, float>(x);
-            return Reinterpret<float, T>(Reinterpret<int, float>(((int)nn + 127) << 23) * xx);
+            return Reinterpret<float, T>(Reinterpret<int, float>(((int)nn + (int)SingleExpPartBias) << 23) * xx);
         }
         throw new NotSupportedException();
     }

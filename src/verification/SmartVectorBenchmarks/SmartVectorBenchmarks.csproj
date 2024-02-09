@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="AtanBenchmarkContext.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AtanBenchmarkContext.tt</DependentUpon>
+    </None>
     <None Include="ExponentialBenchmarkContext.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -30,6 +35,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="AtanBenchmarkContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AtanBenchmarkContext.g.cs</LastGenOutput>
+    </None>
     <None Update="ExponentialBenchmarkContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ExponentialBenchmarkContext.g.cs</LastGenOutput>
@@ -49,6 +58,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="AtanBenchmarkContext.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AtanBenchmarkContext.tt</DependentUpon>
+    </Compile>
     <Compile Update="ExponentialBenchmarkContext.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
