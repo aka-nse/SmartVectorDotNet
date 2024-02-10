@@ -67,9 +67,19 @@ $$
 \end{aligned}
 $$
 
-Therefore, argument conversion clips the domain of core implementation for trigonometric function into $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$.
+And for $\tan x$, because of addition theorem following conversion is available:
 
-**NOTE**: Although using another transformation $\sin x = \cos(\frac{\pi}{2}-x)$ can make the domain more narrower into $-\frac{\pi}{4} \le x \lt \frac{\pi}{4}$, it is not applied for this project because function call branching on SIMD operation may be less performance than argument transformation only with addition and substraction.
+$$
+\begin{aligned}
+&\tan(x + y) = \cfrac{\tan x + \tan y}{1 - \tan x \tan y}  \\
+&\Rightarrow
+\tan\left(x + \cfrac{\pi}{4}\right) = \cfrac{1 + \tan x}{1 - \tan x}
+\end{aligned}
+$$
+
+Therefore, argument conversion clips the domain of core implementation for trigonometric function into $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ for $\sin x, \cos x$, and $-\frac{\pi}{4} \le x \lt \frac{\pi}{4}$ for $\tan x$.
+
+**NOTE**: Although another transformation using complementary angle formula or addition theorem can make the domain more narrower into $-\frac{\pi}{4} \le x \lt \frac{\pi}{4}$ for $\sin x, \cos x$, it is not applied for this project because function call branching on SIMD operation may be less performance than argument transformation only with addition and substraction.
 
 ## Inverse trigonometric function
 
