@@ -10,6 +10,8 @@ This document explains the knowledge behind these implementations.
 
 ## General strategy
 
+### Taylor series / Maclaurin series
+
 Taylor series at $x=a$ is transformation of arbitrary function which is constructed with infinite members polynomial function based values on n-th deriviative $f^{(n)}(a)$, and its special form of $a=0$ is as known as Maclaurin series.
 (provided, several series have finite range to converge, and the range is called as radius of convergence)
 
@@ -35,6 +37,19 @@ $$
 $$
 
 therefore taking the modulo by $2\pi$ narrows the range calculation and improves accuracy for the case of $|x|>2\pi$.
+
+### Newton's method
+
+Newton's method is well known as another efficient computation strategy.
+
+For a equation $f(x) = 0$, recursively taking the x-segment of a tangential line makes next x closer into the solution.
+Its recurrence relation formula is following:
+
+$$
+x_{n+1} = x_n - \cfrac{f(x_n)}{f'(x_n)}
+$$
+
+However, its convergence speed is depend on initial value $x_1$, therefore choice of it is important.
 
 ## Trigonometric functions
 
@@ -212,3 +227,23 @@ $$
 \mathrm{artanh}\,x &= \cfrac{1}{2}\ln\cfrac{1+x}{1-x}  \\
 \end{aligned}
 $$
+
+## Cubic root
+
+To calculate cubic root, Newton's method is appropriate instead of Taylor series.
+Cubic root of $y$ can be calculated by following process:
+
+$$
+\begin{aligned}
+&f(x) = x^3 - y = 0  \\
+&\begin{aligned}
+\Rightarrow x_{n+1}
+&= x_n - \cfrac{{x_n}^3 - y}{3{x_n}^2}  \\
+&= \cfrac{2}{3}x_n + \cfrac{y}{3{x_n}^2}
+\end{aligned}
+\end{aligned}
+$$
+
+In the case of IEEE 754 floating number, the value $a, n$ which satisfy $y = a\cdot 2^n, n \in \mathbb{Z}, 1 \le a \lt 2$ can be obtained by using only simple bit operations.
+
+Then, $a\cdot2^{\left\lfloor\frac{n}{3}\right\rfloor}$ is usually very closer to $\sqrt[3]{y} = \sqrt[3]{a\cdot 2^n}$ than $y$, so that it is appropriate as an initial value.
