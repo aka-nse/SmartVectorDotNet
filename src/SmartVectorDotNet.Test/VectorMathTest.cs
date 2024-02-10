@@ -32,6 +32,18 @@ public class VectorMathTest
     }
 
     [Fact]
+    public void CbrtTest()
+    {
+        var x = Enumerable.Range(-100, 201).Select(x => Math.E * x).ToArray();
+        TestAccuracy(
+            x,
+            x => Math.Cbrt(x),
+            x => VectorMath.Cbrt<double>(new(x))[0],
+            1e-10, AccuracyMode.AbsoluteOrRelative);
+    }
+
+
+    [Fact]
     public void ModuloTest()
     {
         var x = Enumerable.Range(-100, 201).Select(x => 10.0 * x).ToArray();

@@ -78,8 +78,14 @@ public static partial class VectorMath
         public static readonly Vector<T> Two
             = AsVector(2.0);
 
+        public static readonly Vector<T> Three
+            = AsVector(3.0);
+
         public static readonly Vector<T> Half
             = AsVector(0.5);
+
+        public static readonly Vector<T> TwoPerThree
+            = AsVector(2.0/3.0);
     }
     
     private static ref readonly TTo Reinterpret<TFrom, TTo>(in TFrom x)
@@ -712,5 +718,30 @@ public static partial class VectorMath
 
     #endregion
 
+    #region Cbrt
 
+    /// <summary>
+    /// Calculates cbrt(x).
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<T> Cbrt<T>(in Vector<T> x)
+        where T : unmanaged
+    {
+        Decompose(x, out var n, out var a);
+        var xn = Scale(Round(n / Const<T>.Three), a);
+        xn = Const<T>.TwoPerThree * xn + x / (Const<T>.Three * xn * xn);
+        xn = Const<T>.TwoPerThree * xn + x / (Const<T>.Three * xn * xn);
+        xn = Const<T>.TwoPerThree * xn + x / (Const<T>.Three * xn * xn);
+        xn = Const<T>.TwoPerThree * xn + x / (Const<T>.Three * xn * xn);
+        xn = Const<T>.TwoPerThree * xn + x / (Const<T>.Three * xn * xn);
+        xn = Const<T>.TwoPerThree * xn + x / (Const<T>.Three * xn * xn);
+        return Vector.ConditionalSelect(
+            Vector.Equals(x, Vector<T>.Zero),
+            Vector<T>.Zero,
+            xn);
+    }
+
+    #endregion
 }

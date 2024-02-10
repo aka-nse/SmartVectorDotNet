@@ -19,6 +19,9 @@ partial class VectorMath
         public static readonly Vector<int> SingleExpPartMask  = new(unchecked((int) SC.SingleExpPartMask ));
         public static readonly Vector<int> SingleFracPartMask = new(unchecked((int) SC.SingleFracPartMask));
         public static readonly Vector<int> SingleExpPartBias  = new(unchecked((int)SC.SingleExpPartBias));
+
+        public static readonly Vector<long> DoubleNMax = new(unchecked((long)((SC.DoubleExpPartMask >> SC.DoubleExpBitOffset) - SC.DoubleExpPartBias)));
+        public static readonly Vector<int> SingleNMax  = new(unchecked((int)((SC.SingleExpPartMask >> SC.SingleExpBitOffset) - SC.SingleExpPartBias)));
     }
     partial class Const<T>
     {
@@ -131,4 +134,37 @@ partial class VectorMath
 
     #endregion
 
+    #region IsNormalized
+
+    /// <summary>
+    /// Determines <paramref name="x"/> is IEEE754 normalized number or not.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<T> IsNormalized<T>(in Vector<T> x)
+        where T : unmanaged
+    {
+        if(typeof(T) == typeof(double))
+        {
+            var xx = Reinterpret<T, double>(x);
+            Decompose(xx, out Vector<long> n, out _);
+            var retval = Vector.BitwiseAnd(
+                Vector.GreaterThan(n, Const.DoubleExpPartBias),
+                Vector.LessThan(n, Const.DoubleNMax));
+            return Reinterpret<long, T>(retval);
+        }
+        if (typeof(T) == typeof(float))
+        {
+            var xx = Reinterpret<T, float>(x);
+            Decompose(xx, out Vector<int> n, out _);
+            var retval = Vector.BitwiseAnd(
+                Vector.GreaterThan(n, Const.SingleExpPartBias),
+                Vector.LessThan(n, Const.SingleNMax));
+            return Reinterpret<int, T>(retval);
+        }
+        return default;
+    }
+
+    #endregion
 }
