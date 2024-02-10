@@ -67,8 +67,7 @@ public class VectorMathTest
     [Fact]
     public void CosTest()
     {
-        // var testCase = TrigonometicTestCase;
-        var testCase = new double[] { -1.5707963267948966 };
+        var testCase = TrigonometicTestCase;
         TestAccuracy(
             testCase,
             x => Math.Cos(x),
@@ -84,13 +83,16 @@ public class VectorMathTest
     [Fact]
     public void TanTest()
     {
+        var testCase = TrigonometicTestCase
+            .Where(x => Math.Abs(Math.Abs(x / Math.PI) % 1 - 0.5) > 1e-5)
+            .ToArray();
         TestAccuracy(
-            TrigonometicTestCase,
+            testCase,
             x => Math.Tan(x),
             x => VectorMath.Tan(new Vector<double>(x))[0],
             1e-10, AccuracyMode.AbsoluteOrRelative);
         TestAccuracy(
-            TrigonometicTestCase,
+            testCase,
             x => MathF.Tan(x),
             x => VectorMath.Tan(new Vector<float>(x))[0],
             1e-5f, AccuracyMode.AbsoluteOrRelative);

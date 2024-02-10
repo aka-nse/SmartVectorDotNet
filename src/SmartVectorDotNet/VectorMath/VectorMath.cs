@@ -45,6 +45,7 @@ public static partial class VectorMath
         public static readonly Vector<T> MinusOne = -Vector<T>.One;
         public static readonly Vector<T> E = new (ScalarMath.Const<T>.E);
         public static readonly Vector<T> PI = new(ScalarMath.Const<T>.PI);
+        public static readonly Vector<T> PI_1p4 = AsVector(0.25) * PI;
         public static readonly Vector<T> PI_1p2 = AsVector(0.5) * PI;
         public static readonly Vector<T> PI_2p2 = AsVector(1.0) * PI;
         public static readonly Vector<T> PI_3p2 = AsVector(1.5) * PI;

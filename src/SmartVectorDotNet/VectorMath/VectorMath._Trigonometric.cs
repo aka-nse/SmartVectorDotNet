@@ -44,8 +44,8 @@ partial class VectorMath
         {
             if (IsT<double>())
             {
-                var cosCoeffs = new Vector<double>[11];
-                for (var n = 1; n <= 11; ++n)
+                var cosCoeffs = new Vector<double>[12];
+                for (var n = 1; n <= 12; ++n)
                 {
                     cosCoeffs[n  - 1] = new Vector<double>(1.0 / ((2 * n - 1) * (2 * n)));
                 }
@@ -134,6 +134,22 @@ partial class VectorMath
             : IsT<float>()
                 ? As<float>(new(0.0000003071796f))
             : default;
+
+
+        public static readonly Vector<T> OnePerPi_Modulo
+            = AsVector(0.3183098861837907);
+        public static readonly Vector<T> Pi_ModuloUpper
+            = IsT<double>()
+                ? As<double>(new(3.141592653589793))
+            : IsT<float>()
+                ? As<float>(new(3.1415925f))
+            : default;
+        public static readonly Vector<T> Pi_ModuloLower
+            = IsT<double>()
+                ? As<double>(new(0.00000000000000023846264338327950))
+            : IsT<float>()
+                ? As<float>(new(0.0000001509958f))
+            : default;
     }
 
 
@@ -144,10 +160,18 @@ partial class VectorMath
         var reminderHigh = FusedMultiplyAdd(quotient, -Const<T>.Tau_ModuloUpper, x);
         return FusedMultiplyAdd(quotient, -Const<T>.Tau_ModuloLower, reminderHigh);
     }
+    
+
+    private static Vector<T> ModuloByPi<T>(in Vector<T> x)
+        where T : unmanaged
+    {
+        var quotient = Floor(x * Const<T>.OnePerPi_Modulo);
+        var reminderHigh = FusedMultiplyAdd(quotient, -Const<T>.Pi_ModuloUpper, x);
+        return FusedMultiplyAdd(quotient, -Const<T>.Pi_ModuloLower, reminderHigh);
+    }
 
 
     #region Cos
-
 
     /// <summary>
     /// Calculates cos(x).
@@ -290,11 +314,36 @@ partial class VectorMath
     /// <returns></returns>
     public static Vector<T> Tan<T>(in Vector<T> x)
         where T : unmanaged
-        => Sin(x) / Cos(x);
+    {
+        var xx = ModuloByPi(x);
+        var shouldReverse = Vector.GreaterThan(xx, Const<T>.PI_1p2);
+        var sign = Vector.ConditionalSelect(
+            shouldReverse,
+            -Vector<T>.One,
+            Vector<T>.One);
+        xx = Vector.ConditionalSelect(
+            shouldReverse,
+            Const<T>.PI - xx,
+            xx);
+        var modifiesByAdditionTheorem = Vector.GreaterThan(xx, Const<T>.PI_1p4);
+        xx = Vector.ConditionalSelect(
+            modifiesByAdditionTheorem,
+            xx - Const<T>.PI_1p4,
+            xx);
+        var tanxx = TanBounded(xx);
+        return sign * Vector.ConditionalSelect(
+            modifiesByAdditionTheorem,
+            (Vector<T>.One + tanxx) / (Vector<T>.One - tanxx),
+            tanxx);
+    }
+
+    private static Vector<T> TanBounded<T>(in Vector<T> x)
+        where T : unmanaged
+        => SinBounded(x) / CosBounded(x);
 
     #endregion
 
-    #region Atan
+        #region Atan
 
     /// <summary>
     /// Calculates atan(x).

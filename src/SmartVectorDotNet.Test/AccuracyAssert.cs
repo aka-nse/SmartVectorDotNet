@@ -47,11 +47,11 @@ internal static class AccuracyAssert
             }).ToArray();
 
         var sb = new StringBuilder();
-        sb.AppendLine("x,y-expected,y-actual,error");
+        sb.AppendLine($"x({typeof(T).Name}),y-expected,y-actual,error");
         var failedX = new List<T>();
         for(var i = 0; i < errors.Length; ++i)
         {
-            sb.AppendLine($"{x[i]},{yExpected[i]},{yActual[i]},{errors[i]}");
+            sb.AppendLine($"{x[i]},{yExpected[i]},{yActual[i]},{errors[i]:0.000e+00}");
 
             bool isLargeError = !T.IsNaN(errors[i]) && errors[i] > accuracy;
             bool isInvalidNaN = T.IsNaN(yExpected[i]) ^ T.IsNaN(yActual[i]);
