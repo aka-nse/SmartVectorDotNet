@@ -25,67 +25,87 @@ public static partial class VectorMath
     private class VectorMathAttribute : Attribute { }
 
 
-    static partial class Const<T>
+    /// <summary>
+    /// Provides constant definitions.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public partial class Const<T>
         where T : unmanaged
     {
-        private static bool IsT<TEntity>()
+        private protected static bool IsT<TEntity>()
             => typeof(T) == typeof(TEntity);
 
-        private static Vector<T> AsVector(double x)
+        private protected static Vector<T> AsVector(double x)
             => IsT<double>()
                 ? As(new Vector<double>(x))
             : IsT<float>()
                 ? As(new Vector<float>((float)x))
             : default;
 
-        private static Vector<T> As<TFrom>(in Vector<TFrom> x)
+        private protected static Vector<T> As<TFrom>(in Vector<TFrom> x)
             where TFrom : unmanaged
             => Reinterpret<TFrom, T>(x);
 
-        public static readonly Vector<T> MinusOne = -Vector<T>.One;
+        /// <summary> Vectorized Napier's constant. </summary>
         public static readonly Vector<T> E = new (ScalarMath.Const<T>.E);
-        public static readonly Vector<T> PI = new(ScalarMath.Const<T>.PI);
-        public static readonly Vector<T> PI_1p4 = AsVector(0.25) * PI;
-        public static readonly Vector<T> PI_1p2 = AsVector(0.5) * PI;
-        public static readonly Vector<T> PI_2p2 = AsVector(1.0) * PI;
-        public static readonly Vector<T> PI_3p2 = AsVector(1.5) * PI;
-        public static readonly Vector<T> PI_4p2 = AsVector(2.0) * PI;
 
-        public static readonly Vector<T> NaN
+        /// <summary> Vectorized Pi. </summary>
+        public static readonly Vector<T> PI = new(ScalarMath.Const<T>.PI);
+
+        internal static readonly Vector<T> PI_1p4 = AsVector(0.25) * PI;
+        internal static readonly Vector<T> PI_1p2 = AsVector(0.5) * PI;
+        internal static readonly Vector<T> PI_2p2 = AsVector(1.0) * PI;
+        internal static readonly Vector<T> PI_3p2 = AsVector(1.5) * PI;
+        internal static readonly Vector<T> PI_4p2 = AsVector(2.0) * PI;
+
+        internal static readonly Vector<T> NaN
             = IsT<double>()
                 ? As(new Vector<double>(double.NaN))
             : IsT<float>()
                 ? As(new Vector<float>(float.NaN))
             : default;
 
-        public static readonly Vector<T> PInf
+        internal static readonly Vector<T> PInf
             = IsT<double>()
                 ? As(new Vector<double>(double.PositiveInfinity))
             : IsT<float>()
                 ? As(new Vector<float>(float.PositiveInfinity))
             : default;
 
-        public static readonly Vector<T> NInf
+        internal static readonly Vector<T> NInf
             = IsT<double>()
                 ? As(new Vector<double>(double.NegativeInfinity))
             : IsT<float>()
                 ? As(new Vector<float>(float.NegativeInfinity))
             : default;
 
-        public static readonly Vector<T> Sqrt2
-            = AsVector(ScalarMath.Sqrt(2.0));
 
-        public static readonly Vector<T> Two
-            = AsVector(2.0);
+        internal static readonly Vector<T> _m1
+            = AsVector(-1.0);
 
-        public static readonly Vector<T> Three
-            = AsVector(3.0);
+        internal static readonly Vector<T> _0
+            = AsVector(0.0);
 
-        public static readonly Vector<T> Half
+        internal static readonly Vector<T> _1p2
             = AsVector(0.5);
 
-        public static readonly Vector<T> TwoPerThree
+        internal static readonly Vector<T> _2p3
             = AsVector(2.0/3.0);
+
+        internal static readonly Vector<T> _1
+            = AsVector(1.0);
+
+        internal static readonly Vector<T> _Sqrt2
+            = AsVector(ScalarMath.Sqrt(2.0));
+
+        internal static readonly Vector<T> _2
+            = AsVector(2.0);
+
+        internal static readonly Vector<T> _3
+            = AsVector(3.0);
+
+
+        private protected Const() { }
     }
     
     private static ref readonly TTo Reinterpret<TFrom, TTo>(in TFrom x)
@@ -730,13 +750,13 @@ public static partial class VectorMath
         where T : unmanaged
     {
         Decompose(x, out var n, out var a);
-        var xn = Scale(Round(n / Const<T>.Three), a);
-        xn = Const<T>.TwoPerThree * xn + x / (Const<T>.Three * xn * xn);
-        xn = Const<T>.TwoPerThree * xn + x / (Const<T>.Three * xn * xn);
-        xn = Const<T>.TwoPerThree * xn + x / (Const<T>.Three * xn * xn);
-        xn = Const<T>.TwoPerThree * xn + x / (Const<T>.Three * xn * xn);
-        xn = Const<T>.TwoPerThree * xn + x / (Const<T>.Three * xn * xn);
-        xn = Const<T>.TwoPerThree * xn + x / (Const<T>.Three * xn * xn);
+        var xn = Scale(Round(n / Const<T>._3), a);
+        xn = Const<T>._2p3 * xn + x / (Const<T>._3 * xn * xn);
+        xn = Const<T>._2p3 * xn + x / (Const<T>._3 * xn * xn);
+        xn = Const<T>._2p3 * xn + x / (Const<T>._3 * xn * xn);
+        xn = Const<T>._2p3 * xn + x / (Const<T>._3 * xn * xn);
+        xn = Const<T>._2p3 * xn + x / (Const<T>._3 * xn * xn);
+        xn = Const<T>._2p3 * xn + x / (Const<T>._3 * xn * xn);
         return Vector.ConditionalSelect(
             Vector.Equals(x, Vector<T>.Zero),
             Vector<T>.Zero,

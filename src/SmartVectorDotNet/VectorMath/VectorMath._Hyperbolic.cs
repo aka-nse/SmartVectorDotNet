@@ -17,7 +17,9 @@ partial class VectorMath
     /// <returns></returns>
     public static Vector<T> Sinh<T>(in Vector<T> x)
         where T : unmanaged
-        => (Exp(x) - Exp(-x)) * Const<T>.Half;
+        => (Exp(x) - Exp(-x)) * Sinh_<T>._1p2;
+
+    private class Sinh_<T> : Const<T> where T : unmanaged { }
 
     #endregion
 
@@ -31,7 +33,9 @@ partial class VectorMath
     /// <returns></returns>
     public static Vector<T> Cosh<T>(in Vector<T> x)
         where T : unmanaged
-        => (Exp(x) + Exp(-x)) * Const<T>.Half;
+        => (Exp(x) + Exp(-x)) * Cosh_<T>._1p2;
+
+    private class Cosh_<T> : Const<T> where T : unmanaged { }
 
     #endregion
 
@@ -63,7 +67,9 @@ partial class VectorMath
     /// <returns></returns>
     public static Vector<T> Asinh<T>(in Vector<T> x)
         where T : unmanaged
-        => Log(x + Sqrt(x * x + Vector<T>.One));
+        => Log(x + Sqrt(x * x + Asinh_<T>._1));
+
+    private class Asinh_<T> : Const<T> where T : unmanaged { }
 
     #endregion
 
@@ -77,7 +83,9 @@ partial class VectorMath
     /// <returns></returns>
     public static Vector<T> Acosh<T>(in Vector<T> x)
         where T : unmanaged
-        => Log(x + Sqrt(x * x - Vector<T>.One));
+        => Log(x + Sqrt(x * x - Acosh_<T>._1));
+
+    private class Acosh_<T> : Const<T> where T : unmanaged { }
 
     #endregion
 
@@ -91,7 +99,9 @@ partial class VectorMath
     /// <returns></returns>
     public static Vector<T> Atanh<T>(in Vector<T> x)
         where T : unmanaged
-        => Const<T>.Half * Log((Vector<T>.One + x) / (Vector<T>.One - x));
+        => Atanh_<T>._1p2 * Log((Atanh_<T>._1 + x) / (Atanh_<T>._1 - x));
+
+    private class Atanh_<T> : Const<T> where T : unmanaged { }
 
     #endregion
 }
