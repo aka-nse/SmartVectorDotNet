@@ -40,6 +40,7 @@ public static partial class VectorMath
                 ? As(new Vector<double>(x))
             : IsT<float>()
                 ? As(new Vector<float>((float)x))
+#error support other types
             : default;
 
         private protected static Vector<T> As<TFrom>(in Vector<TFrom> x)
@@ -52,7 +53,6 @@ public static partial class VectorMath
         /// <summary> Vectorized Pi. </summary>
         public static readonly Vector<T> PI = new(ScalarMath.Const<T>.PI);
 
-        internal static readonly Vector<T> PI_1p4 = AsVector(0.25) * PI;
         internal static readonly Vector<T> PI_1p2 = AsVector(0.5) * PI;
         internal static readonly Vector<T> PI_2p2 = AsVector(1.0) * PI;
         internal static readonly Vector<T> PI_3p2 = AsVector(1.5) * PI;

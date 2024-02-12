@@ -9,7 +9,20 @@ namespace SmartVectorDotNet;
 partial class VectorMath
 {
     /// <summary>
-    /// Like <c>sign(x)</c>, but returns <c>1</c> if <c>x == 0</c>.
+    /// Calculates <c>sign(x)</c>.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<T> Sign<T>(in Vector<T> x)
+        where T : unmanaged
+        => Vector.ConditionalSelect(
+            Vector.Equals(x, Sign_<T>._0),
+            Sign_<T>._0,
+            SignFast(x));
+
+    /// <summary>
+    /// Like <c>sign(x)</c>, but returns <c>1</c> if <c>x == 0</c> for performance.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
@@ -17,10 +30,20 @@ partial class VectorMath
     /// <exception cref="NotSupportedException"></exception>
     public static Vector<T> SignFast<T>(in Vector<T> x)
         where T : unmanaged
-    {
-        var sign = Vector.BitwiseAnd(x, Sign_<T>.SignBit);
-        return Vector.BitwiseOr(Sign_<T>._1, sign);
-    }
+        => Vector.ConditionalSelect(
+            IsNegative(x),
+            Sign_<T>._m1,
+            Sign_<T>._1);
+
+    /// <summary>
+    /// For signed <typeparamref name="T"/>, determines the specified value is negative or not.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<T> IsNegative<T>(in Vector<T> x)
+        where T : unmanaged
+        => Vector.OnesComplement(Vector.Equals(x, Sign_<T>._0));
 
     private class Sign_<T> : Const<T> where T : unmanaged
     {

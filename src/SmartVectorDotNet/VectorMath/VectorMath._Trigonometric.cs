@@ -276,10 +276,10 @@ partial class VectorMath
             shouldReverse,
             Const<T>.PI - xx,
             xx);
-        var modifiesByAdditionTheorem = Vector.GreaterThan(xx, Const<T>.PI_1p4);
+        var modifiesByAdditionTheorem = Vector.GreaterThan(xx, Tan_<T>.PI_1p4);
         xx = Vector.ConditionalSelect(
             modifiesByAdditionTheorem,
-            xx - Const<T>.PI_1p4,
+            xx - Tan_<T>.PI_1p4,
             xx);
         var tanxx = TanBounded(xx);
         return sign * Vector.ConditionalSelect(
@@ -292,7 +292,10 @@ partial class VectorMath
         where T : unmanaged
         => SinBounded(x) / CosBounded(x);
 
-    private class Tan_<T> : Const<T> where T : unmanaged { }
+    private class Tan_<T> : Const<T> where T : unmanaged
+    {
+        internal static readonly Vector<T> PI_1p4 = AsVector(0.25) * PI;
+    }
 
     #endregion
 
