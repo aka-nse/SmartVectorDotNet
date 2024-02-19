@@ -35,13 +35,20 @@ public static partial class VectorMath
         private protected static bool IsT<TEntity>()
             => typeof(T) == typeof(TEntity);
 
+#pragma warning disable format
         private protected static Vector<T> AsVector(double x)
-            => IsT<double>()
-                ? As(new Vector<double>(x))
-            : IsT<float>()
-                ? As(new Vector<float>((float)x))
-#error support other types
+            => IsT<double>() ? As(new Vector<double>(x))
+             : IsT<float >() ? As(new Vector<float >((float )x))
+             : IsT<byte  >() ? As(new Vector<byte  >((byte  )x))
+             : IsT<ushort>() ? As(new Vector<ushort>((ushort)x))
+             : IsT<uint  >() ? As(new Vector<uint  >((uint  )x))
+             : IsT<ulong >() ? As(new Vector<ulong >((ulong )x))
+             : IsT<sbyte >() ? As(new Vector<sbyte >((sbyte )x))
+             : IsT<short >() ? As(new Vector<short >((short )x))
+             : IsT<int   >() ? As(new Vector<int   >((int   )x))
+             : IsT<long  >() ? As(new Vector<long  >((long  )x))
             : default;
+#pragma warning restore format
 
         private protected static Vector<T> As<TFrom>(in Vector<TFrom> x)
             where TFrom : unmanaged

@@ -10,7 +10,7 @@ using Xunit.Abstractions;
 
 namespace SmartVectorDotNet;
 
-public class VectorMathTest
+public partial class VectorMathTest
 {
     private ITestOutputHelper Output { get; }
 

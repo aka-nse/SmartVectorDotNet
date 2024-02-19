@@ -16,8 +16,9 @@ partial class VectorMath
         internal static readonly Vector<long> ExpPartMask = new(unchecked((long)SC.DoubleExpPartMask));
         internal static readonly Vector<long> FracPartMask = new(unchecked((long)SC.DoubleFracPartMask));
         internal static readonly Vector<long> ExpPartBias = new(unchecked((long)SC.DoubleExpPartBias));
+        internal static readonly Vector<long> NRange = new((long)(SC.DoubleExpPartMask >> SC.DoubleExpBitOffset));
         internal static readonly Vector<long> NMin = new(-(long)SC.DoubleExpPartBias);
-        internal static readonly Vector<long> NMax = new(unchecked((long)((SC.DoubleExpPartMask >> SC.DoubleExpBitOffset) - SC.DoubleExpPartBias)));
+        internal static readonly Vector<long> NMax = NRange + NMin;
 
         internal static readonly Vector<double> FracPartOffsetDenom = new (SC.DoubleFracPartOffsetDenom);
     }
@@ -29,8 +30,9 @@ partial class VectorMath
         internal static readonly Vector<int> ExpPartMask = new(unchecked((int)SC.SingleExpPartMask));
         internal static readonly Vector<int> FracPartMask = new(unchecked((int)SC.SingleFracPartMask));
         internal static readonly Vector<int> ExpPartBias = new(unchecked((int)SC.SingleExpPartBias));
+        internal static readonly Vector<int> NRange = new((int)(SC.SingleExpPartMask >> SC.SingleExpBitOffset));
         internal static readonly Vector<int> NMin = new(-(int)SC.SingleExpPartBias);
-        internal static readonly Vector<int> NMax = new(unchecked((int)((SC.SingleExpPartMask >> SC.SingleExpBitOffset) - SC.SingleExpPartBias)));
+        internal static readonly Vector<int> NMax = NRange + NMin;
 
         internal static readonly Vector<float> FracPartOffsetDenom = new (SC.SingleFracPartOffsetDenom);
     }
@@ -66,40 +68,46 @@ partial class VectorMath
         throw new NotSupportedException();
     }
 
-    internal static void Decompose(in Vector<double> x, out Vector<long> n, out Vector<double> a)
+    internal static void Decompose(in Vector<double> x, out Vector<long> sign, out Vector<long> exp, out Vector<long> frac)
     {
         var bin = Reinterpret<double, long>(x);
         var s = OP.ShiftRightLogical(
             OP.BitwiseAnd(bin, IEEE754Double_.SignPartMask),
             SC.DoubleSignBitOffset);
-        var e = OP.ShiftRightLogical(
+        sign = OP.OnesComplement(OP.Equals(s, IEEE754Double_.IntZero));;
+        exp = OP.ShiftRightLogical(
             OP.BitwiseAnd(bin, IEEE754Double_.ExpPartMask),
             SC.DoubleExpBitOffset);
-        var m = OP.BitwiseAnd(bin, IEEE754Double_.FracPartMask);
-        var sign = OP.ConditionalSelect(
-            OP.Equals(s, IEEE754Double_.IntZero),
-            IEEE754Double_._1,
-            IEEE754Double_._m1);
-        n = e - IEEE754Double_.ExpPartBias;
-        a = sign * (IEEE754Double_._1 + OP.ConvertToDouble(m) * IEEE754Double_.FracPartOffsetDenom);
+        frac = OP.BitwiseAnd(bin, IEEE754Double_.FracPartMask);
     }
 
-    internal static void Decompose(in Vector<float> x, out Vector<int> n, out Vector<float> a)
+    internal static void Decompose(in Vector<double> x, out Vector<long> n, out Vector<double> a)
+    {
+        Decompose(x, out var sign, out var exp, out var frac);
+        n = exp - IEEE754Double_.ExpPartBias;
+        a = Vector.ConditionalSelect(sign, IEEE754Double_._m1, IEEE754Double_._1)
+            * (IEEE754Double_._1 + OP.ConvertToDouble(frac) * IEEE754Double_.FracPartOffsetDenom);
+    }
+
+    internal static void Decompose(in Vector<float> x, out Vector<int> sign, out Vector<int> exp, out Vector<int> frac)
     {
         var bin = Reinterpret<float, int>(x);
         var s = OP.ShiftRightLogical(
             OP.BitwiseAnd(bin, IEEE754Single_.SignPartMask),
             SC.SingleExpBitOffset);
-        var e = OP.ShiftRightLogical(
+        sign = OP.OnesComplement(OP.Equals(s, IEEE754Single_.IntZero));
+        exp = OP.ShiftRightLogical(
             OP.BitwiseAnd(bin, IEEE754Single_.ExpPartMask),
             SC.SingleExpBitOffset);
-        var m = OP.BitwiseAnd(bin, IEEE754Single_.FracPartMask);
-        var sign = OP.ConditionalSelect(
-            OP.Equals(s, IEEE754Single_.IntZero),
-            IEEE754Single_._1,
-            IEEE754Single_._m1);
-        n = e - IEEE754Single_.ExpPartBias;
-        a = sign * (IEEE754Single_._1 + OP.ConvertToSingle(m) * IEEE754Single_.FracPartOffsetDenom);
+        frac = OP.BitwiseAnd(bin, IEEE754Single_.FracPartMask);
+    }
+
+    internal static void Decompose(in Vector<float> x, out Vector<int> n, out Vector<float> a)
+    {
+        Decompose(x, out var sign, out var exp, out var frac);
+        n = exp - IEEE754Single_.ExpPartBias;
+        a = Vector.ConditionalSelect(sign, IEEE754Single_._m1, IEEE754Single_._1)
+            * (IEEE754Single_._1 + OP.ConvertToSingle(frac) * IEEE754Single_.FracPartOffsetDenom);
     }
 
     #endregion
@@ -184,19 +192,19 @@ partial class VectorMath
         if (typeof(T) == typeof(double))
         {
             var xx = Reinterpret<T, double>(x);
-            Decompose(xx, out Vector<long> n, out var a);
+            Decompose(xx, out _, out var exp, out var frac);
             var retval = Vector.BitwiseAnd(
-                Vector.Equals(n, IEEE754Double_.NMin),
-                Vector.OnesComplement(Vector.Equals(a, IEEE754Double_._0)));
+                Vector.Equals(exp, IEEE754Double_.IntZero),
+                Vector.OnesComplement(Vector.Equals(frac, IEEE754Double_.IntZero)));
             return Reinterpret<long, T>(retval);
         }
         if (typeof(T) == typeof(float))
         {
             var xx = Reinterpret<T, float>(x);
-            Decompose(xx, out Vector<int> n, out var a);
+            Decompose(xx, out _, out Vector<int> exp, out var frac);
             var retval = Vector.BitwiseAnd(
-                Vector.Equals(n, IEEE754Single_.NMin),
-                Vector.OnesComplement(Vector.Equals(a, IEEE754Single_._0)));
+                Vector.Equals(exp, IEEE754Single_.IntZero),
+                Vector.OnesComplement(Vector.Equals(frac, IEEE754Single_.IntZero)));
             return Reinterpret<int, T>(retval);
         }
         return default;
@@ -228,25 +236,35 @@ partial class VectorMath
         return default;
     }
 
-    private static Vector<long> IsInfinity(in Vector<double> x)
+    /// <summary>
+    /// Determines <paramref name="x"/> is IEEE754 infinity or not.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<long> IsInfinity(in Vector<double> x)
     {
-        Decompose(x, out Vector<long> n, out var a);
+        Decompose(x, out _, out var exp, out var frac);
         return Vector.BitwiseAnd(
-            Vector.Equals(n, IEEE754Double_.NMax),
-            Vector.Equals(a, IEEE754Double_._0));
+            Vector.Equals(exp, IEEE754Double_.NRange),
+            Vector.Equals(frac, IEEE754Double_.IntZero));
     }
 
-    private static Vector<int> IsInfinity(in Vector<float> x)
+    /// <summary>
+    /// Determines <paramref name="x"/> is IEEE754 infinity or not.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<int> IsInfinity(in Vector<float> x)
     {
-        Decompose(x, out Vector<int> n, out var a);
+        Decompose(x, out _, out Vector<int> exp, out var frac);
         return Vector.BitwiseAnd(
-            Vector.Equals(n, IEEE754Single_.NMax),
-            Vector.Equals(a, IEEE754Single_._0));
+            Vector.Equals(exp, IEEE754Single_.NRange),
+            Vector.Equals(frac, IEEE754Single_.IntZero));
     }
 
     #endregion
 
-    #region IsInfinity
+    #region IsPositiveInfinity
 
     /// <summary>
     /// Determines <paramref name="x"/> is IEEE754 positive infinity or not.
@@ -257,8 +275,165 @@ partial class VectorMath
     public static Vector<T> IsPositiveInfinity<T>(in Vector<T> x)
         where T : unmanaged
     {
-#error not implemented
+        if (typeof(T) == typeof(double))
+        {
+            var xx = Reinterpret<T, double>(x);
+            return Reinterpret<long, T>(IsPositiveInfinity(xx));
+        }
+        if (typeof(T) == typeof(float))
+        {
+            var xx = Reinterpret<T, float>(x);
+            return Reinterpret<int, T>(IsPositiveInfinity(xx));
+        }
         return default;
+    }
+
+    /// <summary>
+    /// Determines <paramref name="x"/> is IEEE754 positive infinity or not.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<long> IsPositiveInfinity(in Vector<double> x)
+    {
+        Decompose(x, out var sign, out Vector<long> n, out var a);
+        return Vector.BitwiseAnd(
+            Vector.BitwiseAnd(
+                Vector.Equals(n, IEEE754Double_.NRange),
+                Vector.Equals(a, IEEE754Double_.IntZero)
+                ),
+            Vector.Equals(sign, IEEE754Double_.IntZero)
+            );
+    }
+
+    /// <summary>
+    /// Determines <paramref name="x"/> is IEEE754 positive infinity or not.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<int> IsPositiveInfinity(in Vector<float> x)
+    {
+        Decompose(x, out var sign, out Vector<int> n, out var a);
+        return Vector.BitwiseAnd(
+            Vector.BitwiseAnd(
+                Vector.Equals(n, IEEE754Single_.NRange),
+                Vector.Equals(a, IEEE754Single_.IntZero)
+                ),
+            Vector.Equals(sign, IEEE754Single_.IntZero)
+            );
+    }
+
+    #endregion
+
+    #region IsNegativeInfinity
+
+    /// <summary>
+    /// Determines <paramref name="x"/> is IEEE754 negative infinity or not.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<T> IsNegativeInfinity<T>(in Vector<T> x)
+        where T : unmanaged
+    {
+        if (typeof(T) == typeof(double))
+        {
+            var xx = Reinterpret<T, double>(x);
+            return Reinterpret<long, T>(IsNegativeInfinity(xx));
+        }
+        if (typeof(T) == typeof(float))
+        {
+            var xx = Reinterpret<T, float>(x);
+            return Reinterpret<int, T>(IsNegativeInfinity(xx));
+        }
+        return default;
+    }
+
+    /// <summary>
+    /// Determines <paramref name="x"/> is IEEE754 negative infinity or not.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<long> IsNegativeInfinity(in Vector<double> x)
+    {
+        Decompose(x, out var sign, out Vector<long> n, out var a);
+        return Vector.BitwiseAnd(
+            Vector.BitwiseAnd(
+                Vector.Equals(n, IEEE754Double_.NRange),
+                Vector.Equals(a, IEEE754Double_.IntZero)
+                ),
+            sign
+            );
+    }
+
+    /// <summary>
+    /// Determines <paramref name="x"/> is IEEE754 negative infinity or not.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<int> IsNegativeInfinity(in Vector<float> x)
+    {
+        Decompose(x, out var sign, out Vector<int> n, out var a);
+        return Vector.BitwiseAnd(
+            Vector.BitwiseAnd(
+                Vector.Equals(n, IEEE754Single_.NRange),
+                Vector.Equals(a, IEEE754Single_.IntZero)
+                ),
+            sign
+            );
+    }
+
+    #endregion
+
+    #region IsNaN
+
+    /// <summary>
+    /// Determines <paramref name="x"/> is IEEE754 NaN or not.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<T> IsNaN<T>(in Vector<T> x)
+        where T : unmanaged
+    {
+        if (typeof(T) == typeof(double))
+        {
+            var xx = Reinterpret<T, double>(x);
+            return Reinterpret<long, T>(IsNaN(xx));
+        }
+        if (typeof(T) == typeof(float))
+        {
+            var xx = Reinterpret<T, float>(x);
+            return Reinterpret<int, T>(IsNaN(xx));
+        }
+        return default;
+    }
+
+    /// <summary>
+    /// Determines <paramref name="x"/> is IEEE754 NaN or not.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<long> IsNaN(in Vector<double> x)
+    {
+        Decompose(x, out _, out Vector<long> n, out var a);
+        return Vector.BitwiseAnd(
+            Vector.Equals(n, IEEE754Double_.NRange),
+            Vector.OnesComplement(Vector.Equals(a, IEEE754Double_.IntZero))
+            );
+    }
+
+    /// <summary>
+    /// Determines <paramref name="x"/> is IEEE754 NaN or not.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<int> IsNaN(in Vector<float> x)
+    {
+        Decompose(x, out _, out Vector<int> n, out var a);
+        return Vector.BitwiseAnd(
+            Vector.Equals(n, IEEE754Single_.NRange),
+            Vector.OnesComplement(Vector.Equals(a, IEEE754Single_.IntZero))
+            );
     }
 
     #endregion
