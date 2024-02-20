@@ -927,6 +927,282 @@ partial class SimdVectorization
 
 
     /// <inheritdoc />
+    protected internal override void TanCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Tan(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Tan(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void CoshCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Cosh(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Cosh(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void SinhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Sinh(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Sinh(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void TanhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Tanh(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Tanh(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void AcosCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Acos(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Acos(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void AsinCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Asin(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Asin(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void AtanCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Atan(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Atan(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void Atan2Core<T>(ReadOnlySpan<T> y, ReadOnlySpan<T> x, Span<T> ans)
+    {
+        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Atan2(vectorY[i], vectorX[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vy = (stackalloc T[Vector<T>.Count]);
+            y.Slice(vectorLength).CopyTo(vy);
+            var vx = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vx);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Atan2(Unsafe.As<T, Vector<T>>(ref vy[0]), Unsafe.As<T, Vector<T>>(ref vx[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void AcoshCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Acosh(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Acosh(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void AsinhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Asinh(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Asinh(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void AtanhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Atanh(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Atanh(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void CbrtCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Cbrt(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Cbrt(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void Log2Core<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Log2(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log2(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
     protected internal override void CeilingCore<T>(ReadOnlySpan<T> d, Span<T> ans)
     {
         var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
@@ -969,6 +1245,51 @@ partial class SimdVectorization
 
 
     /// <inheritdoc />
+    protected internal override void ExpCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Exp(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Exp(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void PowCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Pow(vectorX[i], vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vx);
+            var vy = (stackalloc T[Vector<T>.Count]);
+            y.Slice(vectorLength).CopyTo(vy);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Pow(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vy[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
     protected internal override void LogCore<T>(ReadOnlySpan<T> d, Span<T> ans)
     {
         var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
@@ -984,6 +1305,51 @@ partial class SimdVectorization
             d.Slice(vectorLength).CopyTo(vd);
             var vans = (stackalloc T[Vector<T>.Count]);
             Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void LogCore<T>(ReadOnlySpan<T> d, ReadOnlySpan<T> newBase, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorNewBase = MemoryMarshal.Cast<T, Vector<T>>(newBase);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Log(vectorD[i], vectorNewBase[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vnewBase = (stackalloc T[Vector<T>.Count]);
+            newBase.Slice(vectorLength).CopyTo(vnewBase);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log(Unsafe.As<T, Vector<T>>(ref vd[0]), Unsafe.As<T, Vector<T>>(ref vnewBase[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void Log10Core<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Log10(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log10(Unsafe.As<T, Vector<T>>(ref vd[0]));
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }

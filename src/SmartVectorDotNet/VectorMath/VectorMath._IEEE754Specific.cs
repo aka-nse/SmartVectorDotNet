@@ -12,6 +12,7 @@ partial class VectorMath
     private class IEEE754Double_ : Const<double>
     {
         internal static readonly Vector<long> IntZero = Const<long>._0;
+        internal static readonly Vector<long> IntOne = Const<long>._1;
         internal static readonly Vector<long> SignPartMask = new(unchecked((long)SC.DoubleSignPartMask));
         internal static readonly Vector<long> ExpPartMask = new(unchecked((long)SC.DoubleExpPartMask));
         internal static readonly Vector<long> FracPartMask = new(unchecked((long)SC.DoubleFracPartMask));
@@ -26,6 +27,7 @@ partial class VectorMath
     private class IEEE754Single_ : Const<float>
     {
         internal static readonly Vector<int> IntZero = Const<int>._0;
+        internal static readonly Vector<int> IntOne = Const<int>._1;
         internal static readonly Vector<int> SignPartMask = new(unchecked((int)SC.SingleSignPartMask));
         internal static readonly Vector<int> ExpPartMask = new(unchecked((int)SC.SingleExpPartMask));
         internal static readonly Vector<int> FracPartMask = new(unchecked((int)SC.SingleFracPartMask));
@@ -84,9 +86,16 @@ partial class VectorMath
     internal static void Decompose(in Vector<double> x, out Vector<long> n, out Vector<double> a)
     {
         Decompose(x, out var sign, out var exp, out var frac);
-        n = exp - IEEE754Double_.ExpPartBias;
-        a = Vector.ConditionalSelect(sign, IEEE754Double_._m1, IEEE754Double_._1)
-            * (IEEE754Double_._1 + OP.ConvertToDouble(frac) * IEEE754Double_.FracPartOffsetDenom);
+        var xsign = OP.ConditionalSelect(
+            sign,
+            IEEE754Double_._m1,
+            IEEE754Double_._1);
+        var economized = OP.ConditionalSelect(
+            OP.Equals(exp, IEEE754Double_.IntZero),
+            IEEE754Double_._0,
+            IEEE754Double_._1);
+        n = OP.Max(exp, IEEE754Double_.IntOne) - IEEE754Double_.ExpPartBias;
+        a = xsign * (economized + OP.ConvertToDouble(frac) * IEEE754Double_.FracPartOffsetDenom);
     }
 
     internal static void Decompose(in Vector<float> x, out Vector<int> sign, out Vector<int> exp, out Vector<int> frac)
@@ -105,9 +114,16 @@ partial class VectorMath
     internal static void Decompose(in Vector<float> x, out Vector<int> n, out Vector<float> a)
     {
         Decompose(x, out var sign, out var exp, out var frac);
-        n = exp - IEEE754Single_.ExpPartBias;
-        a = Vector.ConditionalSelect(sign, IEEE754Single_._m1, IEEE754Single_._1)
-            * (IEEE754Single_._1 + OP.ConvertToSingle(frac) * IEEE754Single_.FracPartOffsetDenom);
+        var xsign = OP.ConditionalSelect(
+            sign,
+            IEEE754Single_._m1,
+            IEEE754Single_._1);
+        var economized = Vector.ConditionalSelect(
+            OP.Equals(exp, IEEE754Single_.IntZero),
+            IEEE754Single_._0,
+            IEEE754Single_._1);
+        n = OP.Max(exp, IEEE754Single_.IntOne) - IEEE754Single_.ExpPartBias;
+        a = xsign * (economized + OP.ConvertToSingle(frac) * IEEE754Single_.FracPartOffsetDenom);
     }
 
     #endregion
@@ -158,19 +174,19 @@ partial class VectorMath
         if(typeof(T) == typeof(double))
         {
             var xx = Reinterpret<T, double>(x);
-            Decompose(xx, out Vector<long> n, out _);
+            Decompose(xx, out _, out var exp, out _);
             var retval = Vector.BitwiseAnd(
-                Vector.GreaterThan(n, IEEE754Double_.NMin),
-                Vector.LessThan(n, IEEE754Double_.NMax));
+                Vector.GreaterThan(exp, IEEE754Double_.IntZero),
+                Vector.LessThan(exp, IEEE754Double_.NRange));
             return Reinterpret<long, T>(retval);
         }
         if (typeof(T) == typeof(float))
         {
             var xx = Reinterpret<T, float>(x);
-            Decompose(xx, out Vector<int> n, out _);
+            Decompose(xx, out _, out var exp, out _);
             var retval = Vector.BitwiseAnd(
-                Vector.GreaterThan(n, IEEE754Single_.NMin),
-                Vector.LessThan(n, IEEE754Single_.NMax));
+                Vector.GreaterThan(exp, IEEE754Single_.IntZero),
+                Vector.LessThan(exp, IEEE754Single_.NRange));
             return Reinterpret<int, T>(retval);
         }
         return default;

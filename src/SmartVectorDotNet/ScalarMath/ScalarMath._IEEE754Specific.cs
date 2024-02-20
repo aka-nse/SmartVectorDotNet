@@ -90,8 +90,8 @@ partial class ScalarMath
         var sign = signBit == 0 ? 1.0 : -1.0;
         var e = (bin & DoubleExpPartMask) >> DoubleExpBitOffset;
         var m = bin & DoubleFracPartMask;
-        n = (long)(e - DoubleExpPartBias);
-        a = sign * (1.0 + m * DoubleFracPartOffsetDenom);
+        n = (long)Max(e, 1uL) - (long)DoubleExpPartBias;
+        a = sign * ((e > 0 ? 1.0 : 0.0) + m * DoubleFracPartOffsetDenom);
     }
 
 
@@ -102,8 +102,8 @@ partial class ScalarMath
         var sign = signBit == 0 ? 1.0f : -1.0f;
         var e = (bin & SingleExpPartMask) >> SingleExpBitOffset;
         var m = bin & SingleFracPartMask;
-        n = (int)(e - SingleExpPartBias);
-        a = sign * (1.0f + m * SingleFracPartOffsetDenom);
+        n = (int)Max(e, 1u) - (int)SingleExpPartBias;
+        a = sign * ((e > 0 ? 1.0f : 0.0f) + m * SingleFracPartOffsetDenom);
     }
 
 

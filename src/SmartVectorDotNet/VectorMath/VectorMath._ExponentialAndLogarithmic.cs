@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using OP = SmartVectorDotNet.VectorOp;
 
 namespace SmartVectorDotNet;
 
@@ -36,14 +37,14 @@ partial class VectorMath
     public static Vector<T> Exp<T>(in Vector<T> x)
         where T : unmanaged
     {
-        var isSaturatedMax = VectorOp.GreaterThan(x, Exp_<T>.Max);
-        var isSaturatedMin = VectorOp.LessThan(x, Exp_<T>.Min);
-        var isNormal = VectorOp.OnesComplement(VectorOp.BitwiseOr(isSaturatedMax, isSaturatedMin));
+        var isSaturatedMax = OP.GreaterThan(x, Exp_<T>.Max);
+        var isSaturatedMin = OP.LessThan(x, Exp_<T>.Min);
+        var isNormal = OP.OnesComplement(OP.BitwiseOr(isSaturatedMax, isSaturatedMin));
 
-        return VectorOp.ConditionalSelect(
+        return OP.ConditionalSelect(
             isNormal,
             ExpCore(x),
-            VectorOp.ConditionalSelect(
+            OP.ConditionalSelect(
                 isSaturatedMin,
                 Exp_<T>.NInf,
                 Exp_<T>.PInf)
@@ -136,24 +137,34 @@ partial class VectorMath
 
     private static Vector<double> Log(in Vector<double> x)
     {
-        var isPositive = VectorOp.GreaterThan(x, Log_<double>._0);
+        var isPositive = OP.GreaterThan(x, Log_<double>._0);
+        var isZero = OP.Equals(x, Log_<double>._0);
         Decompose<double>(x, out var n, out var a);
-        var y = n * Log_<double>.Log_E_2 + LogBounded(a);
-        return VectorOp.ConditionalSelect(
+        Decompose<double>(a, out var m, out a);
+        var y = (n + m) * Log_<double>.Log_E_2 + LogBounded(a);
+        return OP.ConditionalSelect(
             isPositive,
             y,
-            Log_<double>.NaN);
+            OP.ConditionalSelect(
+                isZero,
+                IEEE754Double_.NInf,
+                Log_<double>.NaN));
     }
 
     private static Vector<float> Log(in Vector<float> x)
     {
-        var isPositive = VectorOp.GreaterThan(x, Log_<float>._0);
+        var isPositive = OP.GreaterThan(x, Log_<float>._0);
+        var isZero = OP.Equals(x, Log_<float>._0);
         Decompose<float>(x, out var n, out var a);
-        var y = n * Log_<float>.Log_E_2 + LogBounded(a);
-        return VectorOp.ConditionalSelect(
+        Decompose<float>(a, out var m, out a);
+        var y = (n + m) * Log_<float>.Log_E_2 + LogBounded(a);
+        return OP.ConditionalSelect(
             isPositive,
             y,
-            Log_<float>.NaN);
+            OP.ConditionalSelect(
+                isZero,
+                IEEE754Single_.NInf,
+                Log_<float>.NaN));
     }
 
     /// <summary> Calculates <c>log(x)</c>. </summary>

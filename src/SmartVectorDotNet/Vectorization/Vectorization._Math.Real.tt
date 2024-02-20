@@ -8,7 +8,6 @@
 <#@ output extension=".g.cs" #>
 <#
 var vectorMathMatcher = new Regex(
-    @"\[VectorMath(?:Attribute)?\]\s*" +
     @"public\s+static\s+(?:partial\s+)?Vector\s*<\s*T\s*>\s+(?<method>\w+)\s*<\s*T\s*>\s*\((?<args>.+)\)\s*" +
     @"where\s+T\s*:\s*unmanaged");
 var realOps = new RealOpDef[]{
