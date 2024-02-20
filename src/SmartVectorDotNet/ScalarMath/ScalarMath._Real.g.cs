@@ -510,7 +510,11 @@ partial class ScalarMath
         if(typeof(T) == typeof(double))
         {
             var d_ = Reinterpret<T, double>(d);
+#if NETSTANDARD2_0
+            return Reinterpret<double, T>(MathEx.Acosh(d_));
+#else
             return Reinterpret<double, T>(Math.Acosh(d_));
+#endif
         }
         if(typeof(T) == typeof(float))
         {
@@ -534,7 +538,11 @@ partial class ScalarMath
         if(typeof(T) == typeof(double))
         {
             var d_ = Reinterpret<T, double>(d);
+#if NETSTANDARD2_0
+            return Reinterpret<double, T>(MathEx.Asinh(d_));
+#else
             return Reinterpret<double, T>(Math.Asinh(d_));
+#endif
         }
         if(typeof(T) == typeof(float))
         {
@@ -558,7 +566,11 @@ partial class ScalarMath
         if(typeof(T) == typeof(double))
         {
             var d_ = Reinterpret<T, double>(d);
+#if NETSTANDARD2_0
+            return Reinterpret<double, T>(MathEx.Atanh(d_));
+#else
             return Reinterpret<double, T>(Math.Atanh(d_));
+#endif
         }
         if(typeof(T) == typeof(float))
         {
@@ -582,7 +594,11 @@ partial class ScalarMath
         if(typeof(T) == typeof(double))
         {
             var d_ = Reinterpret<T, double>(d);
+#if NETSTANDARD2_0
+            return Reinterpret<double, T>(MathEx.Cbrt(d_));
+#else
             return Reinterpret<double, T>(Math.Cbrt(d_));
+#endif
         }
         if(typeof(T) == typeof(float))
         {
@@ -604,7 +620,7 @@ partial class ScalarMath
     public static T Log2<T>(T d)
         where T : unmanaged
     {
-        #if NET6_0_OR_GREATER
+#if NET6_0_OR_GREATER
         if(typeof(T) == typeof(double))
         {
             var d_ = Reinterpret<T, double>(d);
@@ -615,7 +631,7 @@ partial class ScalarMath
             var d_ = Reinterpret<T, float>(d);
             return Reinterpret<float, T>(MathF.Log2(d_));
         }
-        #endif
+#endif
         return Log(d, ScalarOp.Convert<double, T>(2));
     }
 

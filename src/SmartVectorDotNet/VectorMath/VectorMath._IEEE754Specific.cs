@@ -6,6 +6,7 @@ using System.Text;
 namespace SmartVectorDotNet;
 using OP = VectorOp;
 using SC = ScalarMath.Const;
+using H = InternalHelpers;
 
 partial class VectorMath
 {
@@ -55,16 +56,16 @@ partial class VectorMath
     {
         if (typeof(T) == typeof(double))
         {
-            Decompose(Reinterpret<T, double>(x), out Vector<long> nn, out Vector<double> aa);
-            n = Reinterpret<double, T>(Vector.ConvertToDouble(nn));
-            a = Reinterpret<double, T>(aa);
+            Decompose(H.Reinterpret<T, double>(x), out Vector<long> nn, out Vector<double> aa);
+            n = H.Reinterpret<double, T>(Vector.ConvertToDouble(nn));
+            a = H.Reinterpret<double, T>(aa);
             return;
         }
         if (typeof(T) == typeof(float))
         {
-            Decompose(Reinterpret<T, float>(x), out Vector<int> nn, out Vector<float> aa);
-            n = Reinterpret<float, T>(Vector.ConvertToSingle(nn));
-            a = Reinterpret<float, T>(aa);
+            Decompose(H.Reinterpret<T, float>(x), out Vector<int> nn, out Vector<float> aa);
+            n = H.Reinterpret<float, T>(Vector.ConvertToSingle(nn));
+            a = H.Reinterpret<float, T>(aa);
             return;
         }
         throw new NotSupportedException();
@@ -72,7 +73,7 @@ partial class VectorMath
 
     internal static void Decompose(in Vector<double> x, out Vector<long> sign, out Vector<long> exp, out Vector<long> frac)
     {
-        var bin = Reinterpret<double, long>(x);
+        var bin = H.Reinterpret<double, long>(x);
         var s = OP.ShiftRightLogical(
             OP.BitwiseAnd(bin, IEEE754Double_.SignPartMask),
             SC.DoubleSignBitOffset);
@@ -100,7 +101,7 @@ partial class VectorMath
 
     internal static void Decompose(in Vector<float> x, out Vector<int> sign, out Vector<int> exp, out Vector<int> frac)
     {
-        var bin = Reinterpret<float, int>(x);
+        var bin = H.Reinterpret<float, int>(x);
         var s = OP.ShiftRightLogical(
             OP.BitwiseAnd(bin, IEEE754Single_.SignPartMask),
             SC.SingleExpBitOffset);
@@ -173,55 +174,55 @@ partial class VectorMath
     {
         if(typeof(T) == typeof(double))
         {
-            var xx = Reinterpret<T, double>(x);
+            var xx = H.Reinterpret<T, double>(x);
             Decompose(xx, out _, out var exp, out _);
             var retval = Vector.BitwiseAnd(
                 Vector.GreaterThan(exp, IEEE754Double_.IntZero),
                 Vector.LessThan(exp, IEEE754Double_.NRange));
-            return Reinterpret<long, T>(retval);
+            return H.Reinterpret<long, T>(retval);
         }
         if (typeof(T) == typeof(float))
         {
-            var xx = Reinterpret<T, float>(x);
+            var xx = H.Reinterpret<T, float>(x);
             Decompose(xx, out _, out var exp, out _);
             var retval = Vector.BitwiseAnd(
                 Vector.GreaterThan(exp, IEEE754Single_.IntZero),
                 Vector.LessThan(exp, IEEE754Single_.NRange));
-            return Reinterpret<int, T>(retval);
+            return H.Reinterpret<int, T>(retval);
         }
         return default;
     }
 
     #endregion
 
-    #region IsDenormalized
+    #region IsSubnormalized
 
     /// <summary>
-    /// Determines <paramref name="x"/> is IEEE754 denormalized number or not.
+    /// Determines <paramref name="x"/> is IEEE754 subnormalized number or not.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> IsDenormalized<T>(in Vector<T> x)
+    public static Vector<T> IsSubnormalized<T>(in Vector<T> x)
         where T : unmanaged
     {
         if (typeof(T) == typeof(double))
         {
-            var xx = Reinterpret<T, double>(x);
+            var xx = H.Reinterpret<T, double>(x);
             Decompose(xx, out _, out var exp, out var frac);
             var retval = Vector.BitwiseAnd(
                 Vector.Equals(exp, IEEE754Double_.IntZero),
                 Vector.OnesComplement(Vector.Equals(frac, IEEE754Double_.IntZero)));
-            return Reinterpret<long, T>(retval);
+            return H.Reinterpret<long, T>(retval);
         }
         if (typeof(T) == typeof(float))
         {
-            var xx = Reinterpret<T, float>(x);
+            var xx = H.Reinterpret<T, float>(x);
             Decompose(xx, out _, out Vector<int> exp, out var frac);
             var retval = Vector.BitwiseAnd(
                 Vector.Equals(exp, IEEE754Single_.IntZero),
                 Vector.OnesComplement(Vector.Equals(frac, IEEE754Single_.IntZero)));
-            return Reinterpret<int, T>(retval);
+            return H.Reinterpret<int, T>(retval);
         }
         return default;
     }
@@ -241,13 +242,13 @@ partial class VectorMath
     {
         if (typeof(T) == typeof(double))
         {
-            var xx = Reinterpret<T, double>(x);
-            return Reinterpret<long, T>(IsInfinity(xx));
+            var xx = H.Reinterpret<T, double>(x);
+            return H.Reinterpret<long, T>(IsInfinity(xx));
         }
         if (typeof(T) == typeof(float))
         {
-            var xx = Reinterpret<T, float>(x);
-            return Reinterpret<int, T>(IsInfinity(xx));
+            var xx = H.Reinterpret<T, float>(x);
+            return H.Reinterpret<int, T>(IsInfinity(xx));
         }
         return default;
     }
@@ -293,13 +294,13 @@ partial class VectorMath
     {
         if (typeof(T) == typeof(double))
         {
-            var xx = Reinterpret<T, double>(x);
-            return Reinterpret<long, T>(IsPositiveInfinity(xx));
+            var xx = H.Reinterpret<T, double>(x);
+            return H.Reinterpret<long, T>(IsPositiveInfinity(xx));
         }
         if (typeof(T) == typeof(float))
         {
-            var xx = Reinterpret<T, float>(x);
-            return Reinterpret<int, T>(IsPositiveInfinity(xx));
+            var xx = H.Reinterpret<T, float>(x);
+            return H.Reinterpret<int, T>(IsPositiveInfinity(xx));
         }
         return default;
     }
@@ -353,13 +354,13 @@ partial class VectorMath
     {
         if (typeof(T) == typeof(double))
         {
-            var xx = Reinterpret<T, double>(x);
-            return Reinterpret<long, T>(IsNegativeInfinity(xx));
+            var xx = H.Reinterpret<T, double>(x);
+            return H.Reinterpret<long, T>(IsNegativeInfinity(xx));
         }
         if (typeof(T) == typeof(float))
         {
-            var xx = Reinterpret<T, float>(x);
-            return Reinterpret<int, T>(IsNegativeInfinity(xx));
+            var xx = H.Reinterpret<T, float>(x);
+            return H.Reinterpret<int, T>(IsNegativeInfinity(xx));
         }
         return default;
     }
@@ -413,13 +414,13 @@ partial class VectorMath
     {
         if (typeof(T) == typeof(double))
         {
-            var xx = Reinterpret<T, double>(x);
-            return Reinterpret<long, T>(IsNaN(xx));
+            var xx = H.Reinterpret<T, double>(x);
+            return H.Reinterpret<long, T>(IsNaN(xx));
         }
         if (typeof(T) == typeof(float))
         {
-            var xx = Reinterpret<T, float>(x);
-            return Reinterpret<int, T>(IsNaN(xx));
+            var xx = H.Reinterpret<T, float>(x);
+            return H.Reinterpret<int, T>(IsNaN(xx));
         }
         return default;
     }

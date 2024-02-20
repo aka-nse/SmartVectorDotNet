@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 #pragma warning disable format
 partial class VectorMath
@@ -146,7 +147,7 @@ partial class VectorMath
                 {
                     cosCoeffs[n  - 1] = new Vector<double>(1.0 / ((2 * n - 1) * (2 * n)));
                 }
-                return Reinterpret<Vector<double>[], Vector<T>[]>(cosCoeffs);
+                return H.Reinterpret<Vector<double>[], Vector<T>[]>(cosCoeffs);
             }
             if(IsT<float>())
             {
@@ -155,7 +156,7 @@ partial class VectorMath
                 {
                     cosCoeffs[n - 1] = new Vector<float>(1.0f / ((2 * n - 1) * (2 * n)));
                 }
-                return Reinterpret<Vector<float>[], Vector<T>[]>(cosCoeffs);
+                return H.Reinterpret<Vector<float>[], Vector<T>[]>(cosCoeffs);
             }
             return default!;
         }
@@ -238,7 +239,7 @@ partial class VectorMath
                 {
                     cosCoeffs[n - 1] = new Vector<double>(1.0 / ((2 * n + 1) * (2 * n)));
                 }
-                return Reinterpret<Vector<double>[], Vector<T>[]>(cosCoeffs);
+                return H.Reinterpret<Vector<double>[], Vector<T>[]>(cosCoeffs);
             }
             if (IsT<float>())
             {
@@ -247,7 +248,7 @@ partial class VectorMath
                 {
                     cosCoeffs[n - 1] = new Vector<float>(1.0f / ((2 * n + 1) * (2 * n)));
                 }
-                return Reinterpret<Vector<float>[], Vector<T>[]>(cosCoeffs);
+                return H.Reinterpret<Vector<float>[], Vector<T>[]>(cosCoeffs);
             }
             return default!;
         }
@@ -411,7 +412,7 @@ partial class VectorMath
                 {
                     atanCoeffs[n - 1] = new(ScalarMath.Pow(-1.0, n) / (2 * n + 1));
                 }
-                return Reinterpret<Vector<double>[], Vector<T>[]>(atanCoeffs);
+                return H.Reinterpret<Vector<double>[], Vector<T>[]>(atanCoeffs);
             }
             if (IsT<float>())
             {
@@ -420,7 +421,7 @@ partial class VectorMath
                 {
                     atanCoeffs[n - 1] = new(ScalarMath.Pow(-1f, n) / (2 * n + 1));
                 }
-                return Reinterpret<Vector<float>[], Vector<T>[]>(atanCoeffs);
+                return H.Reinterpret<Vector<float>[], Vector<T>[]>(atanCoeffs);
             }
             return default!;
         }

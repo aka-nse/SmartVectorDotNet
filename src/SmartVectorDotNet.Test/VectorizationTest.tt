@@ -1,0 +1,30 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(ProjectDir)/../SmartVectorDotNet/bin/Debug/netstandard2.0/SmartVectorDotNet.dll" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="SmartVectorDotNet" #>
+<#@ output extension=".g.cs" #>
+<#
+var methods = typeof(Vectorization)
+    .GetMethods(BindingFlags.Public | BindingFlags.Instance)
+    .Where(m => m.DeclaringType == typeof(Vectorization));
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace SmartVectorDotNet;
+
+
+public partial class VectorizationTest
+{
+<#  foreach(var method in methods) { #>
+    // <#=method.ToString()#>
+<#  } #>
+}

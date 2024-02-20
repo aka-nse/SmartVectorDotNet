@@ -6,6 +6,7 @@ using System.Text;
 using OP = SmartVectorDotNet.VectorOp;
 
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 partial class VectorMath
 {
@@ -111,7 +112,7 @@ partial class VectorMath
                 {
                     expCoeffs[i - 1] = new Vector<double>(1 / (double)i);
                 }
-                return Reinterpret<Vector<double>[], Vector<T>[]>(expCoeffs);
+                return H.Reinterpret<Vector<double>[], Vector<T>[]>(expCoeffs);
             }
             if (IsT<float>())
             {
@@ -120,7 +121,7 @@ partial class VectorMath
                 {
                     expCoeffs[i - 1] = new Vector<float>(1 / (float)i);
                 }
-                return Reinterpret<Vector<float>[], Vector<T>[]>(expCoeffs);
+                return H.Reinterpret<Vector<float>[], Vector<T>[]>(expCoeffs);
             }
             return default!;
         }
@@ -240,7 +241,7 @@ partial class VectorMath
                 {
                     logCoeffs[i] = new(ScalarMath.Pow(-1.0, i) / (i + 1.0));
                 }
-                return Reinterpret<Vector<double>[], Vector<T>[]>(logCoeffs);
+                return H.Reinterpret<Vector<double>[], Vector<T>[]>(logCoeffs);
             }
             if (IsT<float>())
             {
@@ -249,7 +250,7 @@ partial class VectorMath
                 {
                     logCoeffs[i] = new(ScalarMath.Pow(-1.0f, i) / (i + 1.0f));
                 }
-                return Reinterpret<Vector<float>[], Vector<T>[]>(logCoeffs);
+                return H.Reinterpret<Vector<float>[], Vector<T>[]>(logCoeffs);
             }
             return default!;
         }

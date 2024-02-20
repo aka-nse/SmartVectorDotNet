@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 // VectorMath.cs
 partial class VectorMath
@@ -14,13 +15,13 @@ partial class VectorMath
     {
         if(typeof(T) == typeof(double))
         {
-            ref readonly var d_ = ref Reinterpret<T, double>(d);
-            return Reinterpret<double, T>(Ceiling(d_));
+            ref readonly var d_ = ref H.Reinterpret<T, double>(d);
+            return H.Reinterpret<double, T>(Ceiling(d_));
         }
         if(typeof(T) == typeof(float))
         {
-            ref readonly var d_ = ref Reinterpret<T, float>(d);
-            return Reinterpret<float, T>(Ceiling(d_));
+            ref readonly var d_ = ref H.Reinterpret<T, float>(d);
+            return H.Reinterpret<float, T>(Ceiling(d_));
         }
         throw new NotSupportedException();
     }
@@ -30,13 +31,13 @@ partial class VectorMath
     {
         if(typeof(T) == typeof(double))
         {
-            ref readonly var d_ = ref Reinterpret<T, double>(d);
-            return Reinterpret<double, T>(Floor(d_));
+            ref readonly var d_ = ref H.Reinterpret<T, double>(d);
+            return H.Reinterpret<double, T>(Floor(d_));
         }
         if(typeof(T) == typeof(float))
         {
-            ref readonly var d_ = ref Reinterpret<T, float>(d);
-            return Reinterpret<float, T>(Floor(d_));
+            ref readonly var d_ = ref H.Reinterpret<T, float>(d);
+            return H.Reinterpret<float, T>(Floor(d_));
         }
         throw new NotSupportedException();
     }
@@ -46,13 +47,13 @@ partial class VectorMath
     {
         if(typeof(T) == typeof(double))
         {
-            ref readonly var x_ = ref Reinterpret<T, double>(x);
-            return Reinterpret<double, T>(Round(x_));
+            ref readonly var x_ = ref H.Reinterpret<T, double>(x);
+            return H.Reinterpret<double, T>(Round(x_));
         }
         if(typeof(T) == typeof(float))
         {
-            ref readonly var x_ = ref Reinterpret<T, float>(x);
-            return Reinterpret<float, T>(Round(x_));
+            ref readonly var x_ = ref H.Reinterpret<T, float>(x);
+            return H.Reinterpret<float, T>(Round(x_));
         }
         throw new NotSupportedException();
     }
@@ -62,13 +63,13 @@ partial class VectorMath
     {
         if(typeof(T) == typeof(double))
         {
-            ref readonly var d_ = ref Reinterpret<T, double>(d);
-            return Reinterpret<double, T>(Truncate(d_));
+            ref readonly var d_ = ref H.Reinterpret<T, double>(d);
+            return H.Reinterpret<double, T>(Truncate(d_));
         }
         if(typeof(T) == typeof(float))
         {
-            ref readonly var d_ = ref Reinterpret<T, float>(d);
-            return Reinterpret<float, T>(Truncate(d_));
+            ref readonly var d_ = ref H.Reinterpret<T, float>(d);
+            return H.Reinterpret<float, T>(Truncate(d_));
         }
         throw new NotSupportedException();
     }
@@ -88,13 +89,13 @@ partial class VectorMath
     {
         if(typeof(T) == typeof(double))
         {
-            ref readonly var d_ = ref Reinterpret<T, double>(d);
-            return Reinterpret<double, T>(ExpCore(d_));
+            ref readonly var d_ = ref H.Reinterpret<T, double>(d);
+            return H.Reinterpret<double, T>(ExpCore(d_));
         }
         if(typeof(T) == typeof(float))
         {
-            ref readonly var d_ = ref Reinterpret<T, float>(d);
-            return Reinterpret<float, T>(ExpCore(d_));
+            ref readonly var d_ = ref H.Reinterpret<T, float>(d);
+            return H.Reinterpret<float, T>(ExpCore(d_));
         }
         throw new NotSupportedException();
     }
@@ -104,13 +105,13 @@ partial class VectorMath
     {
         if(typeof(T) == typeof(double))
         {
-            ref readonly var x_ = ref Reinterpret<T, double>(x);
-            return Reinterpret<double, T>(Log(x_));
+            ref readonly var x_ = ref H.Reinterpret<T, double>(x);
+            return H.Reinterpret<double, T>(Log(x_));
         }
         if(typeof(T) == typeof(float))
         {
-            ref readonly var x_ = ref Reinterpret<T, float>(x);
-            return Reinterpret<float, T>(Log(x_));
+            ref readonly var x_ = ref H.Reinterpret<T, float>(x);
+            return H.Reinterpret<float, T>(Log(x_));
         }
         throw new NotSupportedException();
     }
@@ -130,15 +131,15 @@ partial class VectorMath
     {
         if(typeof(T) == typeof(double))
         {
-            ref readonly var n_ = ref Reinterpret<T, double>(n);
-            ref readonly var x_ = ref Reinterpret<T, double>(x);
-            return Reinterpret<double, T>(Scale(n_, x_));
+            ref readonly var n_ = ref H.Reinterpret<T, double>(n);
+            ref readonly var x_ = ref H.Reinterpret<T, double>(x);
+            return H.Reinterpret<double, T>(Scale(n_, x_));
         }
         if(typeof(T) == typeof(float))
         {
-            ref readonly var n_ = ref Reinterpret<T, float>(n);
-            ref readonly var x_ = ref Reinterpret<T, float>(x);
-            return Reinterpret<float, T>(Scale(n_, x_));
+            ref readonly var n_ = ref H.Reinterpret<T, float>(n);
+            ref readonly var x_ = ref H.Reinterpret<T, float>(x);
+            return H.Reinterpret<float, T>(Scale(n_, x_));
         }
         throw new NotSupportedException();
     }
@@ -158,13 +159,13 @@ partial class VectorMath
     {
         if(typeof(T) == typeof(double))
         {
-            ref readonly var x_ = ref Reinterpret<T, double>(x);
-            return Reinterpret<double, T>(CosBounded(x_));
+            ref readonly var x_ = ref H.Reinterpret<T, double>(x);
+            return H.Reinterpret<double, T>(CosBounded(x_));
         }
         if(typeof(T) == typeof(float))
         {
-            ref readonly var x_ = ref Reinterpret<T, float>(x);
-            return Reinterpret<float, T>(CosBounded(x_));
+            ref readonly var x_ = ref H.Reinterpret<T, float>(x);
+            return H.Reinterpret<float, T>(CosBounded(x_));
         }
         throw new NotSupportedException();
     }
@@ -174,13 +175,13 @@ partial class VectorMath
     {
         if(typeof(T) == typeof(double))
         {
-            ref readonly var x_ = ref Reinterpret<T, double>(x);
-            return Reinterpret<double, T>(SinBounded(x_));
+            ref readonly var x_ = ref H.Reinterpret<T, double>(x);
+            return H.Reinterpret<double, T>(SinBounded(x_));
         }
         if(typeof(T) == typeof(float))
         {
-            ref readonly var x_ = ref Reinterpret<T, float>(x);
-            return Reinterpret<float, T>(SinBounded(x_));
+            ref readonly var x_ = ref H.Reinterpret<T, float>(x);
+            return H.Reinterpret<float, T>(SinBounded(x_));
         }
         throw new NotSupportedException();
     }
@@ -190,13 +191,13 @@ partial class VectorMath
     {
         if(typeof(T) == typeof(double))
         {
-            ref readonly var x_ = ref Reinterpret<T, double>(x);
-            return Reinterpret<double, T>(Atan(x_));
+            ref readonly var x_ = ref H.Reinterpret<T, double>(x);
+            return H.Reinterpret<double, T>(Atan(x_));
         }
         if(typeof(T) == typeof(float))
         {
-            ref readonly var x_ = ref Reinterpret<T, float>(x);
-            return Reinterpret<float, T>(Atan(x_));
+            ref readonly var x_ = ref H.Reinterpret<T, float>(x);
+            return H.Reinterpret<float, T>(Atan(x_));
         }
         throw new NotSupportedException();
     }

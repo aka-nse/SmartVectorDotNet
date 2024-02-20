@@ -6,12 +6,14 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 #if NET6_0_OR_GREATER
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 #endif
 
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 
 /// <summary>
@@ -52,7 +54,7 @@ public static partial class VectorMath
 
         private protected static Vector<T> As<TFrom>(in Vector<TFrom> x)
             where TFrom : unmanaged
-            => Reinterpret<TFrom, T>(x);
+            => H.Reinterpret<TFrom, T>(x);
 
         /// <summary> Vectorized Napier's constant. </summary>
         public static readonly Vector<T> E = new (ScalarMath.Const<T>.E);
@@ -114,14 +116,7 @@ public static partial class VectorMath
 
         private protected Const() { }
     }
-    
-    private static ref readonly TTo Reinterpret<TFrom, TTo>(in TFrom x)
-        => ref Unsafe.As<TFrom, TTo>(ref Unsafe.AsRef(x));
 
-    private static ref readonly Vector<TTo> Reinterpret<TFrom, TTo>(in Vector<TFrom> x)
-        where TFrom : unmanaged
-        where TTo : unmanaged
-        => ref Unsafe.As<Vector<TFrom>, Vector<TTo>>(ref Unsafe.AsRef(x));
 
     private interface IOperation1<T> { public T Calculate(T x); }
     private static Vector<T> Emulate<T, TOperation>(in Vector<T> x)
@@ -131,19 +126,19 @@ public static partial class VectorMath
         switch (Vector<T>.Count)
         {
         case 2:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00]),
                 default(TOperation).Calculate(x[0x01]),
             });
         case 4:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00]),
                 default(TOperation).Calculate(x[0x01]),
                 default(TOperation).Calculate(x[0x02]),
                 default(TOperation).Calculate(x[0x03]),
             });
         case 8:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00]),
                 default(TOperation).Calculate(x[0x01]),
                 default(TOperation).Calculate(x[0x02]),
@@ -154,7 +149,7 @@ public static partial class VectorMath
                 default(TOperation).Calculate(x[0x07]),
             });
         case 16:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00]),
                 default(TOperation).Calculate(x[0x01]),
                 default(TOperation).Calculate(x[0x02]),
@@ -173,7 +168,7 @@ public static partial class VectorMath
                 default(TOperation).Calculate(x[0x0F]),
             });
         case 32:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00]),
                 default(TOperation).Calculate(x[0x01]),
                 default(TOperation).Calculate(x[0x02]),
@@ -208,7 +203,7 @@ public static partial class VectorMath
                 default(TOperation).Calculate(x[0x1F]),
             });
         case 64:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00]),
                 default(TOperation).Calculate(x[0x01]),
                 default(TOperation).Calculate(x[0x02]),
@@ -281,7 +276,7 @@ public static partial class VectorMath
                 {
                     buffer[i] = default(TOperation).Calculate(x[i]);
                 }
-                return new Vector<T>(buffer);
+                return H.CreateVector<T>(buffer);
             }
         }
     }
@@ -294,19 +289,19 @@ public static partial class VectorMath
         switch (Vector<T>.Count)
         {
         case 2:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00], y[0x00]),
                 default(TOperation).Calculate(x[0x01], y[0x01]),
             });
         case 4:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00], y[0x00]),
                 default(TOperation).Calculate(x[0x01], y[0x01]),
                 default(TOperation).Calculate(x[0x02], y[0x02]),
                 default(TOperation).Calculate(x[0x03], y[0x03]),
             });
         case 8:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00], y[0x00]),
                 default(TOperation).Calculate(x[0x01], y[0x01]),
                 default(TOperation).Calculate(x[0x02], y[0x02]),
@@ -317,7 +312,7 @@ public static partial class VectorMath
                 default(TOperation).Calculate(x[0x07], y[0x07]),
             });
         case 16:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00], y[0x00]),
                 default(TOperation).Calculate(x[0x01], y[0x01]),
                 default(TOperation).Calculate(x[0x02], y[0x02]),
@@ -336,7 +331,7 @@ public static partial class VectorMath
                 default(TOperation).Calculate(x[0x0F], y[0x0F]),
             });
         case 32:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00], y[0x00]),
                 default(TOperation).Calculate(x[0x01], y[0x01]),
                 default(TOperation).Calculate(x[0x02], y[0x02]),
@@ -371,7 +366,7 @@ public static partial class VectorMath
                 default(TOperation).Calculate(x[0x1F], y[0x1F]),
             });
         case 64:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00], y[0x00]),
                 default(TOperation).Calculate(x[0x01], y[0x01]),
                 default(TOperation).Calculate(x[0x02], y[0x02]),
@@ -444,7 +439,7 @@ public static partial class VectorMath
                 {
                     buffer[i] = default(TOperation).Calculate(x[i], y[i]);
                 }
-                return new Vector<T>(buffer);
+                return H.CreateVector<T>(buffer);
             }
         }
     }
@@ -457,19 +452,19 @@ public static partial class VectorMath
         switch (Vector<T>.Count)
         {
         case 2:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00], y[0x00], z[0x00]),
                 default(TOperation).Calculate(x[0x01], y[0x01], z[0x01]),
             });
         case 4:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00], y[0x00], z[0x00]),
                 default(TOperation).Calculate(x[0x01], y[0x01], z[0x01]),
                 default(TOperation).Calculate(x[0x02], y[0x02], z[0x02]),
                 default(TOperation).Calculate(x[0x03], y[0x03], z[0x03]),
             });
         case 8:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00], y[0x00], z[0x00]),
                 default(TOperation).Calculate(x[0x01], y[0x01], z[0x01]),
                 default(TOperation).Calculate(x[0x02], y[0x02], z[0x02]),
@@ -480,7 +475,7 @@ public static partial class VectorMath
                 default(TOperation).Calculate(x[0x07], y[0x07], z[0x07]),
             });
         case 16:
-            return new Vector<T>(stackalloc[] {
+            return H.CreateVector<T>(stackalloc[] {
                 default(TOperation).Calculate(x[0x00], y[0x00], z[0x00]),
                 default(TOperation).Calculate(x[0x01], y[0x01], z[0x01]),
                 default(TOperation).Calculate(x[0x02], y[0x02], z[0x02]),
@@ -505,12 +500,12 @@ public static partial class VectorMath
                 {
                     buffer[i] = default(TOperation).Calculate(x[i], y[i], z[i]);
                 }
-                return new Vector<T>(buffer);
+                return H.CreateVector<T>(buffer);
             }
         }
     }
 
-    #endregion
+#endregion
 
     #region Abs
 
@@ -605,23 +600,23 @@ public static partial class VectorMath
             {
                 if(typeof(T) == typeof(double))
                 {
-                    return Reinterpret<double, T>(
+                    return H.Reinterpret<double, T>(
                         Vector256.AsVector(
                             Fma.MultiplyAdd(
-                                Reinterpret<T, double>(x).AsVector256(),
-                                Reinterpret<T, double>(y).AsVector256(),
-                                Reinterpret<T, double>(z).AsVector256())
+                                H.Reinterpret<T, double>(x).AsVector256(),
+                                H.Reinterpret<T, double>(y).AsVector256(),
+                                H.Reinterpret<T, double>(z).AsVector256())
                             )
                         );
                 }
                 if (typeof(T) == typeof(float))
                 {
-                    return Reinterpret<float, T>(
+                    return H.Reinterpret<float, T>(
                         Vector256.AsVector(
                             Fma.MultiplyAdd(
-                                Reinterpret<T, float>(x).AsVector256(),
-                                Reinterpret<T, float>(y).AsVector256(),
-                                Reinterpret<T, float>(z).AsVector256())
+                                H.Reinterpret<T, float>(x).AsVector256(),
+                                H.Reinterpret<T, float>(y).AsVector256(),
+                                H.Reinterpret<T, float>(z).AsVector256())
                             )
                         );
                 }
@@ -630,23 +625,23 @@ public static partial class VectorMath
             {
                 if (typeof(T) == typeof(double))
                 {
-                    return Reinterpret<double, T>(
+                    return H.Reinterpret<double, T>(
                         Vector128.AsVector(
                             Fma.MultiplyAdd(
-                                Reinterpret<T, double>(x).AsVector128(),
-                                Reinterpret<T, double>(y).AsVector128(),
-                                Reinterpret<T, double>(z).AsVector128())
+                                H.Reinterpret<T, double>(x).AsVector128(),
+                                H.Reinterpret<T, double>(y).AsVector128(),
+                                H.Reinterpret<T, double>(z).AsVector128())
                             )
                         );
                 }
                 if (typeof(T) == typeof(float))
                 {
-                    return Reinterpret<float, T>(
+                    return H.Reinterpret<float, T>(
                         Vector128.AsVector(
                             Fma.MultiplyAdd(
-                                Reinterpret<T, float>(x).AsVector128(),
-                                Reinterpret<T, float>(y).AsVector128(),
-                                Reinterpret<T, float>(z).AsVector128())
+                                H.Reinterpret<T, float>(x).AsVector128(),
+                                H.Reinterpret<T, float>(y).AsVector128(),
+                                H.Reinterpret<T, float>(z).AsVector128())
                             )
                         );
                 }

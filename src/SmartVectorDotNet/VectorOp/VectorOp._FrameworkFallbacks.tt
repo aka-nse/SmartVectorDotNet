@@ -48,6 +48,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using NVector = System.Numerics.Vector;
+using static SmartVectorDotNet.InternalHelpers;
 
 namespace SmartVectorDotNet;
 
@@ -64,7 +65,7 @@ partial class VectorOp
         {
 <#      foreach(var size in def.VectorSizes) { #>
         case <#=size#>:
-            return new(stackalloc []{
+            return CreateVector(stackalloc []{
 <#          for(var i = 0; i < size; ++i) { #>
                 <#=def.CalcElement($"value[{i}]")#>,
 <#          } #>

@@ -7,7 +7,8 @@ using Xunit;
 
 namespace SmartVectorDotNet;
 
-public class VectorizationTest
+
+public partial class VectorizationTest
 {
     public record TestCase(int Size, double[] A, double[] B)
     {

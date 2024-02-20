@@ -9,6 +9,7 @@ using System.Text;
 using NVector = System.Numerics.Vector;
 
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 partial class VectorOp
 {
@@ -21,7 +22,7 @@ partial class VectorOp
         switch(Vector<byte>.Count)
         {
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (byte  )(value[0] << shiftCount),
                 (byte  )(value[1] << shiftCount),
                 (byte  )(value[2] << shiftCount),
@@ -32,7 +33,7 @@ partial class VectorOp
                 (byte  )(value[7] << shiftCount),
             });
         case 16:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (byte  )(value[0] << shiftCount),
                 (byte  )(value[1] << shiftCount),
                 (byte  )(value[2] << shiftCount),
@@ -51,7 +52,7 @@ partial class VectorOp
                 (byte  )(value[15] << shiftCount),
             });
         case 32:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (byte  )(value[0] << shiftCount),
                 (byte  )(value[1] << shiftCount),
                 (byte  )(value[2] << shiftCount),
@@ -108,14 +109,14 @@ partial class VectorOp
         switch(Vector<ushort>.Count)
         {
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (ushort)(value[0] << shiftCount),
                 (ushort)(value[1] << shiftCount),
                 (ushort)(value[2] << shiftCount),
                 (ushort)(value[3] << shiftCount),
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (ushort)(value[0] << shiftCount),
                 (ushort)(value[1] << shiftCount),
                 (ushort)(value[2] << shiftCount),
@@ -126,7 +127,7 @@ partial class VectorOp
                 (ushort)(value[7] << shiftCount),
             });
         case 16:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (ushort)(value[0] << shiftCount),
                 (ushort)(value[1] << shiftCount),
                 (ushort)(value[2] << shiftCount),
@@ -167,19 +168,19 @@ partial class VectorOp
         switch(Vector<uint>.Count)
         {
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
                 value[2] << shiftCount,
                 value[3] << shiftCount,
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
                 value[2] << shiftCount,
@@ -212,16 +213,16 @@ partial class VectorOp
         switch(Vector<ulong>.Count)
         {
         case 1:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
             });
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
                 value[2] << shiftCount,
@@ -250,23 +251,23 @@ partial class VectorOp
         switch(Vector<nuint>.Count)
         {
         case 1:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
             });
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
                 value[2] << shiftCount,
                 value[3] << shiftCount,
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
                 value[2] << shiftCount,
@@ -299,7 +300,7 @@ partial class VectorOp
         switch(Vector<sbyte>.Count)
         {
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (sbyte)(value[0] << shiftCount),
                 (sbyte)(value[1] << shiftCount),
                 (sbyte)(value[2] << shiftCount),
@@ -310,7 +311,7 @@ partial class VectorOp
                 (sbyte)(value[7] << shiftCount),
             });
         case 16:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (sbyte)(value[0] << shiftCount),
                 (sbyte)(value[1] << shiftCount),
                 (sbyte)(value[2] << shiftCount),
@@ -329,7 +330,7 @@ partial class VectorOp
                 (sbyte)(value[15] << shiftCount),
             });
         case 32:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (sbyte)(value[0] << shiftCount),
                 (sbyte)(value[1] << shiftCount),
                 (sbyte)(value[2] << shiftCount),
@@ -386,14 +387,14 @@ partial class VectorOp
         switch(Vector<short>.Count)
         {
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (short)(value[0] << shiftCount),
                 (short)(value[1] << shiftCount),
                 (short)(value[2] << shiftCount),
                 (short)(value[3] << shiftCount),
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (short)(value[0] << shiftCount),
                 (short)(value[1] << shiftCount),
                 (short)(value[2] << shiftCount),
@@ -404,7 +405,7 @@ partial class VectorOp
                 (short)(value[7] << shiftCount),
             });
         case 16:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (short)(value[0] << shiftCount),
                 (short)(value[1] << shiftCount),
                 (short)(value[2] << shiftCount),
@@ -445,19 +446,19 @@ partial class VectorOp
         switch(Vector<int>.Count)
         {
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
                 value[2] << shiftCount,
                 value[3] << shiftCount,
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
                 value[2] << shiftCount,
@@ -490,16 +491,16 @@ partial class VectorOp
         switch(Vector<long>.Count)
         {
         case 1:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
             });
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
                 value[2] << shiftCount,
@@ -528,23 +529,23 @@ partial class VectorOp
         switch(Vector<nint>.Count)
         {
         case 1:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
             });
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
                 value[2] << shiftCount,
                 value[3] << shiftCount,
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 value[0] << shiftCount,
                 value[1] << shiftCount,
                 value[2] << shiftCount,
@@ -577,7 +578,7 @@ partial class VectorOp
         switch(Vector<byte>.Count)
         {
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (byte  )(value[0] >> shiftCount),
                 (byte  )(value[1] >> shiftCount),
                 (byte  )(value[2] >> shiftCount),
@@ -588,7 +589,7 @@ partial class VectorOp
                 (byte  )(value[7] >> shiftCount),
             });
         case 16:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (byte  )(value[0] >> shiftCount),
                 (byte  )(value[1] >> shiftCount),
                 (byte  )(value[2] >> shiftCount),
@@ -607,7 +608,7 @@ partial class VectorOp
                 (byte  )(value[15] >> shiftCount),
             });
         case 32:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (byte  )(value[0] >> shiftCount),
                 (byte  )(value[1] >> shiftCount),
                 (byte  )(value[2] >> shiftCount),
@@ -664,14 +665,14 @@ partial class VectorOp
         switch(Vector<ushort>.Count)
         {
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (ushort)(value[0] >> shiftCount),
                 (ushort)(value[1] >> shiftCount),
                 (ushort)(value[2] >> shiftCount),
                 (ushort)(value[3] >> shiftCount),
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (ushort)(value[0] >> shiftCount),
                 (ushort)(value[1] >> shiftCount),
                 (ushort)(value[2] >> shiftCount),
@@ -682,7 +683,7 @@ partial class VectorOp
                 (ushort)(value[7] >> shiftCount),
             });
         case 16:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (ushort)(value[0] >> shiftCount),
                 (ushort)(value[1] >> shiftCount),
                 (ushort)(value[2] >> shiftCount),
@@ -723,19 +724,19 @@ partial class VectorOp
         switch(Vector<uint>.Count)
         {
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (uint  )(value[0] >> shiftCount),
                 (uint  )(value[1] >> shiftCount),
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (uint  )(value[0] >> shiftCount),
                 (uint  )(value[1] >> shiftCount),
                 (uint  )(value[2] >> shiftCount),
                 (uint  )(value[3] >> shiftCount),
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (uint  )(value[0] >> shiftCount),
                 (uint  )(value[1] >> shiftCount),
                 (uint  )(value[2] >> shiftCount),
@@ -768,16 +769,16 @@ partial class VectorOp
         switch(Vector<ulong>.Count)
         {
         case 1:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (ulong )(value[0] >> shiftCount),
             });
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (ulong )(value[0] >> shiftCount),
                 (ulong )(value[1] >> shiftCount),
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (ulong )(value[0] >> shiftCount),
                 (ulong )(value[1] >> shiftCount),
                 (ulong )(value[2] >> shiftCount),
@@ -806,23 +807,23 @@ partial class VectorOp
         switch(Vector<nuint>.Count)
         {
         case 1:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (nuint )(value[0] >> shiftCount),
             });
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (nuint )(value[0] >> shiftCount),
                 (nuint )(value[1] >> shiftCount),
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (nuint )(value[0] >> shiftCount),
                 (nuint )(value[1] >> shiftCount),
                 (nuint )(value[2] >> shiftCount),
                 (nuint )(value[3] >> shiftCount),
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (nuint )(value[0] >> shiftCount),
                 (nuint )(value[1] >> shiftCount),
                 (nuint )(value[2] >> shiftCount),
@@ -855,7 +856,7 @@ partial class VectorOp
         switch(Vector<sbyte>.Count)
         {
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (sbyte )((byte  )value[0] >> shiftCount),
                 (sbyte )((byte  )value[1] >> shiftCount),
                 (sbyte )((byte  )value[2] >> shiftCount),
@@ -866,7 +867,7 @@ partial class VectorOp
                 (sbyte )((byte  )value[7] >> shiftCount),
             });
         case 16:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (sbyte )((byte  )value[0] >> shiftCount),
                 (sbyte )((byte  )value[1] >> shiftCount),
                 (sbyte )((byte  )value[2] >> shiftCount),
@@ -885,7 +886,7 @@ partial class VectorOp
                 (sbyte )((byte  )value[15] >> shiftCount),
             });
         case 32:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (sbyte )((byte  )value[0] >> shiftCount),
                 (sbyte )((byte  )value[1] >> shiftCount),
                 (sbyte )((byte  )value[2] >> shiftCount),
@@ -942,14 +943,14 @@ partial class VectorOp
         switch(Vector<short>.Count)
         {
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (short )((ushort)value[0] >> shiftCount),
                 (short )((ushort)value[1] >> shiftCount),
                 (short )((ushort)value[2] >> shiftCount),
                 (short )((ushort)value[3] >> shiftCount),
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (short )((ushort)value[0] >> shiftCount),
                 (short )((ushort)value[1] >> shiftCount),
                 (short )((ushort)value[2] >> shiftCount),
@@ -960,7 +961,7 @@ partial class VectorOp
                 (short )((ushort)value[7] >> shiftCount),
             });
         case 16:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (short )((ushort)value[0] >> shiftCount),
                 (short )((ushort)value[1] >> shiftCount),
                 (short )((ushort)value[2] >> shiftCount),
@@ -1001,19 +1002,19 @@ partial class VectorOp
         switch(Vector<int>.Count)
         {
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (int   )((uint  )value[0] >> shiftCount),
                 (int   )((uint  )value[1] >> shiftCount),
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (int   )((uint  )value[0] >> shiftCount),
                 (int   )((uint  )value[1] >> shiftCount),
                 (int   )((uint  )value[2] >> shiftCount),
                 (int   )((uint  )value[3] >> shiftCount),
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (int   )((uint  )value[0] >> shiftCount),
                 (int   )((uint  )value[1] >> shiftCount),
                 (int   )((uint  )value[2] >> shiftCount),
@@ -1046,16 +1047,16 @@ partial class VectorOp
         switch(Vector<long>.Count)
         {
         case 1:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (long  )((ulong )value[0] >> shiftCount),
             });
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (long  )((ulong )value[0] >> shiftCount),
                 (long  )((ulong )value[1] >> shiftCount),
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (long  )((ulong )value[0] >> shiftCount),
                 (long  )((ulong )value[1] >> shiftCount),
                 (long  )((ulong )value[2] >> shiftCount),
@@ -1084,23 +1085,23 @@ partial class VectorOp
         switch(Vector<nint>.Count)
         {
         case 1:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (nint  )((nuint )value[0] >> shiftCount),
             });
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (nint  )((nuint )value[0] >> shiftCount),
                 (nint  )((nuint )value[1] >> shiftCount),
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (nint  )((nuint )value[0] >> shiftCount),
                 (nint  )((nuint )value[1] >> shiftCount),
                 (nint  )((nuint )value[2] >> shiftCount),
                 (nint  )((nuint )value[3] >> shiftCount),
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (nint  )((nuint )value[0] >> shiftCount),
                 (nint  )((nuint )value[1] >> shiftCount),
                 (nint  )((nuint )value[2] >> shiftCount),
@@ -1133,7 +1134,7 @@ partial class VectorOp
         switch(Vector<sbyte>.Count)
         {
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (sbyte)(value[0] >> shiftCount),
                 (sbyte)(value[1] >> shiftCount),
                 (sbyte)(value[2] >> shiftCount),
@@ -1144,7 +1145,7 @@ partial class VectorOp
                 (sbyte)(value[7] >> shiftCount),
             });
         case 16:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (sbyte)(value[0] >> shiftCount),
                 (sbyte)(value[1] >> shiftCount),
                 (sbyte)(value[2] >> shiftCount),
@@ -1163,7 +1164,7 @@ partial class VectorOp
                 (sbyte)(value[15] >> shiftCount),
             });
         case 32:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (sbyte)(value[0] >> shiftCount),
                 (sbyte)(value[1] >> shiftCount),
                 (sbyte)(value[2] >> shiftCount),
@@ -1220,14 +1221,14 @@ partial class VectorOp
         switch(Vector<short>.Count)
         {
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (short)(value[0] >> shiftCount),
                 (short)(value[1] >> shiftCount),
                 (short)(value[2] >> shiftCount),
                 (short)(value[3] >> shiftCount),
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (short)(value[0] >> shiftCount),
                 (short)(value[1] >> shiftCount),
                 (short)(value[2] >> shiftCount),
@@ -1238,7 +1239,7 @@ partial class VectorOp
                 (short)(value[7] >> shiftCount),
             });
         case 16:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (short)(value[0] >> shiftCount),
                 (short)(value[1] >> shiftCount),
                 (short)(value[2] >> shiftCount),
@@ -1279,19 +1280,19 @@ partial class VectorOp
         switch(Vector<int>.Count)
         {
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (int  )(value[0] >> shiftCount),
                 (int  )(value[1] >> shiftCount),
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (int  )(value[0] >> shiftCount),
                 (int  )(value[1] >> shiftCount),
                 (int  )(value[2] >> shiftCount),
                 (int  )(value[3] >> shiftCount),
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (int  )(value[0] >> shiftCount),
                 (int  )(value[1] >> shiftCount),
                 (int  )(value[2] >> shiftCount),
@@ -1324,16 +1325,16 @@ partial class VectorOp
         switch(Vector<long>.Count)
         {
         case 1:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (long )(value[0] >> shiftCount),
             });
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (long )(value[0] >> shiftCount),
                 (long )(value[1] >> shiftCount),
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (long )(value[0] >> shiftCount),
                 (long )(value[1] >> shiftCount),
                 (long )(value[2] >> shiftCount),
@@ -1362,23 +1363,23 @@ partial class VectorOp
         switch(Vector<nint>.Count)
         {
         case 1:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (nint )(value[0] >> shiftCount),
             });
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (nint )(value[0] >> shiftCount),
                 (nint )(value[1] >> shiftCount),
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (nint )(value[0] >> shiftCount),
                 (nint )(value[1] >> shiftCount),
                 (nint )(value[2] >> shiftCount),
                 (nint )(value[3] >> shiftCount),
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 (nint )(value[0] >> shiftCount),
                 (nint )(value[1] >> shiftCount),
                 (nint )(value[2] >> shiftCount),
@@ -1411,19 +1412,19 @@ partial class VectorOp
         switch(Vector<float>.Count)
         {
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 ScalarMath.Ceiling(value[0]),
                 ScalarMath.Ceiling(value[1]),
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 ScalarMath.Ceiling(value[0]),
                 ScalarMath.Ceiling(value[1]),
                 ScalarMath.Ceiling(value[2]),
                 ScalarMath.Ceiling(value[3]),
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 ScalarMath.Ceiling(value[0]),
                 ScalarMath.Ceiling(value[1]),
                 ScalarMath.Ceiling(value[2]),
@@ -1456,16 +1457,16 @@ partial class VectorOp
         switch(Vector<double>.Count)
         {
         case 1:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 ScalarMath.Ceiling(value[0]),
             });
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 ScalarMath.Ceiling(value[0]),
                 ScalarMath.Ceiling(value[1]),
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 ScalarMath.Ceiling(value[0]),
                 ScalarMath.Ceiling(value[1]),
                 ScalarMath.Ceiling(value[2]),
@@ -1494,19 +1495,19 @@ partial class VectorOp
         switch(Vector<float>.Count)
         {
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 ScalarMath.Floor  (value[0]),
                 ScalarMath.Floor  (value[1]),
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 ScalarMath.Floor  (value[0]),
                 ScalarMath.Floor  (value[1]),
                 ScalarMath.Floor  (value[2]),
                 ScalarMath.Floor  (value[3]),
             });
         case 8:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 ScalarMath.Floor  (value[0]),
                 ScalarMath.Floor  (value[1]),
                 ScalarMath.Floor  (value[2]),
@@ -1539,16 +1540,16 @@ partial class VectorOp
         switch(Vector<double>.Count)
         {
         case 1:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 ScalarMath.Floor  (value[0]),
             });
         case 2:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 ScalarMath.Floor  (value[0]),
                 ScalarMath.Floor  (value[1]),
             });
         case 4:
-            return new(stackalloc []{
+            return H.CreateVector(stackalloc []{
                 ScalarMath.Floor  (value[0]),
                 ScalarMath.Floor  (value[1]),
                 ScalarMath.Floor  (value[2]),

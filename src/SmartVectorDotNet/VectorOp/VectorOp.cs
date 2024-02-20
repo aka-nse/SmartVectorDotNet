@@ -20,7 +20,6 @@ public static partial class VectorOp
 {
     private const MethodImplOptions _inlining = MethodImplOptions.AggressiveInlining;
 
-
     /// <summary> Proxy for <see cref="NVector.Abs{T}" />. </summary>
     [MethodImpl(_inlining)]
     public static Vector<T> Abs<T>(in Vector<T> value)

@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "verification", "verificatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartVectorBenchmarks", "verification\SmartVectorBenchmarks\SmartVectorBenchmarks.csproj", "{1E3CA682-A97D-4CB2-B6D7-38693905919C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartVectorDotNet.Benchmark", "SmartVectorDotNet.Benchmark\SmartVectorDotNet.Benchmark.csproj", "{0311BDCB-9320-44A8-81BC-78F74AF61039}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartVectorDotNet.Benchmark", "SmartVectorDotNet.Benchmark\SmartVectorDotNet.Benchmark.csproj", "{0311BDCB-9320-44A8-81BC-78F74AF61039}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

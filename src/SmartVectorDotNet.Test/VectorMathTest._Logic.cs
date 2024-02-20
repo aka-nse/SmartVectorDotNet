@@ -58,14 +58,14 @@ public partial class VectorMathTest
 
     [Theory]
     [MemberData(nameof(IEEE754TestCases))]
-    public void IsDenormalizedTest(double x)
+    public void IsSubnormalizedTest(double x)
     {
         Assert.Equal(
             Cache<double>.AsVector(double.IsSubnormal(x)),
-            VectorMath.IsDenormalized<double>(new(x)));
+            VectorMath.IsSubnormalized<double>(new(x)));
         Assert.Equal(
             Cache<float>.AsVector(float.IsSubnormal((float)x)),
-            VectorMath.IsDenormalized<float>(new((float)x)));
+            VectorMath.IsSubnormalized<float>(new((float)x)));
     }
 
 

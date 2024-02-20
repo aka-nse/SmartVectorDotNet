@@ -4,6 +4,7 @@ using System.Numerics;
 using System.Text;
 
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 partial class VectorMath
 {

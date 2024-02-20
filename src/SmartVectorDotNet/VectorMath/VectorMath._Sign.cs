@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 partial class VectorMath
 {
