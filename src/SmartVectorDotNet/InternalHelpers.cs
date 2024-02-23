@@ -30,4 +30,10 @@ internal static class InternalHelpers
         where TTo : unmanaged
         => ref Unsafe.As<Vector<TFrom>, Vector<TTo>>(ref Unsafe.AsRef(x));
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref readonly Vector<TTo>[] ReinterpretVArray<TFrom, TTo>(in Vector<TFrom>[] x)
+        where TFrom : unmanaged
+        where TTo : unmanaged
+        => ref Unsafe.As<Vector<TFrom>[], Vector<TTo>[]>(ref Unsafe.AsRef(x));
+
 }

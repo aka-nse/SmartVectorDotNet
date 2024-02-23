@@ -12,10 +12,6 @@ namespace SmartVectorDotNet;
 
 public partial class VectorMathTest
 {
-    private ITestOutputHelper Output { get; }
-
-    public VectorMathTest(ITestOutputHelper output) => Output = output;
-
     internal void TestAccuracy(double[] x, Func<double, double> exp, Func<double, double> act, double accuracy, AccuracyMode mode)
     {
         var expected = x.Select(exp).ToArray();
@@ -110,27 +106,23 @@ public partial class VectorMathTest
             1e-5f, AccuracyMode.AbsoluteOrRelative);
     }
 
-    public static IEnumerable<object[]> LogTestCases()
+    [Fact]
+    public void AtanTest()
     {
-        static object[] core(double x)
-            => new object[] { x, };
-
-        yield return core(1);
-        yield return core(2);
-        yield return core(3);
-        yield return core(4);
-        yield return core(5);
-        yield return core(1e+1);
-        yield return core(1e+2);
-        yield return core(1e+3);
-        yield return core(1e+4);
-        yield return core(1e+5);
-        yield return core(1e-1);
-        yield return core(1e-2);
-        yield return core(1e-3);
-        yield return core(1e-4);
-        yield return core(1e-5);
-        yield break;
+        var testCase = ArrayNumericUtils
+            .LinspaceMaxInclusive(-2.0, +2.0, 1001)
+            .Select(x => Math.Pow(x, 3))
+            .ToArray();
+        TestAccuracy(
+            testCase,
+            x => Math.Atan(x),
+            x => VectorMath.Atan(new Vector<double>(x))[0],
+            1e-10, AccuracyMode.AbsoluteOrRelative);
+        TestAccuracy(
+            testCase,
+            x => MathF.Atan(x),
+            x => VectorMath.Atan(new Vector<float>(x))[0],
+            1e-5f, AccuracyMode.AbsoluteOrRelative);
     }
 
     [Fact]

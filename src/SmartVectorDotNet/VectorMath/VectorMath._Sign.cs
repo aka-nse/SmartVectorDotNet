@@ -6,6 +6,7 @@ using System.Text;
 
 namespace SmartVectorDotNet;
 using H = InternalHelpers;
+using OP = VectorOp;
 
 partial class VectorMath
 {
@@ -17,8 +18,8 @@ partial class VectorMath
     /// <returns></returns>
     public static Vector<T> Sign<T>(in Vector<T> x)
         where T : unmanaged
-        => Vector.ConditionalSelect(
-            Vector.Equals(x, Sign_<T>._0),
+        => OP.ConditionalSelect(
+            OP.Equals(x, Sign_<T>._0),
             Sign_<T>._0,
             SignFast(x));
 
@@ -31,10 +32,10 @@ partial class VectorMath
     /// <exception cref="NotSupportedException"></exception>
     public static Vector<T> SignFast<T>(in Vector<T> x)
         where T : unmanaged
-        => Vector.ConditionalSelect(
-            IsNegative(x),
-            Sign_<T>._m1,
-            Sign_<T>._1);
+        => OP.ConditionalSelect(
+            IsNonNegative(x),
+            Sign_<T>._1,
+            Sign_<T>._m1);
 
     /// <summary>
     /// For signed <typeparamref name="T"/>, determines the specified value is negative or not.
@@ -44,7 +45,26 @@ partial class VectorMath
     /// <returns></returns>
     public static Vector<T> IsNegative<T>(in Vector<T> x)
         where T : unmanaged
-        => Vector.OnesComplement(Vector.Equals(x, Sign_<T>._0));
+        => OP.OnesComplement(IsNonNegative(x));
+
+
+    private static Vector<T> IsNonNegative<T>(in Vector<T> x)
+        where T : unmanaged
+    {
+        static Vector<T> core<S>(in Vector<T> x)
+            where S : unmanaged
+            => H.Reinterpret<S, T>(OP.Equals(OP.BitwiseAnd(Sign_<S>.SignBit, H.Reinterpret<T, S>(x)), Sign_<S>._0));
+
+        return Unsafe.SizeOf<T>() switch
+        {
+            1 => core<sbyte>(x),
+            2 => core<short>(x),
+            4 => core<int>(x),
+            8 => core<long>(x),
+            _ => throw new NotSupportedException(),
+        };
+    }
+
 
     private class Sign_<T> : Const<T> where T : unmanaged
     {

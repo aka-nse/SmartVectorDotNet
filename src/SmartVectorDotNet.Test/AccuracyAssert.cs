@@ -12,7 +12,7 @@ namespace SmartVectorDotNet;
 internal static class AccuracyAssert
 {
     public static void Accurate<T>(
-        T[] x, T[] yExpected, T[] yActual,
+        T[]? x, T[] yExpected, T[] yActual,
         T accuracy, AccuracyMode mode = AccuracyMode.Absolute,
         ITestOutputHelper? output = null)
         where T : unmanaged, INumber<T>, IMinMaxValue<T>
@@ -29,6 +29,7 @@ internal static class AccuracyAssert
         static T errorAbsOrRel(T exp, T act)
             => T.Min(errorAbs(exp, act), errorRel(exp, act));
 
+        x ??= yExpected;
         if(x.Length != yExpected.Length || x.Length != yActual.Length || accuracy < T.Zero)
         {
             throw new ArgumentException();

@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SmartVectorDotNet;
+using OP = VectorOp;
 using H = InternalHelpers;
 
 #pragma warning disable format
@@ -78,19 +79,19 @@ partial class VectorMath
         where T : unmanaged
     {
         var xx = ModuloByTau(x);
-        var lessThan_1_2 = VectorOp.LessThan(xx, Cos_<T>.PI_1p2);
-        var lessThan_3_2 = VectorOp.LessThan(xx, Cos_<T>.PI_3p2);
+        var lessThan_1_2 = OP.LessThan(xx, Cos_<T>.PI_1p2);
+        var lessThan_3_2 = OP.LessThan(xx, Cos_<T>.PI_3p2);
         xx =
-            VectorOp.ConditionalSelect(lessThan_1_2,
+            OP.ConditionalSelect(lessThan_1_2,
                 xx,
-            VectorOp.ConditionalSelect(lessThan_3_2,
+            OP.ConditionalSelect(lessThan_3_2,
                 Cos_<T>.PI_2p2 - xx,
                 xx - Cos_<T>.PI_4p2
                 ));
         var sign =
-            VectorOp.ConditionalSelect(lessThan_1_2,
+            OP.ConditionalSelect(lessThan_1_2,
                 Cos_<T>._1,
-            VectorOp.ConditionalSelect(lessThan_3_2,
+            OP.ConditionalSelect(lessThan_3_2,
                 Cos_<T>._m1,
                 Cos_<T>._1
                 ));
@@ -106,7 +107,7 @@ partial class VectorMath
     {
         Vector<double> y;
         var x2 = x * x;
-        y = x2 * Cos_<double>.Coeffs[10];                           // a_11~
+        y = x2 * Cos_<double>.Coeffs[10];                          // a_11~
         y = x2 * Cos_<double>.Coeffs[ 9] * (Cos_<double>._1 - y);  // a_10
         y = x2 * Cos_<double>.Coeffs[ 8] * (Cos_<double>._1 - y);  // a_9
         y = x2 * Cos_<double>.Coeffs[ 7] * (Cos_<double>._1 - y);  // a_8
@@ -125,7 +126,7 @@ partial class VectorMath
     {
         Vector<float> y;
         var x2 = x * x;
-        y = x2 * Cos_<float>.Coeffs[5];                          // a_6~
+        y = x2 * Cos_<float>.Coeffs[5];                         // a_6~
         y = x2 * Cos_<float>.Coeffs[4] * (Cos_<float>._1 - y);  // a_5
         y = x2 * Cos_<float>.Coeffs[3] * (Cos_<float>._1 - y);  // a_4
         y = x2 * Cos_<float>.Coeffs[2] * (Cos_<float>._1 - y);  // a_3
@@ -145,18 +146,20 @@ partial class VectorMath
                 var cosCoeffs = new Vector<double>[12];
                 for (var n = 1; n <= 12; ++n)
                 {
-                    cosCoeffs[n  - 1] = new Vector<double>(1.0 / ((2 * n - 1) * (2 * n)));
+                    double value = 1.0 / ((2 * n - 1) * (2 * n));
+                    cosCoeffs[n - 1] = new (value);
                 }
-                return H.Reinterpret<Vector<double>[], Vector<T>[]>(cosCoeffs);
+                return H.ReinterpretVArray<double, T>(cosCoeffs);
             }
             if(IsT<float>())
             {
                 var cosCoeffs = new Vector<float>[6];
                 for (var n = 1; n <= 6; ++n)
                 {
-                    cosCoeffs[n - 1] = new Vector<float>(1.0f / ((2 * n - 1) * (2 * n)));
+                    float value = 1.0f / ((2 * n - 1) * (2 * n));
+                    cosCoeffs[n - 1] = new (value);
                 }
-                return H.Reinterpret<Vector<float>[], Vector<T>[]>(cosCoeffs);
+                return H.ReinterpretVArray<float, T>(cosCoeffs);
             }
             return default!;
         }
@@ -177,12 +180,12 @@ partial class VectorMath
         where T : unmanaged
     {
         var xx = ModuloByTau(x);
-        var lessThan_1_2 = VectorOp.LessThan(xx, Sin_<T>.PI_1p2);
-        var lessThan_3_2 = VectorOp.LessThan(xx, Sin_<T>.PI_3p2);
+        var lessThan_1_2 = OP.LessThan(xx, Sin_<T>.PI_1p2);
+        var lessThan_3_2 = OP.LessThan(xx, Sin_<T>.PI_3p2);
         xx =
-            VectorOp.ConditionalSelect(lessThan_1_2,
+            OP.ConditionalSelect(lessThan_1_2,
                 xx,
-            VectorOp.ConditionalSelect(lessThan_3_2,
+            OP.ConditionalSelect(lessThan_3_2,
                 Sin_<T>.PI_2p2 - xx,
                 xx - Sin_<T>.PI_4p2
                 ));
@@ -198,7 +201,7 @@ partial class VectorMath
     {
         Vector<double> y;
         var x2 = x * x;
-        y = x2 * Sin_<double>.Coeffs[10];                             // a_11~
+        y = x2 * Sin_<double>.Coeffs[10];                          // a_11~
         y = x2 * Sin_<double>.Coeffs[ 9] * (Sin_<double>._1 - y);  // a_10
         y = x2 * Sin_<double>.Coeffs[ 8] * (Sin_<double>._1 - y);  // a_9
         y = x2 * Sin_<double>.Coeffs[ 7] * (Sin_<double>._1 - y);  // a_8
@@ -209,7 +212,7 @@ partial class VectorMath
         y = x2 * Sin_<double>.Coeffs[ 2] * (Sin_<double>._1 - y);  // a_3
         y = x2 * Sin_<double>.Coeffs[ 1] * (Sin_<double>._1 - y);  // a_2
         y = x2 * Sin_<double>.Coeffs[ 0] * (Sin_<double>._1 - y);  // a_1
-        return x * (Sin_<double>._1 - y);                              // 1 - a_1
+        return x * (Sin_<double>._1 - y);                          // 1 - a_1
     }
 
     /// <param name="x"> $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ </param>
@@ -217,13 +220,13 @@ partial class VectorMath
     {
         Vector<float> y;
         var x2 = x * x;
-        y = x2 * Sin_<float>.Coeffs[5];                          // a_6~
+        y = x2 * Sin_<float>.Coeffs[5];                         // a_6~
         y = x2 * Sin_<float>.Coeffs[4] * (Sin_<float>._1 - y);  // a_5
         y = x2 * Sin_<float>.Coeffs[3] * (Sin_<float>._1 - y);  // a_4
         y = x2 * Sin_<float>.Coeffs[2] * (Sin_<float>._1 - y);  // a_3
         y = x2 * Sin_<float>.Coeffs[1] * (Sin_<float>._1 - y);  // a_2
         y = x2 * Sin_<float>.Coeffs[0] * (Sin_<float>._1 - y);  // a_1
-        return x * (Sin_<float>._1 - y);                            // 1 - a_1
+        return x * (Sin_<float>._1 - y);                        // 1 - a_1
     }
 
     private class Sin_<T> : Const<T> where T : unmanaged
@@ -237,18 +240,20 @@ partial class VectorMath
                 var cosCoeffs = new Vector<double>[11];
                 for (var n = 1; n <= 11; ++n)
                 {
-                    cosCoeffs[n - 1] = new Vector<double>(1.0 / ((2 * n + 1) * (2 * n)));
+                    double value = 1.0 / ((2 * n + 1) * (2 * n));
+                    cosCoeffs[n - 1] = new (value);
                 }
-                return H.Reinterpret<Vector<double>[], Vector<T>[]>(cosCoeffs);
+                return H.ReinterpretVArray<double, T>(cosCoeffs);
             }
             if (IsT<float>())
             {
                 var cosCoeffs = new Vector<float>[6];
                 for (var n = 1; n <= 6; ++n)
                 {
-                    cosCoeffs[n - 1] = new Vector<float>(1.0f / ((2 * n + 1) * (2 * n)));
+                    float value = 1.0f / ((2 * n + 1) * (2 * n));
+                    cosCoeffs[n - 1] = new (value);
                 }
-                return H.Reinterpret<Vector<float>[], Vector<T>[]>(cosCoeffs);
+                return H.ReinterpretVArray<float, T>(cosCoeffs);
             }
             return default!;
         }
@@ -268,22 +273,22 @@ partial class VectorMath
         where T : unmanaged
     {
         var xx = ModuloByPI(x);
-        var shouldReverse = Vector.GreaterThan(xx, Const<T>.PI_1p2);
-        var sign = Vector.ConditionalSelect(
+        var shouldReverse = OP.GreaterThan(xx, Tan_<T>.PI_1p2);
+        var sign = OP.ConditionalSelect(
             shouldReverse,
             Tan_<T>._m1,
             Tan_<T>._1);
-        xx = Vector.ConditionalSelect(
+        xx = OP.ConditionalSelect(
             shouldReverse,
-            Const<T>.PI - xx,
+            Tan_<T>.PI - xx,
             xx);
-        var modifiesByAdditionTheorem = Vector.GreaterThan(xx, Tan_<T>.PI_1p4);
-        xx = Vector.ConditionalSelect(
+        var modifiesByAdditionTheorem = OP.GreaterThan(xx, Tan_<T>.PI_1p4);
+        xx = OP.ConditionalSelect(
             modifiesByAdditionTheorem,
             xx - Tan_<T>.PI_1p4,
             xx);
         var tanxx = TanBounded(xx);
-        return sign * Vector.ConditionalSelect(
+        return sign * OP.ConditionalSelect(
             modifiesByAdditionTheorem,
             (Tan_<T>._1 + tanxx) / (Tan_<T>._1 - tanxx),
             tanxx);
@@ -312,23 +317,23 @@ partial class VectorMath
     public static partial Vector<T> Atan<T>(in Vector<T> x)
         where T : unmanaged;
 
-    private static Vector<double> Atan(Vector<double> x)
+    private static Vector<double> Atan(in Vector<double> x)
     {
         static Vector<double> core(Vector<double> x)
         {
-            var condition = Vector.LessThan(x, Atan_<double>.CoreReflectThreshold);
-            x = Vector.ConditionalSelect(
+            var condition = OP.LessThan(x, Atan_<double>.CoreReflectThreshold);
+            x = OP.ConditionalSelect(
                 condition,
                 x,
                 (x - Atan_<double>._1) / (x + Atan_<double>._1)
             );
-            var offset = Vector.ConditionalSelect(
+            var offset = OP.ConditionalSelect(
                 condition,
-                Vector<double>.Zero,
+                Atan_<double>._0,
                 Atan_<double>.CoreReflectedOffset
             );
             var x2 = x * x;
-            return x * (Vector<double>.One
+            return x * (Atan_<double>._1
                 + x2 * (Atan_<double>.Coeffs[0]
                 + x2 * (Atan_<double>.Coeffs[1]
                 + x2 * (Atan_<double>.Coeffs[2]
@@ -344,15 +349,16 @@ partial class VectorMath
         }
 
         var sign = SignFast(x);
-        x = sign * x;
-        var xx = Vector.ConditionalSelect(
-            Vector.LessThan(x, Vector<double>.One),
-            x,
-            Atan_<double>._1 / x
+        var xx = sign * x;
+        var xIsLessThan1 = OP.LessThan(xx, Atan_<double>._1);
+        xx = OP.ConditionalSelect(
+            xIsLessThan1,
+            xx,
+            Atan_<double>._1 / xx
         );
         var y = core(xx);
-        return sign * Vector.ConditionalSelect(
-            Vector.LessThan(x, Vector<double>.One),
+        return sign * OP.ConditionalSelect(
+            xIsLessThan1,
             y,
             Atan_<double>.ReflectOffset - y
         );
@@ -362,19 +368,19 @@ partial class VectorMath
     {
         static Vector<float> core(Vector<float> x)
         {
-            var condition = Vector.LessThan(x, Atan_<float>.CoreReflectThreshold);
-            x = Vector.ConditionalSelect(
+            var condition = OP.LessThan(x, Atan_<float>.CoreReflectThreshold);
+            x = OP.ConditionalSelect(
                 condition,
                 x,
-                (x - Vector<float>.One) / (x + Vector<float>.One)
+                (x - Atan_<float>._1) / (x + Atan_<float>._1)
             );
-            var offset = Vector.ConditionalSelect(
+            var offset = OP.ConditionalSelect(
                 condition,
                 Vector<float>.Zero,
                 Atan_<float>.CoreReflectedOffset
             );
             var x2 = x * x;
-            return x * (Vector<float>.One
+            return x * (Atan_<float>._1
                 + x2 * (Atan_<float>.Coeffs[0]
                 + x2 * (Atan_<float>.Coeffs[1]
                 + x2 * (Atan_<float>.Coeffs[2]
@@ -386,14 +392,14 @@ partial class VectorMath
 
         var sign = SignFast(x);
         x = sign * x;
-        var xx = Vector.ConditionalSelect(
-            Vector.LessThan(x, Vector<float>.One),
+        var xx = OP.ConditionalSelect(
+            OP.LessThan(x, Atan_<float>._1),
             x,
-            Vector<float>.One / x
+            Atan_<float>._1 / x
         );
         var y = core(xx);
-        return sign * Vector.ConditionalSelect(
-            Vector.LessThan(x, Vector<float>.One),
+        return sign * OP.ConditionalSelect(
+            OP.LessThan(x, Atan_<float>._1),
             y,
             Atan_<float>.ReflectOffset - y
         );
@@ -412,7 +418,7 @@ partial class VectorMath
                 {
                     atanCoeffs[n - 1] = new(ScalarMath.Pow(-1.0, n) / (2 * n + 1));
                 }
-                return H.Reinterpret<Vector<double>[], Vector<T>[]>(atanCoeffs);
+                return H.ReinterpretVArray<double, T>(atanCoeffs);
             }
             if (IsT<float>())
             {
@@ -421,7 +427,7 @@ partial class VectorMath
                 {
                     atanCoeffs[n - 1] = new(ScalarMath.Pow(-1f, n) / (2 * n + 1));
                 }
-                return H.Reinterpret<Vector<float>[], Vector<T>[]>(atanCoeffs);
+                return H.ReinterpretVArray<float, T>(atanCoeffs);
             }
             return default!;
         }
@@ -483,15 +489,15 @@ partial class VectorMath
     {
         var a = Atan(y / x);
         Vector<T> signY = SignFast(y);
-        return Vector.ConditionalSelect(
-            Vector.Equals(x, Atan2_<T>._0),
-            Vector.ConditionalSelect(
-                Vector.Equals(y, Atan2_<T>._0),
+        return OP.ConditionalSelect(
+            OP.Equals(x, Atan2_<T>._0),
+            OP.ConditionalSelect(
+                OP.Equals(y, Atan2_<T>._0),
                 Atan2_<T>.NaN,
                 signY * Atan2_<T>.PI_1p2
                 ),
-            Vector.ConditionalSelect(
-                Vector.GreaterThan(x, Vector<T>.Zero),
+            OP.ConditionalSelect(
+                OP.GreaterThan(x, Vector<T>.Zero),
                 a,
                 a + signY * Atan2_<T>.PI_2p2
                 )

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace SmartVectorDotNet;
 
@@ -32,6 +33,13 @@ public partial class VectorizationTest
         }
         yield break;
     }
+
+
+    private ITestOutputHelper Output { get; }
+
+    public VectorizationTest(ITestOutputHelper output) => Output = output;
+
+
 
     [Theory]
     [MemberData(nameof(TestCases))]
