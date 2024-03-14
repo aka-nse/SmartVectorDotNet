@@ -33,10 +33,10 @@ namespace System
 
     internal static class MathEx
     {
-        public static double Cbrt(double d) => throw new NotImplementedException();
-        public static double Acosh(double d) => throw new NotImplementedException();
-        public static double Asinh(double d) => throw new NotImplementedException();
-        public static double Atanh(double d) => throw new NotImplementedException();
+        public static T Cbrt<T>(T d) => throw new NotImplementedException();
+        public static T Acosh<T>(T d) => throw new NotImplementedException();
+        public static T Asinh<T>(T d) => throw new NotImplementedException();
+        public static T Atanh<T>(T d) => throw new NotImplementedException();
     }
 }
 #endif

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Numerics;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Collections.Immutable;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.CompilerServices;
 #if NET6_0_OR_GREATER
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
@@ -113,6 +105,8 @@ public static partial class VectorMath
         internal static readonly Vector<T> _3
             = AsVector(3.0);
 
+        internal static readonly Vector<T> Log_2_E = AsVector(ScalarMath.Log(ScalarMath.Const<double>.E, 2));
+        internal static readonly Vector<T> Log_E_2 = AsVector(ScalarMath.Log(2, ScalarMath.Const<double>.E));
 
         private protected Const() { }
     }

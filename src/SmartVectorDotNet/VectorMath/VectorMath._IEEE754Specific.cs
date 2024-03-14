@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Text;
-
-namespace SmartVectorDotNet;
+﻿namespace SmartVectorDotNet;
 using OP = VectorOp;
 using SC = ScalarMath.Const;
 using H = InternalHelpers;

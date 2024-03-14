@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartVectorDotNet;
+﻿namespace SmartVectorDotNet;
 using static ScalarMath.Const;
 
 partial class ScalarMath

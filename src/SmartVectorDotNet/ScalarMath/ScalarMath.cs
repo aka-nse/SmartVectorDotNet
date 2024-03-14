@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Runtime.CompilerServices;
-using System.Text;
-
+﻿using System.Runtime.CompilerServices;
 namespace SmartVectorDotNet;
+
 
 /// <summary>
 /// Provides wrapper for "System.Math" which appends genericity and framework compatibility.

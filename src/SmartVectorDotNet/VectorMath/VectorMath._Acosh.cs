@@ -3,18 +3,18 @@ using OP = VectorOp;
 using H = InternalHelpers;
 
 
-file class Atanh_<T> : VectorMath.Const<T> where T : unmanaged { }
+file class Acosh_<T> : VectorMath.Const<T> where T : unmanaged { }
 
 
 partial class VectorMath
 {
     /// <summary>
-    /// Calculates atanh(x).
+    /// Calculates acosh(x).
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> Atanh<T>(in Vector<T> x)
+    public static Vector<T> Acosh<T>(in Vector<T> x)
         where T : unmanaged
-        => Atanh_<T>._1p2 * Log((Atanh_<T>._1 + x) / (Atanh_<T>._1 - x));
+        => Log(x + Sqrt(x * x - Acosh_<T>._1));
 }
