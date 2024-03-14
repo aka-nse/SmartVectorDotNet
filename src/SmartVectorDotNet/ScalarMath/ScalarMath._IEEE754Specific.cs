@@ -12,18 +12,18 @@ partial class ScalarMath
 #pragma warning disable IDE1006
         internal const int DoubleSignBitOffset = 63;
         internal const int DoubleExpBitOffset = 52;
-        internal const ulong DoubleSignPartMask = 1uL << DoubleSignBitOffset;
-        internal const ulong DoubleExpPartMask = 0x7FFuL << DoubleExpBitOffset;
-        internal const ulong DoubleFracPartMask = (1uL << DoubleExpBitOffset) - 1;
-        internal const ulong DoubleExpPartBias = 1023uL;
+        internal const long DoubleSignPartMask = 1L << DoubleSignBitOffset;
+        internal const long DoubleExpPartMask = 0x7FFL << DoubleExpBitOffset;
+        internal const long DoubleFracPartMask = (1L << DoubleExpBitOffset) - 1;
+        internal const long DoubleExpPartBias = 1023L;
         internal const double DoubleFracPartOffsetDenom = 1.0 / (1L << DoubleExpBitOffset);
 
         internal const int SingleSignBitOffset = 31;
         internal const int SingleExpBitOffset = 23;
-        internal const uint SingleSignPartMask = 1u << SingleSignBitOffset;
-        internal const uint SingleExpPartMask = 0xFFu << SingleExpBitOffset;
-        internal const uint SingleFracPartMask = (1u << SingleExpBitOffset) - 1;
-        internal const uint SingleExpPartBias = 127u;
+        internal const int SingleSignPartMask = 1 << SingleSignBitOffset;
+        internal const int SingleExpPartMask = 0xFF << SingleExpBitOffset;
+        internal const int SingleFracPartMask = (1 << SingleExpBitOffset) - 1;
+        internal const int SingleExpPartBias = 127;
         internal const float SingleFracPartOffsetDenom = 1.0f / (1 << SingleExpBitOffset);
 #pragma warning restore IDE1006
     }
@@ -83,27 +83,53 @@ partial class ScalarMath
     }
 
 
+    /// <summary>
+    /// Splits real number into IEEE754 part.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="sign"></param>
+    /// <param name="expo"></param>
+    /// <param name="frac"></param>
+    public static void Decompose(double x, out long sign, out long expo, out long frac)
+    {
+        var bin = Reinterpret<double, long>(x);
+        sign = (bin & DoubleSignPartMask) >> DoubleSignBitOffset;
+        expo = (bin & DoubleExpPartMask) >> DoubleExpBitOffset;
+        frac = bin & DoubleFracPartMask;
+    }
+
+
     internal static void Decompose(double x, out long n, out double a)
     {
-        var bin = Reinterpret<double, ulong>(x);
-        var signBit = (bin & DoubleSignPartMask) >> DoubleSignBitOffset;
-        var sign = signBit == 0 ? 1.0 : -1.0;
-        var e = (bin & DoubleExpPartMask) >> DoubleExpBitOffset;
-        var m = bin & DoubleFracPartMask;
-        n = (long)Max(e, 1uL) - (long)DoubleExpPartBias;
-        a = sign * ((e > 0 ? 1.0 : 0.0) + m * DoubleFracPartOffsetDenom);
+        Decompose(x, out var sign, out var expo, out var frac);
+        var s = sign == 0 ? 1.0 : -1.0;
+        n = Max(expo, 1L) - DoubleExpPartBias;
+        a = s * ((expo > 0 ? 1.0 : 0.0) + frac * DoubleFracPartOffsetDenom);
+    }
+
+
+    /// <summary>
+    /// Splits real number into IEEE754 part.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="sign"></param>
+    /// <param name="expo"></param>
+    /// <param name="frac"></param>
+    public static void Decompose(float x, out int sign, out int expo, out int frac)
+    {
+        var bin = Reinterpret<float, int>(x);
+        sign = (bin & SingleSignPartMask) >> SingleSignBitOffset;
+        expo = (bin & SingleExpPartMask) >> SingleExpBitOffset;
+        frac = bin & SingleFracPartMask;
     }
 
 
     internal static void Decompose(float x, out int n, out float a)
     {
-        var bin = Reinterpret<float, uint>(x);
-        var signBit = (bin & SingleSignPartMask) >> SingleSignBitOffset;
-        var sign = signBit == 0 ? 1.0f : -1.0f;
-        var e = (bin & SingleExpPartMask) >> SingleExpBitOffset;
-        var m = bin & SingleFracPartMask;
-        n = (int)Max(e, 1u) - (int)SingleExpPartBias;
-        a = sign * ((e > 0 ? 1.0f : 0.0f) + m * SingleFracPartOffsetDenom);
+        Decompose(x, out var sign, out var expo, out var frac);
+        var s = (sign == 0 ? 1.0f : -1.0f);
+        n = Max(expo, 1) - SingleExpPartBias;
+        a = s * ((expo > 0 ? 1.0f : 0.0f) + frac * SingleFracPartOffsetDenom);
     }
 
 
@@ -122,14 +148,36 @@ partial class ScalarMath
         {
             var nn = Reinterpret<T, double>(n);
             var xx = Reinterpret<T, double>(x);
-            return Reinterpret<double, T>(Reinterpret<long, double>(((long)nn + (long)DoubleExpPartBias) << 52) * xx);
+            return Reinterpret<double, T>(Reinterpret<long, double>(((long)nn + DoubleExpPartBias) << DoubleExpBitOffset) * xx);
         }
         if (typeof(T) == typeof(float))
         {
             var nn = Reinterpret<T, float>(n);
             var xx = Reinterpret<T, float>(x);
-            return Reinterpret<float, T>(Reinterpret<int, float>(((int)nn + (int)SingleExpPartBias) << 23) * xx);
+            return Reinterpret<float, T>(Reinterpret<int, float>(((int)nn + SingleExpPartBias) << SingleExpBitOffset) * xx);
         }
         throw new NotSupportedException();
     }
+
+
+    /// <summary>
+    /// Composes IEEE754 parts into one real number.
+    /// </summary>
+    /// <param name="sign"></param>
+    /// <param name="expo"></param>
+    /// <param name="frac"></param>
+    /// <returns></returns>
+    public static double Scale(long sign, long expo, long frac)
+        => Reinterpret<long, double>((sign << DoubleSignBitOffset) | (expo << DoubleExpBitOffset) | frac);
+
+
+    /// <summary>
+    /// Composes IEEE754 parts into one real number.
+    /// </summary>
+    /// <param name="sign"></param>
+    /// <param name="expo"></param>
+    /// <param name="frac"></param>
+    /// <returns></returns>
+    public static float Scale(int sign, int expo, int frac)
+        => Reinterpret<int, float>((sign << SingleSignBitOffset) | (expo << SingleExpBitOffset) | frac);
 }
