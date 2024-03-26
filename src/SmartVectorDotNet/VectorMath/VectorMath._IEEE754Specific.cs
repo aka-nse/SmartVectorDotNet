@@ -152,6 +152,28 @@ partial class VectorMath
         return x * OP.AsVectorSingle(pow2n);
     }
 
+
+    /// <summary>
+    /// Composes IEEE754 parts into one real number.
+    /// </summary>
+    /// <param name="sign"></param>
+    /// <param name="expo"></param>
+    /// <param name="frac"></param>
+    /// <returns></returns>
+    public static Vector<double> Scale(in Vector<long> sign, in Vector<long> expo, in Vector<long> frac)
+        => H.Reinterpret<long, double>(OP.ShiftLeft(sign, SC.DoubleSignBitOffset) | OP.ShiftLeft(expo, SC.DoubleExpBitOffset) | frac);
+
+
+    /// <summary>
+    /// Composes IEEE754 parts into one real number.
+    /// </summary>
+    /// <param name="sign"></param>
+    /// <param name="expo"></param>
+    /// <param name="frac"></param>
+    /// <returns></returns>
+    public static Vector<float> Scale(in Vector<int> sign, in Vector<int> expo, in Vector<int> frac)
+        => H.Reinterpret<int, float>(OP.ShiftLeft(sign, SC.SingleSignBitOffset) | OP.ShiftLeft(expo, SC.SingleExpBitOffset) | frac);
+
     #endregion
 
     #region IsNormalized
