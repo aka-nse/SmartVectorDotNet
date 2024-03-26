@@ -224,6 +224,7 @@ partial class ScalarOp
     }
 
 
+
     /// <summary> Operates <c>BitwiseOr</c> unaly operation. </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
@@ -244,8 +245,8 @@ partial class ScalarOp
             if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) | Reinterpret<T, short >(y)));
             if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) | Reinterpret<T, int   >(y)));
             if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) | Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(float )) throw new NotSupportedException();
-            if(typeof(T) == typeof(double)) throw new NotSupportedException();
+            if(typeof(T) == typeof(float )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) | Reinterpret<T, uint  >(y)));
+            if(typeof(T) == typeof(double)) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) | Reinterpret<T, ulong >(y)));
         }
         throw new NotSupportedException();
     }
@@ -271,8 +272,8 @@ partial class ScalarOp
             if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) & Reinterpret<T, short >(y)));
             if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) & Reinterpret<T, int   >(y)));
             if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) & Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(float )) throw new NotSupportedException();
-            if(typeof(T) == typeof(double)) throw new NotSupportedException();
+            if(typeof(T) == typeof(float )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) & Reinterpret<T, uint  >(y)));
+            if(typeof(T) == typeof(double)) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) & Reinterpret<T, ulong >(y)));
         }
         throw new NotSupportedException();
     }
@@ -298,11 +299,10 @@ partial class ScalarOp
             if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) ^ Reinterpret<T, short >(y)));
             if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) ^ Reinterpret<T, int   >(y)));
             if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) ^ Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(float )) throw new NotSupportedException();
-            if(typeof(T) == typeof(double)) throw new NotSupportedException();
+            if(typeof(T) == typeof(float )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) ^ Reinterpret<T, uint  >(y)));
+            if(typeof(T) == typeof(double)) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) ^ Reinterpret<T, ulong >(y)));
         }
         throw new NotSupportedException();
     }
 
 }
-

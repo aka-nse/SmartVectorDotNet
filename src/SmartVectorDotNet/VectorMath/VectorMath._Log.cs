@@ -11,7 +11,7 @@ file class Log_<T> : VectorMath.Const<T> where T : unmanaged
     {
         if (IsT<double>())
         {
-            var logCoeffs = new Vector<double>[10];
+            var logCoeffs = new Vector<double>[20];
             for (var i = 0; i < logCoeffs.Length; ++i)
             {
                 logCoeffs[i] = new(ScalarMath.Pow(-1.0, i) / (i + 1.0));
@@ -95,7 +95,17 @@ partial class VectorMath
             + xx * (Log_<double>.Coeffs[8 - 1]
             + xx * (Log_<double>.Coeffs[9 - 1]
             + xx * (Log_<double>.Coeffs[10 - 1]
-            ))))))))));
+            + xx * (Log_<double>.Coeffs[11 - 1]
+            + xx * (Log_<double>.Coeffs[12 - 1]
+            + xx * (Log_<double>.Coeffs[13 - 1]
+            + xx * (Log_<double>.Coeffs[14 - 1]
+            + xx * (Log_<double>.Coeffs[15 - 1]
+            + xx * (Log_<double>.Coeffs[16 - 1]
+            + xx * (Log_<double>.Coeffs[17 - 1]
+            + xx * (Log_<double>.Coeffs[18 - 1]
+            + xx * (Log_<double>.Coeffs[19 - 1]
+            + xx * (Log_<double>.Coeffs[20 - 1]
+            ))))))))))))))))))));
     }
 
     /// <summary> Calculates <c>log(x + 1)</c>. </summary>

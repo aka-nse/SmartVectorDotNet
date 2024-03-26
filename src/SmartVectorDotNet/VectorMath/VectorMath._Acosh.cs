@@ -16,5 +16,8 @@ partial class VectorMath
     /// <returns></returns>
     public static Vector<T> Acosh<T>(in Vector<T> x)
         where T : unmanaged
-        => Log(x + Sqrt(x * x - Acosh_<T>._1));
+    {
+        var d = (x * x) - Acosh_<T>._1;
+        return Log(x + Sqrt(d));
+    }
 }

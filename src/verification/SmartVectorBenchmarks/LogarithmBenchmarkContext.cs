@@ -24,7 +24,7 @@ public partial class LogarithmBenchmarkContext
             Console.Error.WriteLine($"| {kv.Key,-8} | {expError:0.000e-00} |");
         }
 #else
-        BenchmarkRunner.Run<ExponentialBenchmarkContext>();
+        BenchmarkRunner.Run<LogarithmBenchmarkContext>();
 #endif
     }
 

@@ -5,7 +5,7 @@ Console.WriteLine("Hello, Benchmark!");
 
 
 // BenchmarkRunner.Run<FluentIfBenchmarkContext>();
-// LogarithmBenchmarkContext.RunBenchmark();
+LogarithmBenchmarkContext.RunBenchmark();
 // ExponentialBenchmarkContext.RunBenchmark();
 // TrigonometricBenchmarkContext.RunBenchmark();
-AtanBenchmarkContext.RunBenchmark();
+// AtanBenchmarkContext.RunBenchmark();

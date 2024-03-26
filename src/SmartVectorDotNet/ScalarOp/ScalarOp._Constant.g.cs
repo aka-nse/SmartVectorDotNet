@@ -4,6 +4,7 @@
 using System.Numerics;
 using System.Runtime.CompilerServices;
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 partial class ScalarOp
 {
@@ -151,8 +152,8 @@ file class Constant
     public static readonly int       True_int        = Vector.Equals(Vector<int      >.Zero, Vector<int      >.Zero)[0];
     public static readonly long      False_long      = Vector.Equals(Vector<long     >.Zero, Vector<long     >.One )[0];
     public static readonly long      True_long       = Vector.Equals(Vector<long     >.Zero, Vector<long     >.Zero)[0];
-    public static readonly float     False_float     = Vector.Equals(Vector<float    >.Zero, Vector<float    >.One )[0];
-    public static readonly float     True_float      = Vector.Equals(Vector<float    >.Zero, Vector<float    >.Zero)[0];
-    public static readonly double    False_double    = Vector.Equals(Vector<double   >.Zero, Vector<double   >.One )[0];
-    public static readonly double    True_double     = Vector.Equals(Vector<double   >.Zero, Vector<double   >.Zero)[0];
+    public static readonly float     False_float     = H.Reinterpret<int , float >(Vector.Equals(Vector<float    >.Zero, Vector<float    >.One )[0]);
+    public static readonly float     True_float      = H.Reinterpret<int , float >(Vector.Equals(Vector<float    >.Zero, Vector<float    >.Zero)[0]);
+    public static readonly double    False_double    = H.Reinterpret<long, double>(Vector.Equals(Vector<double   >.Zero, Vector<double   >.One )[0]);
+    public static readonly double    True_double     = H.Reinterpret<long, double>(Vector.Equals(Vector<double   >.Zero, Vector<double   >.Zero)[0]);
 }
