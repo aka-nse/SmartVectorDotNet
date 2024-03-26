@@ -128,6 +128,7 @@ partial class ScalarMath
 
 
     /// <summary>
+    /// Returns <paramref name="value"/> clamped to the inclusive range of <paramref name="min"/> and <paramref name="max"/>.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="value"></param>
