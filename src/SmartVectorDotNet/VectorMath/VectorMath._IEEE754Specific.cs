@@ -66,7 +66,14 @@ partial class VectorMath
         throw new NotSupportedException();
     }
 
-    internal static void Decompose(in Vector<double> x, out Vector<long> sign, out Vector<long> expo, out Vector<long> frac)
+    /// <summary>
+    /// Splits real number into IEEE754 part.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="sign"></param>
+    /// <param name="expo"></param>
+    /// <param name="frac"></param>
+    public static void Decompose(in Vector<double> x, out Vector<long> sign, out Vector<long> expo, out Vector<long> frac)
     {
         var bin = H.Reinterpret<double, long>(x);
         sign = OP.ShiftRightLogical(
@@ -93,7 +100,14 @@ partial class VectorMath
         a = xsign * (economized + OP.ConvertToDouble(frac) * IEEE754Double_.FracPartOffsetDenom);
     }
 
-    internal static void Decompose(in Vector<float> x, out Vector<int> sign, out Vector<int> expo, out Vector<int> frac)
+    /// <summary>
+    /// Splits real number into IEEE754 part.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="sign"></param>
+    /// <param name="expo"></param>
+    /// <param name="frac"></param>
+    public static void Decompose(in Vector<float> x, out Vector<int> sign, out Vector<int> expo, out Vector<int> frac)
     {
         var bin = H.Reinterpret<float, int>(x);
         sign = OP.ShiftRightLogical(
