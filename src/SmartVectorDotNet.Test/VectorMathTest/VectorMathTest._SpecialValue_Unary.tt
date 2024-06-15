@@ -1,0 +1,72 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".g.cs" #>
+<#
+var funcs = new []{
+    "Acos",
+    "Acosh",
+    "Asin",
+    "Asinh",
+    "Atan",
+    "Cos",
+    "Cosh",
+    "Exp",
+    "Atanh",
+    "Log",
+    "Log10",
+    "Log2",
+    "Sin",
+    "Sinh",
+    "Tan",
+    "Tanh",
+};
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace SmartVectorDotNet;
+
+public partial class VectorMathTest
+{
+    public class SpecialValue
+    {
+        public static IEnumerable<object[]> SpecialValueTestCase_Unary_Double()
+            => IEEE754DoubleSpecials.Select(x => new object[]{x});
+        
+        public static IEnumerable<object[]> SpecialValueTestCase_Unary_Single()
+            => IEEE754SingleSpecials.Select(x => new object[]{x});
+
+<#  foreach(var func in funcs) { #>
+        #region <#=func#>
+        [Theory]
+        [MemberData(nameof(SpecialValueTestCase_Unary_Double))]
+        public void <#=func#>_Double(double operand)
+        {
+            var exp = Math.<#=func#>(operand);
+            var act = VectorMath.<#=func#><double>(new (operand))[0];
+            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+        }
+
+        [Theory]
+        [MemberData(nameof(SpecialValueTestCase_Unary_Single))]
+        public void <#=func#>_Single(float operand)
+        {
+            var exp = MathF.<#=func#>(operand);
+            var act = VectorMath.<#=func#><float>(new (operand))[0];
+            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+        }
+
+        #endregion
+
+<#  } #>
+    }
+}

@@ -1,0 +1,83 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="AtanBenchmarkContext.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AtanBenchmarkContext.tt</DependentUpon>
+    </None>
+    <None Include="ExponentialBenchmarkContext.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ExponentialBenchmarkContext.tt</DependentUpon>
+    </None>
+    <None Include="LogarithmBenchmarkContext.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LogarithmBenchmarkContext.tt</DependentUpon>
+    </None>
+    <None Include="TrigonometricBenchmarkContext.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TrigonometricBenchmarkContext.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AtanBenchmarkContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AtanBenchmarkContext.g.cs</LastGenOutput>
+    </None>
+    <None Update="ExponentialBenchmarkContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ExponentialBenchmarkContext.g.cs</LastGenOutput>
+    </None>
+    <None Update="LogarithmBenchmarkContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LogarithmBenchmarkContext.g.cs</LastGenOutput>
+    </None>
+    <None Update="TrigonometricBenchmarkContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TrigonometricBenchmarkContext.g.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="AtanBenchmarkContext.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AtanBenchmarkContext.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ExponentialBenchmarkContext.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ExponentialBenchmarkContext.tt</DependentUpon>
+    </Compile>
+    <Compile Update="LogarithmBenchmarkContext.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LogarithmBenchmarkContext.tt</DependentUpon>
+    </Compile>
+    <Compile Update="TrigonometricBenchmarkContext.g.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TrigonometricBenchmarkContext.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

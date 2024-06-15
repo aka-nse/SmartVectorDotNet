@@ -1,0 +1,223 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <LangVersion>11.0</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
+        <PackageReference Include="System.Memory" Version="4.5.5" />
+        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+    </ItemGroup>
+
+    <!-- #region ScalarOp -->
+    <ItemGroup>
+        <None Update="ScalarOp\ScalarOp._Binary.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarOp._Binary.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarOp\ScalarOp._Binary.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarOp._Binary.tt</DependentUpon>
+        </Compile>
+        <Compile Update="VectorOp\VectorOp._Shift.g.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>VectorOp._Shift.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="ScalarOp\ScalarOp._Cast.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarOp._Cast.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarOp\ScalarOp._Cast.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarOp._Cast.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="ScalarOp\ScalarOp._Comparison.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarOp._Comparison.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarOp\ScalarOp._Comparison.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarOp._Comparison.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="ScalarOp\ScalarOp._Constant.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarOp._Constant.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarOp\ScalarOp._Constant.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarOp._Constant.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="ScalarOp\ScalarOp._Shift.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarOp._Shift.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarOp\ScalarOp._Shift.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarOp._Shift.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="ScalarOp\ScalarOp._Unary.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarOp._Unary.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarOp\ScalarOp._Unary.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarOp._Unary.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <!-- #endregion ScalarOp -->
+    
+    <!-- #region ScalarMath -->
+    <ItemGroup>
+        <None Update="ScalarMath\ScalarMath._General.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarMath._General.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarMath\ScalarMath._General.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarMath._General.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="ScalarMath\ScalarMath._Real.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarMath._Real.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarMath\ScalarMath._Real.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarMath._Real.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <!-- #endregion ScalarMath -->
+
+    <!-- #region VectorOp -->
+    <ItemGroup>
+        <None Update="VectorOp\VectorOp._FrameworkFallbacks.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorOp._FrameworkFallbacks.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="VectorOp\VectorOp._FrameworkFallbacks.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorOp._FrameworkFallbacks.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <!-- #endregion VectorOp -->
+
+    <!-- #region VectorMath -->
+    <ItemGroup>
+        <None Update="VectorMath\VectorMath.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorMath.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="VectorMath\VectorMath.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorMath.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <!-- #endregion VectorMath -->
+
+    <!-- #region Vectorization -->
+    <ItemGroup>
+        <None Update="Vectorization\Vectorization._Binary.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>Vectorization._Binary.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="Vectorization\Vectorization._Binary.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Vectorization._Binary.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Vectorization\Vectorization._Math.Real.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>Vectorization._Math.Real.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="Vectorization\Vectorization._Math.Real.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Vectorization._Math.Real.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Vectorization\Vectorization._Unary.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>Vectorization._Unary.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="Vectorization\Vectorization._Unary.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Vectorization._Unary.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <!-- #endregion Vectorization -->
+
+    <!-- #region DynamicServices -->
+    <ItemGroup>
+        <None Update="DynamicServices\DynamicVectorizer._Impl.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>DynamicVectorizer._Impl.g.cs</LastGenOutput>
+        </None>
+        <None Update="VectorOp\VectorOp._Shift.tt">
+          <Generator>TextTemplatingFileGenerator</Generator>
+          <LastGenOutput>VectorOp._Shift.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="DynamicServices\DynamicVectorizer._Impl.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>DynamicVectorizer._Impl.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Compile Remove="DynamicServices/*.cs" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <None Include="VectorOp\VectorOp._Shift.g.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>VectorOp._Shift.tt</DependentUpon>
+      </None>
+    </ItemGroup>
+    <!-- #endregion DynamicServices -->
+
+</Project>

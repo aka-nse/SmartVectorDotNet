@@ -1,0 +1,164 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(ProjectDir)/../SmartVectorDotNet/bin/Debug/netstandard2.0/SmartVectorDotNet.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="SmartVectorDotNet" #>
+<#@ output extension=".g.cs" #>
+<#
+var methods = typeof(Vectorization)
+    .GetMethods(BindingFlags.Public | BindingFlags.Instance)
+    .Where(m => m.DeclaringType == typeof(Vectorization))
+    .Where(m => m.GetParameters().All(p => p.ParameterType.Name.Contains("Span`")))
+    ;
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace SmartVectorDotNet;
+
+
+public partial class VectorizationTest
+{
+    private const AccuracyMode TestAccuracyMode
+        = AccuracyMode.AbsoluteOrRelative | AccuracyMode.RelaxNaNCheck;
+
+    public static IEnumerable<object[]> UnaryOperatorTestCases()
+    {
+        static object[] core(params double[] x)
+            => new object[]{ x, };
+
+        yield return core();
+        yield return core(0);
+        yield return core(0, 1, 2, 3);
+        yield return core(0, 1, 2, 3, 4);
+        yield return core(0, 1, 2, 3, 4, 5, 6, 7);
+        yield return core(0, 1, 2, 3, 4, 5, 6, 7, 8);
+        yield break;
+    }
+    
+    public static IEnumerable<object[]> BinaryOperatorTestCases()
+    {
+        static object[] core(double[] x, double[] y)
+            => new object[]{ x, y, };
+
+        yield return core(Array.Empty<double>(), Array.Empty<double>());
+        yield return core(new[]{-1.0}, new[]{-1.0});
+        yield return core(new[]{-1.0}, new[]{+0.0});
+        yield return core(new[]{-1.0}, new[]{+1.0});
+        yield return core(new[]{+0.0}, new[]{-1.0});
+        yield return core(new[]{+0.0}, new[]{+0.0});
+        yield return core(new[]{+0.0}, new[]{+1.0});
+        yield return core(new[]{+1.0}, new[]{-1.0});
+        yield return core(new[]{+1.0}, new[]{+0.0});
+        yield return core(new[]{+1.0}, new[]{+1.0});
+        yield break;
+    }
+
+<#
+    foreach(var method in methods)
+    {
+        GenerateMethod(method);
+    }
+#>
+}
+<#+
+
+public void GenerateMethod(MethodInfo method)
+{
+    var name = method.Name;
+    var operandNumber = method
+        .GetParameters()
+        .Where(p => p.ParameterType.Name.StartsWith("ReadOnlySpan"))
+        .Count();
+    switch(operandNumber)
+    {
+    case 1:
+#>
+
+    // <#=method.ToString()#>
+    [Theory]
+    [MemberData(nameof(UnaryOperatorTestCases))]
+    public void Test_<#=name#>_real(double[] x)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+            Vectorization.Emulated.<#=name#><double>(x, exp);
+            Vectorization.SIMD.<#=name#><double>(x, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+            Vectorization.Emulated.<#=name#><float>(xx, exp);
+            Vectorization.SIMD.<#=name#><float>(xx, act);
+            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+<#+
+        break;
+    case 2:
+#>
+
+    // <#=method.ToString()#>
+    [Theory]
+    [MemberData(nameof(BinaryOperatorTestCases))]
+    public void Test_<#=name#>_real_real(double[] x, double[] y)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+
+            Vectorization.Emulated.<#=name#><double>(x.FirstOrDefault(), y, exp);
+            Vectorization.SIMD.<#=name#><double>(x.FirstOrDefault(), y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.<#=name#><double>(x, y.FirstOrDefault(), exp);
+            Vectorization.SIMD.<#=name#><double>(x, y.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.<#=name#><double>(x, y, exp);
+            Vectorization.SIMD.<#=name#><double>(x, y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var yy = y.Select(y => (float)y).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+
+            Vectorization.Emulated.<#=name#><float>(xx.FirstOrDefault(), yy, exp);
+            Vectorization.SIMD.<#=name#><float>(xx.FirstOrDefault(), yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.<#=name#><float>(xx, yy.FirstOrDefault(), exp);
+            Vectorization.SIMD.<#=name#><float>(xx, yy.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.<#=name#><float>(xx, yy, exp);
+            Vectorization.SIMD.<#=name#><float>(xx, yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+<#+
+        break;
+    default:
+        break;
+    }
+#>
+
+<#+
+}
+#>
