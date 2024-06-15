@@ -5,6 +5,7 @@
 - [ ] implement `ScalarMath.CountLeadingZeros`
 - [x] implement `VectorMath.Permute2`, which permutes with for each others in 2 elements pairs
 - [x] implement `VectorMath.Permute4`, which permutes with for each others in 4 elements pairs
+- [ ] determine the behavior of `VectorMath` APIs for IEEE754 special value, e.g. subnormal number, positive/negative infinity, and NaN, and implement them.
 
 ## v9999.x.x.x
 
