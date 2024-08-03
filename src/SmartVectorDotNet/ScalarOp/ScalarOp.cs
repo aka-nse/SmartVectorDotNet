@@ -13,5 +13,5 @@ public static partial class ScalarOp
     internal static TTo Reinterpret<TFrom, TTo>(in TFrom x)
         where TFrom : unmanaged
         where TTo : unmanaged
-        => Unsafe.As<TFrom, TTo>(ref Unsafe.AsRef(x));
+        => Unsafe.As<TFrom, TTo>(ref Unsafe.AsRef(in x));
 }
