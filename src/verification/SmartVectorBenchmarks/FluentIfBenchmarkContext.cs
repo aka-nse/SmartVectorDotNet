@@ -118,7 +118,7 @@ public static class VectorOp
     public static Vector<TTo> As<TFrom, TTo>(in Vector<TFrom> vector)
         where TFrom : unmanaged
         where TTo : unmanaged
-        => Unsafe.As<Vector<TFrom>, Vector<TTo>>(ref Unsafe.AsRef(vector));
+        => Unsafe.As<Vector<TFrom>, Vector<TTo>>(ref Unsafe.AsRef(in vector));
 
     public static ConditionalSelector<TFlag, TValue> If<TFlag, TValue>(in Vector<TFlag> condition, in Vector<TValue> then)
         where TFlag : unmanaged
