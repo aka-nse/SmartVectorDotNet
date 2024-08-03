@@ -213,18 +213,45 @@ $$
 
 so that high precision and performace can consist with each other.
 
-## Hyperbolic and inverse hyperbolic functions
+## Hyperbolic functions
 
-Hyperbolic and inverse hyperbolic functions are defined following formulas, so that they can be calculated with elementary functions which are defined above:
+Hyperbolic functions are defined following formulas, so that they can be calculated with elementary functions which are defined above:
 
 $$
 \begin{aligned}
 \sinh x &= \cfrac{e^x - e^{-x}}{2}  \\
 \cosh x &= \cfrac{e^x + e^{-x}}{2}  \\
 \tanh x &= \cfrac{e^x - e^{-x}}{e^x + e^{-x}} = \cfrac{e^{2x} - 1}{e^{2x} + 1}  \\
+\end{aligned}
+$$
+
+## Inverse hyperbolic functions
+
+Inverse hyperbolic functions are defined following formulas, so that they can be calculated with elementary functions which are defined above:
+
+$$
+\begin{aligned}
 \mathrm{arsinh}\,x &= \ln(x + \sqrt{x^2+1})  \\
 \mathrm{arcosh}\,x &= \ln(x + \sqrt{x^2-1})  \\
 \mathrm{artanh}\,x &= \cfrac{1}{2}\ln\cfrac{1+x}{1-x}  \\
+\end{aligned}
+$$
+
+However, transformation of $\mathrm{arcsinh}$ and $\mathrm{arccosh}$ have computational overflow problem because of squared term.
+Therefore extra transformation such as following form is preferable:
+
+$$
+\begin{aligned}
+\mathrm{arsinh}\,x &= \ln(x + \sqrt{x^2+1})  \\
+                   &\sim \mathrm{Sign}(x) \ln(2|x|) \sim \mathrm{Sign}(x) (2 + \ln|x|) &(x \rightarrow \pm\infty)
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+\mathrm{arcosh}\,x &= \ln(x + \sqrt{x^2-1})  \\
+                   &= \ln\left\{x\left(1 + \frac{\sqrt{(x - 1)}\sqrt{(x + 1)}}{x}\right)\right\}  \\
+                   &= \ln x + \ln\left(1 + \frac{\sqrt{(x - 1)}\sqrt{(x + 1)}}{x}\right)
 \end{aligned}
 $$
 
