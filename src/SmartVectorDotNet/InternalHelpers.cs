@@ -54,13 +54,13 @@ internal static class InternalHelpers
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly TTo Reinterpret<TFrom, TTo>(in TFrom x)
-        => ref Unsafe.As<TFrom, TTo>(ref Unsafe.AsRef(x));
+        => ref Unsafe.As<TFrom, TTo>(ref Unsafe.AsRef(in x));
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Vector<TTo> Reinterpret<TFrom, TTo>(in Vector<TFrom> x)
         where TFrom : unmanaged
         where TTo : unmanaged
-        => ref Unsafe.As<Vector<TFrom>, Vector<TTo>>(ref Unsafe.AsRef(x));
+        => ref Unsafe.As<Vector<TFrom>, Vector<TTo>>(ref Unsafe.AsRef(in x));
 
 #if NET6_0_OR_GREATER
 
@@ -68,13 +68,13 @@ internal static class InternalHelpers
     public static ref readonly Vector128<TTo> Reinterpret<TFrom, TTo>(in Vector128<TFrom> x)
         where TFrom : unmanaged
         where TTo : unmanaged
-        => ref Unsafe.As<Vector128<TFrom>, Vector128<TTo>>(ref Unsafe.AsRef(x));
+        => ref Unsafe.As<Vector128<TFrom>, Vector128<TTo>>(ref Unsafe.AsRef(in x));
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Vector256<TTo> Reinterpret<TFrom, TTo>(in Vector256<TFrom> x)
         where TFrom : unmanaged
         where TTo : unmanaged
-        => ref Unsafe.As<Vector256<TFrom>, Vector256<TTo>>(ref Unsafe.AsRef(x));
+        => ref Unsafe.As<Vector256<TFrom>, Vector256<TTo>>(ref Unsafe.AsRef(in x));
 
 #endif
 
@@ -82,7 +82,7 @@ internal static class InternalHelpers
     public static ref readonly Vector<TTo>[] ReinterpretVArray<TFrom, TTo>(in Vector<TFrom>[] x)
         where TFrom : unmanaged
         where TTo : unmanaged
-        => ref Unsafe.As<Vector<TFrom>[], Vector<TTo>[]>(ref Unsafe.AsRef(x));
+        => ref Unsafe.As<Vector<TFrom>[], Vector<TTo>[]>(ref Unsafe.AsRef(in x));
 
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
