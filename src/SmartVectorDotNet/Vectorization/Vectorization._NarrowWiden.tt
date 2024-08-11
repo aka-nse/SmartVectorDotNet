@@ -55,10 +55,9 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Core implementation for <see cref="Narrow" />.
+    /// Core implementation for <see cref="Narrow(ReadOnlySpan{<#=method.TFrom#>}, Span{<#=method.TTo#>})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     protected internal virtual void NarrowCore(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
@@ -116,10 +115,9 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Core implementation for <see cref="Widen" />.
+    /// Core implementation for <see cref="Widen(ReadOnlySpan{<#=method.TFrom#>}, Span{<#=method.TTo#>})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     protected internal virtual void WidenCore(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
