@@ -9,36 +9,6 @@ namespace SmartVectorDotNet;
 
 public partial class VectorMathTest
 {
-    private static IReadOnlyList<double> IEEE754DoubleSpecials { get; } =
-        [
-            0.0,
-            -0.0,
-            double.Epsilon,
-            -double.Epsilon,
-            double.MaxValue,
-            double.MinValue,
-            1/double.MaxValue,
-            1/double.MinValue,
-            double.PositiveInfinity,
-            double.NegativeInfinity,
-            double.NaN,
-        ];
-
-    private static IReadOnlyList<float> IEEE754SingleSpecials { get; } =
-        [
-            0.0f,
-            -0.0f,
-            float.Epsilon,
-            -float.Epsilon,
-            float.MaxValue,
-            float.MinValue,
-            1/float.MaxValue,
-            1/float.MinValue,
-            float.PositiveInfinity,
-            float.NegativeInfinity,
-            float.NaN,
-        ];
-
     private sealed class SpecialValueComparer : IEqualityComparer<double>, IEqualityComparer<float>
     {
         public static SpecialValueComparer Instance { get; } = new ();

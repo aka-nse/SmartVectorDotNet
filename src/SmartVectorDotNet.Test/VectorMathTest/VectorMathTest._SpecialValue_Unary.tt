@@ -7,23 +7,37 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".g.cs" #>
 <#
-var funcs = new []{
-    "Acos",
-    "Acosh",
-    "Asin",
-    "Asinh",
-    "Atan",
-    "Cos",
-    "Cosh",
-    "Exp",
-    "Atanh",
-    "Log",
-    "Log10",
-    "Log2",
-    "Sin",
-    "Sinh",
-    "Tan",
-    "Tanh",
+const string p0   = "default(double)";
+const string n0   = "-default(double)";
+const string pe   = "double.Epsilon";
+const string ne   = "-double.Epsilon";
+const string max  = "double.MaxValue";
+const string min  = "double.MinValue";
+const string rmax = "1/double.MaxValue";
+const string rmin = "1/double.MinValue";
+const string pinf = "double.PositiveInfinity";
+const string ninf = "double.NegativeInfinity";
+const string nan  = "double.NaN";
+
+
+var targets = new TestTarget[]{
+    //           p0, n0, pe, ne, max, min, rmax, rmin, pinf, ninf, nan
+    new("Acos" , p0, n0, pe, ne, max, min, rmax, rmin, pinf, ninf, nan),
+    new("Acosh", p0, n0, pe, ne, max, min, rmax, rmin, pinf, ninf, nan),
+    new("Asin" , p0, n0, pe, ne, max, min, rmax, rmin, pinf, ninf, nan),
+    new("Asinh", p0, n0, pe, ne, max, min, rmax, rmin, pinf, ninf, nan),
+    new("Atan" , p0, n0, pe, ne, max, min, rmax, rmin, pinf, ninf, nan),
+    new("Cos"  , p0, n0, pe, ne,           rmax, rmin, pinf, ninf, nan),
+    new("Cosh" , p0, n0, pe, ne, max, min, rmax, rmin, pinf, ninf, nan),
+    new("Exp"  , p0, n0, pe, ne, max, min, rmax, rmin, pinf, ninf, nan),
+    new("Atanh", p0, n0, pe, ne, max, min, rmax, rmin, pinf, ninf, nan),
+    new("Log"  , p0, n0, pe, ne, max, min, rmax, rmin, pinf, ninf, nan),
+    new("Log10", p0, n0, pe, ne, max, min, rmax, rmin, pinf, ninf, nan),
+    new("Log2" , p0, n0, pe, ne, max, min, rmax, rmin, pinf, ninf, nan),
+    new("Sin"  , p0, n0, pe, ne,           rmax, rmin, pinf, ninf, nan),
+    new("Sinh" , p0, n0, pe, ne, max, min, rmax, rmin, pinf, ninf, nan),
+    new("Tan"  , p0, n0, pe, ne,           rmax, rmin, pinf, ninf, nan),
+    new("Tanh" , p0, n0, pe, ne, max, min, rmax, rmin, pinf, ninf, nan),
 };
 #>
 using System;
@@ -39,16 +53,25 @@ public partial class VectorMathTest
 {
     public class SpecialValue
     {
-        public static IEnumerable<object[]> SpecialValueTestCase_Unary_Double()
-            => IEEE754DoubleSpecials.Select(x => new object[]{x});
-        
-        public static IEnumerable<object[]> SpecialValueTestCase_Unary_Single()
-            => IEEE754SingleSpecials.Select(x => new object[]{x});
-
-<#  foreach(var func in funcs) { #>
+<#  foreach(var func in targets) { #>
         #region <#=func#>
+
+        public static TheoryData<double> <#=func#>_SpecialValueTestCase_Unary_Double_TestCases()
+            => new () { 
+<# foreach(var testValues in func.TestValues) { #>
+                { <#=testValues#> },
+<# } #>
+            };
+
+        public static TheoryData<float> <#=func#>_SpecialValueTestCase_Unary_Single_TestCases()
+            => new () {
+<# foreach(var testValues in func.TestValues) { #>
+                { <#=testValues.Replace("double", "float")#> },
+<# } #>
+            };
+
         [Theory]
-        [MemberData(nameof(SpecialValueTestCase_Unary_Double))]
+        [MemberData(nameof(<#=func#>_SpecialValueTestCase_Unary_Double_TestCases))]
         public void <#=func#>_Double(double operand)
         {
             var exp = Math.<#=func#>(operand);
@@ -57,7 +80,7 @@ public partial class VectorMathTest
         }
 
         [Theory]
-        [MemberData(nameof(SpecialValueTestCase_Unary_Single))]
+        [MemberData(nameof(<#=func#>_SpecialValueTestCase_Unary_Single_TestCases))]
         public void <#=func#>_Single(float operand)
         {
             var exp = MathF.<#=func#>(operand);
@@ -70,3 +93,19 @@ public partial class VectorMathTest
 <#  } #>
     }
 }
+
+<#+
+class TestTarget
+{
+    public string FuncName { get; }
+    public string[] TestValues { get; }
+    
+    public TestTarget(string funcName, params string[] testValues)
+    {
+        FuncName = funcName;
+        TestValues = testValues;
+    }
+
+    public override string ToString() => FuncName;
+}
+#>
