@@ -10,6 +10,6 @@
 ## v9999.x.x.x
 
 - [ ] implement `ScalarMath.MathEx.Cbrt` for netstandard2.0
-- [ ] implement `ScalarMath.MathEx.Acosh` for netstandard2.0
-- [ ] implement `ScalarMath.MathEx.Asinh` for netstandard2.0
-- [ ] implement `ScalarMath.MathEx.Atanh` for netstandard2.0
+- [x] implement `ScalarMath.MathEx.Acosh` for netstandard2.0
+- [?] implement `ScalarMath.MathEx.Asinh` for netstandard2.0
+- [x] implement `ScalarMath.MathEx.Atanh` for netstandard2.0

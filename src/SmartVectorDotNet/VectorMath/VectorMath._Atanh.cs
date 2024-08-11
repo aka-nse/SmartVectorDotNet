@@ -19,6 +19,10 @@ partial class VectorMath
     {
         var a = Atanh_<T>._1 + x;
         var b = Atanh_<T>._1 - x;
-        return Atanh_<T>._1p2 * Log(a / b);
+        return OP.ConditionalSelect(
+            OP.LessThan(Abs(x), Atanh_<T>._1),
+            Atanh_<T>._1p2 * Log(a / b),
+            Atanh_<T>.NaN);
+        ;
     }
 }
