@@ -21,7 +21,6 @@ public partial class AtanBenchmarkContext
 {
     private class Config : ManualConfig
     {
-        private static int Times = 0;
         public Config()
         {
             AddJob(Job.Default);
@@ -77,7 +76,7 @@ public partial class AtanBenchmarkContext
         static Vector<T> core<U>(in Vector<T> x, in Vector<U> signBit)
             where U : unmanaged
         {
-            var sign = Vector.BitwiseAnd(x, Unsafe.As<Vector<U>, Vector<T>>(ref Unsafe.AsRef(signBit)));
+            var sign = Vector.BitwiseAnd(x, Unsafe.As<Vector<U>, Vector<T>>(ref Unsafe.AsRef(in signBit)));
             return Vector.BitwiseOr(Vector<T>.One, sign);
         }
 

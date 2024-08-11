@@ -1,0 +1,171 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".g.cs" #>
+<#
+var narrows = new MethodDefinition[]
+{
+    new ("ushort", "byte"  ),
+    new ("uint"  , "ushort"),
+    new ("ulong" , "uint"  ),
+    new ("short" , "sbyte" ),
+    new ("int"   , "short" ),
+    new ("long"  , "int"   ),
+};
+var widens = new MethodDefinition[]
+{
+    new ("byte"  , "ushort"),
+    new ("ushort", "uint"  ),
+    new ("uint"  , "ulong" ),
+    new ("sbyte" , "short" ),
+    new ("short" , "int"   ),
+    new ("int"   , "long"  ),
+};
+#>
+#nullable enable
+using System;
+using System.Collections.Generic;
+using System.Numerics;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+
+namespace SmartVectorDotNet;
+using OP = VectorOp;
+using H = InternalHelpers;
+
+<# foreach(var method in narrows) { #>
+#region Narrow(in <#=method.TFrom#>, out <#=method.TTo#>)
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates narrow for each corresponding elements of <paramref name="x"/>.
+    /// </summary>
+    /// <param name="x"> The operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
+    /// </exception>
+    public void Narrow(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
+    {
+        if(x.Length != ans.Length)
+            throw new ArgumentException("`x` and `ans` must have same length.");
+        NarrowCore(x, ans);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="Narrow(ReadOnlySpan{<#=method.TFrom#>}, Span{<#=method.TTo#>})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <param name="x"> The operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    protected internal virtual void NarrowCore(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = (<#=method.TTo#>)x[i];
+    }
+}
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    protected internal override sealed void NarrowCore(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
+    {
+        var vectorX = MemoryMarshal.Cast<<#=method.TFrom#>, Vector<<#=method.TFrom#>>>(x);
+        var vectorAns = MemoryMarshal.Cast<<#=method.TTo#>, Vector<<#=method.TTo#>>>(ans);
+        var vectorLength = vectorAns.Length * Vector<<#=method.TTo#>>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = OP.Narrow(vectorX[2 * i], vectorX[2 * i + 1]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vvx = (stackalloc Vector<<#=method.TFrom#>>[2]);
+            var vvans = (stackalloc Vector<<#=method.TTo#>>[1]);
+            var vx = MemoryMarshal.Cast<Vector<<#=method.TFrom#>>, <#=method.TFrom#>>(vvx);
+            var vans = MemoryMarshal.Cast<Vector<<#=method.TTo#>>, <#=method.TTo#>>(vvans);
+            x.Slice(vectorLength).CopyTo(vx);
+            vvans[0] = OP.Narrow(vvx[0], vvx[1]);
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+}
+#endregion
+
+<# } #>
+
+<# foreach(var method in widens) { #>
+#region Widen(in <#=method.TFrom#>, out <#=method.TTo#>)
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates widen for each corresponding elements of <paramref name="x"/>.
+    /// </summary>
+    /// <param name="x"> The operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
+    /// </exception>
+    public void Widen(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
+    {
+        if(x.Length != ans.Length)
+            throw new ArgumentException("`x` and `ans` must have same length.");
+        WidenCore(x, ans);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="Widen(ReadOnlySpan{<#=method.TFrom#>}, Span{<#=method.TTo#>})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <param name="x"> The operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    protected internal virtual void WidenCore(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = (<#=method.TTo#>)x[i];
+    }
+}
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    protected internal override sealed void WidenCore(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
+    {
+        var vectorX = MemoryMarshal.Cast<<#=method.TFrom#>, Vector<<#=method.TFrom#>>>(x);
+        var vectorAns = MemoryMarshal.Cast<<#=method.TTo#>, Vector<<#=method.TTo#>>>(ans);
+        var vectorLength = vectorX.Length * Vector<<#=method.TFrom#>>.Count;
+        for(var i = 0; i < vectorX.Length; ++i)
+        {
+            OP.Widen(vectorX[i], out vectorAns[2 * i], out vectorAns[2 * i + 1]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vvx = (stackalloc Vector<<#=method.TFrom#>>[1]);
+            var vvans = (stackalloc Vector<<#=method.TTo#>>[2]);
+            var vx = MemoryMarshal.Cast<Vector<<#=method.TFrom#>>, <#=method.TFrom#>>(vvx);
+            var vans = MemoryMarshal.Cast<Vector<<#=method.TTo#>>, <#=method.TTo#>>(vvans);
+            x.Slice(vectorLength).CopyTo(vx);
+            OP.Widen(vvx[0], out vvans[0], out vvans[1]);
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+}
+#endregion
+
+<# } #>
+
+
+<#+
+class MethodDefinition
+{
+    public string TFrom { get; }
+    public string TTo { get; }
+
+    public MethodDefinition(string tfrom, string tto)
+    {
+        TFrom = tfrom;
+        TTo = tto;
+    }
+}
+#>

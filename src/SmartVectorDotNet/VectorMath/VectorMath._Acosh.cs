@@ -17,7 +17,17 @@ partial class VectorMath
     public static Vector<T> Acosh<T>(in Vector<T> x)
         where T : unmanaged
     {
-        var d = (x * x) - Acosh_<T>._1;
-        return Log(x + Sqrt(d));
+        // NOTE:
+        //    Generally `acosh` is expressed as:
+        //    $$
+        //    {\rm arccosh}\ x = \ln(x + \sqrt{x^2 - 1})
+        //    $$
+        //    But it may cause overflow for large `x`.
+        //    Therefore this implementation employs following formula:
+        //    $$
+        //    {\rm arccosh}\ x &= \ln\left\{x\left(1 + \cfrac{\sqrt{x^2 - 1}}{x}\right)\right\}  \\
+        //                     &= \ln\ x + \ln\left(1 + \cfrac{\sqrt{x - 1}\sqrt{x + 1}}{x}\right)
+        //    $$
+        return Log(Acosh_<T>._1 + Sqrt(x - Acosh_<T>._1) * Sqrt(x + Acosh_<T>._1) / x) + Log(x);
     }
 }

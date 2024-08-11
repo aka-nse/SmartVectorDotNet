@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <LangVersion>12.0</LangVersion>
         <Nullable>enable</Nullable>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <IsPackable>false</IsPackable>
         <RootNamespace>SmartVectorDotNet</RootNamespace>
     </PropertyGroup>
@@ -30,24 +30,27 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="ScalarOpTest.tt">
-        <Generator>TextTemplatingFileGenerator</Generator>
-        <LastGenOutput>ScalarOpTest.g.cs</LastGenOutput>
-      </None>
-      <None Update="VectorizationTest.tt">
-        <Generator>TextTemplatingFileGenerator</Generator>
-        <LastGenOutput>VectorizationTest.g.cs</LastGenOutput>
-      </None>
-      <Compile Update="ScalarOpTest.g.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>ScalarOpTest.tt</DependentUpon>
-      </Compile>
-      <Compile Update="VectorizationTest.g.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>VectorizationTest.tt</DependentUpon>
-      </Compile>
+        <Compile Update="VectorizationTest/VectorizationTest.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorizationTest.tt</DependentUpon>
+        </Compile>
+        <None Update="VectorizationTest/VectorizationTest.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorizationTest.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="VectorMathTest/VectorMathTest._SpecialValue_Unary.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorMathTest._SpecialValue_Unary.tt</DependentUpon>
+        </Compile>
+        <None Update="VectorMathTest/VectorMathTest._SpecialValue_Unary.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorMathTest._SpecialValue_Unary.g.cs</LastGenOutput>
+        </None>
     </ItemGroup>
 
 </Project>

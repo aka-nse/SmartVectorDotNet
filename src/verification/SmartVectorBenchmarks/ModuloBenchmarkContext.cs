@@ -89,7 +89,7 @@ public class ModuloBenchmarkContext
     public static ref readonly Vector<TTo> Reinterpret<TFrom, TTo>(in Vector<TFrom> x)
         where TFrom : unmanaged
         where TTo : unmanaged
-        => ref Unsafe.As<Vector<TFrom>, Vector<TTo>>(ref Unsafe.AsRef(x));
+        => ref Unsafe.As<Vector<TFrom>, Vector<TTo>>(ref Unsafe.AsRef(in x));
 
     internal static void Decompose(in Vector<double> x, out Vector<long> sign, out Vector<long> expo, out Vector<long> frac)
     {
@@ -110,15 +110,15 @@ public class ModuloBenchmarkContext
     {
         if(Unsafe.SizeOf<Vector<ulong>>() == Unsafe.SizeOf<Vector256<ulong>>())
         {
-            var xx = Unsafe.As<Vector<ulong>, Vector256<ulong>>(ref Unsafe.AsRef(x));
-            var yy = Unsafe.As<Vector<ulong>, Vector256<ulong>>(ref Unsafe.AsRef(y));
+            var xx = Unsafe.As<Vector<ulong>, Vector256<ulong>>(ref Unsafe.AsRef(in x));
+            var yy = Unsafe.As<Vector<ulong>, Vector256<ulong>>(ref Unsafe.AsRef(in y));
             var zz = Avx2.ShiftLeftLogicalVariable(xx, yy);
             return Unsafe.As<Vector256<ulong>, Vector<ulong>>(ref zz);
         }
         if (Unsafe.SizeOf<Vector<ulong>>() == Unsafe.SizeOf<Vector128<ulong>>())
         {
-            var xx = Unsafe.As<Vector<ulong>, Vector128<ulong>>(ref Unsafe.AsRef(x));
-            var yy = Unsafe.As<Vector<ulong>, Vector128<ulong>>(ref Unsafe.AsRef(y));
+            var xx = Unsafe.As<Vector<ulong>, Vector128<ulong>>(ref Unsafe.AsRef(in x));
+            var yy = Unsafe.As<Vector<ulong>, Vector128<ulong>>(ref Unsafe.AsRef(in y));
             var zz = Avx2.ShiftLeftLogicalVariable(xx, yy);
             return Unsafe.As<Vector128<ulong>, Vector<ulong>>(ref zz);
         }
