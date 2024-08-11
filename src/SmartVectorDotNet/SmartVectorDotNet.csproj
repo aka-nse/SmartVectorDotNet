@@ -7,12 +7,16 @@
         <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
-        <PackageId>aka-nse.$(AssemblyName)</PackageId>
+        <PackageId>akanse.$(AssemblyName)</PackageId>
         <Title>SmartVectorDotNet</Title>
         <Version>0.1.0.0</Version>
         <Authors>aka-nse</Authors>
         <Company />
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/aka-nse/SmartVectorDotNet</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/aka-nse/SmartVectorDotNet</PackageProjectUrl>
+        <PackageTags>vectorization,SIMD</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
@@ -240,6 +244,10 @@
 
     <ItemGroup>
       <None Include="..\..\LICENSE.txt">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
+      <None Include="..\..\README.md">
         <Pack>True</Pack>
         <PackagePath>\</PackagePath>
       </None>
