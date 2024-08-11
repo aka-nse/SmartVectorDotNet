@@ -6,6 +6,7 @@
 - [x] implement `VectorMath.Permute2`, which permutes with for each others in 2 elements pairs
 - [x] implement `VectorMath.Permute4`, which permutes with for each others in 4 elements pairs
 - [x] determine the behavior of `VectorMath` APIs for IEEE754 special value, e.g. subnormal number, positive/negative infinity, and NaN, and implement them.
+- [ ] implement `Vectorization.Widen` and `Vectorization.Narrow`, which converts data types in the span.
 
 ## v9999.x.x.x
 
