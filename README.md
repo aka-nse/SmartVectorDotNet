@@ -1,5 +1,9 @@
 # SmartVectorDotNet
 
+[<img src="https://img.shields.io/badge/-GitHub-blue.svg?logo=github" />](https://github.com/aka-nse/SmartVectorDotNet)
+
+[<img src="https://img.shields.io/badge/-NuGet-019733.svg?logo=nuget" />](https://www.nuget.org/packages/akanse.SmartVectorDotNet/)
+
 SmartVectorDotNet is a library to calculate the sequence by a unified signature with SIMD.
 
 ## Concepts
