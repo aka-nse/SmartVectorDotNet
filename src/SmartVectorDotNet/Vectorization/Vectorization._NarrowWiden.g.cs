@@ -28,10 +28,9 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Core implementation for <see cref="Narrow" />.
+    /// Core implementation for <see cref="Narrow(ReadOnlySpan{ushort}, Span{byte})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     protected internal virtual void NarrowCore(ReadOnlySpan<ushort> x, Span<byte> ans)
@@ -86,10 +85,9 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Core implementation for <see cref="Narrow" />.
+    /// Core implementation for <see cref="Narrow(ReadOnlySpan{uint}, Span{ushort})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     protected internal virtual void NarrowCore(ReadOnlySpan<uint> x, Span<ushort> ans)
@@ -144,10 +142,9 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Core implementation for <see cref="Narrow" />.
+    /// Core implementation for <see cref="Narrow(ReadOnlySpan{ulong}, Span{uint})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     protected internal virtual void NarrowCore(ReadOnlySpan<ulong> x, Span<uint> ans)
@@ -202,10 +199,9 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Core implementation for <see cref="Narrow" />.
+    /// Core implementation for <see cref="Narrow(ReadOnlySpan{short}, Span{sbyte})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     protected internal virtual void NarrowCore(ReadOnlySpan<short> x, Span<sbyte> ans)
@@ -260,10 +256,9 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Core implementation for <see cref="Narrow" />.
+    /// Core implementation for <see cref="Narrow(ReadOnlySpan{int}, Span{short})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     protected internal virtual void NarrowCore(ReadOnlySpan<int> x, Span<short> ans)
@@ -318,10 +313,9 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Core implementation for <see cref="Narrow" />.
+    /// Core implementation for <see cref="Narrow(ReadOnlySpan{long}, Span{int})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     protected internal virtual void NarrowCore(ReadOnlySpan<long> x, Span<int> ans)
@@ -377,10 +371,9 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Core implementation for <see cref="Widen" />.
+    /// Core implementation for <see cref="Widen(ReadOnlySpan{byte}, Span{ushort})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     protected internal virtual void WidenCore(ReadOnlySpan<byte> x, Span<ushort> ans)
@@ -435,10 +428,9 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Core implementation for <see cref="Widen" />.
+    /// Core implementation for <see cref="Widen(ReadOnlySpan{ushort}, Span{uint})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     protected internal virtual void WidenCore(ReadOnlySpan<ushort> x, Span<uint> ans)
@@ -493,10 +485,9 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Core implementation for <see cref="Widen" />.
+    /// Core implementation for <see cref="Widen(ReadOnlySpan{uint}, Span{ulong})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     protected internal virtual void WidenCore(ReadOnlySpan<uint> x, Span<ulong> ans)
@@ -551,10 +542,9 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Core implementation for <see cref="Widen" />.
+    /// Core implementation for <see cref="Widen(ReadOnlySpan{sbyte}, Span{short})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     protected internal virtual void WidenCore(ReadOnlySpan<sbyte> x, Span<short> ans)
@@ -609,10 +599,9 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Core implementation for <see cref="Widen" />.
+    /// Core implementation for <see cref="Widen(ReadOnlySpan{short}, Span{int})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     protected internal virtual void WidenCore(ReadOnlySpan<short> x, Span<int> ans)
@@ -667,10 +656,9 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Core implementation for <see cref="Widen" />.
+    /// Core implementation for <see cref="Widen(ReadOnlySpan{int}, Span{long})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     protected internal virtual void WidenCore(ReadOnlySpan<int> x, Span<long> ans)
