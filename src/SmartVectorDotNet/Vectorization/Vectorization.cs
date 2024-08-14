@@ -54,7 +54,7 @@ public partial class SimdVectorization : Vectorization
                 d1 = Unsafe.ByteOffset(ref getUntypedRef(source[0]), ref getUntypedRef(destination[source.Length - 1]));
 
                 // ensure no memory compaction
-                if(Unsafe.ByteOffset(ref getUntypedRef(source[0]), ref getUntypedRef(source[0])) == s0
+                if (Unsafe.ByteOffset(ref getUntypedRef(source[0]), ref getUntypedRef(source[0])) == s0
                     && Unsafe.ByteOffset(ref getUntypedRef(source[0]), ref getUntypedRef(destination[0])) == d0)
                 {
                     break;
@@ -68,6 +68,10 @@ public partial class SimdVectorization : Vectorization
             return Math.Max(ss0, dd0) < Math.Min(ss1, dd1);
         }
 
+        if (source.Length == 0 || destination.Length == 0)
+        {
+            return default;
+        }
         if (isSameBuffer(source, destination))
         {
             return default;

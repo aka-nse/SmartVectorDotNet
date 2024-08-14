@@ -1,5 +1,6 @@
 <#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core" #>
+<#@ assembly name="$(NuGetPackageRoot)/system.memory/4.6.0/lib/netstandard2.0/System.Memory.dll" #>
 <#@ assembly name="$(ProjectDir)/../SmartVectorDotNet/bin/Debug/netstandard2.0/SmartVectorDotNet.dll" #>
 <#@ import namespace="System" #>
 <#@ import namespace="System.Collections.Generic" #>

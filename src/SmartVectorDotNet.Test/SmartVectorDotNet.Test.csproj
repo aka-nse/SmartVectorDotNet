@@ -34,6 +34,17 @@
     <ItemGroup>
         <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
     </ItemGroup>
+    <ItemGroup>
+        <Compile Update="VectorMathTest/VectorMathTest._SpecialValue_Unary.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorMathTest._SpecialValue_Unary.tt</DependentUpon>
+        </Compile>
+        <None Update="VectorMathTest/VectorMathTest._SpecialValue_Unary.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorMathTest._SpecialValue_Unary.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
 
     <ItemGroup>
         <Compile Update="VectorizationTest/VectorizationTest.g.cs">
@@ -60,14 +71,14 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="VectorMathTest/VectorMathTest._SpecialValue_Unary.g.cs">
+        <Compile Update="VectorizationTest\VectorizationTest._BufferOverlap.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>VectorMathTest._SpecialValue_Unary.tt</DependentUpon>
+            <DependentUpon>VectorizationTest._BufferOverlap.tt</DependentUpon>
         </Compile>
-        <None Update="VectorMathTest/VectorMathTest._SpecialValue_Unary.tt">
+        <None Update="VectorizationTest\VectorizationTest._BufferOverlap.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorMathTest._SpecialValue_Unary.g.cs</LastGenOutput>
+            <LastGenOutput>VectorizationTest._BufferOverlap.g.cs</LastGenOutput>
         </None>
     </ItemGroup>
 
