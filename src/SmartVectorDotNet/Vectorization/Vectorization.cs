@@ -78,6 +78,7 @@ public partial class SimdVectorization : Vectorization
         }
         var retval = new TemporaryBuffer<T1>(source.Length);
         source.CopyTo(retval.Span);
+        source = retval.Span;
         return retval;
     }
 }

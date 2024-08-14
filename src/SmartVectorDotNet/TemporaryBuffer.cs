@@ -47,7 +47,7 @@ public readonly ref struct TemporaryBuffer<T>
     /// </summary>
     public void Dispose()
     {
-        if(_buffer is null)
+        if(_pool is null || _buffer is null)
         {
             return;
         }

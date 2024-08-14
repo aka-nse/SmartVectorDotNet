@@ -109,6 +109,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void AddCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = new Vector<T>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -130,6 +131,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void AddCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -151,6 +153,8 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void AddCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -278,6 +282,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void SubtractCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = new Vector<T>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -299,6 +304,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void SubtractCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -320,6 +326,8 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void SubtractCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -447,6 +455,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void MultiplyCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = new Vector<T>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -468,6 +477,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void MultiplyCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -489,6 +499,8 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void MultiplyCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -616,6 +628,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void DivideCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = new Vector<T>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -637,6 +650,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void DivideCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -658,6 +672,8 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void DivideCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -785,6 +801,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void BitwiseAndCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = new Vector<T>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -806,6 +823,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void BitwiseAndCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -827,6 +845,8 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void BitwiseAndCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -954,6 +974,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void BitwiseOrCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = new Vector<T>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -975,6 +996,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void BitwiseOrCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -996,6 +1018,8 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void BitwiseOrCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1123,6 +1147,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void BitwiseXorCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = new Vector<T>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1144,6 +1169,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void BitwiseXorCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1165,6 +1191,8 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void BitwiseXorCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1298,6 +1326,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void EqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = new Vector<T>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1319,6 +1348,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void EqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1340,6 +1370,8 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void EqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1473,6 +1505,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void LessThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = new Vector<T>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1494,6 +1527,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void LessThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1515,6 +1549,8 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void LessThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1648,6 +1684,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void LessThanOrEqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = new Vector<T>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1669,6 +1706,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void LessThanOrEqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1690,6 +1728,8 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void LessThanOrEqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1823,6 +1863,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void GreaterThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = new Vector<T>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1844,6 +1885,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void GreaterThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1865,6 +1907,8 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void GreaterThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -1998,6 +2042,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void GreaterThanOrEqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = new Vector<T>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -2019,6 +2064,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void GreaterThanOrEqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -2040,6 +2086,8 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void GreaterThanOrEqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);

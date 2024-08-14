@@ -238,6 +238,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override void <#=unaryOp#>Core<T>(ReadOnlySpan<T> <#=arg1#>, Span<T> ans)
     {
+        using var safe<#=arg1#>Buffer = EnsureSourceSafe(ref <#=arg1#>, ans);
         var vector<#=ToPascal(arg1)#> = MemoryMarshal.Cast<T, Vector<T>>(<#=arg1#>);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
@@ -264,6 +265,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override void <#=binaryOp#>Core<T>(T <#=arg1#>, ReadOnlySpan<T> <#=arg2#>, Span<T> ans)
     {
+        using var safe<#=arg2#>Buffer = EnsureSourceSafe(ref <#=arg2#>, ans);
         var vector<#=ToPascal(arg1)#> = new Vector<T>(<#=arg1#>);
         var vector<#=ToPascal(arg2)#> = MemoryMarshal.Cast<T, Vector<T>>(<#=arg2#>);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -285,6 +287,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override void <#=binaryOp#>Core<T>(ReadOnlySpan<T> <#=arg1#>, T <#=arg2#>, Span<T> ans)
     {
+        using var safe<#=arg1#>Buffer = EnsureSourceSafe(ref <#=arg1#>, ans);
         var vector<#=ToPascal(arg1)#> = MemoryMarshal.Cast<T, Vector<T>>(<#=arg1#>);
         var vector<#=ToPascal(arg2)#> = new Vector<T>(<#=arg2#>);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -306,6 +309,8 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override void <#=binaryOp#>Core<T>(ReadOnlySpan<T> <#=arg1#>, ReadOnlySpan<T> <#=arg2#>, Span<T> ans)
     {
+        using var safe<#=arg1#>Buffer = EnsureSourceSafe(ref <#=arg1#>, ans);
+        using var safe<#=arg2#>Buffer = EnsureSourceSafe(ref <#=arg2#>, ans);
         var vector<#=ToPascal(arg1)#> = MemoryMarshal.Cast<T, Vector<T>>(<#=arg1#>);
         var vector<#=ToPascal(arg2)#> = MemoryMarshal.Cast<T, Vector<T>>(<#=arg2#>);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);

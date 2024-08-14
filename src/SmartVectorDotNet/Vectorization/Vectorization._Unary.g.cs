@@ -53,6 +53,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void UnaryPlusCore<T>(ReadOnlySpan<T> x, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
@@ -119,6 +120,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void UnaryMinusCore<T>(ReadOnlySpan<T> x, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
@@ -185,6 +187,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void ComplementCore<T>(ReadOnlySpan<T> x, Span<T> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;

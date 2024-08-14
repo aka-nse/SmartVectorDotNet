@@ -71,6 +71,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void NarrowCore(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<<#=method.TFrom#>, Vector<<#=method.TFrom#>>>(x);
         var vectorAns = MemoryMarshal.Cast<<#=method.TTo#>, Vector<<#=method.TTo#>>>(ans);
         var vectorLength = vectorAns.Length * Vector<<#=method.TTo#>>.Count;
@@ -130,6 +131,7 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void WidenCore(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
     {
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<<#=method.TFrom#>, Vector<<#=method.TFrom#>>>(x);
         var vectorAns = MemoryMarshal.Cast<<#=method.TTo#>, Vector<<#=method.TTo#>>>(ans);
         var vectorLength = vectorX.Length * Vector<<#=method.TFrom#>>.Count;
