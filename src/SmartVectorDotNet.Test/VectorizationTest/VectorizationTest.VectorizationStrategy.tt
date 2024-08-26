@@ -1,0 +1,79 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(ProjectDir)/../SmartVectorDotNet/bin/Debug/netstandard2.0/SmartVectorDotNet.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="SmartVectorDotNet" #>
+<#@ output extension=".g.cs" #>
+using System;
+using System.Linq;
+using System.Numerics;
+using Xunit;
+
+namespace SmartVectorDotNet;
+
+
+public partial class VectorizationTest
+{
+    public static TheoryData<float[][]> TestCaseVectorization()
+    {
+        static float[][] createTestData(int seed, int size)
+        {
+            var rand = new Random(seed);
+            var arguments = new float[10][];
+            for(var i = 0; i < 10; ++i)
+            {
+                arguments[i] = Enumerable.Range(0, size).Select(_ => (float)rand.NextDouble()).ToArray();
+            }
+            return arguments;
+        }
+
+        return new TheoryData<float[][]>()
+        {
+<#      foreach(var j in new []{ 0, 1, 3, 4, 5, 7, 8, 9, 15, 16, 17, 31, 32, 33, 63, 64, 65, 127, 128, 129, 255, 256, 257, }){ #>
+            { createTestData(12345678 + <#=j#>, <#=j#>) },
+<#      } #>
+        };
+    }
+
+
+
+<#  for(var i = 1; i <= 10; ++i) { #>
+    private readonly struct TestOp<#=i#> : IVectorFormula<#=i#><float>
+    {
+        public float Calculate(<#=CommaSeparated(1, i, j => $"float x{j}")#>)
+            => <#=Separated(" + ", 1, i, j => $"x{j}")#>;
+            
+        public Vector<float> Calculate(<#=CommaSeparated(1, i, j => $"Vector<float> x{j}")#>)
+            => <#=Separated(" + ", 1, i, j => $"x{j}")#>;
+    }
+
+    [Theory]
+    [MemberData(nameof(TestCaseVectorization))]
+    public void CalculateVector<#=i#>(float[][] arguments)
+    {
+        var op = default(TestOp<#=i#>);
+        var exp = new float[arguments[0].Length];
+        var act = new float[arguments[0].Length];
+        for(var i = 0; i < exp.Length; ++i)
+        {
+            exp[i] = op.Calculate(<#=CommaSeparated(0, i, j => $"arguments[{j}][i]")#>);
+        }
+        Vectorization.SIMD.Calculate<float, TestOp<#=i#>>(<#=CommaSeparated(0, i, j => $"arguments[{j}]")#>, act);
+        Assert.Equal(exp, act);
+    }
+
+
+
+<#  } #>
+}
+<#+
+string Separated(string separator, int start, int length, Func<int, string> func)
+    => string.Join(separator, Enumerable.Range(start, length).Select(func));
+
+string CommaSeparated(int start, int length, Func<int, string> func)
+    => Separated(", ", start, length, func);
+#>
