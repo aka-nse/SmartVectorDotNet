@@ -19,6 +19,20 @@ file class Permute_
     private static readonly byte[] _MaskBaseUInt8_Permute4;
     public static ReadOnlySpan<byte> MaskBaseUInt8_Permute4 => _MaskBaseUInt8_Permute4;
 
+    public static readonly Vector128<byte> Permute4Mask128 = H.CreateVector128(stackalloc byte[16]
+    {
+        0, 1, 0, 1, 0, 1, 0, 1,
+        8, 9, 8, 9, 8, 9, 8, 9,
+    });
+
+    public static readonly Vector256<byte> Permute4Mask256 = H.CreateVector256(stackalloc byte[32]
+    {
+        0, 1, 0, 1, 0, 1, 0, 1,
+        8, 9, 8, 9, 8, 9, 8, 9,
+        0, 1, 0, 1, 0, 1, 0, 1,
+        8, 9, 8, 9, 8, 9, 8, 9,
+    });
+
     static Permute_()
     {
         _MaskBaseUInt8_Permute2 = new byte[Vector256<byte>.Count];
@@ -29,7 +43,7 @@ file class Permute_
         }
 
         _MaskBaseUInt8_Permute4 = new byte[Vector256<byte>.Count];
-        for(var i = 0; i < Vector256<byte>.Count; i += 4)
+        for (var i = 0; i < Vector256<byte>.Count; i += 4)
         {
             _MaskBaseUInt8_Permute4[i + 0] = (byte)i;
             _MaskBaseUInt8_Permute4[i + 1] = (byte)i;
@@ -71,7 +85,7 @@ partial class VectorMath
     internal static Vector128<byte> PermuteX(in Vector128<byte> v, byte m0, byte m1, byte m2, byte m3, ReadOnlySpan<byte> maskBase)
     {
         var maskOffsets = (stackalloc byte[4] { (byte)(m0 & 0b11), (byte)(m1 & 0b11), (byte)(m2 & 0b11), (byte)(m3 & 0b11), });
-        if(Sse3.IsSupported)
+        if (Sse3.IsSupported)
         {
             var maskBytes = (stackalloc byte[Vector128<byte>.Count]);
             MemoryMarshal.Cast<byte, uint>(maskBytes).Fill(MemoryMarshal.Cast<byte, uint>(maskOffsets)[0]);
@@ -95,13 +109,17 @@ partial class VectorMath
     {
         if (Sse2.IsSupported)
         {
-            var mask = ((m3 & 0b11u) << 6) | ((m2 & 0b11u) << 4) | ((m1 & 0b11u) << 2) | (m0 & 0b11u);
-            var lo = (stackalloc ushort[Vector128<ushort>.Count]);
-            var hi = (stackalloc ushort[Vector128<ushort>.Count]);
-            MemoryMarshal.Cast<ushort, Vector128<ushort>>(lo)[0] = Sse2.ShuffleLow(v, (byte)mask);
-            MemoryMarshal.Cast<ushort, Vector128<ushort>>(hi)[0] = Sse2.ShuffleHigh(v, (byte)mask);
-            lo.Slice(0, 4).CopyTo(hi.Slice(0, 4));
-            return MemoryMarshal.Cast<ushort, Vector128<ushort>>(hi)[0];
+            ref readonly var vv = ref H.Reinterpret<ushort, byte>(in v);
+            m0 <<= 1;
+            m1 <<= 1;
+            m2 <<= 1;
+            m3 <<= 1;
+            var mask = H.CreateVector128(stackalloc byte[] {
+                m0, m0, m1, m1, m2, m2, m3, m3,
+                m0, m0, m1, m1, m2, m2, m3, m3,
+            });
+            mask = Sse2.Add(mask, Permute_.Permute4Mask128);
+            return H.Reinterpret<byte, ushort>(Ssse3.Shuffle(vv, mask));
         }
         else
         {
@@ -121,8 +139,9 @@ partial class VectorMath
     {
         if (Sse2.IsSupported)
         {
-            var mask = ((m3 & 0b11u) << 6) | ((m2 & 0b11u) << 4) | ((m1 & 0b11u) << 2) | (m0 & 0b11u);
-            return Sse2.Shuffle(v, (byte)mask);
+            ref readonly var vv = ref H.Reinterpret<uint, float>(in v);
+            var control = H.CreateVector128(stackalloc int[] { m0, m1, m2, m3, });
+            return Vector128.As<float, uint>(Avx.PermuteVar(vv, control));
         }
         else
         {
@@ -142,7 +161,7 @@ partial class VectorMath
     {
         throw new NotSupportedException();
     }
-    
+
 
 
 
@@ -199,14 +218,19 @@ partial class VectorMath
     {
         if (Avx2.IsSupported)
         {
-            var mask = ((m3 & 0b11u) << 6) | ((m2 & 0b11u) << 4) | ((m1 & 0b11u) << 2) | (m0 & 0b11u);
-            var lo = (stackalloc ushort[Vector256<ushort>.Count]);
-            var hi = (stackalloc ushort[Vector256<ushort>.Count]);
-            MemoryMarshal.Cast<ushort, Vector256<ushort>>(lo)[0] = Avx2.ShuffleLow(v, (byte)mask);
-            MemoryMarshal.Cast<ushort, Vector256<ushort>>(hi)[0] = Avx2.ShuffleHigh(v, (byte)mask);
-            lo.Slice(0, 4).CopyTo(hi.Slice(0, 4));
-            lo.Slice(8, 4).CopyTo(hi.Slice(8, 4));
-            return MemoryMarshal.Cast<ushort, Vector256<ushort>>(hi)[0];
+            ref readonly var vv = ref H.Reinterpret<ushort, byte>(in v);
+            m0 <<= 1;
+            m1 <<= 1;
+            m2 <<= 1;
+            m3 <<= 1;
+            var mask = H.CreateVector256(stackalloc byte[] {
+                m0, m0, m1, m1, m2, m2, m3, m3,
+                m0, m0, m1, m1, m2, m2, m3, m3,
+                m0, m0, m1, m1, m2, m2, m3, m3,
+                m0, m0, m1, m1, m2, m2, m3, m3,
+            });
+            mask = Avx2.Add(mask, Permute_.Permute4Mask256);
+            return H.Reinterpret<byte, ushort>(Avx2.Shuffle(vv, mask));
         }
         else
         {
@@ -226,8 +250,9 @@ partial class VectorMath
     {
         if (Avx2.IsSupported)
         {
-            var mask = ((m3 & 0b11u) << 6) | ((m2 & 0b11u) << 4) | ((m1 & 0b11u) << 2) | (m0 & 0b11u);
-            return Avx2.Shuffle(v, (byte)mask);
+            ref readonly var vv = ref H.Reinterpret<uint, float>(in v);
+            var control = H.CreateVector256(stackalloc int[] { m0, m1, m2, m3, m0 + 4, m1 + 4, m2 + 4, m3 + 4, });
+            return Vector256.As<float, uint>(Avx.PermuteVar(vv, control));
         }
         else
         {
@@ -247,8 +272,13 @@ partial class VectorMath
     {
         if (Avx2.IsSupported)
         {
-            var mask = ((m3 & 0b11u) << 6) | ((m2 & 0b11u) << 4) | ((m1 & 0b11u) << 2) | (m0 & 0b11u);
-            return Avx2.Permute4x64(v, (byte)mask);
+            ref readonly var vv = ref H.Reinterpret<ulong, float>(in v);
+            m0 <<= 1;
+            m1 <<= 1;
+            m2 <<= 1;
+            m3 <<= 1;
+            var control = H.CreateVector256(stackalloc int[] { m0, m0 + 1, m1, m1 + 1, m2, m2 + 1, m3, m3 + 1, });
+            return Vector256.As<float, ulong>(Avx2.PermuteVar8x32(vv, control));
         }
         else
         {
