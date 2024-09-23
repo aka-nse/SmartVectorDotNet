@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SmartVectorDotNet;
@@ -109,6 +110,16 @@ partial class ScalarMath
 
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
     public static int CountTrailingZeros(nuint x)
-        => CountTrailingZeros((ulong)x);
+    {
+        if (Unsafe.SizeOf<nuint>() == sizeof(uint))
+        {
+            return CountTrailingZeros((uint)x);
+        }
+        if(Unsafe.SizeOf<nuint>() == sizeof(ulong))
+        {
+            return CountTrailingZeros((ulong)x);
+        }
+        throw new NotSupportedException();
+    }
 #endif
 }
