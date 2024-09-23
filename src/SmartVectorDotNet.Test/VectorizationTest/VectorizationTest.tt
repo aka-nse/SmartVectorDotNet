@@ -12,6 +12,7 @@
 var methods = typeof(Vectorization)
     .GetMethods(BindingFlags.Public | BindingFlags.Instance)
     .Where(m => m.DeclaringType == typeof(Vectorization))
+    .Where(m => m.IsGenericMethodDefinition && m.GetGenericArguments().Length == 1)
     .Where(m => m.GetParameters().All(p => p.ParameterType.Name.Contains("Span`")))
     ;
 #>

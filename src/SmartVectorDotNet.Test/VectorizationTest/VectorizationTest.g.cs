@@ -46,6 +46,322 @@ public partial class VectorizationTest
     }
 
 
+    // Void Atanh[T](System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(UnaryOperatorTestCases))]
+    public void Test_Atanh_real(double[] x)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+            Vectorization.Emulated.Atanh<double>(x, exp);
+            Vectorization.SIMD.Atanh<double>(x, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+            Vectorization.Emulated.Atanh<float>(xx, exp);
+            Vectorization.SIMD.Atanh<float>(xx, act);
+            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void Cbrt[T](System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(UnaryOperatorTestCases))]
+    public void Test_Cbrt_real(double[] x)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+            Vectorization.Emulated.Cbrt<double>(x, exp);
+            Vectorization.SIMD.Cbrt<double>(x, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+            Vectorization.Emulated.Cbrt<float>(xx, exp);
+            Vectorization.SIMD.Cbrt<float>(xx, act);
+            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void Log2[T](System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(UnaryOperatorTestCases))]
+    public void Test_Log2_real(double[] x)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+            Vectorization.Emulated.Log2<double>(x, exp);
+            Vectorization.SIMD.Log2<double>(x, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+            Vectorization.Emulated.Log2<float>(xx, exp);
+            Vectorization.SIMD.Log2<float>(xx, act);
+            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void Ceiling[T](System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(UnaryOperatorTestCases))]
+    public void Test_Ceiling_real(double[] x)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+            Vectorization.Emulated.Ceiling<double>(x, exp);
+            Vectorization.SIMD.Ceiling<double>(x, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+            Vectorization.Emulated.Ceiling<float>(xx, exp);
+            Vectorization.SIMD.Ceiling<float>(xx, act);
+            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void Floor[T](System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(UnaryOperatorTestCases))]
+    public void Test_Floor_real(double[] x)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+            Vectorization.Emulated.Floor<double>(x, exp);
+            Vectorization.SIMD.Floor<double>(x, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+            Vectorization.Emulated.Floor<float>(xx, exp);
+            Vectorization.SIMD.Floor<float>(xx, act);
+            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void Exp[T](System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(UnaryOperatorTestCases))]
+    public void Test_Exp_real(double[] x)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+            Vectorization.Emulated.Exp<double>(x, exp);
+            Vectorization.SIMD.Exp<double>(x, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+            Vectorization.Emulated.Exp<float>(xx, exp);
+            Vectorization.SIMD.Exp<float>(xx, act);
+            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void Log[T](System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(UnaryOperatorTestCases))]
+    public void Test_Log_real(double[] x)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+            Vectorization.Emulated.Log<double>(x, exp);
+            Vectorization.SIMD.Log<double>(x, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+            Vectorization.Emulated.Log<float>(xx, exp);
+            Vectorization.SIMD.Log<float>(xx, act);
+            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void Log10[T](System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(UnaryOperatorTestCases))]
+    public void Test_Log10_real(double[] x)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+            Vectorization.Emulated.Log10<double>(x, exp);
+            Vectorization.SIMD.Log10<double>(x, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+            Vectorization.Emulated.Log10<float>(xx, exp);
+            Vectorization.SIMD.Log10<float>(xx, act);
+            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void Round[T](System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(UnaryOperatorTestCases))]
+    public void Test_Round_real(double[] x)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+            Vectorization.Emulated.Round<double>(x, exp);
+            Vectorization.SIMD.Round<double>(x, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+            Vectorization.Emulated.Round<float>(xx, exp);
+            Vectorization.SIMD.Round<float>(xx, act);
+            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void Truncate[T](System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(UnaryOperatorTestCases))]
+    public void Test_Truncate_real(double[] x)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+            Vectorization.Emulated.Truncate<double>(x, exp);
+            Vectorization.SIMD.Truncate<double>(x, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+            Vectorization.Emulated.Truncate<float>(xx, exp);
+            Vectorization.SIMD.Truncate<float>(xx, act);
+            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void Atan2[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(BinaryOperatorTestCases))]
+    public void Test_Atan2_real_real(double[] x, double[] y)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+
+            Vectorization.Emulated.Atan2<double>(x.FirstOrDefault(), y, exp);
+            Vectorization.SIMD.Atan2<double>(x.FirstOrDefault(), y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.Atan2<double>(x, y.FirstOrDefault(), exp);
+            Vectorization.SIMD.Atan2<double>(x, y.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.Atan2<double>(x, y, exp);
+            Vectorization.SIMD.Atan2<double>(x, y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var yy = y.Select(y => (float)y).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+
+            Vectorization.Emulated.Atan2<float>(xx.FirstOrDefault(), yy, exp);
+            Vectorization.SIMD.Atan2<float>(xx.FirstOrDefault(), yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.Atan2<float>(xx, yy.FirstOrDefault(), exp);
+            Vectorization.SIMD.Atan2<float>(xx, yy.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.Atan2<float>(xx, yy, exp);
+            Vectorization.SIMD.Atan2<float>(xx, yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void Pow[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(BinaryOperatorTestCases))]
+    public void Test_Pow_real_real(double[] x, double[] y)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+
+            Vectorization.Emulated.Pow<double>(x.FirstOrDefault(), y, exp);
+            Vectorization.SIMD.Pow<double>(x.FirstOrDefault(), y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.Pow<double>(x, y.FirstOrDefault(), exp);
+            Vectorization.SIMD.Pow<double>(x, y.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.Pow<double>(x, y, exp);
+            Vectorization.SIMD.Pow<double>(x, y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var yy = y.Select(y => (float)y).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+
+            Vectorization.Emulated.Pow<float>(xx.FirstOrDefault(), yy, exp);
+            Vectorization.SIMD.Pow<float>(xx.FirstOrDefault(), yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.Pow<float>(xx, yy.FirstOrDefault(), exp);
+            Vectorization.SIMD.Pow<float>(xx, yy.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.Pow<float>(xx, yy, exp);
+            Vectorization.SIMD.Pow<float>(xx, yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
     // Void Log[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
     [Theory]
     [MemberData(nameof(BinaryOperatorTestCases))]
@@ -197,6 +513,221 @@ public partial class VectorizationTest
             Vectorization.Emulated.Complement<float>(xx, exp);
             Vectorization.SIMD.Complement<float>(xx, act);
             AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void BitwiseOr[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(BinaryOperatorTestCases))]
+    public void Test_BitwiseOr_real_real(double[] x, double[] y)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+
+            Vectorization.Emulated.BitwiseOr<double>(x.FirstOrDefault(), y, exp);
+            Vectorization.SIMD.BitwiseOr<double>(x.FirstOrDefault(), y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.BitwiseOr<double>(x, y.FirstOrDefault(), exp);
+            Vectorization.SIMD.BitwiseOr<double>(x, y.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.BitwiseOr<double>(x, y, exp);
+            Vectorization.SIMD.BitwiseOr<double>(x, y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var yy = y.Select(y => (float)y).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+
+            Vectorization.Emulated.BitwiseOr<float>(xx.FirstOrDefault(), yy, exp);
+            Vectorization.SIMD.BitwiseOr<float>(xx.FirstOrDefault(), yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.BitwiseOr<float>(xx, yy.FirstOrDefault(), exp);
+            Vectorization.SIMD.BitwiseOr<float>(xx, yy.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.BitwiseOr<float>(xx, yy, exp);
+            Vectorization.SIMD.BitwiseOr<float>(xx, yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void BitwiseXor[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(BinaryOperatorTestCases))]
+    public void Test_BitwiseXor_real_real(double[] x, double[] y)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+
+            Vectorization.Emulated.BitwiseXor<double>(x.FirstOrDefault(), y, exp);
+            Vectorization.SIMD.BitwiseXor<double>(x.FirstOrDefault(), y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.BitwiseXor<double>(x, y.FirstOrDefault(), exp);
+            Vectorization.SIMD.BitwiseXor<double>(x, y.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.BitwiseXor<double>(x, y, exp);
+            Vectorization.SIMD.BitwiseXor<double>(x, y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var yy = y.Select(y => (float)y).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+
+            Vectorization.Emulated.BitwiseXor<float>(xx.FirstOrDefault(), yy, exp);
+            Vectorization.SIMD.BitwiseXor<float>(xx.FirstOrDefault(), yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.BitwiseXor<float>(xx, yy.FirstOrDefault(), exp);
+            Vectorization.SIMD.BitwiseXor<float>(xx, yy.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.BitwiseXor<float>(xx, yy, exp);
+            Vectorization.SIMD.BitwiseXor<float>(xx, yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void Equals[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(BinaryOperatorTestCases))]
+    public void Test_Equals_real_real(double[] x, double[] y)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+
+            Vectorization.Emulated.Equals<double>(x.FirstOrDefault(), y, exp);
+            Vectorization.SIMD.Equals<double>(x.FirstOrDefault(), y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.Equals<double>(x, y.FirstOrDefault(), exp);
+            Vectorization.SIMD.Equals<double>(x, y.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.Equals<double>(x, y, exp);
+            Vectorization.SIMD.Equals<double>(x, y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var yy = y.Select(y => (float)y).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+
+            Vectorization.Emulated.Equals<float>(xx.FirstOrDefault(), yy, exp);
+            Vectorization.SIMD.Equals<float>(xx.FirstOrDefault(), yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.Equals<float>(xx, yy.FirstOrDefault(), exp);
+            Vectorization.SIMD.Equals<float>(xx, yy.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.Equals<float>(xx, yy, exp);
+            Vectorization.SIMD.Equals<float>(xx, yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void LessThan[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(BinaryOperatorTestCases))]
+    public void Test_LessThan_real_real(double[] x, double[] y)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+
+            Vectorization.Emulated.LessThan<double>(x.FirstOrDefault(), y, exp);
+            Vectorization.SIMD.LessThan<double>(x.FirstOrDefault(), y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.LessThan<double>(x, y.FirstOrDefault(), exp);
+            Vectorization.SIMD.LessThan<double>(x, y.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.LessThan<double>(x, y, exp);
+            Vectorization.SIMD.LessThan<double>(x, y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var yy = y.Select(y => (float)y).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+
+            Vectorization.Emulated.LessThan<float>(xx.FirstOrDefault(), yy, exp);
+            Vectorization.SIMD.LessThan<float>(xx.FirstOrDefault(), yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.LessThan<float>(xx, yy.FirstOrDefault(), exp);
+            Vectorization.SIMD.LessThan<float>(xx, yy.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.LessThan<float>(xx, yy, exp);
+            Vectorization.SIMD.LessThan<float>(xx, yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+        }
+    }
+
+
+    // Void LessThanOrEquals[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
+    [Theory]
+    [MemberData(nameof(BinaryOperatorTestCases))]
+    public void Test_LessThanOrEquals_real_real(double[] x, double[] y)
+    {
+        {
+            var exp = new double[x.Length];
+            var act = new double[x.Length];
+
+            Vectorization.Emulated.LessThanOrEquals<double>(x.FirstOrDefault(), y, exp);
+            Vectorization.SIMD.LessThanOrEquals<double>(x.FirstOrDefault(), y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.LessThanOrEquals<double>(x, y.FirstOrDefault(), exp);
+            Vectorization.SIMD.LessThanOrEquals<double>(x, y.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+            Vectorization.Emulated.LessThanOrEquals<double>(x, y, exp);
+            Vectorization.SIMD.LessThanOrEquals<double>(x, y, act);
+            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+
+        }
+        {
+            var xx = x.Select(x => (float)x).ToArray();
+            var yy = y.Select(y => (float)y).ToArray();
+            var exp = new float[xx.Length];
+            var act = new float[xx.Length];
+
+            Vectorization.Emulated.LessThanOrEquals<float>(xx.FirstOrDefault(), yy, exp);
+            Vectorization.SIMD.LessThanOrEquals<float>(xx.FirstOrDefault(), yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.LessThanOrEquals<float>(xx, yy.FirstOrDefault(), exp);
+            Vectorization.SIMD.LessThanOrEquals<float>(xx, yy.FirstOrDefault(), act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+
+            Vectorization.Emulated.LessThanOrEquals<float>(xx, yy, exp);
+            Vectorization.SIMD.LessThanOrEquals<float>(xx, yy, act);
+            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
         }
     }
 
@@ -563,322 +1094,6 @@ public partial class VectorizationTest
     }
 
 
-    // Void Atanh[T](System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(UnaryOperatorTestCases))]
-    public void Test_Atanh_real(double[] x)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-            Vectorization.Emulated.Atanh<double>(x, exp);
-            Vectorization.SIMD.Atanh<double>(x, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-            Vectorization.Emulated.Atanh<float>(xx, exp);
-            Vectorization.SIMD.Atanh<float>(xx, act);
-            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void Cbrt[T](System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(UnaryOperatorTestCases))]
-    public void Test_Cbrt_real(double[] x)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-            Vectorization.Emulated.Cbrt<double>(x, exp);
-            Vectorization.SIMD.Cbrt<double>(x, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-            Vectorization.Emulated.Cbrt<float>(xx, exp);
-            Vectorization.SIMD.Cbrt<float>(xx, act);
-            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void Log2[T](System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(UnaryOperatorTestCases))]
-    public void Test_Log2_real(double[] x)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-            Vectorization.Emulated.Log2<double>(x, exp);
-            Vectorization.SIMD.Log2<double>(x, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-            Vectorization.Emulated.Log2<float>(xx, exp);
-            Vectorization.SIMD.Log2<float>(xx, act);
-            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void Ceiling[T](System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(UnaryOperatorTestCases))]
-    public void Test_Ceiling_real(double[] x)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-            Vectorization.Emulated.Ceiling<double>(x, exp);
-            Vectorization.SIMD.Ceiling<double>(x, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-            Vectorization.Emulated.Ceiling<float>(xx, exp);
-            Vectorization.SIMD.Ceiling<float>(xx, act);
-            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void Floor[T](System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(UnaryOperatorTestCases))]
-    public void Test_Floor_real(double[] x)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-            Vectorization.Emulated.Floor<double>(x, exp);
-            Vectorization.SIMD.Floor<double>(x, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-            Vectorization.Emulated.Floor<float>(xx, exp);
-            Vectorization.SIMD.Floor<float>(xx, act);
-            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void Exp[T](System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(UnaryOperatorTestCases))]
-    public void Test_Exp_real(double[] x)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-            Vectorization.Emulated.Exp<double>(x, exp);
-            Vectorization.SIMD.Exp<double>(x, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-            Vectorization.Emulated.Exp<float>(xx, exp);
-            Vectorization.SIMD.Exp<float>(xx, act);
-            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void Log[T](System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(UnaryOperatorTestCases))]
-    public void Test_Log_real(double[] x)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-            Vectorization.Emulated.Log<double>(x, exp);
-            Vectorization.SIMD.Log<double>(x, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-            Vectorization.Emulated.Log<float>(xx, exp);
-            Vectorization.SIMD.Log<float>(xx, act);
-            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void Log10[T](System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(UnaryOperatorTestCases))]
-    public void Test_Log10_real(double[] x)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-            Vectorization.Emulated.Log10<double>(x, exp);
-            Vectorization.SIMD.Log10<double>(x, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-            Vectorization.Emulated.Log10<float>(xx, exp);
-            Vectorization.SIMD.Log10<float>(xx, act);
-            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void Round[T](System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(UnaryOperatorTestCases))]
-    public void Test_Round_real(double[] x)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-            Vectorization.Emulated.Round<double>(x, exp);
-            Vectorization.SIMD.Round<double>(x, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-            Vectorization.Emulated.Round<float>(xx, exp);
-            Vectorization.SIMD.Round<float>(xx, act);
-            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void Truncate[T](System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(UnaryOperatorTestCases))]
-    public void Test_Truncate_real(double[] x)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-            Vectorization.Emulated.Truncate<double>(x, exp);
-            Vectorization.SIMD.Truncate<double>(x, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-            Vectorization.Emulated.Truncate<float>(xx, exp);
-            Vectorization.SIMD.Truncate<float>(xx, act);
-            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void Atan2[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(BinaryOperatorTestCases))]
-    public void Test_Atan2_real_real(double[] x, double[] y)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-
-            Vectorization.Emulated.Atan2<double>(x.FirstOrDefault(), y, exp);
-            Vectorization.SIMD.Atan2<double>(x.FirstOrDefault(), y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-            Vectorization.Emulated.Atan2<double>(x, y.FirstOrDefault(), exp);
-            Vectorization.SIMD.Atan2<double>(x, y.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-            Vectorization.Emulated.Atan2<double>(x, y, exp);
-            Vectorization.SIMD.Atan2<double>(x, y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var yy = y.Select(y => (float)y).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-
-            Vectorization.Emulated.Atan2<float>(xx.FirstOrDefault(), yy, exp);
-            Vectorization.SIMD.Atan2<float>(xx.FirstOrDefault(), yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-
-            Vectorization.Emulated.Atan2<float>(xx, yy.FirstOrDefault(), exp);
-            Vectorization.SIMD.Atan2<float>(xx, yy.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-
-            Vectorization.Emulated.Atan2<float>(xx, yy, exp);
-            Vectorization.SIMD.Atan2<float>(xx, yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void Pow[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(BinaryOperatorTestCases))]
-    public void Test_Pow_real_real(double[] x, double[] y)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-
-            Vectorization.Emulated.Pow<double>(x.FirstOrDefault(), y, exp);
-            Vectorization.SIMD.Pow<double>(x.FirstOrDefault(), y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-            Vectorization.Emulated.Pow<double>(x, y.FirstOrDefault(), exp);
-            Vectorization.SIMD.Pow<double>(x, y.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-            Vectorization.Emulated.Pow<double>(x, y, exp);
-            Vectorization.SIMD.Pow<double>(x, y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var yy = y.Select(y => (float)y).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-
-            Vectorization.Emulated.Pow<float>(xx.FirstOrDefault(), yy, exp);
-            Vectorization.SIMD.Pow<float>(xx.FirstOrDefault(), yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-
-            Vectorization.Emulated.Pow<float>(xx, yy.FirstOrDefault(), exp);
-            Vectorization.SIMD.Pow<float>(xx, yy.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-
-            Vectorization.Emulated.Pow<float>(xx, yy, exp);
-            Vectorization.SIMD.Pow<float>(xx, yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
     // Void Add[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
     [Theory]
     [MemberData(nameof(BinaryOperatorTestCases))]
@@ -1089,221 +1304,6 @@ public partial class VectorizationTest
 
             Vectorization.Emulated.BitwiseAnd<float>(xx, yy, exp);
             Vectorization.SIMD.BitwiseAnd<float>(xx, yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void BitwiseOr[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(BinaryOperatorTestCases))]
-    public void Test_BitwiseOr_real_real(double[] x, double[] y)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-
-            Vectorization.Emulated.BitwiseOr<double>(x.FirstOrDefault(), y, exp);
-            Vectorization.SIMD.BitwiseOr<double>(x.FirstOrDefault(), y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-            Vectorization.Emulated.BitwiseOr<double>(x, y.FirstOrDefault(), exp);
-            Vectorization.SIMD.BitwiseOr<double>(x, y.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-            Vectorization.Emulated.BitwiseOr<double>(x, y, exp);
-            Vectorization.SIMD.BitwiseOr<double>(x, y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var yy = y.Select(y => (float)y).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-
-            Vectorization.Emulated.BitwiseOr<float>(xx.FirstOrDefault(), yy, exp);
-            Vectorization.SIMD.BitwiseOr<float>(xx.FirstOrDefault(), yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-
-            Vectorization.Emulated.BitwiseOr<float>(xx, yy.FirstOrDefault(), exp);
-            Vectorization.SIMD.BitwiseOr<float>(xx, yy.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-
-            Vectorization.Emulated.BitwiseOr<float>(xx, yy, exp);
-            Vectorization.SIMD.BitwiseOr<float>(xx, yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void BitwiseXor[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(BinaryOperatorTestCases))]
-    public void Test_BitwiseXor_real_real(double[] x, double[] y)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-
-            Vectorization.Emulated.BitwiseXor<double>(x.FirstOrDefault(), y, exp);
-            Vectorization.SIMD.BitwiseXor<double>(x.FirstOrDefault(), y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-            Vectorization.Emulated.BitwiseXor<double>(x, y.FirstOrDefault(), exp);
-            Vectorization.SIMD.BitwiseXor<double>(x, y.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-            Vectorization.Emulated.BitwiseXor<double>(x, y, exp);
-            Vectorization.SIMD.BitwiseXor<double>(x, y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var yy = y.Select(y => (float)y).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-
-            Vectorization.Emulated.BitwiseXor<float>(xx.FirstOrDefault(), yy, exp);
-            Vectorization.SIMD.BitwiseXor<float>(xx.FirstOrDefault(), yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-
-            Vectorization.Emulated.BitwiseXor<float>(xx, yy.FirstOrDefault(), exp);
-            Vectorization.SIMD.BitwiseXor<float>(xx, yy.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-
-            Vectorization.Emulated.BitwiseXor<float>(xx, yy, exp);
-            Vectorization.SIMD.BitwiseXor<float>(xx, yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void Equals[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(BinaryOperatorTestCases))]
-    public void Test_Equals_real_real(double[] x, double[] y)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-
-            Vectorization.Emulated.Equals<double>(x.FirstOrDefault(), y, exp);
-            Vectorization.SIMD.Equals<double>(x.FirstOrDefault(), y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-            Vectorization.Emulated.Equals<double>(x, y.FirstOrDefault(), exp);
-            Vectorization.SIMD.Equals<double>(x, y.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-            Vectorization.Emulated.Equals<double>(x, y, exp);
-            Vectorization.SIMD.Equals<double>(x, y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var yy = y.Select(y => (float)y).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-
-            Vectorization.Emulated.Equals<float>(xx.FirstOrDefault(), yy, exp);
-            Vectorization.SIMD.Equals<float>(xx.FirstOrDefault(), yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-
-            Vectorization.Emulated.Equals<float>(xx, yy.FirstOrDefault(), exp);
-            Vectorization.SIMD.Equals<float>(xx, yy.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-
-            Vectorization.Emulated.Equals<float>(xx, yy, exp);
-            Vectorization.SIMD.Equals<float>(xx, yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void LessThan[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(BinaryOperatorTestCases))]
-    public void Test_LessThan_real_real(double[] x, double[] y)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-
-            Vectorization.Emulated.LessThan<double>(x.FirstOrDefault(), y, exp);
-            Vectorization.SIMD.LessThan<double>(x.FirstOrDefault(), y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-            Vectorization.Emulated.LessThan<double>(x, y.FirstOrDefault(), exp);
-            Vectorization.SIMD.LessThan<double>(x, y.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-            Vectorization.Emulated.LessThan<double>(x, y, exp);
-            Vectorization.SIMD.LessThan<double>(x, y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var yy = y.Select(y => (float)y).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-
-            Vectorization.Emulated.LessThan<float>(xx.FirstOrDefault(), yy, exp);
-            Vectorization.SIMD.LessThan<float>(xx.FirstOrDefault(), yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-
-            Vectorization.Emulated.LessThan<float>(xx, yy.FirstOrDefault(), exp);
-            Vectorization.SIMD.LessThan<float>(xx, yy.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-
-            Vectorization.Emulated.LessThan<float>(xx, yy, exp);
-            Vectorization.SIMD.LessThan<float>(xx, yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-        }
-    }
-
-
-    // Void LessThanOrEquals[T](System.ReadOnlySpan`1[T], System.ReadOnlySpan`1[T], System.Span`1[T])
-    [Theory]
-    [MemberData(nameof(BinaryOperatorTestCases))]
-    public void Test_LessThanOrEquals_real_real(double[] x, double[] y)
-    {
-        {
-            var exp = new double[x.Length];
-            var act = new double[x.Length];
-
-            Vectorization.Emulated.LessThanOrEquals<double>(x.FirstOrDefault(), y, exp);
-            Vectorization.SIMD.LessThanOrEquals<double>(x.FirstOrDefault(), y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-            Vectorization.Emulated.LessThanOrEquals<double>(x, y.FirstOrDefault(), exp);
-            Vectorization.SIMD.LessThanOrEquals<double>(x, y.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-            Vectorization.Emulated.LessThanOrEquals<double>(x, y, exp);
-            Vectorization.SIMD.LessThanOrEquals<double>(x, y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
-
-        }
-        {
-            var xx = x.Select(x => (float)x).ToArray();
-            var yy = y.Select(y => (float)y).ToArray();
-            var exp = new float[xx.Length];
-            var act = new float[xx.Length];
-
-            Vectorization.Emulated.LessThanOrEquals<float>(xx.FirstOrDefault(), yy, exp);
-            Vectorization.SIMD.LessThanOrEquals<float>(xx.FirstOrDefault(), yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-
-            Vectorization.Emulated.LessThanOrEquals<float>(xx, yy.FirstOrDefault(), exp);
-            Vectorization.SIMD.LessThanOrEquals<float>(xx, yy.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
-
-            Vectorization.Emulated.LessThanOrEquals<float>(xx, yy, exp);
-            Vectorization.SIMD.LessThanOrEquals<float>(xx, yy, act);
             AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
         }
     }
