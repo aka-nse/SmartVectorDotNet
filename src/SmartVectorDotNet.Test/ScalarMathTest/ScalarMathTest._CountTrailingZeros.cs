@@ -12,17 +12,24 @@ public partial class ScalarMathTest
     [Fact]
     public void Ctz32()
     {
+        foreach(var x in stackalloc uint[] { 0u, 1u, 2u, 4u, 8u, 16u, 32u, uint.MaxValue, })
+        {
+            testCore(x);
+        }
         var random = new Random(1234567);
         for(var i = 0; i < 65536; ++i)
         {
             var x = (uint)random.Next();
-            Assert.Equal(ctzReference(x), ScalarMath.CountTrailingZeros(x));
+            testCore(x);
         }
+
+        static void testCore(uint x)
+            => Assert.Equal(ctzReference(x), ScalarMath.CountTrailingZeros(x));
 
         static int ctzReference(uint x)
         {
             var i = 0;
-            for(; i < 64; ++i)
+            for(; i < 32; ++i)
             {
                 if((x & 1) == 1)
                 {
@@ -38,12 +45,19 @@ public partial class ScalarMathTest
     [Fact]
     public void Ctz64()
     {
+        foreach (var x in stackalloc ulong[] { 0u, 1u, 2u, 4u, 8u, 16u, 32u, ulong.MaxValue, })
+        {
+            testCore(x);
+        }
         var random = new Random(1234567);
         for (var i = 0; i < 65536; ++i)
         {
             var x = (ulong)random.NextInt64();
-            Assert.Equal(ctzReference(x), ScalarMath.CountTrailingZeros(x));
+            testCore(x);
         }
+
+        static void testCore(ulong x)
+            => Assert.Equal(ctzReference(x), ScalarMath.CountTrailingZeros(x));
 
         static int ctzReference(ulong x)
         {
