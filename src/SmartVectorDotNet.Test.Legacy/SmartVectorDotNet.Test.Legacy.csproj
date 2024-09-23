@@ -32,9 +32,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile
-            Include="..\SmartVectorDotNet.Test\ScalarMathTest\*.cs"
-            LinkBase="ScalarMathTest" />
+        <Compile Include="..\SmartVectorDotNet.Test\AssertEx.cs" />
+        <Compile Include="..\SmartVectorDotNet.Test\AccuracyAssert.cs" />
+        <Compile Include="..\SmartVectorDotNet.Test\ScalarMathTest\*.cs" LinkBase="ScalarMathTest" />
+        <Compile Include="..\SmartVectorDotNet.Test\VectorOpTest\*.cs" LinkBase="VectorOpTest" />
     </ItemGroup>
 
 </Project>

@@ -71,4 +71,16 @@
         </None>
     </ItemGroup>
 
+    <ItemGroup>
+        <Compile Update="VectorOpTest/VectorOpTest._Shift.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorOpTest._Shift.tt</DependentUpon>
+        </Compile>
+        <None Update="VectorOpTest/VectorOpTest._Shift.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorOpTest._Shift.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
 </Project>

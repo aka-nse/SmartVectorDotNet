@@ -31,7 +31,7 @@ public partial class ScalarMathTest
             var i = 0;
             for(; i < 32; ++i)
             {
-                if((x & 1) == 1)
+                if((x & 1) != 0)
                 {
                     return i;
                 }
@@ -66,7 +66,7 @@ public partial class ScalarMathTest
             var i = 0;
             for (; i < 64; ++i)
             {
-                if ((x & 1) == 1)
+                if ((x & 1) != 0)
                 {
                     return i;
                 }
