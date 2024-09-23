@@ -3,6 +3,10 @@ namespace System
 {
     internal static class MathF
     {
+        public const float PI = (float)Math.PI;
+        public const float E = (float)Math.E;
+
+        public static float Abs(float d) => (float)Math.Abs(d);
         public static float Sqrt(float d) => (float)Math.Sqrt(d);
         public static float Cbrt(float d) => (float)MathEx.Cbrt(d);
         public static float Cos(float d) => (float)Math.Cos(d);
