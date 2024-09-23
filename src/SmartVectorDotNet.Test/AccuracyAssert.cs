@@ -9,47 +9,19 @@ using Xunit.Abstractions;
 
 namespace SmartVectorDotNet;
 
-internal static class AccuracyAssert
+internal static partial class AccuracyAssert
 {
     public static void Accurate<T>(
         T[]? x, T[] yExpected, T[] yActual,
         T accuracy, AccuracyMode mode = AccuracyMode.Absolute,
         ITestOutputHelper? output = null)
-        where T : unmanaged, INumber<T>, IMinMaxValue<T>
+        where T : unmanaged
+#if NET7_0_OR_GREATER
+            , INumber<T>, IMinMaxValue<T>
+#endif
     {
-        static bool getIsAccurate(T accuracy, T error)
-            => !T.IsNaN(error) && error < accuracy;
-
-        static bool getIsValidNaN(T yExpected, T yActual, AccuracyMode mode)
-        {
-            bool expIsNaN, actIsNaN;
-            if(mode.HasFlag(AccuracyMode.RelaxNaNCheck))
-            {
-                expIsNaN = T.IsNaN(yExpected) || T.IsInfinity(yExpected);
-                actIsNaN = T.IsNaN(yActual) || T.IsInfinity(yActual);
-            }
-            else
-            {
-                expIsNaN = T.IsNaN(yExpected);
-                actIsNaN = T.IsNaN(yActual);
-            }
-            return !(expIsNaN ^ actIsNaN);
-        }
-
-        static T errorAbs(T exp, T act)
-            => T.Abs(exp - act);
-
-        static T errorRel(T exp, T act)
-            => T.Abs(exp - act) / (T.Abs(exp) + T.One / T.MaxValue);
-
-        static T errorAbsAndRel(T exp, T act)
-            => T.Max(errorAbs(exp, act), errorRel(exp, act));
-
-        static T errorAbsOrRel(T exp, T act)
-            => T.Min(errorAbs(exp, act), errorRel(exp, act));
-
         x ??= yExpected;
-        if(x.Length != yExpected.Length || x.Length != yActual.Length || accuracy < T.Zero)
+        if(x.Length != yExpected.Length || x.Length != yActual.Length || !Core<T>.IsValidAccuracy(accuracy))
         {
             throw new ArgumentException();
         }
@@ -59,10 +31,10 @@ internal static class AccuracyAssert
             yActual,
             (mode & AccuracyMode.AccuracyTest) switch
             {
-                AccuracyMode.Absolute => errorAbs,
-                AccuracyMode.Relative => errorRel,
-                AccuracyMode.AbsoluteAndRelative => errorAbsAndRel,
-                AccuracyMode.AbsoluteOrRelative => errorAbsOrRel,
+                AccuracyMode.Absolute => Core<T>.ErrorAbs,
+                AccuracyMode.Relative => Core<T>.ErrorRel,
+                AccuracyMode.AbsoluteAndRelative => Core<T>.ErrorAbsAndRel,
+                AccuracyMode.AbsoluteOrRelative => Core<T>.ErrorAbsOrRel,
                 _ => throw new ArgumentOutOfRangeException(),
             }).ToArray();
 
@@ -73,8 +45,8 @@ internal static class AccuracyAssert
         {
             sb.AppendLine($"{x[i]},{yExpected[i]},{yActual[i]},{errors[i]:0.000e+00}");
 
-            bool isAccurate = getIsAccurate(accuracy, errors[i]);
-            bool isValidNaN = getIsValidNaN(yExpected[i], yActual[i], mode);
+            bool isAccurate = Core<T>.GetIsAccurate(accuracy, errors[i]);
+            bool isValidNaN = Core<T>.GetIsValidNaN(yExpected[i], yActual[i], mode);
             if (isAccurate || isValidNaN)
             {
                 continue;
@@ -89,6 +61,27 @@ internal static class AccuracyAssert
                 + $"(test type: {typeof(T)})\r\n"
                 + $"(maximum error: {errors.Max():0.000e+00})");
         }
+    }
+
+    private static partial class Core<T>
+        where T : unmanaged
+#if NET7_0_OR_GREATER
+            , INumber<T>, IMinMaxValue<T>
+#endif
+    {
+        public static partial bool IsValidAccuracy(T accuracy);
+
+        public static partial bool GetIsAccurate(T accuracy, T error);
+
+        public static partial bool GetIsValidNaN(T yExpected, T yActual, AccuracyMode mode);
+
+        public static partial T ErrorAbs(T exp, T act);
+
+        public static partial T ErrorRel(T exp, T act);
+
+        public static partial T ErrorAbsAndRel(T exp, T act);
+
+        public static partial T ErrorAbsOrRel(T exp, T act);
     }
 }
 

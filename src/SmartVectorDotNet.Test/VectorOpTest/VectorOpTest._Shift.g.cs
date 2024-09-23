@@ -31,7 +31,9 @@ public partial class VectorOpTest
         yield return core(valueArray, shiftCountArray);
     }
 
-    [Theory, MemberData(nameof(ByteTestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(ByteTestCases))]
     public void ShiftLeft_Byte(byte[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -43,7 +45,9 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory, MemberData(nameof(ByteTestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(ByteTestCases))]
     public void ShiftRightLogical_Byte(byte[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -67,7 +71,9 @@ public partial class VectorOpTest
         yield return core(valueArray, shiftCountArray);
     }
 
-    [Theory, MemberData(nameof(UInt16TestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(UInt16TestCases))]
     public void ShiftLeft_UInt16(ushort[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -79,7 +85,9 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory, MemberData(nameof(UInt16TestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(UInt16TestCases))]
     public void ShiftRightLogical_UInt16(ushort[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -103,7 +111,9 @@ public partial class VectorOpTest
         yield return core(valueArray, shiftCountArray);
     }
 
-    [Theory, MemberData(nameof(UInt32TestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(UInt32TestCases))]
     public void ShiftLeft_UInt32(uint[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -115,7 +125,9 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory, MemberData(nameof(UInt32TestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(UInt32TestCases))]
     public void ShiftRightLogical_UInt32(uint[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -139,7 +151,9 @@ public partial class VectorOpTest
         yield return core(valueArray, shiftCountArray);
     }
 
-    [Theory, MemberData(nameof(UInt64TestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(UInt64TestCases))]
     public void ShiftLeft_UInt64(ulong[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -151,7 +165,9 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory, MemberData(nameof(UInt64TestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(UInt64TestCases))]
     public void ShiftRightLogical_UInt64(ulong[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -175,7 +191,12 @@ public partial class VectorOpTest
         yield return core(valueArray, shiftCountArray);
     }
 
-    [Theory, MemberData(nameof(UIntPtrTestCases))]
+    [Theory(
+#if !NET6_0_OR_GREATER
+        Skip = "Not supported framework"
+#endif
+)]
+    [MemberData(nameof(UIntPtrTestCases))]
     public void ShiftLeft_UIntPtr(nuint[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -187,7 +208,12 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory, MemberData(nameof(UIntPtrTestCases))]
+    [Theory(
+#if !NET6_0_OR_GREATER
+        Skip = "Not supported framework"
+#endif
+)]
+    [MemberData(nameof(UIntPtrTestCases))]
     public void ShiftRightLogical_UIntPtr(nuint[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -211,7 +237,9 @@ public partial class VectorOpTest
         yield return core(valueArray, shiftCountArray);
     }
 
-    [Theory, MemberData(nameof(SByteTestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(SByteTestCases))]
     public void ShiftLeft_SByte(sbyte[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -223,7 +251,9 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory, MemberData(nameof(SByteTestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(SByteTestCases))]
     public void ShiftRightLogical_SByte(sbyte[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -235,7 +265,9 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory, MemberData(nameof(SByteTestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(SByteTestCases))]
     public void ShiftRightArithmetic_SByte(sbyte[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -258,7 +290,9 @@ public partial class VectorOpTest
         yield return core(valueArray, shiftCountArray);
     }
 
-    [Theory, MemberData(nameof(Int16TestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(Int16TestCases))]
     public void ShiftLeft_Int16(short[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -270,7 +304,9 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory, MemberData(nameof(Int16TestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(Int16TestCases))]
     public void ShiftRightLogical_Int16(short[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -282,7 +318,9 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory, MemberData(nameof(Int16TestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(Int16TestCases))]
     public void ShiftRightArithmetic_Int16(short[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -305,7 +343,9 @@ public partial class VectorOpTest
         yield return core(valueArray, shiftCountArray);
     }
 
-    [Theory, MemberData(nameof(Int32TestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(Int32TestCases))]
     public void ShiftLeft_Int32(int[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -317,7 +357,9 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory, MemberData(nameof(Int32TestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(Int32TestCases))]
     public void ShiftRightLogical_Int32(int[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -329,7 +371,9 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory, MemberData(nameof(Int32TestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(Int32TestCases))]
     public void ShiftRightArithmetic_Int32(int[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -352,7 +396,9 @@ public partial class VectorOpTest
         yield return core(valueArray, shiftCountArray);
     }
 
-    [Theory, MemberData(nameof(Int64TestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(Int64TestCases))]
     public void ShiftLeft_Int64(long[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -364,7 +410,9 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory, MemberData(nameof(Int64TestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(Int64TestCases))]
     public void ShiftRightLogical_Int64(long[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -376,7 +424,9 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory, MemberData(nameof(Int64TestCases))]
+    [Theory(
+)]
+    [MemberData(nameof(Int64TestCases))]
     public void ShiftRightArithmetic_Int64(long[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -399,7 +449,12 @@ public partial class VectorOpTest
         yield return core(valueArray, shiftCountArray);
     }
 
-    [Theory, MemberData(nameof(IntPtrTestCases))]
+    [Theory(
+#if !NET6_0_OR_GREATER
+        Skip = "Not supported framework"
+#endif
+)]
+    [MemberData(nameof(IntPtrTestCases))]
     public void ShiftLeft_IntPtr(nint[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -411,7 +466,12 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory, MemberData(nameof(IntPtrTestCases))]
+    [Theory(
+#if !NET6_0_OR_GREATER
+        Skip = "Not supported framework"
+#endif
+)]
+    [MemberData(nameof(IntPtrTestCases))]
     public void ShiftRightLogical_IntPtr(nint[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -423,7 +483,12 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory, MemberData(nameof(IntPtrTestCases))]
+    [Theory(
+#if !NET6_0_OR_GREATER
+        Skip = "Not supported framework"
+#endif
+)]
+    [MemberData(nameof(IntPtrTestCases))]
     public void ShiftRightArithmetic_IntPtr(nint[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))

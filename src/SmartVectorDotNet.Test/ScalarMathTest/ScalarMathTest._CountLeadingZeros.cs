@@ -10,32 +10,32 @@ namespace SmartVectorDotNet;
 public partial class ScalarMathTest
 {
     [Fact]
-    public void Ctz32()
+    public void Clz32()
     {
-        foreach(var x in stackalloc uint[] { 0u, 1u, 2u, 4u, 8u, 16u, 32u, uint.MaxValue, })
+        foreach (var x in stackalloc uint[] { 0u, 1u, 2u, 4u, 8u, 16u, 32u, uint.MaxValue, })
         {
             testCore(x);
         }
         var random = new Random(1234567);
-        for(var i = 0; i < 65536; ++i)
+        for (var i = 0; i < 65536; ++i)
         {
             var x = (uint)random.Next();
             testCore(x);
         }
 
         static void testCore(uint x)
-            => Assert.Equal(ctzReference(x), ScalarMath.CountTrailingZeros(x));
+            => Assert.Equal(clzReference(x), ScalarMath.CountLeadingZeros(x));
 
-        static int ctzReference(uint x)
+        static int clzReference(uint x)
         {
             var i = 0;
-            for(; i < 32; ++i)
+            for (; i < 32; ++i)
             {
-                if((x & 1) != 0)
+                if ((x & 0x8000_0000u) != 0)
                 {
                     return i;
                 }
-                x >>= 1;
+                x <<= 1;
             }
             return i;
         }
@@ -43,7 +43,7 @@ public partial class ScalarMathTest
 
 
     [Fact]
-    public void Ctz64()
+    public void Clz64()
     {
         foreach (var x in stackalloc ulong[] { 0u, 1u, 2u, 4u, 8u, 16u, 32u, ulong.MaxValue, })
         {
@@ -59,18 +59,18 @@ public partial class ScalarMathTest
         }
 
         static void testCore(ulong x)
-            => Assert.Equal(ctzReference(x), ScalarMath.CountTrailingZeros(x));
+            => Assert.Equal(clzReference(x), ScalarMath.CountLeadingZeros(x));
 
-        static int ctzReference(ulong x)
+        static int clzReference(ulong x)
         {
             var i = 0;
             for (; i < 64; ++i)
             {
-                if ((x & 1) != 0)
+                if ((x & 0x8000_0000_0000_0000u) != 0)
                 {
                     return i;
                 }
-                x >>= 1;
+                x <<= 1;
             }
             return i;
         }

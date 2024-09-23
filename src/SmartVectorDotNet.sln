@@ -22,7 +22,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartVectorBenchmarks", "ve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartVectorDotNet.Benchmark", "SmartVectorDotNet.Benchmark\SmartVectorDotNet.Benchmark.csproj", "{0311BDCB-9320-44A8-81BC-78F74AF61039}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartVectorPoC", "verification\SmartVectorPoC\SmartVectorPoC.csproj", "{5FBEAC46-53D9-440B-8736-B6BBDFD2D6E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartVectorPoC", "verification\SmartVectorPoC\SmartVectorPoC.csproj", "{5FBEAC46-53D9-440B-8736-B6BBDFD2D6E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartVectorDotNet.Test.Legacy", "SmartVectorDotNet.Test.Legacy\SmartVectorDotNet.Test.Legacy.csproj", "{1BAE4B1D-AAC1-4222-9DA1-11280C0B690F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +56,10 @@ Global
 		{5FBEAC46-53D9-440B-8736-B6BBDFD2D6E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FBEAC46-53D9-440B-8736-B6BBDFD2D6E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FBEAC46-53D9-440B-8736-B6BBDFD2D6E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BAE4B1D-AAC1-4222-9DA1-11280C0B690F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BAE4B1D-AAC1-4222-9DA1-11280C0B690F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BAE4B1D-AAC1-4222-9DA1-11280C0B690F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BAE4B1D-AAC1-4222-9DA1-11280C0B690F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +71,7 @@ Global
 		{1E3CA682-A97D-4CB2-B6D7-38693905919C} = {9FF43C57-7190-4F68-9E3B-E210344C38E5}
 		{0311BDCB-9320-44A8-81BC-78F74AF61039} = {97CE633B-3302-426F-BAD7-D42324F0A02E}
 		{5FBEAC46-53D9-440B-8736-B6BBDFD2D6E0} = {9FF43C57-7190-4F68-9E3B-E210344C38E5}
+		{1BAE4B1D-AAC1-4222-9DA1-11280C0B690F} = {97CE633B-3302-426F-BAD7-D42324F0A02E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {96D05709-9A3C-497C-890A-398215F21D05}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SmartVectorDotNet;
@@ -24,7 +25,6 @@ partial class ScalarMath
         throw new NotSupportedException();
     }
 
-#if NETCOREAPP3_0_OR_GREATER
     /// <summary> Count the number of leading zero bits in a mask. </summary>
     public static int CountLeadingZeros(byte x)
     {
@@ -46,6 +46,8 @@ partial class ScalarMath
         return CountPopulation((ushort)~y);
     }
 
+#if NETCOREAPP3_0_OR_GREATER
+
     /// <summary> Count the number of leading zero bits in a mask. </summary>
     public static int CountLeadingZeros(uint x)
         => BitOperations.LeadingZeroCount(x);
@@ -59,32 +61,44 @@ partial class ScalarMath
         => BitOperations.LeadingZeroCount(x);
 
 #else
-    /// <summary> Count the number of leading zero bits in a mask. </summary>
-    public static int CountLeadingZeros(byte x)
-    {
-        throw new NotImplementedException();
-    }
-
-    /// <summary> Count the number of leading zero bits in a mask. </summary>
-    public static int CountLeadingZeros(ushort x)
-    {
-        throw new NotImplementedException();
-    }
 
     /// <summary> Count the number of leading zero bits in a mask. </summary>
     public static int CountLeadingZeros(uint x)
     {
-        throw new NotImplementedException();
+        uint y = x;
+        y |= y >> 1;
+        y |= y >> 2;
+        y |= y >> 4;
+        y |= y >> 8;
+        y |= y >> 16;
+        return CountPopulation(~y);
     }
 
     /// <summary> Count the number of leading zero bits in a mask. </summary>
     public static int CountLeadingZeros(ulong x)
     {
-        throw new NotImplementedException();
+        var y = x;
+        y |= y >> 1;
+        y |= y >> 2;
+        y |= y >> 4;
+        y |= y >> 8;
+        y |= y >> 16;
+        y |= y >> 32;
+        return CountPopulation(~y);
     }
 
     /// <summary> Count the number of leading zero bits in a mask. </summary>
     public static int CountLeadingZeros(nuint x)
-        => CountLeadingZeros((ulong)x);
+    {
+        if (Unsafe.SizeOf<nuint>() == sizeof(uint))
+        {
+            return CountLeadingZeros((uint)x);
+        }
+        if (Unsafe.SizeOf<nuint>() == sizeof(ulong))
+        {
+            return CountLeadingZeros((ulong)x);
+        }
+        throw new NotSupportedException();
+    }
 #endif
 }

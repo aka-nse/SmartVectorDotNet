@@ -6,6 +6,8 @@
         <TargetFramework>net8.0</TargetFramework>
         <IsPackable>false</IsPackable>
         <RootNamespace>SmartVectorDotNet</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <IsTestProject>true</IsTestProject>
     </PropertyGroup>
 
     <ItemGroup>
@@ -23,6 +25,10 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\src\SmartVectorDotNet\SmartVectorDotNet.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Xunit" />
     </ItemGroup>
 
     <ItemGroup>
@@ -62,6 +68,18 @@
         <None Update="VectorMathTest/VectorMathTest._SpecialValue_Unary.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>VectorMathTest._SpecialValue_Unary.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="VectorOpTest/VectorOpTest._Shift.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorOpTest._Shift.tt</DependentUpon>
+        </Compile>
+        <None Update="VectorOpTest/VectorOpTest._Shift.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorOpTest._Shift.g.cs</LastGenOutput>
         </None>
     </ItemGroup>
 

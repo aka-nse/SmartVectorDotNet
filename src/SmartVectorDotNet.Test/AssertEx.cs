@@ -11,7 +11,9 @@ namespace SmartVectorDotNet;
 public static class AssertEx
 {
     [DebuggerHidden]
+#if NET6_0_OR_GREATER
     [StackTraceHidden]
+#endif
     public static void Equal<T>(T expected, T actual, string message)
     {
         if(!Equals(expected, actual))
