@@ -88,7 +88,7 @@ partial class ScalarMath
     {
         if(x == 0)
         {
-            return 0;
+            return 32;
         }
 
         var y = (uint)((int)x & -(int)x);
@@ -100,7 +100,7 @@ partial class ScalarMath
     {
         if (x == 0)
         {
-            return 0;
+            return 64;
         }
 
         var y = (ulong)((long)x & -(long)x);
