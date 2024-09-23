@@ -52,7 +52,9 @@ public partial class ScalarMathTest
         var random = new Random(1234567);
         for (var i = 0; i < 65536; ++i)
         {
-            var x = (ulong)random.NextInt64();
+            var hi = (ulong)random.Next();
+            var lo = (ulong)random.Next();
+            var x = (hi << 32) | lo;
             testCore(x);
         }
 

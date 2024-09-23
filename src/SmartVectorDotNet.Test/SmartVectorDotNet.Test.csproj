@@ -6,6 +6,8 @@
         <TargetFramework>net8.0</TargetFramework>
         <IsPackable>false</IsPackable>
         <RootNamespace>SmartVectorDotNet</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <IsTestProject>true</IsTestProject>
     </PropertyGroup>
 
     <ItemGroup>
@@ -23,6 +25,10 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\src\SmartVectorDotNet\SmartVectorDotNet.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Xunit" />
     </ItemGroup>
 
     <ItemGroup>
