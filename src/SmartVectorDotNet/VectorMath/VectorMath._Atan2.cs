@@ -1,4 +1,5 @@
-﻿namespace SmartVectorDotNet;
+﻿using System.Runtime.CompilerServices;
+namespace SmartVectorDotNet;
 using OP = VectorOp;
 using H = InternalHelpers;
 
@@ -15,7 +16,8 @@ partial class VectorMath
     /// <param name="y"></param>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> Atan2<T>(in Vector<T> y, in Vector<T> x)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Vector<T> Atan2<T>(Vector<T> y, Vector<T> x)
         where T : unmanaged
     {
         var a = Atan(y / x);

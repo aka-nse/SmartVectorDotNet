@@ -11,7 +11,7 @@ partial class VectorMath
     /// <param name="x"></param>
     /// <param name="newBase"></param>
     /// <returns></returns>
-    public static Vector<T> Log<T>(in Vector<T> x, in Vector<T> newBase)
+    public static Vector<T> Log<T>(Vector<T> x, Vector<T> newBase)
         where T : unmanaged
         => Log(x) / Log(newBase);
 }

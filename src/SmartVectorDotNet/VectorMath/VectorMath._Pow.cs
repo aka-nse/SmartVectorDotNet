@@ -15,7 +15,7 @@ partial class VectorMath
     /// <param name="a"></param>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> Pow<T>(in Vector<T> a, in Vector<T> x)
+    public static Vector<T> Pow<T>(Vector<T> a, Vector<T> x)
         where T : unmanaged
     {
         var isAZero = OP.Equals(a, Pow_<T>._0);

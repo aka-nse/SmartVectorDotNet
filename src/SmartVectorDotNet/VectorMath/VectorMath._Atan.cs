@@ -1,4 +1,5 @@
-﻿namespace SmartVectorDotNet;
+﻿using System.Runtime.CompilerServices;
+namespace SmartVectorDotNet;
 using OP = VectorOp;
 using H = InternalHelpers;
 
@@ -48,10 +49,10 @@ partial class VectorMath
     /// <param name="x"></param>
     /// <returns></returns>
     [VectorMath]
-    public static partial Vector<T> Atan<T>(in Vector<T> x)
+    public static partial Vector<T> Atan<T>(Vector<T> x)
         where T : unmanaged;
 
-    private static Vector<double> Atan(in Vector<double> x)
+    private static Vector<double> Atan(Vector<double> x)
     {
         static Vector<double> core(Vector<double> x)
         {

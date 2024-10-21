@@ -14,7 +14,7 @@ partial class VectorMath
 #pragma warning disable format
     
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static Vector<T> CountTrailingZeros<T>(in Vector<T> x)
+    public static Vector<T> CountTrailingZeros<T>(Vector<T> x)
         where T : unmanaged
     {
         if (typeof(T) == typeof(byte  ) || typeof(T) == typeof(sbyte )) { return H.Reinterpret<byte  , T>(CountTrailingZeros(H.Reinterpret<T, byte  >(x))); }
@@ -28,23 +28,23 @@ partial class VectorMath
     }
     
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static Vector<byte> CountTrailingZeros(in Vector<byte> x)
+    public static Vector<byte> CountTrailingZeros(Vector<byte> x)
         => CountPopulation(OP.Subtract(OP.BitwiseAnd(x, -x), Const<byte>._1));
 
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static Vector<ushort> CountTrailingZeros(in Vector<ushort> x)
+    public static Vector<ushort> CountTrailingZeros(Vector<ushort> x)
         => CountPopulation(OP.Subtract(OP.BitwiseAnd(x, -x), Const<ushort>._1));
 
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static Vector<uint> CountTrailingZeros(in Vector<uint> x)
+    public static Vector<uint> CountTrailingZeros(Vector<uint> x)
         => CountPopulation(OP.Subtract(OP.BitwiseAnd(x, -x), Const<uint>._1));
 
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static Vector<ulong> CountTrailingZeros(in Vector<ulong> x)
+    public static Vector<ulong> CountTrailingZeros(Vector<ulong> x)
         => CountPopulation(OP.Subtract(OP.BitwiseAnd(x, -x), Const<ulong>._1));
 
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static Vector<nuint> CountTrailingZeros(in Vector<nuint> x)
+    public static Vector<nuint> CountTrailingZeros(Vector<nuint> x)
         => CountPopulation(OP.Subtract(OP.BitwiseAnd(x, -x), Const<nuint>._1));
 
 #pragma warning restore format

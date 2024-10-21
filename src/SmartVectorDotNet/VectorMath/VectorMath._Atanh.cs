@@ -1,4 +1,5 @@
-﻿namespace SmartVectorDotNet;
+﻿using System.Runtime.CompilerServices;
+namespace SmartVectorDotNet;
 using OP = VectorOp;
 using H = InternalHelpers;
 
@@ -14,7 +15,8 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> Atanh<T>(in Vector<T> x)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Vector<T> Atanh<T>(Vector<T> x)
         where T : unmanaged
     {
         var a = Atanh_<T>._1 + x;

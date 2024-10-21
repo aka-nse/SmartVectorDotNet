@@ -15,7 +15,7 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> Log10<T>(in Vector<T> x)
+    public static Vector<T> Log10<T>(Vector<T> x)
         where T : unmanaged
         => Log(x) * Log10_<T>.OnePerLog_E_10;
 }

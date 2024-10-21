@@ -14,7 +14,7 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> Tanh<T>(in Vector<T> x)
+    public static Vector<T> Tanh<T>(Vector<T> x)
         where T : unmanaged
     {
         var p = Exp(x);

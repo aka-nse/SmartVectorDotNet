@@ -44,85 +44,85 @@ partial class ScalarOp
     {
         if(typeof(T) == typeof(byte  ))
         {
-            var xx = Unsafe.As<T, byte  >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, byte  >(ref Unsafe.AsRef(in y));
+            var xx = Unsafe.As<T, byte  >(ref Unsafe.AsRef(x));
+            var yy = Unsafe.As<T, byte  >(ref Unsafe.AsRef(y));
             if(xx == yy) return 0;
             return xx > yy ? +1 : -1;
         }
         if(typeof(T) == typeof(ushort))
         {
-            var xx = Unsafe.As<T, ushort>(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, ushort>(ref Unsafe.AsRef(in y));
+            var xx = Unsafe.As<T, ushort>(ref Unsafe.AsRef(x));
+            var yy = Unsafe.As<T, ushort>(ref Unsafe.AsRef(y));
             if(xx == yy) return 0;
             return xx > yy ? +1 : -1;
         }
         if(typeof(T) == typeof(uint  ))
         {
-            var xx = Unsafe.As<T, uint  >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, uint  >(ref Unsafe.AsRef(in y));
+            var xx = Unsafe.As<T, uint  >(ref Unsafe.AsRef(x));
+            var yy = Unsafe.As<T, uint  >(ref Unsafe.AsRef(y));
             if(xx == yy) return 0;
             return xx > yy ? +1 : -1;
         }
         if(typeof(T) == typeof(ulong ))
         {
-            var xx = Unsafe.As<T, ulong >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, ulong >(ref Unsafe.AsRef(in y));
+            var xx = Unsafe.As<T, ulong >(ref Unsafe.AsRef(x));
+            var yy = Unsafe.As<T, ulong >(ref Unsafe.AsRef(y));
             if(xx == yy) return 0;
             return xx > yy ? +1 : -1;
         }
         if(typeof(T) == typeof(nuint ))
         {
-            var xx = Unsafe.As<T, nuint >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, nuint >(ref Unsafe.AsRef(in y));
+            var xx = Unsafe.As<T, nuint >(ref Unsafe.AsRef(x));
+            var yy = Unsafe.As<T, nuint >(ref Unsafe.AsRef(y));
             if(xx == yy) return 0;
             return xx > yy ? +1 : -1;
         }
         if(typeof(T) == typeof(sbyte ))
         {
-            var xx = Unsafe.As<T, sbyte >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, sbyte >(ref Unsafe.AsRef(in y));
+            var xx = Unsafe.As<T, sbyte >(ref Unsafe.AsRef(x));
+            var yy = Unsafe.As<T, sbyte >(ref Unsafe.AsRef(y));
             if(xx == yy) return 0;
             return xx > yy ? +1 : -1;
         }
         if(typeof(T) == typeof(short ))
         {
-            var xx = Unsafe.As<T, short >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, short >(ref Unsafe.AsRef(in y));
+            var xx = Unsafe.As<T, short >(ref Unsafe.AsRef(x));
+            var yy = Unsafe.As<T, short >(ref Unsafe.AsRef(y));
             if(xx == yy) return 0;
             return xx > yy ? +1 : -1;
         }
         if(typeof(T) == typeof(int   ))
         {
-            var xx = Unsafe.As<T, int   >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, int   >(ref Unsafe.AsRef(in y));
+            var xx = Unsafe.As<T, int   >(ref Unsafe.AsRef(x));
+            var yy = Unsafe.As<T, int   >(ref Unsafe.AsRef(y));
             if(xx == yy) return 0;
             return xx > yy ? +1 : -1;
         }
         if(typeof(T) == typeof(long  ))
         {
-            var xx = Unsafe.As<T, long  >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, long  >(ref Unsafe.AsRef(in y));
+            var xx = Unsafe.As<T, long  >(ref Unsafe.AsRef(x));
+            var yy = Unsafe.As<T, long  >(ref Unsafe.AsRef(y));
             if(xx == yy) return 0;
             return xx > yy ? +1 : -1;
         }
         if(typeof(T) == typeof(nint  ))
         {
-            var xx = Unsafe.As<T, nint  >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, nint  >(ref Unsafe.AsRef(in y));
+            var xx = Unsafe.As<T, nint  >(ref Unsafe.AsRef(x));
+            var yy = Unsafe.As<T, nint  >(ref Unsafe.AsRef(y));
             if(xx == yy) return 0;
             return xx > yy ? +1 : -1;
         }
         if(typeof(T) == typeof(float ))
         {
-            var xx = Unsafe.As<T, float >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, float >(ref Unsafe.AsRef(in y));
+            var xx = Unsafe.As<T, float >(ref Unsafe.AsRef(x));
+            var yy = Unsafe.As<T, float >(ref Unsafe.AsRef(y));
             if(xx == yy) return 0;
             return xx > yy ? +1 : -1;
         }
         if(typeof(T) == typeof(double))
         {
-            var xx = Unsafe.As<T, double>(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, double>(ref Unsafe.AsRef(in y));
+            var xx = Unsafe.As<T, double>(ref Unsafe.AsRef(x));
+            var yy = Unsafe.As<T, double>(ref Unsafe.AsRef(y));
             if(xx == yy) return 0;
             return xx > yy ? +1 : -1;
         }

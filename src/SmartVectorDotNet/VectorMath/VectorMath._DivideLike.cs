@@ -12,7 +12,7 @@ partial class VectorMath
     /// <param name="b"></param>
     /// <param name="reminder"></param>
     /// <returns></returns>
-    public static Vector<T> DivRem<T>(in Vector<T> a, in Vector<T> b, out Vector<T> reminder)
+    public static Vector<T> DivRem<T>(Vector<T> a, Vector<T> b, out Vector<T> reminder)
         where T : unmanaged
     {
         if (typeof(T) == typeof(byte)
@@ -52,7 +52,7 @@ partial class VectorMath
     /// <param name="reminder"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public static Vector<T> DivRemByFloor<T>(in Vector<T> a, in Vector<T> b, out Vector<T> reminder)
+    public static Vector<T> DivRemByFloor<T>(Vector<T> a, Vector<T> b, out Vector<T> reminder)
         where T : unmanaged
     {
         if (typeof(T) == typeof(float) || typeof(T) == typeof(double))
@@ -75,7 +75,7 @@ partial class VectorMath
     /// <param name="a"></param>
     /// <param name="b"></param>
     /// <returns></returns>
-    public static Vector<T> Modulo<T>(in Vector<T> a, in Vector<T> b)
+    public static Vector<T> Modulo<T>(Vector<T> a, Vector<T> b)
         where T : unmanaged
     {
         DivRem(a, b, out var reminder);
@@ -93,7 +93,7 @@ partial class VectorMath
     /// <param name="a"></param>
     /// <param name="b"></param>
     /// <returns></returns>
-    public static Vector<T> ModuloByFloor<T>(in Vector<T> a, in Vector<T> b)
+    public static Vector<T> ModuloByFloor<T>(Vector<T> a, Vector<T> b)
         where T : unmanaged
     {
         DivRemByFloor(a, b, out var reminder);

@@ -11,7 +11,7 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> Sign<T>(in Vector<T> x)
+    public static Vector<T> Sign<T>(Vector<T> x)
         where T : unmanaged
         => OP.ConditionalSelect(
             OP.Equals(x, Sign_<T>._0),
@@ -25,7 +25,7 @@ partial class VectorMath
     /// <param name="x"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    public static Vector<T> SignFast<T>(in Vector<T> x)
+    public static Vector<T> SignFast<T>(Vector<T> x)
         where T : unmanaged
         => OP.ConditionalSelect(
             IsNonNegative(x),
@@ -38,15 +38,15 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> IsNegative<T>(in Vector<T> x)
+    public static Vector<T> IsNegative<T>(Vector<T> x)
         where T : unmanaged
         => OP.OnesComplement(IsNonNegative(x));
 
 
-    private static Vector<T> IsNonNegative<T>(in Vector<T> x)
+    private static Vector<T> IsNonNegative<T>(Vector<T> x)
         where T : unmanaged
     {
-        static Vector<T> core<S>(in Vector<T> x)
+        static Vector<T> core<S>(Vector<T> x)
             where S : unmanaged
             => H.Reinterpret<S, T>(OP.Equals(OP.BitwiseAnd(Sign_<S>.SignBit, H.Reinterpret<T, S>(x)), Sign_<S>._0));
 

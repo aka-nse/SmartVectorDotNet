@@ -7,7 +7,7 @@ partial class VectorMath
 {
     /// <summary> Calculates sqrt. </summary>
     [VectorMath]
-    public static Vector<T> Sqrt<T>(in Vector<T> d)
+    public static Vector<T> Sqrt<T>(Vector<T> d)
         where T : unmanaged
         => OP.SquareRoot(d);
 }

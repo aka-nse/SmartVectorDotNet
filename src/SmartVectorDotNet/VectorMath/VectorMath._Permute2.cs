@@ -21,7 +21,7 @@ partial class VectorMath
     /// or<br/>
     /// <see cref="Vector{T}.Count"/> is less than 2.
     /// </exception>
-    public static Vector<T> Permute2<T>(in Vector<T> v, byte m0, byte m1)
+    public static Vector<T> Permute2<T>(Vector<T> v, byte m0, byte m1)
         where T : unmanaged
     {
 #if NET6_0_OR_GREATER

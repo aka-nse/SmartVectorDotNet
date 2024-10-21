@@ -1,7 +1,7 @@
-﻿namespace SmartVectorDotNet;
+﻿using System.Runtime.CompilerServices;
+namespace SmartVectorDotNet;
 using OP = VectorOp;
 using H = InternalHelpers;
-
 
 file class Acosh_<T> : VectorMath.Const<T> where T : unmanaged { }
 
@@ -14,7 +14,8 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> Acosh<T>(in Vector<T> x)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Vector<T> Acosh<T>(Vector<T> x)
         where T : unmanaged
     {
         // NOTE:

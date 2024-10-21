@@ -56,7 +56,7 @@ file class Permute_
 
 partial class VectorMath
 {
-    internal static Vector128<T> Permute2<T>(in Vector128<T> v, byte m0, byte m1)
+    internal static Vector128<T> Permute2<T>(Vector128<T> v, byte m0, byte m1)
         where T : unmanaged
         => Unsafe.SizeOf<T>() switch
         {
@@ -69,7 +69,7 @@ partial class VectorMath
             _ => throw new NotSupportedException(),
         };
 
-    internal static Vector128<T> Permute4<T>(in Vector128<T> v, byte m0, byte m1, byte m2, byte m3)
+    internal static Vector128<T> Permute4<T>(Vector128<T> v, byte m0, byte m1, byte m2, byte m3)
         where T : unmanaged
         => Unsafe.SizeOf<T>() switch
         {
@@ -82,7 +82,7 @@ partial class VectorMath
             _ => throw new NotSupportedException(),
         };
 
-    internal static Vector128<byte> PermuteX(in Vector128<byte> v, byte m0, byte m1, byte m2, byte m3, ReadOnlySpan<byte> maskBase)
+    internal static Vector128<byte> PermuteX(Vector128<byte> v, byte m0, byte m1, byte m2, byte m3, ReadOnlySpan<byte> maskBase)
     {
         var maskOffsets = (stackalloc byte[4] { (byte)(m0 & 0b11), (byte)(m1 & 0b11), (byte)(m2 & 0b11), (byte)(m3 & 0b11), });
         if (Sse3.IsSupported)
@@ -105,7 +105,7 @@ partial class VectorMath
         }
     }
 
-    internal static Vector128<ushort> Permute4(in Vector128<ushort> v, byte m0, byte m1, byte m2, byte m3)
+    internal static Vector128<ushort> Permute4(Vector128<ushort> v, byte m0, byte m1, byte m2, byte m3)
     {
         if (Sse2.IsSupported)
         {
@@ -135,7 +135,7 @@ partial class VectorMath
         }
     }
 
-    internal static Vector128<uint> Permute4(in Vector128<uint> v, byte m0, byte m1, byte m2, byte m3)
+    internal static Vector128<uint> Permute4(Vector128<uint> v, byte m0, byte m1, byte m2, byte m3)
     {
         if (Sse2.IsSupported)
         {
@@ -157,7 +157,7 @@ partial class VectorMath
         }
     }
 
-    internal static Vector128<ulong> Permute4(in Vector128<ulong> v, byte m0, byte m1, byte m2, byte m3)
+    internal static Vector128<ulong> Permute4(Vector128<ulong> v, byte m0, byte m1, byte m2, byte m3)
     {
         throw new NotSupportedException();
     }
@@ -165,7 +165,7 @@ partial class VectorMath
 
 
 
-    internal static Vector256<T> Permute2<T>(in Vector256<T> v, byte m0, byte m1)
+    internal static Vector256<T> Permute2<T>(Vector256<T> v, byte m0, byte m1)
         where T : unmanaged
         => Unsafe.SizeOf<T>() switch
         {
@@ -178,7 +178,7 @@ partial class VectorMath
             _ => throw new NotSupportedException(),
         };
 
-    internal static Vector256<T> Permute4<T>(in Vector256<T> v, byte m0, byte m1, byte m2, byte m3)
+    internal static Vector256<T> Permute4<T>(Vector256<T> v, byte m0, byte m1, byte m2, byte m3)
         where T : unmanaged
         => Unsafe.SizeOf<T>() switch
         {
@@ -191,7 +191,7 @@ partial class VectorMath
             _ => throw new NotSupportedException(),
         };
 
-    internal static Vector256<byte> PermuteX(in Vector256<byte> v, byte m0, byte m1, byte m2, byte m3, ReadOnlySpan<byte> maskBase)
+    internal static Vector256<byte> PermuteX(Vector256<byte> v, byte m0, byte m1, byte m2, byte m3, ReadOnlySpan<byte> maskBase)
     {
         var maskOffsets = (stackalloc byte[4] { (byte)(m0 & 0b11), (byte)(m1 & 0b11), (byte)(m2 & 0b11), (byte)(m3 & 0b11), });
         if (Avx2.IsSupported)
@@ -214,7 +214,7 @@ partial class VectorMath
         }
     }
 
-    internal static Vector256<ushort> Permute4(in Vector256<ushort> v, byte m0, byte m1, byte m2, byte m3)
+    internal static Vector256<ushort> Permute4(Vector256<ushort> v, byte m0, byte m1, byte m2, byte m3)
     {
         if (Avx2.IsSupported)
         {
@@ -246,7 +246,7 @@ partial class VectorMath
         }
     }
 
-    internal static Vector256<uint> Permute4(in Vector256<uint> v, byte m0, byte m1, byte m2, byte m3)
+    internal static Vector256<uint> Permute4(Vector256<uint> v, byte m0, byte m1, byte m2, byte m3)
     {
         if (Avx2.IsSupported)
         {
@@ -268,7 +268,7 @@ partial class VectorMath
         }
     }
 
-    internal static Vector256<ulong> Permute4(in Vector256<ulong> v, byte m0, byte m1, byte m2, byte m3)
+    internal static Vector256<ulong> Permute4(Vector256<ulong> v, byte m0, byte m1, byte m2, byte m3)
     {
         if (Avx2.IsSupported)
         {

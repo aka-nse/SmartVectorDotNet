@@ -250,6 +250,14 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Include="DynamicServices\DynamicVectorizer._Impl.g.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>DynamicVectorizer._Impl.tt</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
       <None Include="..\..\LICENSE.txt">
         <Pack>True</Pack>
         <PackagePath>\</PackagePath>

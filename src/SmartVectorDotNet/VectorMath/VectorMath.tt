@@ -44,6 +44,7 @@ using H = InternalHelpers;
 partial class VectorMath
 {
 <#      foreach(var method in methods) { #>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     <#=method.Accessibility#> static partial Vector<T> <#=method.Name#><T>(<#=method.ArgumentDecl#>)
         where T : unmanaged
     {
@@ -67,13 +68,13 @@ partial class VectorMath
 <#+
 public class MethodDef
 {
-    private static readonly Regex _ArgumentMatcher = new (@"in\s+Vector\s*<\s*T\s*>\s+(?<argname>\w+)");
+    private static readonly Regex _ArgumentMatcher = new (@"Vector\s*<\s*T\s*>\s+(?<argname>\w+)");
 
     public string Accessibility { get; }
     public string Name { get; }
     public string[] Arguments { get; }
 
-    public string ArgumentDecl => string.Join(", ", Arguments.Select(a => $"in Vector<T> {a}"));
+    public string ArgumentDecl => string.Join(", ", Arguments.Select(a => $"Vector<T> {a}"));
 
     public string SpecializedCall => $"{Name}({string.Join(", ", Arguments.Select(a => $"{a}_"))})";
 

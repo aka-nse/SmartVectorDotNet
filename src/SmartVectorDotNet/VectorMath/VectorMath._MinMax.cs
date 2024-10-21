@@ -12,7 +12,7 @@ partial class VectorMath
     /// <param name="left"></param>
     /// <param name="right"></param>
     /// <returns></returns>
-    public static Vector<T> Min<T>(in Vector<T> left, in Vector<T> right)
+    public static Vector<T> Min<T>(Vector<T> left, Vector<T> right)
         where T : unmanaged
         => Vector.Min(left, right);
 
@@ -24,7 +24,7 @@ partial class VectorMath
     /// <param name="left"></param>
     /// <param name="right"></param>
     /// <returns></returns>
-    public static Vector<T> Max<T>(in Vector<T> left, in Vector<T> right)
+    public static Vector<T> Max<T>(Vector<T> left, Vector<T> right)
         where T : unmanaged
         => Vector.Max(left, right);
 
@@ -35,7 +35,7 @@ partial class VectorMath
     /// <param name="min"></param>
     /// <param name="max"></param>
     /// <returns></returns>
-    public static Vector<T> Clamp<T>(in Vector<T> value, in Vector<T> min, in Vector<T> max)
+    public static Vector<T> Clamp<T>(Vector<T> value, Vector<T> min, Vector<T> max)
         where T : unmanaged
         => Vector.Min(Vector.Max(value, min), max);
 }

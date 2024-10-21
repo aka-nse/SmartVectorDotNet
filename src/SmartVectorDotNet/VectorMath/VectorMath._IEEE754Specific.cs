@@ -46,7 +46,7 @@ partial class VectorMath
     /// <param name="x"></param>
     /// <param name="n"></param>
     /// <param name="a"></param>
-    public static void Decompose<T>(in Vector<T> x, out Vector<T> n, out Vector<T> a)
+    public static void Decompose<T>(Vector<T> x, out Vector<T> n, out Vector<T> a)
         where T : unmanaged
     {
         if (typeof(T) == typeof(double))
@@ -73,7 +73,7 @@ partial class VectorMath
     /// <param name="sign"></param>
     /// <param name="expo"></param>
     /// <param name="frac"></param>
-    public static void Decompose(in Vector<double> x, out Vector<long> sign, out Vector<long> expo, out Vector<long> frac)
+    public static void Decompose(Vector<double> x, out Vector<long> sign, out Vector<long> expo, out Vector<long> frac)
     {
         var bin = H.Reinterpret<double, long>(x);
         sign = OP.ShiftRightLogical(
@@ -85,7 +85,7 @@ partial class VectorMath
         frac = OP.BitwiseAnd(bin, IEEE754Double_.FracPartMask);
     }
 
-    internal static void Decompose(in Vector<double> x, out Vector<long> n, out Vector<double> a)
+    internal static void Decompose(Vector<double> x, out Vector<long> n, out Vector<double> a)
     {
         Decompose(x, out var sign, out var expo, out var frac);
         var xsign = OP.ConditionalSelect(
@@ -107,7 +107,7 @@ partial class VectorMath
     /// <param name="sign"></param>
     /// <param name="expo"></param>
     /// <param name="frac"></param>
-    public static void Decompose(in Vector<float> x, out Vector<int> sign, out Vector<int> expo, out Vector<int> frac)
+    public static void Decompose(Vector<float> x, out Vector<int> sign, out Vector<int> expo, out Vector<int> frac)
     {
         var bin = H.Reinterpret<float, int>(x);
         sign = OP.ShiftRightLogical(
@@ -119,7 +119,7 @@ partial class VectorMath
         frac = OP.BitwiseAnd(bin, IEEE754Single_.FracPartMask);
     }
 
-    internal static void Decompose(in Vector<float> x, out Vector<int> n, out Vector<float> a)
+    internal static void Decompose(Vector<float> x, out Vector<int> n, out Vector<float> a)
     {
         Decompose(x, out var sign, out var expo, out var frac);
         var xsign = OP.ConditionalSelect(
@@ -146,11 +146,11 @@ partial class VectorMath
     /// <param name="x"></param>
     /// <returns></returns>
     [VectorMath]
-    public static partial Vector<T> Scale<T>(in Vector<T> n, in Vector<T> x)
+    public static partial Vector<T> Scale<T>(Vector<T> n, Vector<T> x)
         where T : unmanaged;
 
     // pow(2, n) * x
-    static Vector<double> Scale(in Vector<double> n, in Vector<double> x)
+    static Vector<double> Scale(Vector<double> n, Vector<double> x)
     {
         var nn = OP.ConvertToInt64(n);
         var pow2n = OP.ShiftLeft(nn + IEEE754Double_.ExpPartBias, 52);
@@ -159,7 +159,7 @@ partial class VectorMath
 
 
     // pow(2, n) * x
-    static Vector<float> Scale(in Vector<float> n, in Vector<float> x)
+    static Vector<float> Scale(Vector<float> n, Vector<float> x)
     {
         var nn = OP.ConvertToInt32(n);
         var pow2n = OP.ShiftLeft(nn + IEEE754Single_.ExpPartBias, 23);
@@ -174,7 +174,7 @@ partial class VectorMath
     /// <param name="expo"></param>
     /// <param name="frac"></param>
     /// <returns></returns>
-    public static Vector<double> Scale(in Vector<long> sign, in Vector<long> expo, in Vector<long> frac)
+    public static Vector<double> Scale(Vector<long> sign, Vector<long> expo, Vector<long> frac)
         => H.Reinterpret<long, double>(OP.ShiftLeft(sign, SC.DoubleSignBitOffset) | OP.ShiftLeft(expo, SC.DoubleExpBitOffset) | frac);
 
 
@@ -185,7 +185,7 @@ partial class VectorMath
     /// <param name="expo"></param>
     /// <param name="frac"></param>
     /// <returns></returns>
-    public static Vector<float> Scale(in Vector<int> sign, in Vector<int> expo, in Vector<int> frac)
+    public static Vector<float> Scale(Vector<int> sign, Vector<int> expo, Vector<int> frac)
         => H.Reinterpret<int, float>(OP.ShiftLeft(sign, SC.SingleSignBitOffset) | OP.ShiftLeft(expo, SC.SingleExpBitOffset) | frac);
 
     #endregion
@@ -198,7 +198,7 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> IsNormalized<T>(in Vector<T> x)
+    public static Vector<T> IsNormalized<T>(Vector<T> x)
         where T : unmanaged
     {
         if(typeof(T) == typeof(double))
@@ -232,7 +232,7 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> IsSubnormalized<T>(in Vector<T> x)
+    public static Vector<T> IsSubnormalized<T>(Vector<T> x)
         where T : unmanaged
     {
         if (typeof(T) == typeof(double))
@@ -266,7 +266,7 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> IsInfinity<T>(in Vector<T> x)
+    public static Vector<T> IsInfinity<T>(Vector<T> x)
         where T : unmanaged
     {
         if (typeof(T) == typeof(double))
@@ -287,7 +287,7 @@ partial class VectorMath
     /// </summary>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<long> IsInfinity(in Vector<double> x)
+    public static Vector<long> IsInfinity(Vector<double> x)
     {
         Decompose(x, out _, out var exp, out var frac);
         return Vector.BitwiseAnd(
@@ -300,7 +300,7 @@ partial class VectorMath
     /// </summary>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<int> IsInfinity(in Vector<float> x)
+    public static Vector<int> IsInfinity(Vector<float> x)
     {
         Decompose(x, out _, out Vector<int> exp, out var frac);
         return Vector.BitwiseAnd(
@@ -318,7 +318,7 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> IsPositiveInfinity<T>(in Vector<T> x)
+    public static Vector<T> IsPositiveInfinity<T>(Vector<T> x)
         where T : unmanaged
     {
         if (typeof(T) == typeof(double))
@@ -339,7 +339,7 @@ partial class VectorMath
     /// </summary>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<long> IsPositiveInfinity(in Vector<double> x)
+    public static Vector<long> IsPositiveInfinity(Vector<double> x)
     {
         Decompose(x, out var sign, out Vector<long> n, out var a);
         return OP.BitwiseAnd(
@@ -356,7 +356,7 @@ partial class VectorMath
     /// </summary>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<int> IsPositiveInfinity(in Vector<float> x)
+    public static Vector<int> IsPositiveInfinity(Vector<float> x)
     {
         Decompose(x, out var sign, out Vector<int> n, out var a);
         return OP.BitwiseAnd(
@@ -378,7 +378,7 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> IsNegativeInfinity<T>(in Vector<T> x)
+    public static Vector<T> IsNegativeInfinity<T>(Vector<T> x)
         where T : unmanaged
     {
         if (typeof(T) == typeof(double))
@@ -399,7 +399,7 @@ partial class VectorMath
     /// </summary>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<long> IsNegativeInfinity(in Vector<double> x)
+    public static Vector<long> IsNegativeInfinity(Vector<double> x)
     {
         Decompose(x, out var sign, out Vector<long> n, out var a);
         return OP.BitwiseAnd(
@@ -416,7 +416,7 @@ partial class VectorMath
     /// </summary>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<int> IsNegativeInfinity(in Vector<float> x)
+    public static Vector<int> IsNegativeInfinity(Vector<float> x)
     {
         Decompose(x, out var sign, out Vector<int> n, out var a);
         return OP.BitwiseAnd(
@@ -438,7 +438,7 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> IsNaN<T>(in Vector<T> x)
+    public static Vector<T> IsNaN<T>(Vector<T> x)
         where T : unmanaged
     {
         if (typeof(T) == typeof(double))
@@ -459,7 +459,7 @@ partial class VectorMath
     /// </summary>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<long> IsNaN(in Vector<double> x)
+    public static Vector<long> IsNaN(Vector<double> x)
     {
         Decompose(x, out _, out Vector<long> n, out var a);
         return Vector.BitwiseAnd(
@@ -473,7 +473,7 @@ partial class VectorMath
     /// </summary>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<int> IsNaN(in Vector<float> x)
+    public static Vector<int> IsNaN(Vector<float> x)
     {
         Decompose(x, out _, out Vector<int> n, out var a);
         return Vector.BitwiseAnd(
