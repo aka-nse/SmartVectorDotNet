@@ -63,7 +63,7 @@ partial class VectorOp
     #region
 <#  foreach(var type in types) { #>
 
-    public static partial Vector<<#=type#>> ShiftLeft(in Vector<<#=type#>> value, int shiftCount)
+    public static partial Vector<<#=type#>> ShiftLeft(Vector<<#=type#>> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftLeft(value, shiftCount);
@@ -84,7 +84,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<<#=type#>> ShiftLeftFallback(in Vector<<#=type#>> value, int shiftCount)
+    internal static Vector<<#=type#>> ShiftLeftFallback(Vector<<#=type#>> value, int shiftCount)
     {
 <#      GenerateFallback(type, i => $"value[{i}] << (shiftCount & {type.BitMask})"); #>
     }
@@ -95,7 +95,7 @@ partial class VectorOp
     #region
 <#  foreach(var type in types) { #>
 
-    public static partial Vector<<#=type#>> ShiftLeft(in Vector<<#=type#>> value, in Vector<<#=type#>> shiftCount)
+    public static partial Vector<<#=type#>> ShiftLeft(Vector<<#=type#>> value, Vector<<#=type#>> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 <#      if(type.SupportedOperations.HasFlag(SupportedOperations.ShiftLeftLogicalVariable)) { #>
@@ -116,7 +116,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<<#=type#>> ShiftLeftFallback(in Vector<<#=type#>> value, in Vector<<#=type#>> shiftCount)
+    internal static Vector<<#=type#>> ShiftLeftFallback(Vector<<#=type#>> value, Vector<<#=type#>> shiftCount)
     {
 <#      GenerateFallback(type, i => $"value[{i}] << ((int)shiftCount[{i}] & {type.BitMask})"); #>
     }
@@ -132,7 +132,7 @@ partial class VectorOp
     #region
 <#  foreach(var type in types) { #>
 
-    public static partial Vector<<#=type#>> ShiftRightLogical(in Vector<<#=type#>> value, int shiftCount)
+    public static partial Vector<<#=type#>> ShiftRightLogical(Vector<<#=type#>> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightLogical(value, shiftCount);
@@ -153,7 +153,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
     
-    internal static Vector<<#=type#>> ShiftRightLogicalFallback(in Vector<<#=type#>> value, int shiftCount)
+    internal static Vector<<#=type#>> ShiftRightLogicalFallback(Vector<<#=type#>> value, int shiftCount)
     {
 <#      GenerateFallback(type, i => $"value[{i}] >> (shiftCount & {type.BitMask})"); #>
     }
@@ -164,7 +164,7 @@ partial class VectorOp
     #region
 <#  foreach(var type in types) { #>
 
-    public static partial Vector<<#=type#>> ShiftRightLogical(in Vector<<#=type#>> value, in Vector<<#=type#>> shiftCount)
+    public static partial Vector<<#=type#>> ShiftRightLogical(Vector<<#=type#>> value, Vector<<#=type#>> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 <#      if(type.SupportedOperations.HasFlag(SupportedOperations.ShiftRightLogicalVariable)) { #>
@@ -185,7 +185,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
 
-    internal static Vector<<#=type#>> ShiftRightLogicalFallback(in Vector<<#=type#>> value, in Vector<<#=type#>> shiftCount)
+    internal static Vector<<#=type#>> ShiftRightLogicalFallback(Vector<<#=type#>> value, Vector<<#=type#>> shiftCount)
     {
 <#      GenerateFallback(type, i => $"value[{i}] >> ((int)shiftCount[{i}] & {type.BitMask})"); #>
     }
@@ -201,7 +201,7 @@ partial class VectorOp
     #region
 <#  foreach(var type in signedTypes) { #>
 
-    public static partial Vector<<#=type#>> ShiftRightArithmetic(in Vector<<#=type#>> value, int shiftCount)
+    public static partial Vector<<#=type#>> ShiftRightArithmetic(Vector<<#=type#>> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightArithmetic(value, shiftCount);
@@ -222,7 +222,7 @@ partial class VectorOp
         return ShiftRightArithmeticFallback(value, shiftCount);
     }
 
-    internal static Vector<<#=type#>> ShiftRightArithmeticFallback(in Vector<<#=type#>> value, int shiftCount)
+    internal static Vector<<#=type#>> ShiftRightArithmeticFallback(Vector<<#=type#>> value, int shiftCount)
     {
 <#      GenerateFallback(type, i => $"value[{i}] >> (shiftCount & {type.BitMask})"); #>
     }
@@ -233,7 +233,7 @@ partial class VectorOp
     #region
 <#  foreach(var type in signedTypes) { #>
 
-    public static partial Vector<<#=type#>> ShiftRightArithmetic(in Vector<<#=type#>> value, in Vector<<#=type#>> shiftCount)
+    public static partial Vector<<#=type#>> ShiftRightArithmetic(Vector<<#=type#>> value, Vector<<#=type#>> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 <#      if(type.SupportedOperations.HasFlag(SupportedOperations.ShiftRightArithmeticVariable)) { #>
@@ -254,7 +254,7 @@ partial class VectorOp
         return ShiftRightArithmeticFallback(value, shiftCount);
     }
     
-    internal static Vector<<#=type#>> ShiftRightArithmeticFallback(in Vector<<#=type#>> value, in Vector<<#=type#>> shiftCount)
+    internal static Vector<<#=type#>> ShiftRightArithmeticFallback(Vector<<#=type#>> value, Vector<<#=type#>> shiftCount)
     {
 <#      GenerateFallback(type, i => $"value[{i}] >> ((int)shiftCount[{i}] & {type.BitMask})"); #>
     }

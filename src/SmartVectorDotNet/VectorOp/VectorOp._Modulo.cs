@@ -27,7 +27,7 @@ partial class VectorOp
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    public static Vector<T> Modulo<T>(in Vector<T> x, in Vector<T> y)
+    public static Vector<T> Modulo<T>(Vector<T> x, Vector<T> y)
         where T : unmanaged
     {
         if (typeof(T) == typeof(float))
@@ -47,7 +47,7 @@ partial class VectorOp
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    public static Vector<float> Modulo(in Vector<float> x, in Vector<float> y)
+    public static Vector<float> Modulo(Vector<float> x, Vector<float> y)
     {
         VectorMath.Decompose(x, out var s, out var n, out var a);
         VectorMath.Decompose(y, out var _, out var m, out var b);
@@ -94,7 +94,7 @@ partial class VectorOp
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    public static Vector<double> Modulo(in Vector<double> x, in Vector<double> y)
+    public static Vector<double> Modulo(Vector<double> x, Vector<double> y)
     {
         VectorMath.Decompose(x, out var s, out var n, out var a);
         VectorMath.Decompose(y, out var _, out var m, out var b);

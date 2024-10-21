@@ -17,7 +17,7 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> Tan<T>(in Vector<T> x)
+    public static Vector<T> Tan<T>(Vector<T> x)
         where T : unmanaged
     {
         var xx = ModuloByPI(x);
@@ -42,7 +42,7 @@ partial class VectorMath
             tanxx);
     }
 
-    private static Vector<T> TanBounded<T>(in Vector<T> x)
+    private static Vector<T> TanBounded<T>(Vector<T> x)
         where T : unmanaged
         => SinBounded(x) / CosBounded(x);
 

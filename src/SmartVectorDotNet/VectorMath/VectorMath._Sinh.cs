@@ -14,7 +14,7 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> Sinh<T>(in Vector<T> x)
+    public static Vector<T> Sinh<T>(Vector<T> x)
         where T : unmanaged
         => (Exp(x) - Exp(-x)) * Sinh_<T>._1p2;
 }

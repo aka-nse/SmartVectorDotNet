@@ -38,7 +38,7 @@ file class Exp_<T> : VectorMath.Const<T> where T : unmanaged
 partial class VectorMath
 {
     /// <summary> Calculates exp. </summary>
-    public static Vector<T> Exp<T>(in Vector<T> x)
+    public static Vector<T> Exp<T>(Vector<T> x)
         where T : unmanaged
     {
         var isSaturatedMax = OP.GreaterThan(x, Exp_<T>.Max);
@@ -56,11 +56,11 @@ partial class VectorMath
     }
 
     [VectorMath]
-    private static partial Vector<T> ExpCore<T>(in Vector<T> d)
+    private static partial Vector<T> ExpCore<T>(Vector<T> d)
         where T : unmanaged;
 
 #pragma warning disable format
-    private static Vector<double> ExpCore(in Vector<double> x)
+    private static Vector<double> ExpCore(Vector<double> x)
     {
         var y = x * Exp_<double>.Log_2_E;
         var n = Round(y);
@@ -81,7 +81,7 @@ partial class VectorMath
         return Scale(n, z);
     }
 
-    private static Vector<float> ExpCore(in Vector<float> x)
+    private static Vector<float> ExpCore(Vector<float> x)
     {
         var y = x * Exp_<float>.Log_2_E;
         var n = Round(y);

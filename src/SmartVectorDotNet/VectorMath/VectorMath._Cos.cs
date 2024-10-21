@@ -1,4 +1,5 @@
-﻿namespace SmartVectorDotNet;
+﻿using System.Runtime.CompilerServices;
+namespace SmartVectorDotNet;
 using OP = VectorOp;
 using H = InternalHelpers;
 
@@ -43,7 +44,7 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> Cos<T>(in Vector<T> x)
+    public static Vector<T> Cos<T>(Vector<T> x)
         where T : unmanaged
     {
         var xx = ModuloByTau(x);
@@ -67,11 +68,11 @@ partial class VectorMath
     }
 
     [VectorMath]
-    private static partial Vector<T> CosBounded<T>(in Vector<T> x)
+    private static partial Vector<T> CosBounded<T>(Vector<T> x)
         where T : unmanaged;
 
     /// <param name="x"> $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ </param>
-    private static Vector<double> CosBounded(in Vector<double> x)
+    private static Vector<double> CosBounded(Vector<double> x)
     {
         Vector<double> y;
         var x2 = x * x;
@@ -90,7 +91,7 @@ partial class VectorMath
     }
 
     /// <param name="x"> $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ </param>
-    private static Vector<float> CosBounded(in Vector<float> x)
+    private static Vector<float> CosBounded(Vector<float> x)
     {
         Vector<float> y;
         var x2 = x * x;

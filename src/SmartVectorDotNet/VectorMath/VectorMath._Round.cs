@@ -18,7 +18,7 @@ partial class VectorMath
     /// <param name="x"></param>
     /// <returns></returns>
     [VectorMath]
-    public static partial Vector<T> Round<T>(in Vector<T> x)
+    public static partial Vector<T> Round<T>(Vector<T> x)
         where T : unmanaged;
 
     private struct Round_<T> : IOperation1<T>
@@ -28,7 +28,7 @@ partial class VectorMath
     }
 
     /// <summary> Calculates round. </summary>
-    private static Vector<double> Round(in Vector<double> x)
+    private static Vector<double> Round(Vector<double> x)
     {
 #if NET6_0_OR_GREATER
         if (Unsafe.SizeOf<Vector<double>>() == Unsafe.SizeOf<Vector256<double>>() && Avx.IsSupported)
@@ -46,7 +46,7 @@ partial class VectorMath
     }
 
 
-    private static Vector<float> Round(in Vector<float> x)
+    private static Vector<float> Round(Vector<float> x)
     {
 #if NET6_0_OR_GREATER
         if (Unsafe.SizeOf<Vector<float>>() == Unsafe.SizeOf<Vector256<float>>() && Avx.IsSupported)

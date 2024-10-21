@@ -6,6 +6,7 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
 
+#if false
 namespace SmartVectorDotNet.DynamicServices
 {
     #region delegates
@@ -885,3 +886,4 @@ namespace SmartVectorDotNet.DynamicServices
 
     }
 }
+#endif

@@ -43,7 +43,7 @@ partial class VectorMath
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector<T> Sin<T>(in Vector<T> x)
+    public static Vector<T> Sin<T>(Vector<T> x)
         where T : unmanaged
     {
         var xx = ModuloByTau(x);
@@ -60,11 +60,11 @@ partial class VectorMath
     }
 
     [VectorMath]
-    private static partial Vector<T> SinBounded<T>(in Vector<T> x)
+    private static partial Vector<T> SinBounded<T>(Vector<T> x)
         where T : unmanaged;
     
     /// <param name="x"> $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ </param>
-    private static Vector<double> SinBounded(in Vector<double> x)
+    private static Vector<double> SinBounded(Vector<double> x)
     {
         Vector<double> y;
         var x2 = x * x;
@@ -83,7 +83,7 @@ partial class VectorMath
     }
 
     /// <param name="x"> $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ </param>
-    private static Vector<float> SinBounded(in Vector<float> x)
+    private static Vector<float> SinBounded(Vector<float> x)
     {
         Vector<float> y;
         var x2 = x * x;

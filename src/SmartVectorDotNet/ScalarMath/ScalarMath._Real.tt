@@ -123,8 +123,8 @@ public class RealOpDef
         => string.Join(", ", Arguments.Select(a => $"T {a}"));
     public string ParamPass
         => string.Join(", ", Arguments.Select(a => $"{a}_"));
-    public string? SupportVersionMacro { get; set; }
-    public string? Fallback { get; set; }
+    public string SupportVersionMacro { get; set; }
+    public string Fallback { get; set; }
 
     public RealOpDef(string name, params string[] arguments)
     {

@@ -46,7 +46,7 @@ public static partial class VectorMath
             : default;
 #pragma warning restore format
 
-        private protected static Vector<T> As<TFrom>(in Vector<TFrom> x)
+        private protected static Vector<T> As<TFrom>(Vector<TFrom> x)
             where TFrom : unmanaged
             => H.Reinterpret<TFrom, T>(x);
 
@@ -122,7 +122,7 @@ public static partial class VectorMath
 
 
     private interface IOperation1<T> { public T Calculate(T x); }
-    private static Vector<T> Emulate<T, TOperation>(in Vector<T> x)
+    private static Vector<T> Emulate<T, TOperation>(Vector<T> x)
         where T : unmanaged
         where TOperation : unmanaged, IOperation1<T>
     {
@@ -285,7 +285,7 @@ public static partial class VectorMath
     }
 
     private interface IOperation2<T> { public T Calculate(T x, T y); }
-    private static Vector<T> Emulate<T, TOperation>(in Vector<T> x, in Vector<T> y)
+    private static Vector<T> Emulate<T, TOperation>(Vector<T> x, Vector<T> y)
         where T : unmanaged
         where TOperation : unmanaged, IOperation2<T>
     {
@@ -448,7 +448,7 @@ public static partial class VectorMath
     }
 
     private interface IOperation3<T> { public T Calculate(T x, T y, T z); }
-    private static Vector<T> Emulate<T, TOperation>(in Vector<T> x, in Vector<T> y, in Vector<T> z)
+    private static Vector<T> Emulate<T, TOperation>(Vector<T> x, Vector<T> y, Vector<T> z)
         where T : unmanaged
         where TOperation : unmanaged, IOperation3<T>
     {

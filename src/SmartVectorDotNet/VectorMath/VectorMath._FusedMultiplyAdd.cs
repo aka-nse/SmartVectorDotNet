@@ -19,7 +19,7 @@ partial class VectorMath
     /// <param name="y"></param>
     /// <param name="z"></param>
     /// <returns></returns>
-    public static Vector<T> FusedMultiplyAdd<T>(in Vector<T> x, in Vector<T> y, in Vector<T> z)
+    public static Vector<T> FusedMultiplyAdd<T>(Vector<T> x, Vector<T> y, Vector<T> z)
         where T : unmanaged
     {
 #if NET6_0_OR_GREATER

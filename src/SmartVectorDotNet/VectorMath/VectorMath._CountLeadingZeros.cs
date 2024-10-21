@@ -13,7 +13,7 @@ partial class VectorMath
 #pragma warning disable format
     
     /// <summary> Counts <c>1</c> bit. </summary>
-    public static Vector<T> CountLeadingZeros<T>(in Vector<T> x)
+    public static Vector<T> CountLeadingZeros<T>(Vector<T> x)
         where T : unmanaged
     {
         if (typeof(T) == typeof(byte  ) || typeof(T) == typeof(sbyte )) { return H.Reinterpret<byte  , T>(CountLeadingZeros(H.Reinterpret<T, byte  >(x))); }
@@ -27,7 +27,7 @@ partial class VectorMath
     }
 
     /// <summary> Counts <c>1</c> bit. </summary>
-    public static Vector<byte> CountLeadingZeros(in Vector<byte> x)
+    public static Vector<byte> CountLeadingZeros(Vector<byte> x)
     {
         Vector<byte> y = x;
         y |= OP.ShiftRightLogical(y, 1);
@@ -37,7 +37,7 @@ partial class VectorMath
     }
 
     /// <summary> Counts <c>1</c> bit. </summary>
-    public static Vector<ushort> CountLeadingZeros(in Vector<ushort> x)
+    public static Vector<ushort> CountLeadingZeros(Vector<ushort> x)
     {
         Vector<ushort> y = x;
         y |= OP.ShiftRightLogical(y, 1);
@@ -48,7 +48,7 @@ partial class VectorMath
     }
 
     /// <summary> Counts <c>1</c> bit. </summary>
-    public static Vector<uint> CountLeadingZeros(in Vector<uint> x)
+    public static Vector<uint> CountLeadingZeros(Vector<uint> x)
     {
         Vector<uint> y = x;
         y |= OP.ShiftRightLogical(y, 1);
@@ -60,7 +60,7 @@ partial class VectorMath
     }
 
     /// <summary> Counts <c>1</c> bit. </summary>
-    public static Vector<ulong> CountLeadingZeros(in Vector<ulong> x)
+    public static Vector<ulong> CountLeadingZeros(Vector<ulong> x)
     {
         Vector<ulong> y = x;
         y |= OP.ShiftRightLogical(y, 1);
@@ -73,7 +73,7 @@ partial class VectorMath
     }
 
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static Vector<nuint> CountLeadingZeros(in Vector<nuint> x)
+    public static Vector<nuint> CountLeadingZeros(Vector<nuint> x)
     {
         if (Unsafe.SizeOf<nuint>() == sizeof(ulong)) { return H.Reinterpret<ulong, nuint>(CountLeadingZeros(H.Reinterpret<nuint, ulong>(x))); }
         if (Unsafe.SizeOf<nuint>() == sizeof(uint)) { return H.Reinterpret<uint, nuint>(CountLeadingZeros(H.Reinterpret<nuint, uint>(x))); }

@@ -30,7 +30,7 @@ partial class VectorOp
 
     #region
 
-    public static partial Vector<byte> ShiftLeft(in Vector<byte> value, int shiftCount)
+    public static partial Vector<byte> ShiftLeft(Vector<byte> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftLeft(value, shiftCount);
@@ -39,7 +39,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<byte> ShiftLeftFallback(in Vector<byte> value, int shiftCount)
+    internal static Vector<byte> ShiftLeftFallback(Vector<byte> value, int shiftCount)
     {
         switch(Vector<byte>.Count)
         {
@@ -121,7 +121,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<ushort> ShiftLeft(in Vector<ushort> value, int shiftCount)
+    public static partial Vector<ushort> ShiftLeft(Vector<ushort> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftLeft(value, shiftCount);
@@ -140,7 +140,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<ushort> ShiftLeftFallback(in Vector<ushort> value, int shiftCount)
+    internal static Vector<ushort> ShiftLeftFallback(Vector<ushort> value, int shiftCount)
     {
         switch(Vector<ushort>.Count)
         {
@@ -194,7 +194,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<uint> ShiftLeft(in Vector<uint> value, int shiftCount)
+    public static partial Vector<uint> ShiftLeft(Vector<uint> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftLeft(value, shiftCount);
@@ -213,7 +213,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<uint> ShiftLeftFallback(in Vector<uint> value, int shiftCount)
+    internal static Vector<uint> ShiftLeftFallback(Vector<uint> value, int shiftCount)
     {
         switch(Vector<uint>.Count)
         {
@@ -253,7 +253,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<ulong> ShiftLeft(in Vector<ulong> value, int shiftCount)
+    public static partial Vector<ulong> ShiftLeft(Vector<ulong> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftLeft(value, shiftCount);
@@ -272,7 +272,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<ulong> ShiftLeftFallback(in Vector<ulong> value, int shiftCount)
+    internal static Vector<ulong> ShiftLeftFallback(Vector<ulong> value, int shiftCount)
     {
         switch(Vector<ulong>.Count)
         {
@@ -305,7 +305,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<nuint> ShiftLeft(in Vector<nuint> value, int shiftCount)
+    public static partial Vector<nuint> ShiftLeft(Vector<nuint> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftLeft(value, shiftCount);
@@ -314,7 +314,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<nuint> ShiftLeftFallback(in Vector<nuint> value, int shiftCount)
+    internal static Vector<nuint> ShiftLeftFallback(Vector<nuint> value, int shiftCount)
     {
         switch(Vector<nuint>.Count)
         {
@@ -358,7 +358,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<sbyte> ShiftLeft(in Vector<sbyte> value, int shiftCount)
+    public static partial Vector<sbyte> ShiftLeft(Vector<sbyte> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftLeft(value, shiftCount);
@@ -367,7 +367,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<sbyte> ShiftLeftFallback(in Vector<sbyte> value, int shiftCount)
+    internal static Vector<sbyte> ShiftLeftFallback(Vector<sbyte> value, int shiftCount)
     {
         switch(Vector<sbyte>.Count)
         {
@@ -449,7 +449,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<short> ShiftLeft(in Vector<short> value, int shiftCount)
+    public static partial Vector<short> ShiftLeft(Vector<short> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftLeft(value, shiftCount);
@@ -468,7 +468,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<short> ShiftLeftFallback(in Vector<short> value, int shiftCount)
+    internal static Vector<short> ShiftLeftFallback(Vector<short> value, int shiftCount)
     {
         switch(Vector<short>.Count)
         {
@@ -522,7 +522,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<int> ShiftLeft(in Vector<int> value, int shiftCount)
+    public static partial Vector<int> ShiftLeft(Vector<int> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftLeft(value, shiftCount);
@@ -541,7 +541,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<int> ShiftLeftFallback(in Vector<int> value, int shiftCount)
+    internal static Vector<int> ShiftLeftFallback(Vector<int> value, int shiftCount)
     {
         switch(Vector<int>.Count)
         {
@@ -581,7 +581,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<long> ShiftLeft(in Vector<long> value, int shiftCount)
+    public static partial Vector<long> ShiftLeft(Vector<long> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftLeft(value, shiftCount);
@@ -600,7 +600,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<long> ShiftLeftFallback(in Vector<long> value, int shiftCount)
+    internal static Vector<long> ShiftLeftFallback(Vector<long> value, int shiftCount)
     {
         switch(Vector<long>.Count)
         {
@@ -633,7 +633,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<nint> ShiftLeft(in Vector<nint> value, int shiftCount)
+    public static partial Vector<nint> ShiftLeft(Vector<nint> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftLeft(value, shiftCount);
@@ -642,7 +642,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<nint> ShiftLeftFallback(in Vector<nint> value, int shiftCount)
+    internal static Vector<nint> ShiftLeftFallback(Vector<nint> value, int shiftCount)
     {
         switch(Vector<nint>.Count)
         {
@@ -689,14 +689,14 @@ partial class VectorOp
 
     #region
 
-    public static partial Vector<byte> ShiftLeft(in Vector<byte> value, in Vector<byte> shiftCount)
+    public static partial Vector<byte> ShiftLeft(Vector<byte> value, Vector<byte> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<byte> ShiftLeftFallback(in Vector<byte> value, in Vector<byte> shiftCount)
+    internal static Vector<byte> ShiftLeftFallback(Vector<byte> value, Vector<byte> shiftCount)
     {
         switch(Vector<byte>.Count)
         {
@@ -778,14 +778,14 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<ushort> ShiftLeft(in Vector<ushort> value, in Vector<ushort> shiftCount)
+    public static partial Vector<ushort> ShiftLeft(Vector<ushort> value, Vector<ushort> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<ushort> ShiftLeftFallback(in Vector<ushort> value, in Vector<ushort> shiftCount)
+    internal static Vector<ushort> ShiftLeftFallback(Vector<ushort> value, Vector<ushort> shiftCount)
     {
         switch(Vector<ushort>.Count)
         {
@@ -839,7 +839,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<uint> ShiftLeft(in Vector<uint> value, in Vector<uint> shiftCount)
+    public static partial Vector<uint> ShiftLeft(Vector<uint> value, Vector<uint> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
         if(Vector<uint>.Count == Vector256<uint>.Count && Avx2.IsSupported)
@@ -858,7 +858,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<uint> ShiftLeftFallback(in Vector<uint> value, in Vector<uint> shiftCount)
+    internal static Vector<uint> ShiftLeftFallback(Vector<uint> value, Vector<uint> shiftCount)
     {
         switch(Vector<uint>.Count)
         {
@@ -898,7 +898,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<ulong> ShiftLeft(in Vector<ulong> value, in Vector<ulong> shiftCount)
+    public static partial Vector<ulong> ShiftLeft(Vector<ulong> value, Vector<ulong> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
         if(Vector<ulong>.Count == Vector256<ulong>.Count && Avx2.IsSupported)
@@ -917,7 +917,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<ulong> ShiftLeftFallback(in Vector<ulong> value, in Vector<ulong> shiftCount)
+    internal static Vector<ulong> ShiftLeftFallback(Vector<ulong> value, Vector<ulong> shiftCount)
     {
         switch(Vector<ulong>.Count)
         {
@@ -950,14 +950,14 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<nuint> ShiftLeft(in Vector<nuint> value, in Vector<nuint> shiftCount)
+    public static partial Vector<nuint> ShiftLeft(Vector<nuint> value, Vector<nuint> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<nuint> ShiftLeftFallback(in Vector<nuint> value, in Vector<nuint> shiftCount)
+    internal static Vector<nuint> ShiftLeftFallback(Vector<nuint> value, Vector<nuint> shiftCount)
     {
         switch(Vector<nuint>.Count)
         {
@@ -1001,14 +1001,14 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<sbyte> ShiftLeft(in Vector<sbyte> value, in Vector<sbyte> shiftCount)
+    public static partial Vector<sbyte> ShiftLeft(Vector<sbyte> value, Vector<sbyte> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<sbyte> ShiftLeftFallback(in Vector<sbyte> value, in Vector<sbyte> shiftCount)
+    internal static Vector<sbyte> ShiftLeftFallback(Vector<sbyte> value, Vector<sbyte> shiftCount)
     {
         switch(Vector<sbyte>.Count)
         {
@@ -1090,14 +1090,14 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<short> ShiftLeft(in Vector<short> value, in Vector<short> shiftCount)
+    public static partial Vector<short> ShiftLeft(Vector<short> value, Vector<short> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<short> ShiftLeftFallback(in Vector<short> value, in Vector<short> shiftCount)
+    internal static Vector<short> ShiftLeftFallback(Vector<short> value, Vector<short> shiftCount)
     {
         switch(Vector<short>.Count)
         {
@@ -1151,7 +1151,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<int> ShiftLeft(in Vector<int> value, in Vector<int> shiftCount)
+    public static partial Vector<int> ShiftLeft(Vector<int> value, Vector<int> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
         if(Vector<int>.Count == Vector256<int>.Count && Avx2.IsSupported)
@@ -1170,7 +1170,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<int> ShiftLeftFallback(in Vector<int> value, in Vector<int> shiftCount)
+    internal static Vector<int> ShiftLeftFallback(Vector<int> value, Vector<int> shiftCount)
     {
         switch(Vector<int>.Count)
         {
@@ -1210,7 +1210,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<long> ShiftLeft(in Vector<long> value, in Vector<long> shiftCount)
+    public static partial Vector<long> ShiftLeft(Vector<long> value, Vector<long> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
         if(Vector<long>.Count == Vector256<long>.Count && Avx2.IsSupported)
@@ -1229,7 +1229,7 @@ partial class VectorOp
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<long> ShiftLeftFallback(in Vector<long> value, in Vector<long> shiftCount)
+    internal static Vector<long> ShiftLeftFallback(Vector<long> value, Vector<long> shiftCount)
     {
         switch(Vector<long>.Count)
         {
@@ -1262,14 +1262,14 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<nint> ShiftLeft(in Vector<nint> value, in Vector<nint> shiftCount)
+    public static partial Vector<nint> ShiftLeft(Vector<nint> value, Vector<nint> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftLeftFallback(value, shiftCount);
     }
     
-    internal static Vector<nint> ShiftLeftFallback(in Vector<nint> value, in Vector<nint> shiftCount)
+    internal static Vector<nint> ShiftLeftFallback(Vector<nint> value, Vector<nint> shiftCount)
     {
         switch(Vector<nint>.Count)
         {
@@ -1321,7 +1321,7 @@ partial class VectorOp
 
     #region
 
-    public static partial Vector<byte> ShiftRightLogical(in Vector<byte> value, int shiftCount)
+    public static partial Vector<byte> ShiftRightLogical(Vector<byte> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightLogical(value, shiftCount);
@@ -1330,7 +1330,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
     
-    internal static Vector<byte> ShiftRightLogicalFallback(in Vector<byte> value, int shiftCount)
+    internal static Vector<byte> ShiftRightLogicalFallback(Vector<byte> value, int shiftCount)
     {
         switch(Vector<byte>.Count)
         {
@@ -1412,7 +1412,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<ushort> ShiftRightLogical(in Vector<ushort> value, int shiftCount)
+    public static partial Vector<ushort> ShiftRightLogical(Vector<ushort> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightLogical(value, shiftCount);
@@ -1431,7 +1431,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
     
-    internal static Vector<ushort> ShiftRightLogicalFallback(in Vector<ushort> value, int shiftCount)
+    internal static Vector<ushort> ShiftRightLogicalFallback(Vector<ushort> value, int shiftCount)
     {
         switch(Vector<ushort>.Count)
         {
@@ -1485,7 +1485,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<uint> ShiftRightLogical(in Vector<uint> value, int shiftCount)
+    public static partial Vector<uint> ShiftRightLogical(Vector<uint> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightLogical(value, shiftCount);
@@ -1504,7 +1504,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
     
-    internal static Vector<uint> ShiftRightLogicalFallback(in Vector<uint> value, int shiftCount)
+    internal static Vector<uint> ShiftRightLogicalFallback(Vector<uint> value, int shiftCount)
     {
         switch(Vector<uint>.Count)
         {
@@ -1544,7 +1544,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<ulong> ShiftRightLogical(in Vector<ulong> value, int shiftCount)
+    public static partial Vector<ulong> ShiftRightLogical(Vector<ulong> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightLogical(value, shiftCount);
@@ -1563,7 +1563,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
     
-    internal static Vector<ulong> ShiftRightLogicalFallback(in Vector<ulong> value, int shiftCount)
+    internal static Vector<ulong> ShiftRightLogicalFallback(Vector<ulong> value, int shiftCount)
     {
         switch(Vector<ulong>.Count)
         {
@@ -1596,7 +1596,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<nuint> ShiftRightLogical(in Vector<nuint> value, int shiftCount)
+    public static partial Vector<nuint> ShiftRightLogical(Vector<nuint> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightLogical(value, shiftCount);
@@ -1605,7 +1605,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
     
-    internal static Vector<nuint> ShiftRightLogicalFallback(in Vector<nuint> value, int shiftCount)
+    internal static Vector<nuint> ShiftRightLogicalFallback(Vector<nuint> value, int shiftCount)
     {
         switch(Vector<nuint>.Count)
         {
@@ -1649,7 +1649,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<sbyte> ShiftRightLogical(in Vector<sbyte> value, int shiftCount)
+    public static partial Vector<sbyte> ShiftRightLogical(Vector<sbyte> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightLogical(value, shiftCount);
@@ -1658,7 +1658,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
     
-    internal static Vector<sbyte> ShiftRightLogicalFallback(in Vector<sbyte> value, int shiftCount)
+    internal static Vector<sbyte> ShiftRightLogicalFallback(Vector<sbyte> value, int shiftCount)
     {
         switch(Vector<sbyte>.Count)
         {
@@ -1740,7 +1740,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<short> ShiftRightLogical(in Vector<short> value, int shiftCount)
+    public static partial Vector<short> ShiftRightLogical(Vector<short> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightLogical(value, shiftCount);
@@ -1759,7 +1759,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
     
-    internal static Vector<short> ShiftRightLogicalFallback(in Vector<short> value, int shiftCount)
+    internal static Vector<short> ShiftRightLogicalFallback(Vector<short> value, int shiftCount)
     {
         switch(Vector<short>.Count)
         {
@@ -1813,7 +1813,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<int> ShiftRightLogical(in Vector<int> value, int shiftCount)
+    public static partial Vector<int> ShiftRightLogical(Vector<int> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightLogical(value, shiftCount);
@@ -1832,7 +1832,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
     
-    internal static Vector<int> ShiftRightLogicalFallback(in Vector<int> value, int shiftCount)
+    internal static Vector<int> ShiftRightLogicalFallback(Vector<int> value, int shiftCount)
     {
         switch(Vector<int>.Count)
         {
@@ -1872,7 +1872,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<long> ShiftRightLogical(in Vector<long> value, int shiftCount)
+    public static partial Vector<long> ShiftRightLogical(Vector<long> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightLogical(value, shiftCount);
@@ -1891,7 +1891,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
     
-    internal static Vector<long> ShiftRightLogicalFallback(in Vector<long> value, int shiftCount)
+    internal static Vector<long> ShiftRightLogicalFallback(Vector<long> value, int shiftCount)
     {
         switch(Vector<long>.Count)
         {
@@ -1924,7 +1924,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<nint> ShiftRightLogical(in Vector<nint> value, int shiftCount)
+    public static partial Vector<nint> ShiftRightLogical(Vector<nint> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightLogical(value, shiftCount);
@@ -1933,7 +1933,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
     
-    internal static Vector<nint> ShiftRightLogicalFallback(in Vector<nint> value, int shiftCount)
+    internal static Vector<nint> ShiftRightLogicalFallback(Vector<nint> value, int shiftCount)
     {
         switch(Vector<nint>.Count)
         {
@@ -1980,14 +1980,14 @@ partial class VectorOp
 
     #region
 
-    public static partial Vector<byte> ShiftRightLogical(in Vector<byte> value, in Vector<byte> shiftCount)
+    public static partial Vector<byte> ShiftRightLogical(Vector<byte> value, Vector<byte> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftRightLogicalFallback(value, shiftCount);
     }
 
-    internal static Vector<byte> ShiftRightLogicalFallback(in Vector<byte> value, in Vector<byte> shiftCount)
+    internal static Vector<byte> ShiftRightLogicalFallback(Vector<byte> value, Vector<byte> shiftCount)
     {
         switch(Vector<byte>.Count)
         {
@@ -2069,14 +2069,14 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<ushort> ShiftRightLogical(in Vector<ushort> value, in Vector<ushort> shiftCount)
+    public static partial Vector<ushort> ShiftRightLogical(Vector<ushort> value, Vector<ushort> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftRightLogicalFallback(value, shiftCount);
     }
 
-    internal static Vector<ushort> ShiftRightLogicalFallback(in Vector<ushort> value, in Vector<ushort> shiftCount)
+    internal static Vector<ushort> ShiftRightLogicalFallback(Vector<ushort> value, Vector<ushort> shiftCount)
     {
         switch(Vector<ushort>.Count)
         {
@@ -2130,7 +2130,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<uint> ShiftRightLogical(in Vector<uint> value, in Vector<uint> shiftCount)
+    public static partial Vector<uint> ShiftRightLogical(Vector<uint> value, Vector<uint> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
         if(Vector<uint>.Count == Vector256<uint>.Count && Avx2.IsSupported)
@@ -2149,7 +2149,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
 
-    internal static Vector<uint> ShiftRightLogicalFallback(in Vector<uint> value, in Vector<uint> shiftCount)
+    internal static Vector<uint> ShiftRightLogicalFallback(Vector<uint> value, Vector<uint> shiftCount)
     {
         switch(Vector<uint>.Count)
         {
@@ -2189,7 +2189,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<ulong> ShiftRightLogical(in Vector<ulong> value, in Vector<ulong> shiftCount)
+    public static partial Vector<ulong> ShiftRightLogical(Vector<ulong> value, Vector<ulong> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
         if(Vector<ulong>.Count == Vector256<ulong>.Count && Avx2.IsSupported)
@@ -2208,7 +2208,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
 
-    internal static Vector<ulong> ShiftRightLogicalFallback(in Vector<ulong> value, in Vector<ulong> shiftCount)
+    internal static Vector<ulong> ShiftRightLogicalFallback(Vector<ulong> value, Vector<ulong> shiftCount)
     {
         switch(Vector<ulong>.Count)
         {
@@ -2241,14 +2241,14 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<nuint> ShiftRightLogical(in Vector<nuint> value, in Vector<nuint> shiftCount)
+    public static partial Vector<nuint> ShiftRightLogical(Vector<nuint> value, Vector<nuint> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftRightLogicalFallback(value, shiftCount);
     }
 
-    internal static Vector<nuint> ShiftRightLogicalFallback(in Vector<nuint> value, in Vector<nuint> shiftCount)
+    internal static Vector<nuint> ShiftRightLogicalFallback(Vector<nuint> value, Vector<nuint> shiftCount)
     {
         switch(Vector<nuint>.Count)
         {
@@ -2292,14 +2292,14 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<sbyte> ShiftRightLogical(in Vector<sbyte> value, in Vector<sbyte> shiftCount)
+    public static partial Vector<sbyte> ShiftRightLogical(Vector<sbyte> value, Vector<sbyte> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftRightLogicalFallback(value, shiftCount);
     }
 
-    internal static Vector<sbyte> ShiftRightLogicalFallback(in Vector<sbyte> value, in Vector<sbyte> shiftCount)
+    internal static Vector<sbyte> ShiftRightLogicalFallback(Vector<sbyte> value, Vector<sbyte> shiftCount)
     {
         switch(Vector<sbyte>.Count)
         {
@@ -2381,14 +2381,14 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<short> ShiftRightLogical(in Vector<short> value, in Vector<short> shiftCount)
+    public static partial Vector<short> ShiftRightLogical(Vector<short> value, Vector<short> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftRightLogicalFallback(value, shiftCount);
     }
 
-    internal static Vector<short> ShiftRightLogicalFallback(in Vector<short> value, in Vector<short> shiftCount)
+    internal static Vector<short> ShiftRightLogicalFallback(Vector<short> value, Vector<short> shiftCount)
     {
         switch(Vector<short>.Count)
         {
@@ -2442,7 +2442,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<int> ShiftRightLogical(in Vector<int> value, in Vector<int> shiftCount)
+    public static partial Vector<int> ShiftRightLogical(Vector<int> value, Vector<int> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
         if(Vector<int>.Count == Vector256<int>.Count && Avx2.IsSupported)
@@ -2461,7 +2461,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
 
-    internal static Vector<int> ShiftRightLogicalFallback(in Vector<int> value, in Vector<int> shiftCount)
+    internal static Vector<int> ShiftRightLogicalFallback(Vector<int> value, Vector<int> shiftCount)
     {
         switch(Vector<int>.Count)
         {
@@ -2501,7 +2501,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<long> ShiftRightLogical(in Vector<long> value, in Vector<long> shiftCount)
+    public static partial Vector<long> ShiftRightLogical(Vector<long> value, Vector<long> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
         if(Vector<long>.Count == Vector256<long>.Count && Avx2.IsSupported)
@@ -2520,7 +2520,7 @@ partial class VectorOp
         return ShiftRightLogicalFallback(value, shiftCount);
     }
 
-    internal static Vector<long> ShiftRightLogicalFallback(in Vector<long> value, in Vector<long> shiftCount)
+    internal static Vector<long> ShiftRightLogicalFallback(Vector<long> value, Vector<long> shiftCount)
     {
         switch(Vector<long>.Count)
         {
@@ -2553,14 +2553,14 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<nint> ShiftRightLogical(in Vector<nint> value, in Vector<nint> shiftCount)
+    public static partial Vector<nint> ShiftRightLogical(Vector<nint> value, Vector<nint> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftRightLogicalFallback(value, shiftCount);
     }
 
-    internal static Vector<nint> ShiftRightLogicalFallback(in Vector<nint> value, in Vector<nint> shiftCount)
+    internal static Vector<nint> ShiftRightLogicalFallback(Vector<nint> value, Vector<nint> shiftCount)
     {
         switch(Vector<nint>.Count)
         {
@@ -2612,7 +2612,7 @@ partial class VectorOp
 
     #region
 
-    public static partial Vector<sbyte> ShiftRightArithmetic(in Vector<sbyte> value, int shiftCount)
+    public static partial Vector<sbyte> ShiftRightArithmetic(Vector<sbyte> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightArithmetic(value, shiftCount);
@@ -2621,7 +2621,7 @@ partial class VectorOp
         return ShiftRightArithmeticFallback(value, shiftCount);
     }
 
-    internal static Vector<sbyte> ShiftRightArithmeticFallback(in Vector<sbyte> value, int shiftCount)
+    internal static Vector<sbyte> ShiftRightArithmeticFallback(Vector<sbyte> value, int shiftCount)
     {
         switch(Vector<sbyte>.Count)
         {
@@ -2703,7 +2703,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<short> ShiftRightArithmetic(in Vector<short> value, int shiftCount)
+    public static partial Vector<short> ShiftRightArithmetic(Vector<short> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightArithmetic(value, shiftCount);
@@ -2722,7 +2722,7 @@ partial class VectorOp
         return ShiftRightArithmeticFallback(value, shiftCount);
     }
 
-    internal static Vector<short> ShiftRightArithmeticFallback(in Vector<short> value, int shiftCount)
+    internal static Vector<short> ShiftRightArithmeticFallback(Vector<short> value, int shiftCount)
     {
         switch(Vector<short>.Count)
         {
@@ -2776,7 +2776,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<int> ShiftRightArithmetic(in Vector<int> value, int shiftCount)
+    public static partial Vector<int> ShiftRightArithmetic(Vector<int> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightArithmetic(value, shiftCount);
@@ -2795,7 +2795,7 @@ partial class VectorOp
         return ShiftRightArithmeticFallback(value, shiftCount);
     }
 
-    internal static Vector<int> ShiftRightArithmeticFallback(in Vector<int> value, int shiftCount)
+    internal static Vector<int> ShiftRightArithmeticFallback(Vector<int> value, int shiftCount)
     {
         switch(Vector<int>.Count)
         {
@@ -2835,7 +2835,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<long> ShiftRightArithmetic(in Vector<long> value, int shiftCount)
+    public static partial Vector<long> ShiftRightArithmetic(Vector<long> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightArithmetic(value, shiftCount);
@@ -2844,7 +2844,7 @@ partial class VectorOp
         return ShiftRightArithmeticFallback(value, shiftCount);
     }
 
-    internal static Vector<long> ShiftRightArithmeticFallback(in Vector<long> value, int shiftCount)
+    internal static Vector<long> ShiftRightArithmeticFallback(Vector<long> value, int shiftCount)
     {
         switch(Vector<long>.Count)
         {
@@ -2877,7 +2877,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<nint> ShiftRightArithmetic(in Vector<nint> value, int shiftCount)
+    public static partial Vector<nint> ShiftRightArithmetic(Vector<nint> value, int shiftCount)
     {
 #if NET7_0_OR_GREATER
         return NVector.ShiftRightArithmetic(value, shiftCount);
@@ -2886,7 +2886,7 @@ partial class VectorOp
         return ShiftRightArithmeticFallback(value, shiftCount);
     }
 
-    internal static Vector<nint> ShiftRightArithmeticFallback(in Vector<nint> value, int shiftCount)
+    internal static Vector<nint> ShiftRightArithmeticFallback(Vector<nint> value, int shiftCount)
     {
         switch(Vector<nint>.Count)
         {
@@ -2933,14 +2933,14 @@ partial class VectorOp
 
     #region
 
-    public static partial Vector<sbyte> ShiftRightArithmetic(in Vector<sbyte> value, in Vector<sbyte> shiftCount)
+    public static partial Vector<sbyte> ShiftRightArithmetic(Vector<sbyte> value, Vector<sbyte> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftRightArithmeticFallback(value, shiftCount);
     }
     
-    internal static Vector<sbyte> ShiftRightArithmeticFallback(in Vector<sbyte> value, in Vector<sbyte> shiftCount)
+    internal static Vector<sbyte> ShiftRightArithmeticFallback(Vector<sbyte> value, Vector<sbyte> shiftCount)
     {
         switch(Vector<sbyte>.Count)
         {
@@ -3022,14 +3022,14 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<short> ShiftRightArithmetic(in Vector<short> value, in Vector<short> shiftCount)
+    public static partial Vector<short> ShiftRightArithmetic(Vector<short> value, Vector<short> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftRightArithmeticFallback(value, shiftCount);
     }
     
-    internal static Vector<short> ShiftRightArithmeticFallback(in Vector<short> value, in Vector<short> shiftCount)
+    internal static Vector<short> ShiftRightArithmeticFallback(Vector<short> value, Vector<short> shiftCount)
     {
         switch(Vector<short>.Count)
         {
@@ -3083,7 +3083,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<int> ShiftRightArithmetic(in Vector<int> value, in Vector<int> shiftCount)
+    public static partial Vector<int> ShiftRightArithmetic(Vector<int> value, Vector<int> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
         if(Vector<int>.Count == Vector256<int>.Count && Avx2.IsSupported)
@@ -3102,7 +3102,7 @@ partial class VectorOp
         return ShiftRightArithmeticFallback(value, shiftCount);
     }
     
-    internal static Vector<int> ShiftRightArithmeticFallback(in Vector<int> value, in Vector<int> shiftCount)
+    internal static Vector<int> ShiftRightArithmeticFallback(Vector<int> value, Vector<int> shiftCount)
     {
         switch(Vector<int>.Count)
         {
@@ -3142,14 +3142,14 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<long> ShiftRightArithmetic(in Vector<long> value, in Vector<long> shiftCount)
+    public static partial Vector<long> ShiftRightArithmetic(Vector<long> value, Vector<long> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftRightArithmeticFallback(value, shiftCount);
     }
     
-    internal static Vector<long> ShiftRightArithmeticFallback(in Vector<long> value, in Vector<long> shiftCount)
+    internal static Vector<long> ShiftRightArithmeticFallback(Vector<long> value, Vector<long> shiftCount)
     {
         switch(Vector<long>.Count)
         {
@@ -3182,14 +3182,14 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<nint> ShiftRightArithmetic(in Vector<nint> value, in Vector<nint> shiftCount)
+    public static partial Vector<nint> ShiftRightArithmetic(Vector<nint> value, Vector<nint> shiftCount)
     {
 #if NETCOREAPP3_0_OR_GREATER
 #endif
         return ShiftRightArithmeticFallback(value, shiftCount);
     }
     
-    internal static Vector<nint> ShiftRightArithmeticFallback(in Vector<nint> value, in Vector<nint> shiftCount)
+    internal static Vector<nint> ShiftRightArithmeticFallback(Vector<nint> value, Vector<nint> shiftCount)
     {
         switch(Vector<nint>.Count)
         {

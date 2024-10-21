@@ -14,7 +14,7 @@ namespace SmartVectorDotNet;
 partial class VectorOp
 {
 
-    public static partial Vector<float > Ceiling(in Vector<float > value)
+    public static partial Vector<float > Ceiling(Vector<float > value)
     {
 #if NET6_0_OR_GREATER
         return NVector.Ceiling(value);
@@ -58,7 +58,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<double> Ceiling(in Vector<double> value)
+    public static partial Vector<double> Ceiling(Vector<double> value)
     {
 #if NET6_0_OR_GREATER
         return NVector.Ceiling(value);
@@ -95,7 +95,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<float > Floor  (in Vector<float > value)
+    public static partial Vector<float > Floor  (Vector<float > value)
     {
 #if NET6_0_OR_GREATER
         return NVector.Floor  (value);
@@ -139,7 +139,7 @@ partial class VectorOp
     }
 
 
-    public static partial Vector<double> Floor  (in Vector<double> value)
+    public static partial Vector<double> Floor  (Vector<double> value)
     {
 #if NET6_0_OR_GREATER
         return NVector.Floor  (value);

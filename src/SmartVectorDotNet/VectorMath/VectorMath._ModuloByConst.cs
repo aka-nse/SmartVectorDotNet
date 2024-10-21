@@ -39,7 +39,7 @@ file class ModuloByConst_<T> : VectorMath.Const<T> where T : unmanaged
 
 partial class VectorMath
 {
-    private static Vector<T> ModuloByTau<T>(in Vector<T> x)
+    private static Vector<T> ModuloByTau<T>(Vector<T> x)
         where T : unmanaged
     {
         var quotient = Floor(x * ModuloByConst_<T>.OnePerTau);
@@ -48,7 +48,7 @@ partial class VectorMath
     }
 
 
-    private static Vector<T> ModuloByPI<T>(in Vector<T> x)
+    private static Vector<T> ModuloByPI<T>(Vector<T> x)
         where T : unmanaged
     {
         var quotient = Floor(x * ModuloByConst_<T>.OnePerPi);
@@ -57,7 +57,7 @@ partial class VectorMath
     }
 
 
-    private static Vector<T> ModuloBy2<T>(in Vector<T> x)
+    private static Vector<T> ModuloBy2<T>(Vector<T> x)
         where T : unmanaged
     {
 #pragma warning disable format
@@ -76,7 +76,7 @@ partial class VectorMath
     }
 
 
-    private static Vector<float> ModuloBy2(in Vector<float> x)
+    private static Vector<float> ModuloBy2(Vector<float> x)
     {
         var xx = x * ModuloByConst_<float>._1p2;
         xx = xx - Floor(xx);
@@ -84,7 +84,7 @@ partial class VectorMath
     }
 
 
-    private static Vector<double> ModuloBy2(in Vector<double> x)
+    private static Vector<double> ModuloBy2(Vector<double> x)
     {
         var xx = x * ModuloByConst_<double>._1p2;
         xx = xx - Floor(xx);

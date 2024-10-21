@@ -36,10 +36,10 @@ partial class VectorMath
 {
     /// <summary> Calculates log. </summary>
     [VectorMath]
-    public static partial Vector<T> Log<T>(in Vector<T> x)
+    public static partial Vector<T> Log<T>(Vector<T> x)
         where T : unmanaged;
 
-    private static Vector<double> Log(in Vector<double> x)
+    private static Vector<double> Log(Vector<double> x)
     {
         var isNaN = IsNaN(x);
         var isNega = OP.LessThan(x, Log_<double>._0);
@@ -60,7 +60,7 @@ partial class VectorMath
             y))));
     }
 
-    private static Vector<float> Log(in Vector<float> x)
+    private static Vector<float> Log(Vector<float> x)
     {
         var isNaN = IsNaN(x);
         var isNega = OP.LessThan(x, Log_<float>._0);
@@ -83,7 +83,7 @@ partial class VectorMath
 
     /// <summary> Calculates <c>log(x)</c>. </summary>
     /// <param name="x"> $1 \le x \lt 2$ </param>
-    private static Vector<double> LogBounded(in Vector<double> x)
+    private static Vector<double> LogBounded(Vector<double> x)
     {
         var preScale = Vector.ConditionalSelect(
             Vector.LessThan(x, Log_<double>._Sqrt2),
@@ -128,7 +128,7 @@ partial class VectorMath
     //      |\ln x| > \left|\ln\frac{x}{2}\right | &(x > \sqrt{2}) \\
     //      \end{cases}
     //      $$
-    private static Vector<float> LogBounded(in Vector<float> x)
+    private static Vector<float> LogBounded(Vector<float> x)
     {
         var preScale = Vector.ConditionalSelect(
             Vector.LessThan(x, Log_<float>._Sqrt2),
