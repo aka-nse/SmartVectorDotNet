@@ -58,8 +58,8 @@ partial class ScalarOp
 <# foreach(var type in types) { #>
         if(typeof(T) == typeof(<#=type#>))
         {
-            var xx = Unsafe.As<T, <#=type#>>(ref Unsafe.AsRef(x));
-            var yy = Unsafe.As<T, <#=type#>>(ref Unsafe.AsRef(y));
+            var xx = Unsafe.As<T, <#=type#>>(ref Unsafe.AsRef(in x));
+            var yy = Unsafe.As<T, <#=type#>>(ref Unsafe.AsRef(in y));
             if(xx == yy) return 0;
             return xx > yy ? +1 : -1;
         }
