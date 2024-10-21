@@ -40,16 +40,6 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>ScalarOp._Binary.tt</DependentUpon>
         </Compile>
-        <Compile Update="Vectorization\IVectorizationStrategy.g.cs">
-          <DesignTime>True</DesignTime>
-          <AutoGen>True</AutoGen>
-          <DependentUpon>IVectorizationStrategy.tt</DependentUpon>
-        </Compile>
-        <Compile Update="Vectorization\Vectorization._NarrowWiden.g.cs">
-          <DesignTime>True</DesignTime>
-          <AutoGen>True</AutoGen>
-          <DependentUpon>Vectorization._NarrowWiden.tt</DependentUpon>
-        </Compile>
     </ItemGroup>
 
     <ItemGroup Label="ScalarOp\ScalarOp._Cast">
@@ -180,11 +170,16 @@
     <!-- #endregion VectorMath -->
 
     <!-- #region Vectorization -->
-    <ItemGroup Label="Vectorization\IVectorizationStrategy">
-        <None Update="Vectorization\IVectorizationStrategy.tt">
+    <ItemGroup Label="Vectorization\IVectorizationFormula">
+        <None Update="Vectorization\IVectorizationFormula.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>IVectorizationStrategy.g.cs</LastGenOutput>
+            <LastGenOutput>IVectorizationFormula.g.cs</LastGenOutput>
         </None>
+        <Compile Update="Vectorization\IVectorizationFormula.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>IVectorizationFormula.tt</DependentUpon>
+        </Compile>
     </ItemGroup>
     
     <ItemGroup Label="Vectorization\Vectorization._Binary">
