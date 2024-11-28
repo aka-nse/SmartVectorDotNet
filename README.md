@@ -1,14 +1,12 @@
-<table style="border: none;">
-   <tr style="border: none;">
-      <td style="border: none;">
-         <img width=120 src="./docs/resources/logo.png">
-      </td>
-      <td style="border: none; vertical-align: middle;">
-         <h1 style="margin-bottom: 0pt;">SmartVectorDotNet</h1>
-         <p>SmartVectorDotNet is a library to calculate the sequence by a unified signature with SIMD.</p>
-      </td>
-   </tr>
-</table>
+
+
+<div align="center">
+   <img height=100 src="./docs/resources/logo.png">
+</div>
+<div align="center">
+   <h1 style="margin-bottom: 0pt;">SmartVectorDotNet</h1>
+   <p>SmartVectorDotNet is a library to calculate the sequence by a unified signature with SIMD.</p>
+</div>
 
 ----
 
