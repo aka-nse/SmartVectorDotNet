@@ -1,4 +1,4 @@
-﻿namespace SmartVectorDotNet;
+namespace SmartVectorDotNet;
 using static ScalarMath.Const;
 
 partial class ScalarMath

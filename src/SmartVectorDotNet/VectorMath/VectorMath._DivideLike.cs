@@ -1,4 +1,4 @@
-﻿namespace SmartVectorDotNet;
+namespace SmartVectorDotNet;
 
 partial class VectorMath
 {

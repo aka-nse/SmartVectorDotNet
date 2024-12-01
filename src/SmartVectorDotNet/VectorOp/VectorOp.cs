@@ -1,4 +1,4 @@
-﻿#if !NET7_0_OR_GREATER
+#if !NET7_0_OR_GREATER
 #pragma warning disable CS1574
 #endif
 
