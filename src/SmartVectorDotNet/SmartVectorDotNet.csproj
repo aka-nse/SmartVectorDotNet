@@ -4,7 +4,7 @@
         <LangVersion>12.0</LangVersion>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;netstandard2.1;net8.0</TargetFrameworks>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <PackageId>akanse.$(AssemblyName)</PackageId>
@@ -20,9 +20,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
-        <PackageReference Include="System.Memory" Version="4.5.5" />
-        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+        <PackageReference Include="System.Collections.Immutable" Version="9.0.0" />
+        <PackageReference Include="System.Memory" Version="4.6.0" />
+        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.0" />
     </ItemGroup>
 
     <ItemGroup>
