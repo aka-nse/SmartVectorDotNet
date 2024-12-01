@@ -103,7 +103,7 @@ partial class Vectorization
     public void <#=unaryOp#><T>(ReadOnlySpan<T> <#=arg1#>, Span<T> ans)
         where T : unmanaged
     {
-        if(<#=arg1#>.Length != ans.Length) throw new ArgumentException(nameof(<#=arg1#>));
+        Guard.ValidArgument(<#=arg1#>.Length == ans.Length, nameof(<#=arg1#>));
         <#=unaryOp#>Core(<#=arg1#>, ans);
     }
 
@@ -141,7 +141,7 @@ partial class Vectorization
     public void <#=binaryOp#><T>(T <#=arg1#>, ReadOnlySpan<T> <#=arg2#>, Span<T> ans)
         where T : unmanaged
     {
-        if(<#=arg2#>.Length != ans.Length) throw new ArgumentException(nameof(<#=arg2#>));
+        Guard.ValidArgument(<#=arg2#>.Length == ans.Length, nameof(<#=arg2#>));
         <#=binaryOp#>Core(<#=arg1#>, <#=arg2#>, ans);
     }
 
@@ -157,7 +157,7 @@ partial class Vectorization
     public void <#=binaryOp#><T>(ReadOnlySpan<T> <#=arg1#>, T <#=arg2#>, Span<T> ans)
         where T : unmanaged
     {
-        if(<#=arg1#>.Length != ans.Length) throw new ArgumentException(nameof(<#=arg1#>));
+        Guard.ValidArgument(<#=arg1#>.Length == ans.Length, nameof(<#=arg1#>));
         <#=binaryOp#>Core(<#=arg1#>, <#=arg2#>, ans);
     }
 
@@ -173,8 +173,8 @@ partial class Vectorization
     public void <#=binaryOp#><T>(ReadOnlySpan<T> <#=arg1#>, ReadOnlySpan<T> <#=arg2#>, Span<T> ans)
         where T : unmanaged
     {
-        if(<#=arg1#>.Length != ans.Length) throw new ArgumentException(nameof(<#=arg1#>));
-        if(<#=arg2#>.Length != ans.Length) throw new ArgumentException(nameof(<#=arg2#>));
+        Guard.ValidArgument(<#=arg1#>.Length == ans.Length, nameof(<#=arg1#>));
+        Guard.ValidArgument(<#=arg2#>.Length == ans.Length, nameof(<#=arg2#>));
         <#=binaryOp#>Core(<#=arg1#>, <#=arg2#>, ans);
     }
 

@@ -1,7 +1,4 @@
-﻿#nullable enable
-using System;
-using System.Collections.Generic;
-using System.Numerics;
+#nullable enable
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -22,8 +19,7 @@ partial class Vectorization
     public void Add<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         AddCore(x, y, ans);
     }
 
@@ -39,8 +35,7 @@ partial class Vectorization
     public void Add<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         AddCore(x, y, ans);
     }
 
@@ -56,10 +51,8 @@ partial class Vectorization
     public void Add<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         AddCore(x, y, ans);
     }
 
@@ -195,8 +188,7 @@ partial class Vectorization
     public void Subtract<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         SubtractCore(x, y, ans);
     }
 
@@ -212,8 +204,7 @@ partial class Vectorization
     public void Subtract<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         SubtractCore(x, y, ans);
     }
 
@@ -229,10 +220,8 @@ partial class Vectorization
     public void Subtract<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         SubtractCore(x, y, ans);
     }
 
@@ -368,8 +357,7 @@ partial class Vectorization
     public void Multiply<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         MultiplyCore(x, y, ans);
     }
 
@@ -385,8 +373,7 @@ partial class Vectorization
     public void Multiply<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         MultiplyCore(x, y, ans);
     }
 
@@ -402,10 +389,8 @@ partial class Vectorization
     public void Multiply<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         MultiplyCore(x, y, ans);
     }
 
@@ -541,8 +526,7 @@ partial class Vectorization
     public void Divide<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         DivideCore(x, y, ans);
     }
 
@@ -558,8 +542,7 @@ partial class Vectorization
     public void Divide<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         DivideCore(x, y, ans);
     }
 
@@ -575,10 +558,8 @@ partial class Vectorization
     public void Divide<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         DivideCore(x, y, ans);
     }
 
@@ -714,8 +695,7 @@ partial class Vectorization
     public void BitwiseAnd<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         BitwiseAndCore(x, y, ans);
     }
 
@@ -731,8 +711,7 @@ partial class Vectorization
     public void BitwiseAnd<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         BitwiseAndCore(x, y, ans);
     }
 
@@ -748,10 +727,8 @@ partial class Vectorization
     public void BitwiseAnd<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         BitwiseAndCore(x, y, ans);
     }
 
@@ -887,8 +864,7 @@ partial class Vectorization
     public void BitwiseOr<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         BitwiseOrCore(x, y, ans);
     }
 
@@ -904,8 +880,7 @@ partial class Vectorization
     public void BitwiseOr<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         BitwiseOrCore(x, y, ans);
     }
 
@@ -921,10 +896,8 @@ partial class Vectorization
     public void BitwiseOr<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         BitwiseOrCore(x, y, ans);
     }
 
@@ -1060,8 +1033,7 @@ partial class Vectorization
     public void BitwiseXor<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         BitwiseXorCore(x, y, ans);
     }
 
@@ -1077,8 +1049,7 @@ partial class Vectorization
     public void BitwiseXor<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         BitwiseXorCore(x, y, ans);
     }
 
@@ -1094,10 +1065,8 @@ partial class Vectorization
     public void BitwiseXor<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         BitwiseXorCore(x, y, ans);
     }
 
@@ -1233,8 +1202,7 @@ partial class Vectorization
     public void Equals<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         EqualsCore(x, y, ans);
     }
 
@@ -1250,8 +1218,7 @@ partial class Vectorization
     public void Equals<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         EqualsCore(x, y, ans);
     }
 
@@ -1267,10 +1234,8 @@ partial class Vectorization
     public void Equals<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         EqualsCore(x, y, ans);
     }
 
@@ -1412,8 +1377,7 @@ partial class Vectorization
     public void LessThan<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         LessThanCore(x, y, ans);
     }
 
@@ -1429,8 +1393,7 @@ partial class Vectorization
     public void LessThan<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         LessThanCore(x, y, ans);
     }
 
@@ -1446,10 +1409,8 @@ partial class Vectorization
     public void LessThan<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         LessThanCore(x, y, ans);
     }
 
@@ -1591,8 +1552,7 @@ partial class Vectorization
     public void LessThanOrEquals<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         LessThanOrEqualsCore(x, y, ans);
     }
 
@@ -1608,8 +1568,7 @@ partial class Vectorization
     public void LessThanOrEquals<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         LessThanOrEqualsCore(x, y, ans);
     }
 
@@ -1625,10 +1584,8 @@ partial class Vectorization
     public void LessThanOrEquals<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         LessThanOrEqualsCore(x, y, ans);
     }
 
@@ -1770,8 +1727,7 @@ partial class Vectorization
     public void GreaterThan<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         GreaterThanCore(x, y, ans);
     }
 
@@ -1787,8 +1743,7 @@ partial class Vectorization
     public void GreaterThan<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         GreaterThanCore(x, y, ans);
     }
 
@@ -1804,10 +1759,8 @@ partial class Vectorization
     public void GreaterThan<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         GreaterThanCore(x, y, ans);
     }
 
@@ -1949,8 +1902,7 @@ partial class Vectorization
     public void GreaterThanOrEquals<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         GreaterThanOrEqualsCore(x, y, ans);
     }
 
@@ -1966,8 +1918,7 @@ partial class Vectorization
     public void GreaterThanOrEquals<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         GreaterThanOrEqualsCore(x, y, ans);
     }
 
@@ -1983,10 +1934,8 @@ partial class Vectorization
     public void GreaterThanOrEquals<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         GreaterThanOrEqualsCore(x, y, ans);
     }
 

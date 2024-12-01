@@ -21,7 +21,7 @@ partial class Vectorization
     public void Sqrt<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         SqrtCore(d, ans);
     }
 
@@ -52,7 +52,7 @@ partial class Vectorization
     public void Cos<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         CosCore(d, ans);
     }
 
@@ -83,7 +83,7 @@ partial class Vectorization
     public void Sin<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         SinCore(d, ans);
     }
 
@@ -114,7 +114,7 @@ partial class Vectorization
     public void Tan<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         TanCore(d, ans);
     }
 
@@ -145,7 +145,7 @@ partial class Vectorization
     public void Cosh<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         CoshCore(d, ans);
     }
 
@@ -176,7 +176,7 @@ partial class Vectorization
     public void Sinh<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         SinhCore(d, ans);
     }
 
@@ -207,7 +207,7 @@ partial class Vectorization
     public void Tanh<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         TanhCore(d, ans);
     }
 
@@ -238,7 +238,7 @@ partial class Vectorization
     public void Acos<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         AcosCore(d, ans);
     }
 
@@ -269,7 +269,7 @@ partial class Vectorization
     public void Asin<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         AsinCore(d, ans);
     }
 
@@ -300,7 +300,7 @@ partial class Vectorization
     public void Atan<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         AtanCore(d, ans);
     }
 
@@ -331,7 +331,7 @@ partial class Vectorization
     public void Acosh<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         AcoshCore(d, ans);
     }
 
@@ -362,7 +362,7 @@ partial class Vectorization
     public void Asinh<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         AsinhCore(d, ans);
     }
 
@@ -393,7 +393,7 @@ partial class Vectorization
     public void Atanh<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         AtanhCore(d, ans);
     }
 
@@ -424,7 +424,7 @@ partial class Vectorization
     public void Cbrt<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         CbrtCore(d, ans);
     }
 
@@ -455,7 +455,7 @@ partial class Vectorization
     public void Log2<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         Log2Core(d, ans);
     }
 
@@ -486,7 +486,7 @@ partial class Vectorization
     public void Ceiling<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         CeilingCore(d, ans);
     }
 
@@ -517,7 +517,7 @@ partial class Vectorization
     public void Floor<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         FloorCore(d, ans);
     }
 
@@ -548,7 +548,7 @@ partial class Vectorization
     public void Exp<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         ExpCore(d, ans);
     }
 
@@ -579,7 +579,7 @@ partial class Vectorization
     public void Log<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         LogCore(d, ans);
     }
 
@@ -610,7 +610,7 @@ partial class Vectorization
     public void Log10<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         Log10Core(d, ans);
     }
 
@@ -641,7 +641,7 @@ partial class Vectorization
     public void Round<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         RoundCore(d, ans);
     }
 
@@ -672,7 +672,7 @@ partial class Vectorization
     public void Truncate<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         TruncateCore(d, ans);
     }
 
@@ -706,7 +706,7 @@ partial class Vectorization
     public void Atan2<T>(T y, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length) throw new ArgumentException(nameof(x));
+        Guard.ValidArgument(x.Length == ans.Length, nameof(x));
         Atan2Core(y, x, ans);
     }
 
@@ -722,7 +722,7 @@ partial class Vectorization
     public void Atan2<T>(ReadOnlySpan<T> y, T x, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length) throw new ArgumentException(nameof(y));
+        Guard.ValidArgument(y.Length == ans.Length, nameof(y));
         Atan2Core(y, x, ans);
     }
 
@@ -738,8 +738,8 @@ partial class Vectorization
     public void Atan2<T>(ReadOnlySpan<T> y, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length) throw new ArgumentException(nameof(y));
-        if(x.Length != ans.Length) throw new ArgumentException(nameof(x));
+        Guard.ValidArgument(y.Length == ans.Length, nameof(y));
+        Guard.ValidArgument(x.Length == ans.Length, nameof(x));
         Atan2Core(y, x, ans);
     }
 
@@ -804,7 +804,7 @@ partial class Vectorization
     public void Pow<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length) throw new ArgumentException(nameof(y));
+        Guard.ValidArgument(y.Length == ans.Length, nameof(y));
         PowCore(x, y, ans);
     }
 
@@ -820,7 +820,7 @@ partial class Vectorization
     public void Pow<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length) throw new ArgumentException(nameof(x));
+        Guard.ValidArgument(x.Length == ans.Length, nameof(x));
         PowCore(x, y, ans);
     }
 
@@ -836,8 +836,8 @@ partial class Vectorization
     public void Pow<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length) throw new ArgumentException(nameof(x));
-        if(y.Length != ans.Length) throw new ArgumentException(nameof(y));
+        Guard.ValidArgument(x.Length == ans.Length, nameof(x));
+        Guard.ValidArgument(y.Length == ans.Length, nameof(y));
         PowCore(x, y, ans);
     }
 
@@ -902,7 +902,7 @@ partial class Vectorization
     public void Log<T>(T d, ReadOnlySpan<T> newBase, Span<T> ans)
         where T : unmanaged
     {
-        if(newBase.Length != ans.Length) throw new ArgumentException(nameof(newBase));
+        Guard.ValidArgument(newBase.Length == ans.Length, nameof(newBase));
         LogCore(d, newBase, ans);
     }
 
@@ -918,7 +918,7 @@ partial class Vectorization
     public void Log<T>(ReadOnlySpan<T> d, T newBase, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
         LogCore(d, newBase, ans);
     }
 
@@ -934,8 +934,8 @@ partial class Vectorization
     public void Log<T>(ReadOnlySpan<T> d, ReadOnlySpan<T> newBase, Span<T> ans)
         where T : unmanaged
     {
-        if(d.Length != ans.Length) throw new ArgumentException(nameof(d));
-        if(newBase.Length != ans.Length) throw new ArgumentException(nameof(newBase));
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
+        Guard.ValidArgument(newBase.Length == ans.Length, nameof(newBase));
         LogCore(d, newBase, ans);
     }
 
@@ -1000,7 +1000,7 @@ partial class Vectorization
     public void Scale<T>(T n, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length) throw new ArgumentException(nameof(x));
+        Guard.ValidArgument(x.Length == ans.Length, nameof(x));
         ScaleCore(n, x, ans);
     }
 
@@ -1016,7 +1016,7 @@ partial class Vectorization
     public void Scale<T>(ReadOnlySpan<T> n, T x, Span<T> ans)
         where T : unmanaged
     {
-        if(n.Length != ans.Length) throw new ArgumentException(nameof(n));
+        Guard.ValidArgument(n.Length == ans.Length, nameof(n));
         ScaleCore(n, x, ans);
     }
 
@@ -1032,8 +1032,8 @@ partial class Vectorization
     public void Scale<T>(ReadOnlySpan<T> n, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
-        if(n.Length != ans.Length) throw new ArgumentException(nameof(n));
-        if(x.Length != ans.Length) throw new ArgumentException(nameof(x));
+        Guard.ValidArgument(n.Length == ans.Length, nameof(n));
+        Guard.ValidArgument(x.Length == ans.Length, nameof(x));
         ScaleCore(n, x, ans);
     }
 

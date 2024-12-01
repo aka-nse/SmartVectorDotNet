@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -25,8 +25,7 @@ partial class Vectorization
     public void UnaryPlus<T>(ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         UnaryPlusCore(x, ans);
     }
 
@@ -92,8 +91,7 @@ partial class Vectorization
     public void UnaryMinus<T>(ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         UnaryMinusCore(x, ans);
     }
 
@@ -159,8 +157,7 @@ partial class Vectorization
     public void Complement<T>(ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         ComplementCore(x, ans);
     }
 
