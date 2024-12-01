@@ -1,4 +1,4 @@
-﻿namespace SmartVectorDotNet;
+namespace SmartVectorDotNet;
 using OP = VectorOp;
 using SC = ScalarMath.Const;
 using H = InternalHelpers;

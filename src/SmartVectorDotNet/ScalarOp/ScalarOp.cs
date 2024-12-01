@@ -1,4 +1,4 @@
-﻿#pragma warning disable IDE0130
+#pragma warning disable IDE0130
 using System;
 using System.Numerics;
 using System.Runtime.CompilerServices;

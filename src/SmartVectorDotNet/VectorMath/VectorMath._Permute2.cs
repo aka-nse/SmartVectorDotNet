@@ -1,4 +1,4 @@
-﻿namespace SmartVectorDotNet;
+namespace SmartVectorDotNet;
 using OP = VectorOp;
 using H = InternalHelpers;
 #if NET6_0_OR_GREATER
