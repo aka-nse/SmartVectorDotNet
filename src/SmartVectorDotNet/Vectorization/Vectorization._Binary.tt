@@ -1,4 +1,4 @@
-﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -22,9 +22,6 @@ var operations = new OpDef[]
 };
 #>
 #nullable enable
-using System;
-using System.Collections.Generic;
-using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -46,8 +43,7 @@ partial class Vectorization
     public void <#=op.Name#><T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         <#=op.Name#>Core(x, y, ans);
     }
 
@@ -63,8 +59,7 @@ partial class Vectorization
     public void <#=op.Name#><T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         <#=op.Name#>Core(x, y, ans);
     }
 
@@ -80,10 +75,8 @@ partial class Vectorization
     public void <#=op.Name#><T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
-        if(y.Length != ans.Length)
-            throw new ArgumentException("`y` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         <#=op.Name#>Core(x, y, ans);
     }
 

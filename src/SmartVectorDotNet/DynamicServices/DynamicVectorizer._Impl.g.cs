@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -86,10 +86,7 @@ namespace SmartVectorDotNet.DynamicServices
     {
         private static void GuardSpanSize<T>(Span<T> result, ReadOnlySpan<T> operand, string operandName)
         {
-            if(result.Length > operand.Length)
-            {
-                throw new ArgumentException($"Any length of operands must be longer than one of result span. '{operandName}' is too short.");
-            }
+            Guard.ValidArgument(result.Length == operand.Length, $"Any length of operands must be same. '{operandName}' is different.");
         }
 
         public VectorFunc1<T> Vectorize<T>(Expression<Func<T, T>> expression)

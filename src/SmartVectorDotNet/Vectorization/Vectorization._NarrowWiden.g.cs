@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -22,8 +22,7 @@ partial class Vectorization
     /// </exception>
     public void Narrow(ReadOnlySpan<ushort> x, Span<byte> ans)
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         NarrowCore(x, ans);
     }
     
@@ -79,8 +78,7 @@ partial class Vectorization
     /// </exception>
     public void Narrow(ReadOnlySpan<uint> x, Span<ushort> ans)
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         NarrowCore(x, ans);
     }
     
@@ -136,8 +134,7 @@ partial class Vectorization
     /// </exception>
     public void Narrow(ReadOnlySpan<ulong> x, Span<uint> ans)
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         NarrowCore(x, ans);
     }
     
@@ -193,8 +190,7 @@ partial class Vectorization
     /// </exception>
     public void Narrow(ReadOnlySpan<short> x, Span<sbyte> ans)
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         NarrowCore(x, ans);
     }
     
@@ -250,8 +246,7 @@ partial class Vectorization
     /// </exception>
     public void Narrow(ReadOnlySpan<int> x, Span<short> ans)
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         NarrowCore(x, ans);
     }
     
@@ -307,8 +302,7 @@ partial class Vectorization
     /// </exception>
     public void Narrow(ReadOnlySpan<long> x, Span<int> ans)
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         NarrowCore(x, ans);
     }
     
@@ -365,8 +359,7 @@ partial class Vectorization
     /// </exception>
     public void Widen(ReadOnlySpan<byte> x, Span<ushort> ans)
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         WidenCore(x, ans);
     }
     
@@ -422,8 +415,7 @@ partial class Vectorization
     /// </exception>
     public void Widen(ReadOnlySpan<ushort> x, Span<uint> ans)
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         WidenCore(x, ans);
     }
     
@@ -479,8 +471,7 @@ partial class Vectorization
     /// </exception>
     public void Widen(ReadOnlySpan<uint> x, Span<ulong> ans)
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         WidenCore(x, ans);
     }
     
@@ -536,8 +527,7 @@ partial class Vectorization
     /// </exception>
     public void Widen(ReadOnlySpan<sbyte> x, Span<short> ans)
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         WidenCore(x, ans);
     }
     
@@ -593,8 +583,7 @@ partial class Vectorization
     /// </exception>
     public void Widen(ReadOnlySpan<short> x, Span<int> ans)
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         WidenCore(x, ans);
     }
     
@@ -650,8 +639,7 @@ partial class Vectorization
     /// </exception>
     public void Widen(ReadOnlySpan<int> x, Span<long> ans)
     {
-        if(x.Length != ans.Length)
-            throw new ArgumentException("`x` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         WidenCore(x, ans);
     }
     

@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -45,7 +45,7 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula1<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, ans);
     }
@@ -62,7 +62,7 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula1<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
         CalculateCore<T, TFormula>(ref formula, x1, ans);
     }
     
@@ -155,8 +155,8 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula2<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, ans);
     }
@@ -174,8 +174,8 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula2<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
         CalculateCore<T, TFormula>(ref formula, x1, x2, ans);
     }
     
@@ -274,9 +274,9 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula3<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, ans);
     }
@@ -295,9 +295,9 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula3<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, ans);
     }
     
@@ -402,10 +402,10 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula4<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
-        if(x4.Length != ans.Length) throw new ArgumentException("`x4` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, ans);
     }
@@ -425,10 +425,10 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula4<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
-        if(x4.Length != ans.Length) throw new ArgumentException("`x4` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, ans);
     }
     
@@ -539,11 +539,11 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula5<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
-        if(x4.Length != ans.Length) throw new ArgumentException("`x4` and `ans` must have same length.");
-        if(x5.Length != ans.Length) throw new ArgumentException("`x5` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
+        Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, ans);
     }
@@ -564,11 +564,11 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula5<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
-        if(x4.Length != ans.Length) throw new ArgumentException("`x4` and `ans` must have same length.");
-        if(x5.Length != ans.Length) throw new ArgumentException("`x5` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
+        Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, ans);
     }
     
@@ -685,12 +685,12 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula6<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
-        if(x4.Length != ans.Length) throw new ArgumentException("`x4` and `ans` must have same length.");
-        if(x5.Length != ans.Length) throw new ArgumentException("`x5` and `ans` must have same length.");
-        if(x6.Length != ans.Length) throw new ArgumentException("`x6` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
+        Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
+        Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, ans);
     }
@@ -712,12 +712,12 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula6<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
-        if(x4.Length != ans.Length) throw new ArgumentException("`x4` and `ans` must have same length.");
-        if(x5.Length != ans.Length) throw new ArgumentException("`x5` and `ans` must have same length.");
-        if(x6.Length != ans.Length) throw new ArgumentException("`x6` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
+        Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
+        Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, ans);
     }
     
@@ -840,13 +840,13 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula7<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
-        if(x4.Length != ans.Length) throw new ArgumentException("`x4` and `ans` must have same length.");
-        if(x5.Length != ans.Length) throw new ArgumentException("`x5` and `ans` must have same length.");
-        if(x6.Length != ans.Length) throw new ArgumentException("`x6` and `ans` must have same length.");
-        if(x7.Length != ans.Length) throw new ArgumentException("`x7` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
+        Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
+        Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
+        Guard.ValidArgument(x7.Length == ans.Length, "`x7` and `ans` must have same length.");
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, ans);
     }
@@ -869,13 +869,13 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula7<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
-        if(x4.Length != ans.Length) throw new ArgumentException("`x4` and `ans` must have same length.");
-        if(x5.Length != ans.Length) throw new ArgumentException("`x5` and `ans` must have same length.");
-        if(x6.Length != ans.Length) throw new ArgumentException("`x6` and `ans` must have same length.");
-        if(x7.Length != ans.Length) throw new ArgumentException("`x7` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
+        Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
+        Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
+        Guard.ValidArgument(x7.Length == ans.Length, "`x7` and `ans` must have same length.");
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, ans);
     }
     
@@ -1004,14 +1004,14 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula8<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
-        if(x4.Length != ans.Length) throw new ArgumentException("`x4` and `ans` must have same length.");
-        if(x5.Length != ans.Length) throw new ArgumentException("`x5` and `ans` must have same length.");
-        if(x6.Length != ans.Length) throw new ArgumentException("`x6` and `ans` must have same length.");
-        if(x7.Length != ans.Length) throw new ArgumentException("`x7` and `ans` must have same length.");
-        if(x8.Length != ans.Length) throw new ArgumentException("`x8` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
+        Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
+        Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
+        Guard.ValidArgument(x7.Length == ans.Length, "`x7` and `ans` must have same length.");
+        Guard.ValidArgument(x8.Length == ans.Length, "`x8` and `ans` must have same length.");
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, ans);
     }
@@ -1035,14 +1035,14 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula8<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
-        if(x4.Length != ans.Length) throw new ArgumentException("`x4` and `ans` must have same length.");
-        if(x5.Length != ans.Length) throw new ArgumentException("`x5` and `ans` must have same length.");
-        if(x6.Length != ans.Length) throw new ArgumentException("`x6` and `ans` must have same length.");
-        if(x7.Length != ans.Length) throw new ArgumentException("`x7` and `ans` must have same length.");
-        if(x8.Length != ans.Length) throw new ArgumentException("`x8` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
+        Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
+        Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
+        Guard.ValidArgument(x7.Length == ans.Length, "`x7` and `ans` must have same length.");
+        Guard.ValidArgument(x8.Length == ans.Length, "`x8` and `ans` must have same length.");
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, ans);
     }
     
@@ -1177,15 +1177,15 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula9<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
-        if(x4.Length != ans.Length) throw new ArgumentException("`x4` and `ans` must have same length.");
-        if(x5.Length != ans.Length) throw new ArgumentException("`x5` and `ans` must have same length.");
-        if(x6.Length != ans.Length) throw new ArgumentException("`x6` and `ans` must have same length.");
-        if(x7.Length != ans.Length) throw new ArgumentException("`x7` and `ans` must have same length.");
-        if(x8.Length != ans.Length) throw new ArgumentException("`x8` and `ans` must have same length.");
-        if(x9.Length != ans.Length) throw new ArgumentException("`x9` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
+        Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
+        Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
+        Guard.ValidArgument(x7.Length == ans.Length, "`x7` and `ans` must have same length.");
+        Guard.ValidArgument(x8.Length == ans.Length, "`x8` and `ans` must have same length.");
+        Guard.ValidArgument(x9.Length == ans.Length, "`x9` and `ans` must have same length.");
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, ans);
     }
@@ -1210,15 +1210,15 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula9<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
-        if(x4.Length != ans.Length) throw new ArgumentException("`x4` and `ans` must have same length.");
-        if(x5.Length != ans.Length) throw new ArgumentException("`x5` and `ans` must have same length.");
-        if(x6.Length != ans.Length) throw new ArgumentException("`x6` and `ans` must have same length.");
-        if(x7.Length != ans.Length) throw new ArgumentException("`x7` and `ans` must have same length.");
-        if(x8.Length != ans.Length) throw new ArgumentException("`x8` and `ans` must have same length.");
-        if(x9.Length != ans.Length) throw new ArgumentException("`x9` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
+        Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
+        Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
+        Guard.ValidArgument(x7.Length == ans.Length, "`x7` and `ans` must have same length.");
+        Guard.ValidArgument(x8.Length == ans.Length, "`x8` and `ans` must have same length.");
+        Guard.ValidArgument(x9.Length == ans.Length, "`x9` and `ans` must have same length.");
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, ans);
     }
     
@@ -1359,16 +1359,16 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula10<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
-        if(x4.Length != ans.Length) throw new ArgumentException("`x4` and `ans` must have same length.");
-        if(x5.Length != ans.Length) throw new ArgumentException("`x5` and `ans` must have same length.");
-        if(x6.Length != ans.Length) throw new ArgumentException("`x6` and `ans` must have same length.");
-        if(x7.Length != ans.Length) throw new ArgumentException("`x7` and `ans` must have same length.");
-        if(x8.Length != ans.Length) throw new ArgumentException("`x8` and `ans` must have same length.");
-        if(x9.Length != ans.Length) throw new ArgumentException("`x9` and `ans` must have same length.");
-        if(x10.Length != ans.Length) throw new ArgumentException("`x10` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
+        Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
+        Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
+        Guard.ValidArgument(x7.Length == ans.Length, "`x7` and `ans` must have same length.");
+        Guard.ValidArgument(x8.Length == ans.Length, "`x8` and `ans` must have same length.");
+        Guard.ValidArgument(x9.Length == ans.Length, "`x9` and `ans` must have same length.");
+        Guard.ValidArgument(x10.Length == ans.Length, "`x10` and `ans` must have same length.");
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, ans);
     }
@@ -1394,16 +1394,16 @@ partial class Vectorization
         where T : unmanaged
         where TFormula : struct, IVectorFormula10<T>
     {
-        if(x1.Length != ans.Length) throw new ArgumentException("`x1` and `ans` must have same length.");
-        if(x2.Length != ans.Length) throw new ArgumentException("`x2` and `ans` must have same length.");
-        if(x3.Length != ans.Length) throw new ArgumentException("`x3` and `ans` must have same length.");
-        if(x4.Length != ans.Length) throw new ArgumentException("`x4` and `ans` must have same length.");
-        if(x5.Length != ans.Length) throw new ArgumentException("`x5` and `ans` must have same length.");
-        if(x6.Length != ans.Length) throw new ArgumentException("`x6` and `ans` must have same length.");
-        if(x7.Length != ans.Length) throw new ArgumentException("`x7` and `ans` must have same length.");
-        if(x8.Length != ans.Length) throw new ArgumentException("`x8` and `ans` must have same length.");
-        if(x9.Length != ans.Length) throw new ArgumentException("`x9` and `ans` must have same length.");
-        if(x10.Length != ans.Length) throw new ArgumentException("`x10` and `ans` must have same length.");
+        Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
+        Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
+        Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
+        Guard.ValidArgument(x7.Length == ans.Length, "`x7` and `ans` must have same length.");
+        Guard.ValidArgument(x8.Length == ans.Length, "`x8` and `ans` must have same length.");
+        Guard.ValidArgument(x9.Length == ans.Length, "`x9` and `ans` must have same length.");
+        Guard.ValidArgument(x10.Length == ans.Length, "`x10` and `ans` must have same length.");
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, ans);
     }
     

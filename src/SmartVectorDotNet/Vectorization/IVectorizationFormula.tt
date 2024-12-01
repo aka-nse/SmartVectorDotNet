@@ -1,4 +1,4 @@
-﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -59,7 +59,7 @@ partial class Vectorization
         where TFormula : struct, IVectorFormula<#=i#><T>
     {
 <#   for(var j = 1; j <= i; ++j) { #>
-        if(x<#=j#>.Length != ans.Length) throw new ArgumentException("`x<#=j#>` and `ans` must have same length.");
+        Guard.ValidArgument(x<#=j#>.Length == ans.Length, "`x<#=j#>` and `ans` must have same length.");
 <#   } #>
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, <#=CommaSeparated(1, i, j => $"x{j}")#>, ans);
@@ -80,7 +80,7 @@ partial class Vectorization
         where TFormula : struct, IVectorFormula<#=i#><T>
     {
 <#   for(var j = 1; j <= i; ++j) { #>
-        if(x<#=j#>.Length != ans.Length) throw new ArgumentException("`x<#=j#>` and `ans` must have same length.");
+        Guard.ValidArgument(x<#=j#>.Length == ans.Length, "`x<#=j#>` and `ans` must have same length.");
 <#   } #>
         CalculateCore<T, TFormula>(ref formula, <#=CommaSeparated(1, i, j => $"x{j}")#>, ans);
     }

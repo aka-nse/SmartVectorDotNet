@@ -1,4 +1,4 @@
-﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="$(ProjectDir)/../SmartVectorDotNet/bin/Debug/netstandard2.0/SmartVectorDotNet.dll" #>
 <#@ import namespace="System" #>

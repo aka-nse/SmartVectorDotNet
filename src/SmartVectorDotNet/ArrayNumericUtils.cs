@@ -23,14 +23,9 @@ public static class ArrayNumericUtils
     public static T[] Linspace<T>(T minInclusive, T maxExclusive, int pointNum)
         where T : unmanaged
     {
-        if(OP.GreaterThan(minInclusive, maxExclusive))
-        {
-            throw new ArgumentException();
-        }
-        if(pointNum < 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(pointNum));
-        }
+        Guard.ValidArgument(OP.LessThanOrEquals(minInclusive, maxExclusive), "`minInclusive` must be less than or equals `maxExclusive`.");
+        Guard.NotNegative(pointNum);
+
         var stepNumAsT = OP.Convert<int, T>(pointNum);
         var retval = new T[pointNum];
         var step = OP.Divide(OP.Subtract(maxExclusive, minInclusive), stepNumAsT);
@@ -55,14 +50,9 @@ public static class ArrayNumericUtils
     public static T[] LinspaceMaxInclusive<T>(T minInclusive, T maxInclusive, int pointNum)
         where T : unmanaged
     {
-        if (OP.GreaterThan(minInclusive, maxInclusive))
-        {
-            throw new ArgumentException();
-        }
-        if (pointNum < 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(pointNum));
-        }
+        Guard.ValidArgument(OP.LessThanOrEquals(minInclusive, maxInclusive), "`minInclusive` must be less than or equals `maxInclusive`.");
+        Guard.NotNegative(pointNum);
+
         var stepNumAsT = OP.Convert<int, T>(Math.Max(pointNum - 1, 0));
         var retval = new T[pointNum];
         var step = OP.Divide(OP.Subtract(maxInclusive, minInclusive), stepNumAsT);
