@@ -110,10 +110,11 @@ And following formulas are available to convert argument:
 
 $$
 \begin{aligned}
-&\arctan\cfrac{1}{x} = \mathrm{sgn}\,x\cdot\cfrac{\pi}{2} - \arctan x  && (\mathrm{i})\\
+&\arctan(-x) = -\arctan x && (\mathrm{i})\\
+&\arctan\cfrac{1}{x} = \mathrm{sign}\,x\cdot\cfrac{\pi}{2} - \arctan x  && (\mathrm{ii})\\
 &\arctan x + \arctan y = \arctan\cfrac{x + y}{1 - xy}  \\
-&\Rightarrow \arctan x + \arctan 1 = \arctan x + \cfrac{\pi}{4} = \arctan\cfrac{1 + x}{1 - x}  \\
-&\Rightarrow \arctan x = \arctan\cfrac{1 + x}{1 - x} - \cfrac{\pi}{4} && (\mathrm{ii})
+&\Rightarrow \arctan x + \arctan (-1) = \arctan x - \cfrac{\pi}{4} = \arctan\cfrac{1 - x}{1 + x}  \\
+&\Rightarrow \arctan x = \arctan\cfrac{1 - x}{1 + x} + \cfrac{\pi}{4} && (\mathrm{iii})
 \end{aligned}
 $$
 
@@ -164,17 +165,17 @@ $$
 e^x = 2^{x\log_2 e}
 $$
 
-Furthermore to define $y:=\mathrm{round}(x\log_2 e), a:= x\log_2 e - y$ enables to transform as following:
+Furthermore to define $n:=\mathrm{round}(x\log_2 e), y:= x\log_2 e - n$ enables to transform as following:
 
 $$
-e^x = 2^y \cdot 2^a = 2^y \cdot e^{a\log_e 2}
+e^x = 2^n \cdot 2^y = 2^n \cdot e^{y\log_e 2}
 $$
 
 Then, 
 
 - $\log_2 e$ and $\log_e 2$ can be declared as compile time constant,
-- $2^y$ can be replaced by bit shift operation because $y$ is an integer,
-- $a$ satisfies $-0.5 \le a \le +0.5$,
+- $2^n$ can be replaced by bit shift operation because $n$ is an integer,
+- $y$ satisfies $-0.5 \le y \le +0.5$,
 
 so that high precision and performace can consist with each other.
 
@@ -195,21 +196,21 @@ $$
 \ln(a \cdot b) = \log a + \log b
 $$
 
-logarithm function can be transformed into following form if $a, n :\Leftrightarrow x=a\cdot 2^n, n \in \mathbb{Z}, 1 \le |a| \lt 2$:
+logarithm function can be transformed into following form if $y, n :\Leftrightarrow x=y\cdot 2^n, n \in \mathbb{Z}, 1 \le |y| \lt 2$:
 
 $$
 \begin{aligned}
 \ln x
-=& \ln a\cdot 2^n    \\
-=& \ln a + \ln 2^n   \\
-=& \ln a + n\ln 2    &(\mathrm{i}) \\
-=& \left(\ln\cfrac{a}{2} + \ln 2\right) + n\ln 2  &(\mathrm{ii})
+=& \ln y\cdot 2^n    \\
+=& \ln y + \ln 2^n   \\
+=& \ln y + n\ln 2    &(\mathrm{i}) \\
+=& \left(\ln\cfrac{y}{2} + \ln 2\right) + n\ln 2  &(\mathrm{ii})
 \end{aligned}
 $$
 
 - $\ln 2$ can be declared as compile time constant,
-- for normalized number of binary float of IEEE 754, $a$ and $n$ can be calculated by using simple bit operation,
-- using $(\mathrm{i})$ form if $a \le \sqrt{2}$ and otherwise $(\mathrm{ii})$ can improve Maclaurin series approximation precision,
+- for normalized number of binary float of IEEE 754, $y$ and $n$ can be calculated by using simple bit operation,
+- using $(\mathrm{i})$ form if $y \le \sqrt{2}$ and otherwise $(\mathrm{ii})$ can improve Maclaurin series approximation precision,
 
 so that high precision and performace can consist with each other.
 
@@ -271,6 +272,6 @@ $$
 \end{aligned}
 $$
 
-In the case of IEEE 754 floating number, the value $a, n$ which satisfy $y = a\cdot 2^n, n \in \mathbb{Z}, 1 \le a \lt 2$ can be obtained by using only simple bit operations.
+In the case of IEEE 754 floating number, the value $a, n$ which satisfy $x = a\cdot 2^n, n \in \mathbb{Z}, 1 \le a \lt 2$ can be obtained by using only simple bit operations.
 
-Then, $a\cdot2^{\left\lfloor\frac{n}{3}\right\rfloor}$ is usually very closer to $\sqrt[3]{y} = \sqrt[3]{a\cdot 2^n}$ than $y$, so that it is appropriate as an initial value.
+Then, $a\cdot2^{\left\lfloor\frac{n}{3}\right\rfloor}$ is usually very closer to $\sqrt[3]{x} = \sqrt[3]{a\cdot 2^n} = \sqrt[3]{a}\cdot 2^{\frac{n}{3}}$ than $z$, so that it is appropriate as an initial value.
