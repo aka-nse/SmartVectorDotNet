@@ -71,18 +71,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="VectorizationTest\VectorizationTest._BufferOverlap.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>VectorizationTest._BufferOverlap.tt</DependentUpon>
-        </Compile>
-        <None Update="VectorizationTest\VectorizationTest._BufferOverlap.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorizationTest._BufferOverlap.g.cs</LastGenOutput>
-        </None>
-    </ItemGroup>
-
-    <ItemGroup>
         <Compile Update="VectorOpTest/VectorOpTest._Shift.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
