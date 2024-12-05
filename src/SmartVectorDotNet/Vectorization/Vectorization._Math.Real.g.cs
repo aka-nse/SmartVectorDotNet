@@ -11,219 +11,33 @@ partial class Vectorization
 {
 
     /// <summary>
-    /// Operates sqrt.
+    /// Operates abs.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public void Sqrt<T>(ReadOnlySpan<T> d, Span<T> ans)
+    public void Abs<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(d.Length == ans.Length, nameof(d));
-        SqrtCore(d, ans);
+        AbsCore(d, ans);
     }
 
     /// <summary>
-    /// Core implementation for sqrt.
+    /// Core implementation for abs.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
-    protected internal virtual void SqrtCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    protected internal virtual void AbsCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Sqrt(d[i]);
-    }
-
-
-    /// <summary>
-    /// Operates cos.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
-    public void Cos<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
-        CosCore(d, ans);
-    }
-
-    /// <summary>
-    /// Core implementation for cos.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    protected internal virtual void CosCore<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Cos(d[i]);
-    }
-
-
-    /// <summary>
-    /// Operates sin.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
-    public void Sin<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
-        SinCore(d, ans);
-    }
-
-    /// <summary>
-    /// Core implementation for sin.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    protected internal virtual void SinCore<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Sin(d[i]);
-    }
-
-
-    /// <summary>
-    /// Operates tan.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
-    public void Tan<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
-        TanCore(d, ans);
-    }
-
-    /// <summary>
-    /// Core implementation for tan.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    protected internal virtual void TanCore<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Tan(d[i]);
-    }
-
-
-    /// <summary>
-    /// Operates cosh.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
-    public void Cosh<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
-        CoshCore(d, ans);
-    }
-
-    /// <summary>
-    /// Core implementation for cosh.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    protected internal virtual void CoshCore<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Cosh(d[i]);
-    }
-
-
-    /// <summary>
-    /// Operates sinh.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
-    public void Sinh<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
-        SinhCore(d, ans);
-    }
-
-    /// <summary>
-    /// Core implementation for sinh.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    protected internal virtual void SinhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Sinh(d[i]);
-    }
-
-
-    /// <summary>
-    /// Operates tanh.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
-    public void Tanh<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
-        TanhCore(d, ans);
-    }
-
-    /// <summary>
-    /// Core implementation for tanh.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    protected internal virtual void TanhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Tanh(d[i]);
+            ans[i] = ScalarMath.Abs(d[i]);
     }
 
 
@@ -259,68 +73,6 @@ partial class Vectorization
 
 
     /// <summary>
-    /// Operates asin.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
-    public void Asin<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
-        AsinCore(d, ans);
-    }
-
-    /// <summary>
-    /// Core implementation for asin.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    protected internal virtual void AsinCore<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Asin(d[i]);
-    }
-
-
-    /// <summary>
-    /// Operates atan.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
-    public void Atan<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
-        AtanCore(d, ans);
-    }
-
-    /// <summary>
-    /// Core implementation for atan.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    protected internal virtual void AtanCore<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Atan(d[i]);
-    }
-
-
-    /// <summary>
     /// Operates acosh.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -352,6 +104,37 @@ partial class Vectorization
 
 
     /// <summary>
+    /// Operates asin.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public void Asin<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
+        AsinCore(d, ans);
+    }
+
+    /// <summary>
+    /// Core implementation for asin.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    protected internal virtual void AsinCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        for(var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Asin(d[i]);
+    }
+
+
+    /// <summary>
     /// Operates asinh.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -379,6 +162,37 @@ partial class Vectorization
     {
         for(var i = 0; i < ans.Length; ++i)
             ans[i] = ScalarMath.Asinh(d[i]);
+    }
+
+
+    /// <summary>
+    /// Operates atan.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public void Atan<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
+        AtanCore(d, ans);
+    }
+
+    /// <summary>
+    /// Core implementation for atan.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    protected internal virtual void AtanCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        for(var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Atan(d[i]);
     }
 
 
@@ -445,37 +259,6 @@ partial class Vectorization
 
 
     /// <summary>
-    /// Operates log2.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
-    public void Log2<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
-        Log2Core(d, ans);
-    }
-
-    /// <summary>
-    /// Core implementation for log2.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    protected internal virtual void Log2Core<T>(ReadOnlySpan<T> d, Span<T> ans)
-        where T : unmanaged
-    {
-        for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Log2(d[i]);
-    }
-
-
-    /// <summary>
     /// Operates ceiling.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -507,33 +290,64 @@ partial class Vectorization
 
 
     /// <summary>
-    /// Operates floor.
+    /// Operates cos.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public void Floor<T>(ReadOnlySpan<T> d, Span<T> ans)
+    public void Cos<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(d.Length == ans.Length, nameof(d));
-        FloorCore(d, ans);
+        CosCore(d, ans);
     }
 
     /// <summary>
-    /// Core implementation for floor.
+    /// Core implementation for cos.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
-    protected internal virtual void FloorCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    protected internal virtual void CosCore<T>(ReadOnlySpan<T> d, Span<T> ans)
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Floor(d[i]);
+            ans[i] = ScalarMath.Cos(d[i]);
+    }
+
+
+    /// <summary>
+    /// Operates cosh.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public void Cosh<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
+        CoshCore(d, ans);
+    }
+
+    /// <summary>
+    /// Core implementation for cosh.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    protected internal virtual void CoshCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        for(var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Cosh(d[i]);
     }
 
 
@@ -565,6 +379,37 @@ partial class Vectorization
     {
         for(var i = 0; i < ans.Length; ++i)
             ans[i] = ScalarMath.Exp(d[i]);
+    }
+
+
+    /// <summary>
+    /// Operates floor.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public void Floor<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
+        FloorCore(d, ans);
+    }
+
+    /// <summary>
+    /// Core implementation for floor.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    protected internal virtual void FloorCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        for(var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Floor(d[i]);
     }
 
 
@@ -631,6 +476,37 @@ partial class Vectorization
 
 
     /// <summary>
+    /// Operates log2.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public void Log2<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
+        Log2Core(d, ans);
+    }
+
+    /// <summary>
+    /// Core implementation for log2.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    protected internal virtual void Log2Core<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        for(var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Log2(d[i]);
+    }
+
+
+    /// <summary>
     /// Operates round.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -658,6 +534,192 @@ partial class Vectorization
     {
         for(var i = 0; i < ans.Length; ++i)
             ans[i] = ScalarMath.Round(d[i]);
+    }
+
+
+    /// <summary>
+    /// Operates sign.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public void Sign<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
+        SignCore(d, ans);
+    }
+
+    /// <summary>
+    /// Core implementation for sign.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    protected internal virtual void SignCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        for(var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Sign(d[i]);
+    }
+
+
+    /// <summary>
+    /// Operates sin.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public void Sin<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
+        SinCore(d, ans);
+    }
+
+    /// <summary>
+    /// Core implementation for sin.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    protected internal virtual void SinCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        for(var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Sin(d[i]);
+    }
+
+
+    /// <summary>
+    /// Operates sinh.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public void Sinh<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
+        SinhCore(d, ans);
+    }
+
+    /// <summary>
+    /// Core implementation for sinh.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    protected internal virtual void SinhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        for(var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Sinh(d[i]);
+    }
+
+
+    /// <summary>
+    /// Operates sqrt.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public void Sqrt<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
+        SqrtCore(d, ans);
+    }
+
+    /// <summary>
+    /// Core implementation for sqrt.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    protected internal virtual void SqrtCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        for(var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Sqrt(d[i]);
+    }
+
+
+    /// <summary>
+    /// Operates tan.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public void Tan<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
+        TanCore(d, ans);
+    }
+
+    /// <summary>
+    /// Core implementation for tan.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    protected internal virtual void TanCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        for(var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Tan(d[i]);
+    }
+
+
+    /// <summary>
+    /// Operates tanh.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public void Tanh<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
+        TanhCore(d, ans);
+    }
+
+    /// <summary>
+    /// Core implementation for tanh.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="d"></param>
+    /// <param name="ans"></param>
+    /// <returns></returns>
+    protected internal virtual void TanhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+        where T : unmanaged
+    {
+        for(var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Tanh(d[i]);
     }
 
 
@@ -793,150 +855,52 @@ partial class Vectorization
 
 
     /// <summary>
-    /// Operates pow.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
-    public void Pow<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(y.Length == ans.Length, nameof(y));
-        PowCore(x, y, ans);
-    }
-
-    /// <summary>
-    /// Operates pow.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
-    public void Pow<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(x.Length == ans.Length, nameof(x));
-        PowCore(x, y, ans);
-    }
-
-    /// <summary>
-    /// Operates pow.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
-    public void Pow<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(x.Length == ans.Length, nameof(x));
-        Guard.ValidArgument(y.Length == ans.Length, nameof(y));
-        PowCore(x, y, ans);
-    }
-
-    /// <summary>
-    /// Core implementation for pow.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    protected internal virtual void PowCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Pow(x, y[i]);
-    }
-
-    /// <summary>
-    /// Core implementation for pow.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    protected internal virtual void PowCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-        where T : unmanaged
-    {
-        for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Pow(x[i], y);
-    }
-
-    /// <summary>
-    /// Core implementation for pow.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
-    /// <param name="ans"></param>
-    /// <returns></returns>
-    protected internal virtual void PowCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Pow(x[i], y[i]);
-    }
-
-
-    /// <summary>
     /// Operates log.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
+    /// <param name="x"></param>
     /// <param name="newBase"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public void Log<T>(T d, ReadOnlySpan<T> newBase, Span<T> ans)
+    public void Log<T>(T x, ReadOnlySpan<T> newBase, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(newBase.Length == ans.Length, nameof(newBase));
-        LogCore(d, newBase, ans);
+        LogCore(x, newBase, ans);
     }
 
     /// <summary>
     /// Operates log.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
+    /// <param name="x"></param>
     /// <param name="newBase"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public void Log<T>(ReadOnlySpan<T> d, T newBase, Span<T> ans)
+    public void Log<T>(ReadOnlySpan<T> x, T newBase, Span<T> ans)
         where T : unmanaged
     {
-        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
-        LogCore(d, newBase, ans);
+        Guard.ValidArgument(x.Length == ans.Length, nameof(x));
+        LogCore(x, newBase, ans);
     }
 
     /// <summary>
     /// Operates log.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
+    /// <param name="x"></param>
     /// <param name="newBase"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public void Log<T>(ReadOnlySpan<T> d, ReadOnlySpan<T> newBase, Span<T> ans)
+    public void Log<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> newBase, Span<T> ans)
         where T : unmanaged
     {
-        Guard.ValidArgument(d.Length == ans.Length, nameof(d));
+        Guard.ValidArgument(x.Length == ans.Length, nameof(x));
         Guard.ValidArgument(newBase.Length == ans.Length, nameof(newBase));
-        LogCore(d, newBase, ans);
+        LogCore(x, newBase, ans);
     }
 
     /// <summary>
@@ -944,15 +908,15 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
+    /// <param name="x"></param>
     /// <param name="newBase"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
-    protected internal virtual void LogCore<T>(T d, ReadOnlySpan<T> newBase, Span<T> ans)
+    protected internal virtual void LogCore<T>(T x, ReadOnlySpan<T> newBase, Span<T> ans)
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Log(d, newBase[i]);
+            ans[i] = ScalarMath.Log(x, newBase[i]);
     }
 
     /// <summary>
@@ -960,15 +924,15 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
+    /// <param name="x"></param>
     /// <param name="newBase"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
-    protected internal virtual void LogCore<T>(ReadOnlySpan<T> d, T newBase, Span<T> ans)
+    protected internal virtual void LogCore<T>(ReadOnlySpan<T> x, T newBase, Span<T> ans)
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Log(d[i], newBase);
+            ans[i] = ScalarMath.Log(x[i], newBase);
     }
 
     /// <summary>
@@ -976,113 +940,113 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="d"></param>
+    /// <param name="x"></param>
     /// <param name="newBase"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
-    protected internal virtual void LogCore<T>(ReadOnlySpan<T> d, ReadOnlySpan<T> newBase, Span<T> ans)
+    protected internal virtual void LogCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> newBase, Span<T> ans)
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Log(d[i], newBase[i]);
+            ans[i] = ScalarMath.Log(x[i], newBase[i]);
     }
 
 
     /// <summary>
-    /// Operates scale.
+    /// Operates pow.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="n"></param>
+    /// <param name="a"></param>
     /// <param name="x"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public void Scale<T>(T n, ReadOnlySpan<T> x, Span<T> ans)
+    public void Pow<T>(T a, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, nameof(x));
-        ScaleCore(n, x, ans);
+        PowCore(a, x, ans);
     }
 
     /// <summary>
-    /// Operates scale.
+    /// Operates pow.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="n"></param>
+    /// <param name="a"></param>
     /// <param name="x"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public void Scale<T>(ReadOnlySpan<T> n, T x, Span<T> ans)
+    public void Pow<T>(ReadOnlySpan<T> a, T x, Span<T> ans)
         where T : unmanaged
     {
-        Guard.ValidArgument(n.Length == ans.Length, nameof(n));
-        ScaleCore(n, x, ans);
+        Guard.ValidArgument(a.Length == ans.Length, nameof(a));
+        PowCore(a, x, ans);
     }
 
     /// <summary>
-    /// Operates scale.
+    /// Operates pow.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="n"></param>
+    /// <param name="a"></param>
     /// <param name="x"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public void Scale<T>(ReadOnlySpan<T> n, ReadOnlySpan<T> x, Span<T> ans)
+    public void Pow<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
-        Guard.ValidArgument(n.Length == ans.Length, nameof(n));
+        Guard.ValidArgument(a.Length == ans.Length, nameof(a));
         Guard.ValidArgument(x.Length == ans.Length, nameof(x));
-        ScaleCore(n, x, ans);
+        PowCore(a, x, ans);
     }
 
     /// <summary>
-    /// Core implementation for scale.
+    /// Core implementation for pow.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="n"></param>
+    /// <param name="a"></param>
     /// <param name="x"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
-    protected internal virtual void ScaleCore<T>(T n, ReadOnlySpan<T> x, Span<T> ans)
+    protected internal virtual void PowCore<T>(T a, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Scale(n, x[i]);
+            ans[i] = ScalarMath.Pow(a, x[i]);
     }
 
     /// <summary>
-    /// Core implementation for scale.
+    /// Core implementation for pow.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="n"></param>
+    /// <param name="a"></param>
     /// <param name="x"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
-    protected internal virtual void ScaleCore<T>(ReadOnlySpan<T> n, T x, Span<T> ans)
+    protected internal virtual void PowCore<T>(ReadOnlySpan<T> a, T x, Span<T> ans)
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Scale(n[i], x);
+            ans[i] = ScalarMath.Pow(a[i], x);
     }
 
     /// <summary>
-    /// Core implementation for scale.
+    /// Core implementation for pow.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="n"></param>
+    /// <param name="a"></param>
     /// <param name="x"></param>
     /// <param name="ans"></param>
     /// <returns></returns>
-    protected internal virtual void ScaleCore<T>(ReadOnlySpan<T> n, ReadOnlySpan<T> x, Span<T> ans)
+    protected internal virtual void PowCore<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
         for(var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Scale(n[i], x[i]);
+            ans[i] = ScalarMath.Pow(a[i], x[i]);
     }
 
 }
@@ -1090,6 +1054,744 @@ partial class Vectorization
 
 partial class SimdVectorization
 {
+
+    /// <inheritdoc />
+    protected internal override void AbsCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Abs(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Abs(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void AcosCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Acos(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Acos(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void AcoshCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Acosh(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Acosh(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void AsinCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Asin(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Asin(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void AsinhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Asinh(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Asinh(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void AtanCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Atan(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Atan(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void AtanhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Atanh(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Atanh(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void CbrtCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Cbrt(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Cbrt(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void CeilingCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Ceiling(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Ceiling(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void CosCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Cos(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Cos(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void CoshCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Cosh(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Cosh(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void ExpCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Exp(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Exp(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void FloorCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Floor(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Floor(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void LogCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Log(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void Log10Core<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Log10(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log10(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void Log2Core<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Log2(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log2(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void RoundCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Round(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Round(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void SignCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Sign(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Sign(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void SinCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Sin(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Sin(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void SinhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Sinh(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Sinh(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void SqrtCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Sqrt(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Sqrt(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void TanCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Tan(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Tan(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void TanhCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Tanh(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Tanh(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void TruncateCore<T>(ReadOnlySpan<T> d, Span<T> ans)
+    {
+        using var safedBuffer = EnsureSourceSafe(ref d, ans);
+        var vectorD = MemoryMarshal.Cast<T, Vector<T>>(d);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Truncate(vectorD[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vd = (stackalloc T[Vector<T>.Count]);
+            d.Slice(vectorLength).CopyTo(vd);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Truncate(Unsafe.As<T, Vector<T>>(ref vd[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+
+    /// <inheritdoc />
+    protected internal override void Atan2Core<T>(T y, ReadOnlySpan<T> x, Span<T> ans)
+    {
+        using var safexBuffer = EnsureSourceSafe(ref x, ans);
+        var vectorY = new Vector<T>(y);
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Atan2(vectorY, vectorX[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vx);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Atan2(vectorY, Unsafe.As<T, Vector<T>>(ref vx[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override void Atan2Core<T>(ReadOnlySpan<T> y, T x, Span<T> ans)
+    {
+        using var safeyBuffer = EnsureSourceSafe(ref y, ans);
+        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
+        var vectorX = new Vector<T>(x);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Atan2(vectorY[i], vectorX);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vy = (stackalloc T[Vector<T>.Count]);
+            y.Slice(vectorLength).CopyTo(vy);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Atan2(Unsafe.As<T, Vector<T>>(ref vy[0]), vectorX);
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override void Atan2Core<T>(ReadOnlySpan<T> y, ReadOnlySpan<T> x, Span<T> ans)
+    {
+        using var safeyBuffer = EnsureSourceSafe(ref y, ans);
+        using var safexBuffer = EnsureSourceSafe(ref x, ans);
+        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Atan2(vectorY[i], vectorX[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vy = (stackalloc T[Vector<T>.Count]);
+            var vx = (stackalloc T[Vector<T>.Count]);
+            y.Slice(vectorLength).CopyTo(vy);
+            x.Slice(vectorLength).CopyTo(vx);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Atan2(Unsafe.As<T, Vector<T>>(ref vy[0]), Unsafe.As<T, Vector<T>>(ref vx[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void LogCore<T>(T x, ReadOnlySpan<T> newBase, Span<T> ans)
+    {
+        using var safenewBaseBuffer = EnsureSourceSafe(ref newBase, ans);
+        var vectorX = new Vector<T>(x);
+        var vectorNewBase = MemoryMarshal.Cast<T, Vector<T>>(newBase);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Log(vectorX, vectorNewBase[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vnewBase = (stackalloc T[Vector<T>.Count]);
+            newBase.Slice(vectorLength).CopyTo(vnewBase);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log(vectorX, Unsafe.As<T, Vector<T>>(ref vnewBase[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override void LogCore<T>(ReadOnlySpan<T> x, T newBase, Span<T> ans)
+    {
+        using var safexBuffer = EnsureSourceSafe(ref x, ans);
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorNewBase = new Vector<T>(newBase);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Log(vectorX[i], vectorNewBase);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vx);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log(Unsafe.As<T, Vector<T>>(ref vx[0]), vectorNewBase);
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override void LogCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> newBase, Span<T> ans)
+    {
+        using var safexBuffer = EnsureSourceSafe(ref x, ans);
+        using var safenewBaseBuffer = EnsureSourceSafe(ref newBase, ans);
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorNewBase = MemoryMarshal.Cast<T, Vector<T>>(newBase);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Log(vectorX[i], vectorNewBase[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            var vnewBase = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vx);
+            newBase.Slice(vectorLength).CopyTo(vnewBase);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vnewBase[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+
+    /// <inheritdoc />
+    protected internal override void PowCore<T>(T a, ReadOnlySpan<T> x, Span<T> ans)
+    {
+        using var safexBuffer = EnsureSourceSafe(ref x, ans);
+        var vectorA = new Vector<T>(a);
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Pow(vectorA, vectorX[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vx);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Pow(vectorA, Unsafe.As<T, Vector<T>>(ref vx[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override void PowCore<T>(ReadOnlySpan<T> a, T x, Span<T> ans)
+    {
+        using var safeaBuffer = EnsureSourceSafe(ref a, ans);
+        var vectorA = MemoryMarshal.Cast<T, Vector<T>>(a);
+        var vectorX = new Vector<T>(x);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Pow(vectorA[i], vectorX);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var va = (stackalloc T[Vector<T>.Count]);
+            a.Slice(vectorLength).CopyTo(va);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Pow(Unsafe.As<T, Vector<T>>(ref va[0]), vectorX);
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override void PowCore<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> x, Span<T> ans)
+    {
+        using var safeaBuffer = EnsureSourceSafe(ref a, ans);
+        using var safexBuffer = EnsureSourceSafe(ref x, ans);
+        var vectorA = MemoryMarshal.Cast<T, Vector<T>>(a);
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Pow(vectorA[i], vectorX[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var va = (stackalloc T[Vector<T>.Count]);
+            var vx = (stackalloc T[Vector<T>.Count]);
+            a.Slice(vectorLength).CopyTo(va);
+            x.Slice(vectorLength).CopyTo(vx);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Pow(Unsafe.As<T, Vector<T>>(ref va[0]), Unsafe.As<T, Vector<T>>(ref vx[0]));
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
 
 }
 
