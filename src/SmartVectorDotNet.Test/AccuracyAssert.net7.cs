@@ -19,18 +19,17 @@ partial class AccuracyAssert
 
         public static partial bool GetIsValidNaN(T yExpected, T yActual, AccuracyMode mode)
         {
-            bool expIsNaN, actIsNaN;
             if (mode.HasFlag(AccuracyMode.RelaxNaNCheck))
             {
-                expIsNaN = T.IsNaN(yExpected) || T.IsInfinity(yExpected);
-                actIsNaN = T.IsNaN(yActual) || T.IsInfinity(yActual);
+                var actIsNaN = T.IsNaN(yActual) || T.IsInfinity(yActual);
+                return T.IsNaN(yExpected) || (T.IsInfinity(yExpected) && actIsNaN);
             }
             else
             {
-                expIsNaN = T.IsNaN(yExpected);
-                actIsNaN = T.IsNaN(yActual);
+                var expIsNaN = T.IsNaN(yExpected);
+                var actIsNaN = T.IsNaN(yActual);
+                return !(expIsNaN ^ actIsNaN);
             }
-            return !(expIsNaN ^ actIsNaN);
         }
 
         public static partial T ErrorAbs(T exp, T act)

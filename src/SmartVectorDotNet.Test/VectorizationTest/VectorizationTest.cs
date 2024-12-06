@@ -48,18 +48,18 @@ public partial class VectorizationTest
                 var exp = new double[x.Length];
                 var act = new double[x.Length + 6];
                 x.AsSpan().CopyTo(act);
-                Operate<double>(vectorization, act[..x.Length], exp);
-                Operate<double>(vectorization, act[..x.Length], act[6..]);
-                Assert.Equal(exp, act[6..]);
+                Operate<double>(vectorization, act.AsSpan(0, x.Length), exp);
+                Operate<double>(vectorization, act.AsSpan(0, x.Length), act.AsSpan(6));
+                Assert.Equal(exp, act.AsSpan(6));
             }
             if (x.Length >= 6)
             { // partial overlap right
                 var exp = new double[x.Length];
                 var act = new double[x.Length + 6];
-                x.AsSpan().CopyTo(act[6..]);
-                Operate<double>(vectorization, act[6..], exp);
-                Operate<double>(vectorization, act[6..], act[..x.Length]);
-                Assert.Equal(exp, act[..x.Length]);
+                x.AsSpan().CopyTo(act.AsSpan(6));
+                Operate<double>(vectorization, act.AsSpan(6), exp);
+                Operate<double>(vectorization, act.AsSpan(6), act.AsSpan(0, x.Length));
+                Assert.Equal(exp, act.AsSpan(0, x.Length));
             }
         }
     }
@@ -90,13 +90,23 @@ public partial class VectorizationTest
 
     [Theory]
     [MemberData(nameof(UnaryOperatorTestCases))]
-    public void UnaryOperator(UnaryOperatorTestSuite suite, double[] x)
-    {
-        suite.DoubleAccuracy(x);
-        suite.FloatAccuracy(x);
-        suite.Overlap(Vectorization.Emulated, x);
-        suite.Overlap(Vectorization.SIMD, x);
-    }
+    public void Unary_OverlapEmulated(UnaryOperatorTestSuite suite, double[] x)
+        => suite.Overlap(Vectorization.Emulated, x);
+
+    [Theory]
+    [MemberData(nameof(UnaryOperatorTestCases))]
+    public void Unary_DoubleAccuracy(UnaryOperatorTestSuite suite, double[] x)
+        => suite.DoubleAccuracy(x);
+
+    [Theory]
+    [MemberData(nameof(UnaryOperatorTestCases))]
+    public void Unary_FloatAccuracy(UnaryOperatorTestSuite suite, double[] x)
+        => suite.FloatAccuracy(x);
+
+    [Theory]
+    [MemberData(nameof(UnaryOperatorTestCases))]
+    public void Unary_OverlapSIMD(UnaryOperatorTestSuite suite, double[] x)
+        => suite.Overlap(Vectorization.SIMD, x);
 
 
     public abstract class BinaryOperatorTestSuite
@@ -161,17 +171,17 @@ public partial class VectorizationTest
                 var exp = new double[y.Length];
                 var act = new double[y.Length + 6];
                 y.AsSpan().CopyTo(act);
-                Operate<double>(vectorization, x, act[..y.Length], exp);
-                Operate<double>(vectorization, x, act[..y.Length], act[6..]);
-                Assert.Equal(exp, act[6..]);
+                Operate<double>(vectorization, x, act.AsSpan(0, y.Length), exp);
+                Operate<double>(vectorization, x, act.AsSpan(0, y.Length), act.AsSpan(6));
+                Assert.Equal(exp, act.AsSpan(6));
             }
             { // partial overlap right y
                 var exp = new double[y.Length];
                 var act = new double[y.Length + 6];
-                y.AsSpan().CopyTo(act[6..]);
-                Operate<double>(vectorization, x, act[6..], exp);
-                Operate<double>(vectorization, x, act[6..], act[..y.Length]);
-                Assert.Equal(exp, act[..y.Length]);
+                y.AsSpan().CopyTo(act.AsSpan(6));
+                Operate<double>(vectorization, x, act.AsSpan(6), exp);
+                Operate<double>(vectorization, x, act.AsSpan(6), act.AsSpan(0, y.Length));
+                Assert.Equal(exp, act.AsSpan(0, y.Length));
             }
         }
 
@@ -193,17 +203,17 @@ public partial class VectorizationTest
                 var exp = new double[x.Length];
                 var act = new double[x.Length + 6];
                 x.AsSpan().CopyTo(act);
-                Operate<double>(vectorization, act[..x.Length], y, exp);
-                Operate<double>(vectorization, act[..x.Length], y, act[6..]);
-                Assert.Equal(exp, act[6..]);
+                Operate<double>(vectorization, act.AsSpan(0, x.Length), y, exp);
+                Operate<double>(vectorization, act.AsSpan(0, x.Length), y, act.AsSpan(6));
+                Assert.Equal(exp, act.AsSpan(6));
             }
             { // partial overlap right x
                 var exp = new double[x.Length];
                 var act = new double[x.Length + 6];
-                x.AsSpan().CopyTo(act[6..]);
-                Operate<double>(vectorization, act[6..], y, exp);
-                Operate<double>(vectorization, act[6..], y, act[..x.Length]);
-                Assert.Equal(exp, act[..x.Length]);
+                x.AsSpan().CopyTo(act.AsSpan(6));
+                Operate<double>(vectorization, act.AsSpan(6), y, exp);
+                Operate<double>(vectorization, act.AsSpan(6), y, act.AsSpan(0, x.Length));
+                Assert.Equal(exp, act.AsSpan(0, x.Length));
             }
         }
 
@@ -233,33 +243,33 @@ public partial class VectorizationTest
                 var exp = new double[x.Length];
                 var act = new double[x.Length + 6];
                 x.AsSpan().CopyTo(act);
-                Operate<double>(vectorization, act[..x.Length], y, exp);
-                Operate<double>(vectorization, act[..x.Length], y, act[6..]);
-                Assert.Equal(exp, act[6..]);
+                Operate<double>(vectorization, act.AsSpan(0, x.Length), y, exp);
+                Operate<double>(vectorization, act.AsSpan(0, x.Length), y, act.AsSpan(6));
+                Assert.Equal(exp, act.AsSpan(6));
             }
             { // partial overlap right x
                 var exp = new double[x.Length];
                 var act = new double[x.Length + 6];
-                x.AsSpan().CopyTo(act[6..]);
-                Operate<double>(vectorization, act[6..], y, exp);
-                Operate<double>(vectorization, act[6..], y, act[..x.Length]);
-                Assert.Equal(exp, act[..x.Length]);
+                x.AsSpan().CopyTo(act.AsSpan(6));
+                Operate<double>(vectorization, act.AsSpan(6), y, exp);
+                Operate<double>(vectorization, act.AsSpan(6), y, act.AsSpan(0, x.Length));
+                Assert.Equal(exp, act.AsSpan(0, x.Length));
             }
             { // partial overlap left y
                 var exp = new double[y.Length];
                 var act = new double[y.Length + 6];
                 y.AsSpan().CopyTo(act);
-                Operate<double>(vectorization, x, act[..y.Length], exp);
-                Operate<double>(vectorization, x, act[..y.Length], act[6..]);
-                Assert.Equal(exp, act[6..]);
+                Operate<double>(vectorization, x, act.AsSpan(0, x.Length), exp);
+                Operate<double>(vectorization, x, act.AsSpan(0, x.Length), act.AsSpan(6));
+                Assert.Equal(exp, act.AsSpan(6));
             }
             { // partial overlap right y
                 var exp = new double[y.Length];
                 var act = new double[y.Length + 6];
-                y.AsSpan().CopyTo(act[6..]);
-                Operate<double>(vectorization, x, act[6..], exp);
-                Operate<double>(vectorization, x, act[6..], act[..y.Length]);
-                Assert.Equal(exp, act[..y.Length]);
+                y.AsSpan().CopyTo(act.AsSpan(6));
+                Operate<double>(vectorization, x, act.AsSpan(6), exp);
+                Operate<double>(vectorization, x, act.AsSpan(6), act.AsSpan(0, y.Length));
+                Assert.Equal(exp, act.AsSpan(0, y.Length));
             }
         }
     }
@@ -298,15 +308,41 @@ public partial class VectorizationTest
 
     [Theory]
     [MemberData(nameof(BinaryOperatorTestCases))]
-    public void BinaryOperator(BinaryOperatorTestSuite suite, double[] x, double[] y)
-    {
-        suite.DoubleAccuracy(x, y);
-        suite.FloatAccuracy(x, y);
-        suite.RhsOverlap(Vectorization.Emulated, x.FirstOrDefault(), y);
-        suite.RhsOverlap(Vectorization.SIMD, x.FirstOrDefault(), y);
-        suite.LhsOverlap(Vectorization.Emulated, x, y.FirstOrDefault());
-        suite.LhsOverlap(Vectorization.SIMD, x, y.FirstOrDefault());
-        suite.BothOverlap(Vectorization.Emulated, x, y);
-        suite.BothOverlap(Vectorization.SIMD, x, y);
-    }
+    public void Binary_DoubleAccuracy(BinaryOperatorTestSuite suite, double[] x, double[] y)
+        => suite.DoubleAccuracy(x, y);
+
+    [Theory]
+    [MemberData(nameof(BinaryOperatorTestCases))]
+    public void Binary_FloatAccuracy(BinaryOperatorTestSuite suite, double[] x, double[] y)
+        => suite.FloatAccuracy(x, y);
+
+    [Theory]
+    [MemberData(nameof(BinaryOperatorTestCases))]
+    public void Binary_RhsOverlapEmulated(BinaryOperatorTestSuite suite, double[] x, double[] y)
+        => suite.RhsOverlap(Vectorization.Emulated, x.FirstOrDefault(), y);
+
+    [Theory]
+    [MemberData(nameof(BinaryOperatorTestCases))]
+    public void Binary_RhsOverlapSIMD(BinaryOperatorTestSuite suite, double[] x, double[] y)
+        => suite.RhsOverlap(Vectorization.SIMD, x.FirstOrDefault(), y);
+
+    [Theory]
+    [MemberData(nameof(BinaryOperatorTestCases))]
+    public void Binary_LhsOverlapEmulated(BinaryOperatorTestSuite suite, double[] x, double[] y)
+        => suite.LhsOverlap(Vectorization.Emulated, x, y.FirstOrDefault());
+
+    [Theory]
+    [MemberData(nameof(BinaryOperatorTestCases))]
+    public void Binary_LhsOverlapSIMD(BinaryOperatorTestSuite suite, double[] x, double[] y)
+        => suite.LhsOverlap(Vectorization.SIMD, x, y.FirstOrDefault());
+
+    [Theory]
+    [MemberData(nameof(BinaryOperatorTestCases))]
+    public void Binary_BothOverlapEmulated(BinaryOperatorTestSuite suite, double[] x, double[] y)
+        => suite.BothOverlap(Vectorization.Emulated, x, y);
+
+    [Theory]
+    [MemberData(nameof(BinaryOperatorTestCases))]
+    public void Binary_BothOverlapSIMD(BinaryOperatorTestSuite suite, double[] x, double[] y)
+        => suite.BothOverlap(Vectorization.SIMD, x, y);
 }
