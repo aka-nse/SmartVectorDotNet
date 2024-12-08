@@ -44,12 +44,11 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
-    /// </exception>
+    /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
     public void Narrow(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         NarrowCore(x, ans);
     }
     
@@ -59,6 +58,13 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void NarrowCore(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -71,7 +77,6 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void NarrowCore(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
     {
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<<#=method.TFrom#>, Vector<<#=method.TFrom#>>>(x);
         var vectorAns = MemoryMarshal.Cast<<#=method.TTo#>, Vector<<#=method.TTo#>>>(ans);
         var vectorLength = vectorAns.Length * Vector<<#=method.TTo#>>.Count;
@@ -104,12 +109,11 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
-    /// </exception>
+    /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
     public void Widen(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         WidenCore(x, ans);
     }
     
@@ -119,6 +123,13 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void WidenCore(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -131,7 +142,6 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void WidenCore(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
     {
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<<#=method.TFrom#>, Vector<<#=method.TFrom#>>>(x);
         var vectorAns = MemoryMarshal.Cast<<#=method.TTo#>, Vector<<#=method.TTo#>>>(ans);
         var vectorLength = vectorX.Length * Vector<<#=method.TFrom#>>.Count;

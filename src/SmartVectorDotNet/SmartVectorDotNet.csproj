@@ -207,18 +207,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="Vectorization\Vectorization._Math.Real.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>Vectorization._Math.Real.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="Vectorization\Vectorization._Math.Real.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Vectorization._Math.Real.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
         <None Update="Vectorization\Vectorization._Unary.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>Vectorization._Unary.g.cs</LastGenOutput>

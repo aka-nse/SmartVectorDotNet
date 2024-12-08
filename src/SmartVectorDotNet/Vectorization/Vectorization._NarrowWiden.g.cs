@@ -17,12 +17,11 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
-    /// </exception>
+    /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
     public void Narrow(ReadOnlySpan<ushort> x, Span<byte> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         NarrowCore(x, ans);
     }
     
@@ -32,6 +31,13 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void NarrowCore(ReadOnlySpan<ushort> x, Span<byte> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -44,7 +50,6 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void NarrowCore(ReadOnlySpan<ushort> x, Span<byte> ans)
     {
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<ushort, Vector<ushort>>(x);
         var vectorAns = MemoryMarshal.Cast<byte, Vector<byte>>(ans);
         var vectorLength = vectorAns.Length * Vector<byte>.Count;
@@ -74,12 +79,11 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
-    /// </exception>
+    /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
     public void Narrow(ReadOnlySpan<uint> x, Span<ushort> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         NarrowCore(x, ans);
     }
     
@@ -89,6 +93,13 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void NarrowCore(ReadOnlySpan<uint> x, Span<ushort> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -101,7 +112,6 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void NarrowCore(ReadOnlySpan<uint> x, Span<ushort> ans)
     {
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<uint, Vector<uint>>(x);
         var vectorAns = MemoryMarshal.Cast<ushort, Vector<ushort>>(ans);
         var vectorLength = vectorAns.Length * Vector<ushort>.Count;
@@ -131,12 +141,11 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
-    /// </exception>
+    /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
     public void Narrow(ReadOnlySpan<ulong> x, Span<uint> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         NarrowCore(x, ans);
     }
     
@@ -146,6 +155,13 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void NarrowCore(ReadOnlySpan<ulong> x, Span<uint> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -158,7 +174,6 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void NarrowCore(ReadOnlySpan<ulong> x, Span<uint> ans)
     {
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<ulong, Vector<ulong>>(x);
         var vectorAns = MemoryMarshal.Cast<uint, Vector<uint>>(ans);
         var vectorLength = vectorAns.Length * Vector<uint>.Count;
@@ -188,12 +203,11 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
-    /// </exception>
+    /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
     public void Narrow(ReadOnlySpan<short> x, Span<sbyte> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         NarrowCore(x, ans);
     }
     
@@ -203,6 +217,13 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void NarrowCore(ReadOnlySpan<short> x, Span<sbyte> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -215,7 +236,6 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void NarrowCore(ReadOnlySpan<short> x, Span<sbyte> ans)
     {
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<short, Vector<short>>(x);
         var vectorAns = MemoryMarshal.Cast<sbyte, Vector<sbyte>>(ans);
         var vectorLength = vectorAns.Length * Vector<sbyte>.Count;
@@ -245,12 +265,11 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
-    /// </exception>
+    /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
     public void Narrow(ReadOnlySpan<int> x, Span<short> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         NarrowCore(x, ans);
     }
     
@@ -260,6 +279,13 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void NarrowCore(ReadOnlySpan<int> x, Span<short> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -272,7 +298,6 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void NarrowCore(ReadOnlySpan<int> x, Span<short> ans)
     {
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<int, Vector<int>>(x);
         var vectorAns = MemoryMarshal.Cast<short, Vector<short>>(ans);
         var vectorLength = vectorAns.Length * Vector<short>.Count;
@@ -302,12 +327,11 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
-    /// </exception>
+    /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
     public void Narrow(ReadOnlySpan<long> x, Span<int> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         NarrowCore(x, ans);
     }
     
@@ -317,6 +341,13 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void NarrowCore(ReadOnlySpan<long> x, Span<int> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -329,7 +360,6 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void NarrowCore(ReadOnlySpan<long> x, Span<int> ans)
     {
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<long, Vector<long>>(x);
         var vectorAns = MemoryMarshal.Cast<int, Vector<int>>(ans);
         var vectorLength = vectorAns.Length * Vector<int>.Count;
@@ -360,12 +390,11 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
-    /// </exception>
+    /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
     public void Widen(ReadOnlySpan<byte> x, Span<ushort> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         WidenCore(x, ans);
     }
     
@@ -375,6 +404,13 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void WidenCore(ReadOnlySpan<byte> x, Span<ushort> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -387,7 +423,6 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void WidenCore(ReadOnlySpan<byte> x, Span<ushort> ans)
     {
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<byte, Vector<byte>>(x);
         var vectorAns = MemoryMarshal.Cast<ushort, Vector<ushort>>(ans);
         var vectorLength = vectorX.Length * Vector<byte>.Count;
@@ -417,12 +452,11 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
-    /// </exception>
+    /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
     public void Widen(ReadOnlySpan<ushort> x, Span<uint> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         WidenCore(x, ans);
     }
     
@@ -432,6 +466,13 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void WidenCore(ReadOnlySpan<ushort> x, Span<uint> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -444,7 +485,6 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void WidenCore(ReadOnlySpan<ushort> x, Span<uint> ans)
     {
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<ushort, Vector<ushort>>(x);
         var vectorAns = MemoryMarshal.Cast<uint, Vector<uint>>(ans);
         var vectorLength = vectorX.Length * Vector<ushort>.Count;
@@ -474,12 +514,11 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
-    /// </exception>
+    /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
     public void Widen(ReadOnlySpan<uint> x, Span<ulong> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         WidenCore(x, ans);
     }
     
@@ -489,6 +528,13 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void WidenCore(ReadOnlySpan<uint> x, Span<ulong> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -501,7 +547,6 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void WidenCore(ReadOnlySpan<uint> x, Span<ulong> ans)
     {
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<uint, Vector<uint>>(x);
         var vectorAns = MemoryMarshal.Cast<ulong, Vector<ulong>>(ans);
         var vectorLength = vectorX.Length * Vector<uint>.Count;
@@ -531,12 +576,11 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
-    /// </exception>
+    /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
     public void Widen(ReadOnlySpan<sbyte> x, Span<short> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         WidenCore(x, ans);
     }
     
@@ -546,6 +590,13 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void WidenCore(ReadOnlySpan<sbyte> x, Span<short> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -558,7 +609,6 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void WidenCore(ReadOnlySpan<sbyte> x, Span<short> ans)
     {
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<sbyte, Vector<sbyte>>(x);
         var vectorAns = MemoryMarshal.Cast<short, Vector<short>>(ans);
         var vectorLength = vectorX.Length * Vector<sbyte>.Count;
@@ -588,12 +638,11 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
-    /// </exception>
+    /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
     public void Widen(ReadOnlySpan<short> x, Span<int> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         WidenCore(x, ans);
     }
     
@@ -603,6 +652,13 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void WidenCore(ReadOnlySpan<short> x, Span<int> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -615,7 +671,6 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void WidenCore(ReadOnlySpan<short> x, Span<int> ans)
     {
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<short, Vector<short>>(x);
         var vectorAns = MemoryMarshal.Cast<int, Vector<int>>(ans);
         var vectorLength = vectorX.Length * Vector<short>.Count;
@@ -645,12 +700,11 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
-    /// </exception>
+    /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
     public void Widen(ReadOnlySpan<int> x, Span<long> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         WidenCore(x, ans);
     }
     
@@ -660,6 +714,13 @@ partial class Vectorization
     /// </summary>
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void WidenCore(ReadOnlySpan<int> x, Span<long> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -672,7 +733,6 @@ partial class SimdVectorization
     /// <inheritdoc />
     protected internal override sealed void WidenCore(ReadOnlySpan<int> x, Span<long> ans)
     {
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         var vectorX = MemoryMarshal.Cast<int, Vector<int>>(x);
         var vectorAns = MemoryMarshal.Cast<long, Vector<long>>(ans);
         var vectorLength = vectorX.Length * Vector<int>.Count;

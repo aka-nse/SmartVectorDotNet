@@ -1,15 +1,41 @@
-<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ include file="../Helpers.t4" once="true" #>
+<#@ include file="./VectorizationHelpers.t4" once="true" #>
 <#@ output extension=".g.cs" #>
 <#
-var operations = new OpDef[]
+var operations = new MethodDef[]
 {
-    new OpDef("UnaryPlus" , (ans, x) => $"{ans} =  {x}"),
-    new OpDef("UnaryMinus", (ans, x) => $"{ans} = -{x}"),
-    new OpDef("Complement", (ans, x) => $"{ans} = ~{x}"),
+    new("UnaryPlus" , "x", (ans, x) => $"{ans} = ScalarOp.UnaryPlus({x})" , (ans, x) => $"{ans} =  {x}"),
+    new("UnaryMinus", "x", (ans, x) => $"{ans} = ScalarOp.UnaryMinus({x})", (ans, x) => $"{ans} = -{x}"),
+    new("Complement", "x", (ans, x) => $"{ans} = ScalarOp.Complement({x})", (ans, x) => $"{ans} = ~{x}"),
+    new("Abs"       , "d", (ans, d) => $"{ans} = ScalarMath.Abs({d})"     , (ans, d) => $"{ans} = VectorMath.Abs({d})"     ),
+    new("Acos"      , "d", (ans, d) => $"{ans} = ScalarMath.Acos({d})"    , (ans, d) => $"{ans} = VectorMath.Acos({d})"    ),
+    new("Acosh"     , "d", (ans, d) => $"{ans} = ScalarMath.Acosh({d})"   , (ans, d) => $"{ans} = VectorMath.Acosh({d})"   ),
+    new("Asin"      , "d", (ans, d) => $"{ans} = ScalarMath.Asin({d})"    , (ans, d) => $"{ans} = VectorMath.Asin({d})"    ),
+    new("Asinh"     , "d", (ans, d) => $"{ans} = ScalarMath.Asinh({d})"   , (ans, d) => $"{ans} = VectorMath.Asinh({d})"   ),
+    new("Atan"      , "d", (ans, d) => $"{ans} = ScalarMath.Atan({d})"    , (ans, d) => $"{ans} = VectorMath.Atan({d})"    ),
+    new("Atanh"     , "d", (ans, d) => $"{ans} = ScalarMath.Atanh({d})"   , (ans, d) => $"{ans} = VectorMath.Atanh({d})"   ),
+    new("Cbrt"      , "d", (ans, d) => $"{ans} = ScalarMath.Cbrt({d})"    , (ans, d) => $"{ans} = VectorMath.Cbrt({d})"    ),
+    new("Ceiling"   , "d", (ans, d) => $"{ans} = ScalarMath.Ceiling({d})" , (ans, d) => $"{ans} = VectorMath.Ceiling({d})" ),
+    new("Cos"       , "d", (ans, d) => $"{ans} = ScalarMath.Cos({d})"     , (ans, d) => $"{ans} = VectorMath.Cos({d})"     ),
+    new("Cosh"      , "d", (ans, d) => $"{ans} = ScalarMath.Cosh({d})"    , (ans, d) => $"{ans} = VectorMath.Cosh({d})"    ),
+    new("Exp"       , "d", (ans, d) => $"{ans} = ScalarMath.Exp({d})"     , (ans, d) => $"{ans} = VectorMath.Exp({d})"     ),
+    new("Floor"     , "d", (ans, d) => $"{ans} = ScalarMath.Floor({d})"   , (ans, d) => $"{ans} = VectorMath.Floor({d})"   ),
+    new("Log"       , "d", (ans, d) => $"{ans} = ScalarMath.Log({d})"     , (ans, d) => $"{ans} = VectorMath.Log({d})"     ),
+    new("Log10"     , "d", (ans, d) => $"{ans} = ScalarMath.Log10({d})"   , (ans, d) => $"{ans} = VectorMath.Log10({d})"   ),
+    new("Log2"      , "d", (ans, d) => $"{ans} = ScalarMath.Log2({d})"    , (ans, d) => $"{ans} = VectorMath.Log2({d})"    ),
+    new("Round"     , "d", (ans, d) => $"{ans} = ScalarMath.Round({d})"   , (ans, d) => $"{ans} = VectorMath.Round({d})"   ),
+    new("Sign"      , "d", (ans, d) => $"{ans} = ScalarMath.Sign({d})"    , (ans, d) => $"{ans} = VectorMath.Sign({d})"    ),
+    new("Sin"       , "d", (ans, d) => $"{ans} = ScalarMath.Sin({d})"     , (ans, d) => $"{ans} = VectorMath.Sin({d})"     ),
+    new("Sinh"      , "d", (ans, d) => $"{ans} = ScalarMath.Sinh({d})"    , (ans, d) => $"{ans} = VectorMath.Sinh({d})"    ),
+    new("Sqrt"      , "d", (ans, d) => $"{ans} = ScalarMath.Sqrt({d})"    , (ans, d) => $"{ans} = VectorMath.Sqrt({d})"    ),
+    new("Tan"       , "d", (ans, d) => $"{ans} = ScalarMath.Tan({d})"     , (ans, d) => $"{ans} = VectorMath.Tan({d})"     ),
+    new("Tanh"      , "d", (ans, d) => $"{ans} = ScalarMath.Tanh({d})"    , (ans, d) => $"{ans} = VectorMath.Tanh({d})"    ),
+    new("Truncate"  , "d", (ans, d) => $"{ans} = ScalarMath.Truncate({d})", (ans, d) => $"{ans} = VectorMath.Truncate({d})"),
 };
 #>
 #nullable enable
@@ -21,85 +47,71 @@ using System.Runtime.InteropServices;
 
 namespace SmartVectorDotNet;
 
-<# foreach(var op in operations) { #>
-#region <#=op.Name.ToLower()#>
+<#  foreach(var op in operations) { #>
+<#      var methodName = op.Name;   #>
+<#      var arg1 = op.Arg1Name;     #>
+#region <#=methodName.ToLower()#>
+
 partial class Vectorization
 {
-    /// <summary>
-    /// Operates <#=op.Name.ToLower()#> for each corresponding elements of <paramref name="x"/>.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="x"/> and <paramref name="ans"/> must have same length.
-    /// </exception>
-    /// <exception cref="NotSupportedException">
-    /// The operation for <typeparamref name="T"/> is not supported.
-    /// </exception>
-    public void <#=op.Name#><T>(ReadOnlySpan<T> x, Span<T> ans)
+    <# DocumentPublic(methodName, arg1); #>
+    public void <#=methodName#><T>(ReadOnlySpan<T> <#=arg1#>, Span<T> ans)
         where T : unmanaged
     {
-        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
-        <#=op.Name#>Core(x, ans);
+        Guard.ValidArgument(<#=arg1#>.Length == ans.Length, "`<#=arg1#>` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref <#=arg1#>, ans);
+        <#=methodName#>Core(<#=arg1#>, ans);
     }
 
-    /// <summary>
-    /// Core implementation for <see cref="<#=op.Name#>" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException">
-    /// The operation for <typeparamref name="T"/> is not supported.
-    /// </exception>
-    protected internal virtual void <#=op.Name#>Core<T>(ReadOnlySpan<T> x, Span<T> ans)
+    <# DocumentCore(methodName, $"{methodName}{{T}}(ReadOnlySpan{{T}}, Span{{T}})", arg1); #>
+    protected internal virtual void <#=methodName#>Core<T>(ReadOnlySpan<T> <#=arg1#>, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.<#=op.Name#>(x[i]);
+            <#=op.ScalarGenerateFunc("ans[i]", $"{arg1}[i]")#>;
     }
 }
-
 
 partial class SimdVectorization
 {
     /// <inheritdoc />
-    protected internal override sealed void <#=op.Name#>Core<T>(ReadOnlySpan<T> x, Span<T> ans)
+    protected internal override sealed void <#=methodName#>Core<T>(ReadOnlySpan<T> <#=arg1#>, Span<T> ans)
     {
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(<#=arg1#>);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            <#=op.GenerateFunc("vectorAns[i]", "vectorX[i]")#>;
+            <#=op.VectorGenerateFunc("vectorAns[i]", "vectorX[i]")#>;
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            <#=op.GenerateFunc("Unsafe.As<T, Vector<T>>(ref vans[0])", "Unsafe.As<T, Vector<T>>(ref vx[0])")#>; 
+            <#=arg1#>.Slice(vectorLength).CopyTo(vx);
+            <#=op.VectorGenerateFunc("Unsafe.As<T, Vector<T>>(ref vans[0])", "Unsafe.As<T, Vector<T>>(ref vx[0])")#>; 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
 }
-#endregion
 
+#endregion
 
 <# } #>
 <#+
-class OpDef
+class MethodDef
 {
     public string Name { get; }
-    public Func<string, string, string> GenerateFunc { get; }
+    public string Arg1Name { get; }
+    public Func<string, string, string> ScalarGenerateFunc { get; }
+    public Func<string, string, string> VectorGenerateFunc { get; }
 
-    public OpDef(string name, Func<string, string, string> generateFunc)
+    public MethodDef(string name, string arg1Name, Func<string, string, string> scalarGenerateFunc, Func<string, string, string> vectorGenerateFunc)
     {
         Name = name;
-        GenerateFunc = generateFunc;
+        Arg1Name = arg1Name;
+        ScalarGenerateFunc = scalarGenerateFunc;
+        VectorGenerateFunc = vectorGenerateFunc;
     }
 }
 #>

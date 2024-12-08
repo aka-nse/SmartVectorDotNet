@@ -22,17 +22,8 @@ public partial class Vectorization
 
     /// <summary>  </summary>
     protected Vectorization() { }
-}
 
-
-/// <summary>
-/// The implementation for <see cref="Vectorization.SIMD"/>.
-/// </summary>
-public partial class SimdVectorization : Vectorization
-{
-    internal SimdVectorization() { }
-
-    internal static TemporaryBuffer<T1> EnsureSourceSafe<T1, T2>(ref ReadOnlySpan<T1> source, Span<T2> destination)
+    private static TemporaryBuffer<T1> EnsureSourceSafe<T1, T2>(ref ReadOnlySpan<T1> source, Span<T2> destination)
         where T1 : unmanaged
         where T2 : unmanaged
     {
@@ -85,4 +76,13 @@ public partial class SimdVectorization : Vectorization
         source = retval.Span;
         return retval;
     }
+}
+
+
+/// <summary>
+/// The implementation for <see cref="Vectorization.SIMD"/>.
+/// </summary>
+public partial class SimdVectorization : Vectorization
+{
+    internal SimdVectorization() { }
 }
