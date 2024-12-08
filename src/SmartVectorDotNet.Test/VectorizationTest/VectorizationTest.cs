@@ -1,4 +1,6 @@
 #pragma warning disable xUnit1045 // Avoid using TheoryData type arguments that might not be serializable
+using Xunit.Abstractions;
+
 namespace SmartVectorDotNet;
 
 
@@ -10,8 +12,12 @@ public partial class VectorizationTest
     private static Vectorization Emulated => Vectorization.Emulated;
     private static Vectorization SIMD => Vectorization.SIMD;
 
-    public abstract class UnaryOperatorTestSuite
+    public abstract class UnaryOperatorTestSuite : IXunitSerializable
     {
+        public UnaryOperatorTestSuite() { }
+        public void Deserialize(IXunitSerializationInfo info) { }
+        public void Serialize(IXunitSerializationInfo info) { }
+
         protected abstract void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) where T : unmanaged;
 
         public void DoubleAccuracy(double[] x)
@@ -109,8 +115,12 @@ public partial class VectorizationTest
         => suite.Overlap(Vectorization.SIMD, x);
 
 
-    public abstract class BinaryOperatorTestSuite
+    public abstract class BinaryOperatorTestSuite : IXunitSerializable
     {
+        public BinaryOperatorTestSuite() { }
+        public void Deserialize(IXunitSerializationInfo info) { }
+        public void Serialize(IXunitSerializationInfo info) { }
+
         protected abstract void Operate<T>(Vectorization vectorization, T x, ReadOnlySpan<T> y, Span<T> result) where T : unmanaged;
         protected abstract void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, T y, Span<T> result) where T : unmanaged;
         protected abstract void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) where T : unmanaged;
