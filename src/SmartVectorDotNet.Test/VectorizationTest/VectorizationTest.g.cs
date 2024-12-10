@@ -4,18 +4,6 @@ public partial class VectorizationTest
 {
     private static partial UnaryOperatorTestSuite[] UnaryOperatorTestSuites()
         => [
-            new Unary_Floor(),
-            new Unary_Log(),
-            new Unary_Log10(),
-            new Unary_Log2(),
-            new Unary_Round(),
-            new Unary_Sign(),
-            new Unary_Sin(),
-            new Unary_Sinh(),
-            new Unary_Sqrt(),
-            new Unary_Tan(),
-            new Unary_Tanh(),
-            new Unary_Truncate(),
             new Unary_UnaryPlus(),
             new Unary_UnaryMinus(),
             new Unary_Complement(),
@@ -31,13 +19,22 @@ public partial class VectorizationTest
             new Unary_Cos(),
             new Unary_Cosh(),
             new Unary_Exp(),
+            new Unary_Floor(),
+            new Unary_Log(),
+            new Unary_Log10(),
+            new Unary_Log2(),
+            new Unary_Round(),
+            new Unary_Sign(),
+            new Unary_Sin(),
+            new Unary_Sinh(),
+            new Unary_Sqrt(),
+            new Unary_Tan(),
+            new Unary_Tanh(),
+            new Unary_Truncate(),
         ];
 
     private static partial BinaryOperatorTestSuite[] BinaryOperatorTestSuites()
         => [
-            new Binary_Atan2(),
-            new Binary_Log(),
-            new Binary_Pow(),
             new Binary_BitwiseOr(),
             new Binary_BitwiseXor(),
             new Binary_Equals(),
@@ -45,6 +42,9 @@ public partial class VectorizationTest
             new Binary_LessThanOrEquals(),
             new Binary_GreaterThan(),
             new Binary_GreaterThanOrEquals(),
+            new Binary_Atan2(),
+            new Binary_Log(),
+            new Binary_Pow(),
             new Binary_Add(),
             new Binary_Subtract(),
             new Binary_Multiply(),
@@ -53,66 +53,6 @@ public partial class VectorizationTest
         ];
 
     #region unary operators
-
-    private class Unary_Floor : UnaryOperatorTestSuite
-    {
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Floor<T>(x, result);
-    }
-
-    private class Unary_Log : UnaryOperatorTestSuite
-    {
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Log<T>(x, result);
-    }
-
-    private class Unary_Log10 : UnaryOperatorTestSuite
-    {
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Log10<T>(x, result);
-    }
-
-    private class Unary_Log2 : UnaryOperatorTestSuite
-    {
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Log2<T>(x, result);
-    }
-
-    private class Unary_Round : UnaryOperatorTestSuite
-    {
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Round<T>(x, result);
-    }
-
-    private class Unary_Sign : UnaryOperatorTestSuite
-    {
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Sign<T>(x, result);
-    }
-
-    private class Unary_Sin : UnaryOperatorTestSuite
-    {
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Sin<T>(x, result);
-    }
-
-    private class Unary_Sinh : UnaryOperatorTestSuite
-    {
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Sinh<T>(x, result);
-    }
-
-    private class Unary_Sqrt : UnaryOperatorTestSuite
-    {
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Sqrt<T>(x, result);
-    }
-
-    private class Unary_Tan : UnaryOperatorTestSuite
-    {
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Tan<T>(x, result);
-    }
-
-    private class Unary_Tanh : UnaryOperatorTestSuite
-    {
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Tanh<T>(x, result);
-    }
-
-    private class Unary_Truncate : UnaryOperatorTestSuite
-    {
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Truncate<T>(x, result);
-    }
 
     private class Unary_UnaryPlus : UnaryOperatorTestSuite
     {
@@ -189,31 +129,70 @@ public partial class VectorizationTest
         protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Exp<T>(x, result);
     }
 
+    private class Unary_Floor : UnaryOperatorTestSuite
+    {
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Floor<T>(x, result);
+    }
+
+    private class Unary_Log : UnaryOperatorTestSuite
+    {
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Log<T>(x, result);
+    }
+
+    private class Unary_Log10 : UnaryOperatorTestSuite
+    {
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Log10<T>(x, result);
+    }
+
+    private class Unary_Log2 : UnaryOperatorTestSuite
+    {
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Log2<T>(x, result);
+    }
+
+    private class Unary_Round : UnaryOperatorTestSuite
+    {
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Round<T>(x, result);
+    }
+
+    private class Unary_Sign : UnaryOperatorTestSuite
+    {
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Sign<T>(x, result);
+    }
+
+    private class Unary_Sin : UnaryOperatorTestSuite
+    {
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Sin<T>(x, result);
+    }
+
+    private class Unary_Sinh : UnaryOperatorTestSuite
+    {
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Sinh<T>(x, result);
+    }
+
+    private class Unary_Sqrt : UnaryOperatorTestSuite
+    {
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Sqrt<T>(x, result);
+    }
+
+    private class Unary_Tan : UnaryOperatorTestSuite
+    {
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Tan<T>(x, result);
+    }
+
+    private class Unary_Tanh : UnaryOperatorTestSuite
+    {
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Tanh<T>(x, result);
+    }
+
+    private class Unary_Truncate : UnaryOperatorTestSuite
+    {
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) => vectorization.Truncate<T>(x, result);
+    }
+
     #endregion
 
     #region binary operators
     
-    private class Binary_Atan2 : BinaryOperatorTestSuite
-    {
-        protected override void Operate<T>(Vectorization vectorization, T x, ReadOnlySpan<T> y, Span<T> result) => vectorization.Atan2<T>(x, y, result);
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, T y, Span<T> result) => vectorization.Atan2<T>(x, y, result);
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) => vectorization.Atan2<T>(x, y, result);
-    }
-
-    private class Binary_Log : BinaryOperatorTestSuite
-    {
-        protected override void Operate<T>(Vectorization vectorization, T x, ReadOnlySpan<T> y, Span<T> result) => vectorization.Log<T>(x, y, result);
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, T y, Span<T> result) => vectorization.Log<T>(x, y, result);
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) => vectorization.Log<T>(x, y, result);
-    }
-
-    private class Binary_Pow : BinaryOperatorTestSuite
-    {
-        protected override void Operate<T>(Vectorization vectorization, T x, ReadOnlySpan<T> y, Span<T> result) => vectorization.Pow<T>(x, y, result);
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, T y, Span<T> result) => vectorization.Pow<T>(x, y, result);
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) => vectorization.Pow<T>(x, y, result);
-    }
-
     private class Binary_BitwiseOr : BinaryOperatorTestSuite
     {
         protected override void Operate<T>(Vectorization vectorization, T x, ReadOnlySpan<T> y, Span<T> result) => vectorization.BitwiseOr<T>(x, y, result);
@@ -261,6 +240,27 @@ public partial class VectorizationTest
         protected override void Operate<T>(Vectorization vectorization, T x, ReadOnlySpan<T> y, Span<T> result) => vectorization.GreaterThanOrEquals<T>(x, y, result);
         protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, T y, Span<T> result) => vectorization.GreaterThanOrEquals<T>(x, y, result);
         protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) => vectorization.GreaterThanOrEquals<T>(x, y, result);
+    }
+
+    private class Binary_Atan2 : BinaryOperatorTestSuite
+    {
+        protected override void Operate<T>(Vectorization vectorization, T x, ReadOnlySpan<T> y, Span<T> result) => vectorization.Atan2<T>(x, y, result);
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, T y, Span<T> result) => vectorization.Atan2<T>(x, y, result);
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) => vectorization.Atan2<T>(x, y, result);
+    }
+
+    private class Binary_Log : BinaryOperatorTestSuite
+    {
+        protected override void Operate<T>(Vectorization vectorization, T x, ReadOnlySpan<T> y, Span<T> result) => vectorization.Log<T>(x, y, result);
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, T y, Span<T> result) => vectorization.Log<T>(x, y, result);
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) => vectorization.Log<T>(x, y, result);
+    }
+
+    private class Binary_Pow : BinaryOperatorTestSuite
+    {
+        protected override void Operate<T>(Vectorization vectorization, T x, ReadOnlySpan<T> y, Span<T> result) => vectorization.Pow<T>(x, y, result);
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, T y, Span<T> result) => vectorization.Pow<T>(x, y, result);
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) => vectorization.Pow<T>(x, y, result);
     }
 
     private class Binary_Add : BinaryOperatorTestSuite

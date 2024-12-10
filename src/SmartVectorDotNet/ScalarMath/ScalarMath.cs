@@ -54,4 +54,5 @@ public static partial class ScalarMath
             : default;
     }
 
+
 }

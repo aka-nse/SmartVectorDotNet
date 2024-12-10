@@ -26,7 +26,7 @@ public partial class VectorizationTest
             var act = new double[x.Length];
             Operate<double>(Emulated, x, exp);
             Operate<double>(SIMD, x, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+            AccuracyAssert.Accurate(x, exp, act, 1e-12, TestAccuracyMode);
         }
 
         public void FloatAccuracy(double[] x)
@@ -36,7 +36,7 @@ public partial class VectorizationTest
             var act = new float[xx.Length];
             Operate<float>(Emulated, xx, exp);
             Operate<float>(SIMD, xx, act);
-            AccuracyAssert.Accurate(xx, exp, act, 1e-5f, TestAccuracyMode);
+            AccuracyAssert.Accurate(xx, exp, act, 1e-7f, TestAccuracyMode);
         }
 
         public void Overlap(Vectorization vectorization, double[] x)
@@ -301,7 +301,7 @@ public partial class VectorizationTest
             ([+1.0], [+1.0]),
             ([0, 1, 2, 3, 4, 5, 6, 7, 8], [0, 1, 2, 3, 4, 5, 6, 7, 8]),
             (
-            [1e-3, 2e-3, 3e-3, 5e-3, 1e-2, 2e-2, 3e-2, 5e-2, 1e-1, 2e-1, 3e-1, 5e-1, 1e+0, 2e+0, 3e+0, 5e+0, 1e+1, 2e+1, 3e+1, 5e+1, 1e+2, 2e+2, 3e+2, 5e+2, 1e+3, 2e+3, 3e+3, 5e+3,],
+                [1e-3, 2e-3, 3e-3, 5e-3, 1e-2, 2e-2, 3e-2, 5e-2, 1e-1, 2e-1, 3e-1, 5e-1, 1e+0, 2e+0, 3e+0, 5e+0, 1e+1, 2e+1, 3e+1, 5e+1, 1e+2, 2e+2, 3e+2, 5e+2, 1e+3, 2e+3, 3e+3, 5e+3,],
                 [1e-3, 2e-3, 3e-3, 5e-3, 1e-2, 2e-2, 3e-2, 5e-2, 1e-1, 2e-1, 3e-1, 5e-1, 1e+0, 2e+0, 3e+0, 5e+0, 1e+1, 2e+1, 3e+1, 5e+1, 1e+2, 2e+2, 3e+2, 5e+2, 1e+3, 2e+3, 3e+3, 5e+3,]
             ),
         ];

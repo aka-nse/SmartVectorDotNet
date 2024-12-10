@@ -5,32 +5,60 @@ using H = InternalHelpers;
 
 file class Exp_<T> : VectorMath.Const<T> where T : unmanaged
 {
-    internal static readonly Vector<T> Max = AsVector(ScalarMath.Log(double.MaxValue));
-    internal static readonly Vector<T> Min = AsVector(ScalarMath.Log(1 / double.MaxValue));
+    internal static readonly Vector<T> Max;
+    internal static readonly Vector<T> Min;
+
+    internal static readonly Vector<T> Log_E_2_Upper;
+    internal static readonly Vector<T> Log_E_2_Lower;
 
     internal static ReadOnlySpan<Vector<T>> Coeffs => _expCoeffs;
-    private static readonly Vector<T>[] _expCoeffs = GetExpCoeffs();
-    static Vector<T>[] GetExpCoeffs()
+    private static readonly Vector<T>[] _expCoeffs;
+
+    static Exp_()
     {
         if (IsT<double>())
         {
-            var expCoeffs = new Vector<double>[11];
-            for (var i = 1; i <= 11; ++i)
+            Max = AsVector(ScalarMath.Log(double.MaxValue));
+            Min = AsVector(ScalarMath.Log(1 / double.MaxValue));   Log_E_2_Upper = AsVector(0.693147180559945);
+            Log_E_2_Lower = AsVector(3.0941723212145817656807550013434e-16);
+            var expCoeffs = new Vector<double>[12]
             {
-                expCoeffs[i - 1] = new Vector<double>(1 / (double)i);
-            }
-            return H.Reinterpret<Vector<double>[], Vector<T>[]>(expCoeffs);
+                new(1.0),
+                new(1.0 / 1),
+                new(1.0 / 2),
+                new(1.0 / 6),
+                new(1.0 / 24),
+                new(1.0 / 120),
+                new(1.0 / 720),
+                new(1.0 / 5040),
+                new(1.0 / 40320),
+                new(1.0 / 362880),
+                new(1.0 / 3628800),
+                new(1.0 / 39916800),
+            };
+            _expCoeffs = H.Reinterpret<Vector<double>[], Vector<T>[]>(expCoeffs);
+            return;
         }
         if (IsT<float>())
         {
-            var expCoeffs = new Vector<float>[6];
-            for (var i = 1; i <= 6; ++i)
+            Max = AsVector(ScalarMath.Log(float.MaxValue));
+            Min = AsVector(ScalarMath.Log(1 / float.MaxValue));
+            Log_E_2_Upper = AsVector(0.6931471824646f);
+            Log_E_2_Lower = AsVector(-1.9046546905827678785418234319245e-9f);
+            var expCoeffs = new Vector<float>[7]
             {
-                expCoeffs[i - 1] = new Vector<float>(1 / (float)i);
-            }
-            return H.Reinterpret<Vector<float>[], Vector<T>[]>(expCoeffs);
+                new(1f),
+                new(1f / 1),
+                new(1f / 2),
+                new(1f / 6),
+                new(1f / 24),
+                new(1f / 120),
+                new(1f / 720),
+            };
+            _expCoeffs = H.Reinterpret<Vector<float>[], Vector<T>[]>(expCoeffs);
+            return;
         }
-        return default!;
+        _expCoeffs = [];
     }
 }
 
@@ -64,20 +92,26 @@ partial class VectorMath
     {
         var y = x * Exp_<double>.Log_2_E;
         var n = Round(y);
-        var a = y - n;
-        var b = a * Exp_<double>.Log_E_2;
-        var z = Exp_<double>._0;                                        // a_11~
-        z = (b * Exp_<double>.Coeffs[10 - 1]) * (Exp_<double>._1 + z);  // a_10
-        z = (b * Exp_<double>.Coeffs[ 9 - 1]) * (Exp_<double>._1 + z);  // a_9
-        z = (b * Exp_<double>.Coeffs[ 8 - 1]) * (Exp_<double>._1 + z);  // a_8
-        z = (b * Exp_<double>.Coeffs[ 7 - 1]) * (Exp_<double>._1 + z);  // a_7
-        z = (b * Exp_<double>.Coeffs[ 6 - 1]) * (Exp_<double>._1 + z);  // a_6
-        z = (b * Exp_<double>.Coeffs[ 5 - 1]) * (Exp_<double>._1 + z);  // a_5
-        z = (b * Exp_<double>.Coeffs[ 4 - 1]) * (Exp_<double>._1 + z);  // a_4
-        z = (b * Exp_<double>.Coeffs[ 3 - 1]) * (Exp_<double>._1 + z);  // a_3
-        z = (b * Exp_<double>.Coeffs[ 2 - 1]) * (Exp_<double>._1 + z);  // a_2
-        z = (b * Exp_<double>.Coeffs[ 1 - 1]) * (Exp_<double>._1 + z);  // a_1
-        z = z + Exp_<double>._1;                                        // a_0
+        var a = FusedMultiplyAdd(
+            -n, Exp_<double>.Log_E_2_Lower,
+            FusedMultiplyAdd(
+                -n, Exp_<double>.Log_E_2_Upper,
+                x
+                )
+            );
+        var z = Exp_<double>._0;                              // a_12~
+        z = FusedMultiplyAdd(a, z, Exp_<double>.Coeffs[11]);  // a_11
+        z = FusedMultiplyAdd(a, z, Exp_<double>.Coeffs[10]);  // a_10
+        z = FusedMultiplyAdd(a, z, Exp_<double>.Coeffs[ 9]);  // a_9
+        z = FusedMultiplyAdd(a, z, Exp_<double>.Coeffs[ 8]);  // a_8
+        z = FusedMultiplyAdd(a, z, Exp_<double>.Coeffs[ 7]);  // a_7
+        z = FusedMultiplyAdd(a, z, Exp_<double>.Coeffs[ 6]);  // a_6
+        z = FusedMultiplyAdd(a, z, Exp_<double>.Coeffs[ 5]);  // a_5
+        z = FusedMultiplyAdd(a, z, Exp_<double>.Coeffs[ 4]);  // a_4
+        z = FusedMultiplyAdd(a, z, Exp_<double>.Coeffs[ 3]);  // a_3
+        z = FusedMultiplyAdd(a, z, Exp_<double>.Coeffs[ 2]);  // a_2
+        z = FusedMultiplyAdd(a, z, Exp_<double>.Coeffs[ 1]);  // a_1
+        z = FusedMultiplyAdd(a, z, Exp_<double>.Coeffs[ 0]);  // a_0
         return Scale(n, z);
     }
 
@@ -85,16 +119,21 @@ partial class VectorMath
     {
         var y = x * Exp_<float>.Log_2_E;
         var n = Round(y);
-        var a = y - n;
-        var b = a * Exp_<float>.Log_E_2;
-        var z = Exp_<float>._0;                                         // a_7~
-        z = (b * Exp_<float>.Coeffs[6 - 1]) * (Exp_<float>._1 + z);  // a_6
-        z = (b * Exp_<float>.Coeffs[5 - 1]) * (Exp_<float>._1 + z);  // a_5
-        z = (b * Exp_<float>.Coeffs[4 - 1]) * (Exp_<float>._1 + z);  // a_4
-        z = (b * Exp_<float>.Coeffs[3 - 1]) * (Exp_<float>._1 + z);  // a_3
-        z = (b * Exp_<float>.Coeffs[2 - 1]) * (Exp_<float>._1 + z);  // a_2
-        z = (b * Exp_<float>.Coeffs[1 - 1]) * (Exp_<float>._1 + z);  // a_1
-        z = z + Exp_<float>._1;                                         // a_0
+        var a = FusedMultiplyAdd(
+            -n, Exp_<float>.Log_E_2_Lower,
+            FusedMultiplyAdd(
+                -n, Exp_<float>.Log_E_2_Upper,
+                x
+                )
+            );
+        var z = Exp_<float>._0;                             // a_7~
+        z = FusedMultiplyAdd(a, z, Exp_<float>.Coeffs[6]);  // a_6
+        z = FusedMultiplyAdd(a, z, Exp_<float>.Coeffs[5]);  // a_5
+        z = FusedMultiplyAdd(a, z, Exp_<float>.Coeffs[4]);  // a_4
+        z = FusedMultiplyAdd(a, z, Exp_<float>.Coeffs[3]);  // a_3
+        z = FusedMultiplyAdd(a, z, Exp_<float>.Coeffs[2]);  // a_2
+        z = FusedMultiplyAdd(a, z, Exp_<float>.Coeffs[1]);  // a_1
+        z = FusedMultiplyAdd(a, z, Exp_<float>.Coeffs[0]);  // a_0
         return Scale(n, z);
     }
 #pragma warning restore format
