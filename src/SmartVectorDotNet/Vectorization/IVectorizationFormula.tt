@@ -54,12 +54,17 @@ partial class Vectorization
     /// <param name="x<#=j#>"></param>
 <#   } #>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    
     public void Calculate<T, TFormula>(<#=CommaSeparated(1, i, j => $"ReadOnlySpan<T> x{j}")#>, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula<#=i#><T>
     {
 <#   for(var j = 1; j <= i; ++j) { #>
         Guard.ValidArgument(x<#=j#>.Length == ans.Length, "`x<#=j#>` and `ans` must have same length.");
+<#   } #>
+<#   for(var j = 1; j <= i; ++j) { #>
+        using var safeX<#=j#>Buffer = EnsureSourceSafe(ref x<#=j#>, ans);
 <#   } #>
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, <#=CommaSeparated(1, i, j => $"x{j}")#>, ans);
@@ -75,12 +80,16 @@ partial class Vectorization
     /// <param name="x<#=j#>"></param>
 <#   } #>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     public void Calculate<T, TFormula>(ref TFormula formula, <#=CommaSeparated(1, i, j => $"ReadOnlySpan<T> x{j}")#>, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula<#=i#><T>
     {
 <#   for(var j = 1; j <= i; ++j) { #>
         Guard.ValidArgument(x<#=j#>.Length == ans.Length, "`x<#=j#>` and `ans` must have same length.");
+<#   } #>
+<#   for(var j = 1; j <= i; ++j) { #>
+        using var safeX<#=j#>Buffer = EnsureSourceSafe(ref x<#=j#>, ans);
 <#   } #>
         CalculateCore<T, TFormula>(ref formula, <#=CommaSeparated(1, i, j => $"x{j}")#>, ans);
     }
@@ -98,6 +107,13 @@ partial class Vectorization
     /// <param name="x<#=j#>"></param>
 <#   } #>
     /// <param name="ans"></param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, <#=CommaSeparated(1, i, j => $"ReadOnlySpan<T> x{j}")#>, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula<#=i#><T>

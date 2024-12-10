@@ -4,6 +4,36 @@ using OP = ScalarOp;
 partial class ScalarMath
 {
     /// <summary>
+    /// Returns an integer that indicates the sign of a number.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static T Sign<T>(T value)
+        where T : unmanaged
+    {
+        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte)Math.Sign(Reinterpret<T, sbyte >(value)));
+        if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short)Math.Sign(Reinterpret<T, short >(value)));
+        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(Math.Sign(Reinterpret<T, int   >(value)));
+        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(Math.Sign(Reinterpret<T, long  >(value)));
+        if(typeof(T) == typeof(float )) return Reinterpret<float , T>(Math.Sign(Reinterpret<T, float >(value)));
+        if(typeof(T) == typeof(double)) return Reinterpret<double, T>(Math.Sign(Reinterpret<T, double>(value)));
+        #if NET6_0_OR_GREATER
+        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(Math.Sign(Reinterpret<T, nint  >(value)));
+        #else
+        if (typeof(T) == typeof(nint))
+            return IntPtr.Size switch
+            {
+                4 => Reinterpret<int , T>(Math.Sign(Reinterpret<T, int >(value))),
+                8 => Reinterpret<long, T>(Math.Sign(Reinterpret<T, long>(value))),
+                _ => throw new NotSupportedException(),
+            };
+        #endif
+        throw new NotSupportedException();
+    }
+
+
+    /// <summary>
     /// Calculates FMA <c>(x * y) + z</c>.
     /// </summary>
     /// <typeparam name="T"></typeparam>

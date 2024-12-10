@@ -24,18 +24,17 @@ partial class AccuracyAssert
         {
             var yexp = Convert.ToDouble(yExpected);
             var yact = Convert.ToDouble(yActual);
-            bool expIsNaN, actIsNaN;
             if (mode.HasFlag(AccuracyMode.RelaxNaNCheck))
             {
-                expIsNaN = double.IsNaN(yexp) || double.IsInfinity(yexp);
-                actIsNaN = double.IsNaN(yact) || double.IsInfinity(yact);
+                var actIsNaN = double.IsNaN(yact) || double.IsInfinity(yact);
+                return double.IsNaN(yexp) || (double.IsInfinity(yexp) && actIsNaN);
             }
             else
             {
-                expIsNaN = double.IsNaN(yexp);
-                actIsNaN = double.IsNaN(yact);
+                var expIsNaN = double.IsNaN(yexp);
+                var actIsNaN = double.IsNaN(yact);
+                return !(expIsNaN ^ actIsNaN);
             }
-            return !(expIsNaN ^ actIsNaN);
         }
 
         public static partial T ErrorAbs(T exp, T act)

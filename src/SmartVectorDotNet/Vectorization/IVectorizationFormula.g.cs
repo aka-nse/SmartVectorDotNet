@@ -41,11 +41,14 @@ partial class Vectorization
     /// <typeparam name="TFormula"></typeparam>
     /// <param name="x1"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula1<T>
     {
         Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, ans);
     }
@@ -58,11 +61,13 @@ partial class Vectorization
     /// <param name="formula"></param>
     /// <param name="x1"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula1<T>
     {
         Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
         CalculateCore<T, TFormula>(ref formula, x1, ans);
     }
     
@@ -77,6 +82,13 @@ partial class Vectorization
     /// <param name="formula"></param>
     /// <param name="x1"></param>
     /// <param name="ans"></param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula1<T>
@@ -151,12 +163,16 @@ partial class Vectorization
     /// <param name="x1"></param>
     /// <param name="x2"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula2<T>
     {
         Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
         Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, ans);
     }
@@ -170,12 +186,15 @@ partial class Vectorization
     /// <param name="x1"></param>
     /// <param name="x2"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula2<T>
     {
         Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
         Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
         CalculateCore<T, TFormula>(ref formula, x1, x2, ans);
     }
     
@@ -191,6 +210,13 @@ partial class Vectorization
     /// <param name="x1"></param>
     /// <param name="x2"></param>
     /// <param name="ans"></param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula2<T>
@@ -270,6 +296,8 @@ partial class Vectorization
     /// <param name="x2"></param>
     /// <param name="x3"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula3<T>
@@ -277,6 +305,9 @@ partial class Vectorization
         Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
         Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
         Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, ans);
     }
@@ -291,6 +322,7 @@ partial class Vectorization
     /// <param name="x2"></param>
     /// <param name="x3"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula3<T>
@@ -298,6 +330,9 @@ partial class Vectorization
         Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
         Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
         Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, ans);
     }
     
@@ -314,6 +349,13 @@ partial class Vectorization
     /// <param name="x2"></param>
     /// <param name="x3"></param>
     /// <param name="ans"></param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula3<T>
@@ -398,6 +440,8 @@ partial class Vectorization
     /// <param name="x3"></param>
     /// <param name="x4"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula4<T>
@@ -406,6 +450,10 @@ partial class Vectorization
         Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
         Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
         Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
+        using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, ans);
     }
@@ -421,6 +469,7 @@ partial class Vectorization
     /// <param name="x3"></param>
     /// <param name="x4"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula4<T>
@@ -429,6 +478,10 @@ partial class Vectorization
         Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
         Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
         Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
+        using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, ans);
     }
     
@@ -446,6 +499,13 @@ partial class Vectorization
     /// <param name="x3"></param>
     /// <param name="x4"></param>
     /// <param name="ans"></param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula4<T>
@@ -535,6 +595,8 @@ partial class Vectorization
     /// <param name="x4"></param>
     /// <param name="x5"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula5<T>
@@ -544,6 +606,11 @@ partial class Vectorization
         Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
         Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
         Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
+        using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
+        using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, ans);
     }
@@ -560,6 +627,7 @@ partial class Vectorization
     /// <param name="x4"></param>
     /// <param name="x5"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula5<T>
@@ -569,6 +637,11 @@ partial class Vectorization
         Guard.ValidArgument(x3.Length == ans.Length, "`x3` and `ans` must have same length.");
         Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
         Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
+        using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
+        using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, ans);
     }
     
@@ -587,6 +660,13 @@ partial class Vectorization
     /// <param name="x4"></param>
     /// <param name="x5"></param>
     /// <param name="ans"></param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula5<T>
@@ -681,6 +761,8 @@ partial class Vectorization
     /// <param name="x5"></param>
     /// <param name="x6"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula6<T>
@@ -691,6 +773,12 @@ partial class Vectorization
         Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
         Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
         Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
+        using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
+        using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
+        using var safeX6Buffer = EnsureSourceSafe(ref x6, ans);
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, ans);
     }
@@ -708,6 +796,7 @@ partial class Vectorization
     /// <param name="x5"></param>
     /// <param name="x6"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula6<T>
@@ -718,6 +807,12 @@ partial class Vectorization
         Guard.ValidArgument(x4.Length == ans.Length, "`x4` and `ans` must have same length.");
         Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
         Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
+        using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
+        using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
+        using var safeX6Buffer = EnsureSourceSafe(ref x6, ans);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, ans);
     }
     
@@ -737,6 +832,13 @@ partial class Vectorization
     /// <param name="x5"></param>
     /// <param name="x6"></param>
     /// <param name="ans"></param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula6<T>
@@ -836,6 +938,8 @@ partial class Vectorization
     /// <param name="x6"></param>
     /// <param name="x7"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula7<T>
@@ -847,6 +951,13 @@ partial class Vectorization
         Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
         Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
         Guard.ValidArgument(x7.Length == ans.Length, "`x7` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
+        using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
+        using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
+        using var safeX6Buffer = EnsureSourceSafe(ref x6, ans);
+        using var safeX7Buffer = EnsureSourceSafe(ref x7, ans);
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, ans);
     }
@@ -865,6 +976,7 @@ partial class Vectorization
     /// <param name="x6"></param>
     /// <param name="x7"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula7<T>
@@ -876,6 +988,13 @@ partial class Vectorization
         Guard.ValidArgument(x5.Length == ans.Length, "`x5` and `ans` must have same length.");
         Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
         Guard.ValidArgument(x7.Length == ans.Length, "`x7` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
+        using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
+        using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
+        using var safeX6Buffer = EnsureSourceSafe(ref x6, ans);
+        using var safeX7Buffer = EnsureSourceSafe(ref x7, ans);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, ans);
     }
     
@@ -896,6 +1015,13 @@ partial class Vectorization
     /// <param name="x6"></param>
     /// <param name="x7"></param>
     /// <param name="ans"></param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula7<T>
@@ -1000,6 +1126,8 @@ partial class Vectorization
     /// <param name="x7"></param>
     /// <param name="x8"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula8<T>
@@ -1012,6 +1140,14 @@ partial class Vectorization
         Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
         Guard.ValidArgument(x7.Length == ans.Length, "`x7` and `ans` must have same length.");
         Guard.ValidArgument(x8.Length == ans.Length, "`x8` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
+        using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
+        using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
+        using var safeX6Buffer = EnsureSourceSafe(ref x6, ans);
+        using var safeX7Buffer = EnsureSourceSafe(ref x7, ans);
+        using var safeX8Buffer = EnsureSourceSafe(ref x8, ans);
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, ans);
     }
@@ -1031,6 +1167,7 @@ partial class Vectorization
     /// <param name="x7"></param>
     /// <param name="x8"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula8<T>
@@ -1043,6 +1180,14 @@ partial class Vectorization
         Guard.ValidArgument(x6.Length == ans.Length, "`x6` and `ans` must have same length.");
         Guard.ValidArgument(x7.Length == ans.Length, "`x7` and `ans` must have same length.");
         Guard.ValidArgument(x8.Length == ans.Length, "`x8` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
+        using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
+        using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
+        using var safeX6Buffer = EnsureSourceSafe(ref x6, ans);
+        using var safeX7Buffer = EnsureSourceSafe(ref x7, ans);
+        using var safeX8Buffer = EnsureSourceSafe(ref x8, ans);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, ans);
     }
     
@@ -1064,6 +1209,13 @@ partial class Vectorization
     /// <param name="x7"></param>
     /// <param name="x8"></param>
     /// <param name="ans"></param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula8<T>
@@ -1173,6 +1325,8 @@ partial class Vectorization
     /// <param name="x8"></param>
     /// <param name="x9"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula9<T>
@@ -1186,6 +1340,15 @@ partial class Vectorization
         Guard.ValidArgument(x7.Length == ans.Length, "`x7` and `ans` must have same length.");
         Guard.ValidArgument(x8.Length == ans.Length, "`x8` and `ans` must have same length.");
         Guard.ValidArgument(x9.Length == ans.Length, "`x9` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
+        using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
+        using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
+        using var safeX6Buffer = EnsureSourceSafe(ref x6, ans);
+        using var safeX7Buffer = EnsureSourceSafe(ref x7, ans);
+        using var safeX8Buffer = EnsureSourceSafe(ref x8, ans);
+        using var safeX9Buffer = EnsureSourceSafe(ref x9, ans);
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, ans);
     }
@@ -1206,6 +1369,7 @@ partial class Vectorization
     /// <param name="x8"></param>
     /// <param name="x9"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula9<T>
@@ -1219,6 +1383,15 @@ partial class Vectorization
         Guard.ValidArgument(x7.Length == ans.Length, "`x7` and `ans` must have same length.");
         Guard.ValidArgument(x8.Length == ans.Length, "`x8` and `ans` must have same length.");
         Guard.ValidArgument(x9.Length == ans.Length, "`x9` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
+        using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
+        using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
+        using var safeX6Buffer = EnsureSourceSafe(ref x6, ans);
+        using var safeX7Buffer = EnsureSourceSafe(ref x7, ans);
+        using var safeX8Buffer = EnsureSourceSafe(ref x8, ans);
+        using var safeX9Buffer = EnsureSourceSafe(ref x9, ans);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, ans);
     }
     
@@ -1241,6 +1414,13 @@ partial class Vectorization
     /// <param name="x8"></param>
     /// <param name="x9"></param>
     /// <param name="ans"></param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula9<T>
@@ -1355,6 +1535,8 @@ partial class Vectorization
     /// <param name="x9"></param>
     /// <param name="x10"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, ReadOnlySpan<T> x10, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula10<T>
@@ -1369,6 +1551,16 @@ partial class Vectorization
         Guard.ValidArgument(x8.Length == ans.Length, "`x8` and `ans` must have same length.");
         Guard.ValidArgument(x9.Length == ans.Length, "`x9` and `ans` must have same length.");
         Guard.ValidArgument(x10.Length == ans.Length, "`x10` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
+        using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
+        using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
+        using var safeX6Buffer = EnsureSourceSafe(ref x6, ans);
+        using var safeX7Buffer = EnsureSourceSafe(ref x7, ans);
+        using var safeX8Buffer = EnsureSourceSafe(ref x8, ans);
+        using var safeX9Buffer = EnsureSourceSafe(ref x9, ans);
+        using var safeX10Buffer = EnsureSourceSafe(ref x10, ans);
         var formula = default(TFormula);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, ans);
     }
@@ -1390,6 +1582,7 @@ partial class Vectorization
     /// <param name="x9"></param>
     /// <param name="x10"></param>
     /// <param name="ans"></param>
+    /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, ReadOnlySpan<T> x10, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula10<T>
@@ -1404,6 +1597,16 @@ partial class Vectorization
         Guard.ValidArgument(x8.Length == ans.Length, "`x8` and `ans` must have same length.");
         Guard.ValidArgument(x9.Length == ans.Length, "`x9` and `ans` must have same length.");
         Guard.ValidArgument(x10.Length == ans.Length, "`x10` and `ans` must have same length.");
+        using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
+        using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
+        using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
+        using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
+        using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
+        using var safeX6Buffer = EnsureSourceSafe(ref x6, ans);
+        using var safeX7Buffer = EnsureSourceSafe(ref x7, ans);
+        using var safeX8Buffer = EnsureSourceSafe(ref x8, ans);
+        using var safeX9Buffer = EnsureSourceSafe(ref x9, ans);
+        using var safeX10Buffer = EnsureSourceSafe(ref x10, ans);
         CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, ans);
     }
     
@@ -1427,6 +1630,13 @@ partial class Vectorization
     /// <param name="x9"></param>
     /// <param name="x10"></param>
     /// <param name="ans"></param>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, ReadOnlySpan<T> x10, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula10<T>

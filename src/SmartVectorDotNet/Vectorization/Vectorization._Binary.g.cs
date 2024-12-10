@@ -8,63 +8,74 @@ namespace SmartVectorDotNet;
 partial class Vectorization
 {
     /// <summary>
-    /// Operates add for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates add for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="y"/> and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void Add<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         AddCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates add for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates add for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void Add<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         AddCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates add for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates add for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void Add<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         AddCore(x, y, ans);
     }
-
-
+    
     /// <summary>
     /// Core implementation for <see cref="Add{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void AddCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -77,9 +88,17 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void AddCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -92,16 +111,23 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void AddCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = ScalarOp.Add(x[i], y[i]);
     }
-
 }
 
 partial class SimdVectorization
@@ -177,63 +203,74 @@ partial class SimdVectorization
 partial class Vectorization
 {
     /// <summary>
-    /// Operates subtract for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates subtract for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="y"/> and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void Subtract<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         SubtractCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates subtract for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates subtract for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void Subtract<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         SubtractCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates subtract for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates subtract for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void Subtract<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         SubtractCore(x, y, ans);
     }
-
-
+    
     /// <summary>
     /// Core implementation for <see cref="Subtract{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void SubtractCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -246,9 +283,17 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void SubtractCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -261,16 +306,23 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void SubtractCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = ScalarOp.Subtract(x[i], y[i]);
     }
-
 }
 
 partial class SimdVectorization
@@ -346,63 +398,74 @@ partial class SimdVectorization
 partial class Vectorization
 {
     /// <summary>
-    /// Operates multiply for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates multiply for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="y"/> and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void Multiply<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         MultiplyCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates multiply for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates multiply for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void Multiply<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         MultiplyCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates multiply for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates multiply for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void Multiply<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         MultiplyCore(x, y, ans);
     }
-
-
+    
     /// <summary>
     /// Core implementation for <see cref="Multiply{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void MultiplyCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -415,9 +478,17 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void MultiplyCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -430,16 +501,23 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void MultiplyCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = ScalarOp.Multiply(x[i], y[i]);
     }
-
 }
 
 partial class SimdVectorization
@@ -515,63 +593,74 @@ partial class SimdVectorization
 partial class Vectorization
 {
     /// <summary>
-    /// Operates divide for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates divide for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="y"/> and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void Divide<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         DivideCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates divide for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates divide for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void Divide<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         DivideCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates divide for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates divide for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void Divide<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         DivideCore(x, y, ans);
     }
-
-
+    
     /// <summary>
     /// Core implementation for <see cref="Divide{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void DivideCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -584,9 +673,17 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void DivideCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -599,16 +696,23 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void DivideCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = ScalarOp.Divide(x[i], y[i]);
     }
-
 }
 
 partial class SimdVectorization
@@ -684,63 +788,74 @@ partial class SimdVectorization
 partial class Vectorization
 {
     /// <summary>
-    /// Operates bitwiseand for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates bitwiseand for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="y"/> and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void BitwiseAnd<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         BitwiseAndCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates bitwiseand for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates bitwiseand for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void BitwiseAnd<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         BitwiseAndCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates bitwiseand for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates bitwiseand for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void BitwiseAnd<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         BitwiseAndCore(x, y, ans);
     }
-
-
+    
     /// <summary>
     /// Core implementation for <see cref="BitwiseAnd{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void BitwiseAndCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -753,9 +868,17 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void BitwiseAndCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -768,16 +891,23 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void BitwiseAndCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = ScalarOp.BitwiseAnd(x[i], y[i]);
     }
-
 }
 
 partial class SimdVectorization
@@ -853,63 +983,74 @@ partial class SimdVectorization
 partial class Vectorization
 {
     /// <summary>
-    /// Operates bitwiseor for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates bitwiseor for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="y"/> and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void BitwiseOr<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         BitwiseOrCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates bitwiseor for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates bitwiseor for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void BitwiseOr<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         BitwiseOrCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates bitwiseor for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates bitwiseor for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void BitwiseOr<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         BitwiseOrCore(x, y, ans);
     }
-
-
+    
     /// <summary>
     /// Core implementation for <see cref="BitwiseOr{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void BitwiseOrCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -922,9 +1063,17 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void BitwiseOrCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -937,16 +1086,23 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void BitwiseOrCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = ScalarOp.BitwiseOr(x[i], y[i]);
     }
-
 }
 
 partial class SimdVectorization
@@ -1022,63 +1178,74 @@ partial class SimdVectorization
 partial class Vectorization
 {
     /// <summary>
-    /// Operates bitwisexor for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates bitwisexor for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="y"/> and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void BitwiseXor<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         BitwiseXorCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates bitwisexor for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates bitwisexor for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void BitwiseXor<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         BitwiseXorCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates bitwisexor for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates bitwisexor for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void BitwiseXor<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         BitwiseXorCore(x, y, ans);
     }
-
-
+    
     /// <summary>
     /// Core implementation for <see cref="BitwiseXor{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void BitwiseXorCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1091,9 +1258,17 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void BitwiseXorCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1106,16 +1281,23 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void BitwiseXorCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = ScalarOp.BitwiseXor(x[i], y[i]);
     }
-
 }
 
 partial class SimdVectorization
@@ -1191,70 +1373,79 @@ partial class SimdVectorization
 partial class Vectorization
 {
     /// <summary>
-    /// Operates equals for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates equals for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="y"/> and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void Equals<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         EqualsCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates equals for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates equals for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void Equals<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         EqualsCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates equals for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates equals for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void Equals<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         EqualsCore(x, y, ans);
     }
-
-
+    
     /// <summary>
     /// Core implementation for <see cref="Equals{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void EqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Equals(x, y[i])
-                ? ScalarOp.True<T>()
-                : ScalarOp.False<T>();
+            ans[i] = ScalarOp.Equals(x, y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
     }
     
     /// <summary>
@@ -1262,16 +1453,22 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void EqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Equals(x[i], y)
-                ? ScalarOp.True<T>()
-                : ScalarOp.False<T>();
+            ans[i] = ScalarOp.Equals(x[i], y) ? ScalarOp.True<T>() : ScalarOp.False<T>();
     }
     
     /// <summary>
@@ -1279,18 +1476,23 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void EqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Equals(x[i], y[i])
-                ? ScalarOp.True<T>()
-                : ScalarOp.False<T>();
+            ans[i] = ScalarOp.Equals(x[i], y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
     }
-
 }
 
 partial class SimdVectorization
@@ -1366,70 +1568,79 @@ partial class SimdVectorization
 partial class Vectorization
 {
     /// <summary>
-    /// Operates lessthan for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates lessthan for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="y"/> and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void LessThan<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         LessThanCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates lessthan for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates lessthan for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void LessThan<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         LessThanCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates lessthan for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates lessthan for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void LessThan<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         LessThanCore(x, y, ans);
     }
-
-
+    
     /// <summary>
     /// Core implementation for <see cref="LessThan{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void LessThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThan(x, y[i])
-                ? ScalarOp.True<T>()
-                : ScalarOp.False<T>();
+            ans[i] = ScalarOp.LessThan(x, y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
     }
     
     /// <summary>
@@ -1437,16 +1648,22 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void LessThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThan(x[i], y)
-                ? ScalarOp.True<T>()
-                : ScalarOp.False<T>();
+            ans[i] = ScalarOp.LessThan(x[i], y) ? ScalarOp.True<T>() : ScalarOp.False<T>();
     }
     
     /// <summary>
@@ -1454,18 +1671,23 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void LessThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThan(x[i], y[i])
-                ? ScalarOp.True<T>()
-                : ScalarOp.False<T>();
+            ans[i] = ScalarOp.LessThan(x[i], y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
     }
-
 }
 
 partial class SimdVectorization
@@ -1541,70 +1763,79 @@ partial class SimdVectorization
 partial class Vectorization
 {
     /// <summary>
-    /// Operates lessthanorequals for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates lessthanorequals for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="y"/> and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void LessThanOrEquals<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         LessThanOrEqualsCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates lessthanorequals for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates lessthanorequals for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void LessThanOrEquals<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         LessThanOrEqualsCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates lessthanorequals for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates lessthanorequals for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void LessThanOrEquals<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         LessThanOrEqualsCore(x, y, ans);
     }
-
-
+    
     /// <summary>
     /// Core implementation for <see cref="LessThanOrEquals{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void LessThanOrEqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThanOrEquals(x, y[i])
-                ? ScalarOp.True<T>()
-                : ScalarOp.False<T>();
+            ans[i] = ScalarOp.LessThanOrEquals(x, y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
     }
     
     /// <summary>
@@ -1612,16 +1843,22 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void LessThanOrEqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThanOrEquals(x[i], y)
-                ? ScalarOp.True<T>()
-                : ScalarOp.False<T>();
+            ans[i] = ScalarOp.LessThanOrEquals(x[i], y) ? ScalarOp.True<T>() : ScalarOp.False<T>();
     }
     
     /// <summary>
@@ -1629,18 +1866,23 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void LessThanOrEqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThanOrEquals(x[i], y[i])
-                ? ScalarOp.True<T>()
-                : ScalarOp.False<T>();
+            ans[i] = ScalarOp.LessThanOrEquals(x[i], y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
     }
-
 }
 
 partial class SimdVectorization
@@ -1716,70 +1958,79 @@ partial class SimdVectorization
 partial class Vectorization
 {
     /// <summary>
-    /// Operates greaterthan for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates greaterthan for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="y"/> and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void GreaterThan<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         GreaterThanCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates greaterthan for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates greaterthan for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void GreaterThan<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         GreaterThanCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates greaterthan for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates greaterthan for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void GreaterThan<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         GreaterThanCore(x, y, ans);
     }
-
-
+    
     /// <summary>
     /// Core implementation for <see cref="GreaterThan{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void GreaterThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThan(x, y[i])
-                ? ScalarOp.True<T>()
-                : ScalarOp.False<T>();
+            ans[i] = ScalarOp.GreaterThan(x, y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
     }
     
     /// <summary>
@@ -1787,16 +2038,22 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void GreaterThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThan(x[i], y)
-                ? ScalarOp.True<T>()
-                : ScalarOp.False<T>();
+            ans[i] = ScalarOp.GreaterThan(x[i], y) ? ScalarOp.True<T>() : ScalarOp.False<T>();
     }
     
     /// <summary>
@@ -1804,18 +2061,23 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void GreaterThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThan(x[i], y[i])
-                ? ScalarOp.True<T>()
-                : ScalarOp.False<T>();
+            ans[i] = ScalarOp.GreaterThan(x[i], y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
     }
-
 }
 
 partial class SimdVectorization
@@ -1891,70 +2153,79 @@ partial class SimdVectorization
 partial class Vectorization
 {
     /// <summary>
-    /// Operates greaterthanorequals for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates greaterthanorequals for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="y"/> and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void GreaterThanOrEquals<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         GreaterThanOrEqualsCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates greaterthanorequals for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates greaterthanorequals for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void GreaterThanOrEquals<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         GreaterThanOrEqualsCore(x, y, ans);
     }
-
+    
     /// <summary>
-    /// Operates greaterthanorequals for each corresponding elements of <paramref name="x"/> and <paramref name="y"/>.
+    /// Operates greaterthanorequals for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="x"/>, <paramref name="y"/>, and <paramref name="ans"/> must have same length. </exception>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     public void GreaterThanOrEquals<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
         GreaterThanOrEqualsCore(x, y, ans);
     }
-
-
+    
     /// <summary>
     /// Core implementation for <see cref="GreaterThanOrEquals{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void GreaterThanOrEqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThanOrEquals(x, y[i])
-                ? ScalarOp.True<T>()
-                : ScalarOp.False<T>();
+            ans[i] = ScalarOp.GreaterThanOrEquals(x, y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
     }
     
     /// <summary>
@@ -1962,16 +2233,22 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void GreaterThanOrEqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThanOrEquals(x[i], y)
-                ? ScalarOp.True<T>()
-                : ScalarOp.False<T>();
+            ans[i] = ScalarOp.GreaterThanOrEquals(x[i], y) ? ScalarOp.True<T>() : ScalarOp.False<T>();
     }
     
     /// <summary>
@@ -1979,18 +2256,23 @@ partial class Vectorization
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The left hand side operand elements. </param>
-    /// <param name="y"> The right hand side operand elements. </param>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
     protected internal virtual void GreaterThanOrEqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThanOrEquals(x[i], y[i])
-                ? ScalarOp.True<T>()
-                : ScalarOp.False<T>();
+            ans[i] = ScalarOp.GreaterThanOrEquals(x[i], y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
     }
-
 }
 
 partial class SimdVectorization
@@ -2056,6 +2338,591 @@ partial class SimdVectorization
             x.Slice(vectorLength).CopyTo(vx);
             y.Slice(vectorLength).CopyTo(vy);
             Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.GreaterThanOrEqual(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+}
+#endregion
+
+#region atan2
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates atan2 for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="y"> The 1st operand elements. </param>
+    /// <param name="x"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    public void Atan2<T>(T y, ReadOnlySpan<T> x, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref x, ans);
+        Atan2Core(y, x, ans);
+    }
+    
+    /// <summary>
+    /// Operates atan2 for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="y"> The 1st operand elements. </param>
+    /// <param name="x"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    public void Atan2<T>(ReadOnlySpan<T> y, T x, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref y, ans);
+        Atan2Core(y, x, ans);
+    }
+    
+    /// <summary>
+    /// Operates atan2 for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="y"> The 1st operand elements. </param>
+    /// <param name="x"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    public void Atan2<T>(ReadOnlySpan<T> y, ReadOnlySpan<T> x, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref y, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref x, ans);
+        Atan2Core(y, x, ans);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="Atan2{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="y"> The 1st operand elements. </param>
+    /// <param name="x"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    protected internal virtual void Atan2Core<T>(T y, ReadOnlySpan<T> x, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Atan2(y, x[i]);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="Atan2{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="y"> The 1st operand elements. </param>
+    /// <param name="x"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    protected internal virtual void Atan2Core<T>(ReadOnlySpan<T> y, T x, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Atan2(y[i], x);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="Atan2{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="y"> The 1st operand elements. </param>
+    /// <param name="x"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    protected internal virtual void Atan2Core<T>(ReadOnlySpan<T> y, ReadOnlySpan<T> x, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Atan2(y[i], x[i]);
+    }
+}
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    protected internal override sealed void Atan2Core<T>(T y, ReadOnlySpan<T> x, Span<T> ans)
+    {
+        var vectorX = new Vector<T>(y);
+        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Atan2(vectorX, vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vy = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vy);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Atan2(vectorX, Unsafe.As<T, Vector<T>>(ref vy[0])); 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override sealed void Atan2Core<T>(ReadOnlySpan<T> y, T x, Span<T> ans)
+    {
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(y);
+        var vectorY = new Vector<T>(x);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Atan2(vectorX[i], vectorY);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            y.Slice(vectorLength).CopyTo(vx);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Atan2(Unsafe.As<T, Vector<T>>(ref vx[0]), vectorY); 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override sealed void Atan2Core<T>(ReadOnlySpan<T> y, ReadOnlySpan<T> x, Span<T> ans)
+    {
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(y);
+        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Atan2(vectorX[i], vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            var vy = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            y.Slice(vectorLength).CopyTo(vx);
+            x.Slice(vectorLength).CopyTo(vy);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Atan2(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+}
+#endregion
+
+#region log
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates log for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="newBase"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    public void Log<T>(T x, ReadOnlySpan<T> newBase, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(newBase.Length == ans.Length, "`newBase` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref newBase, ans);
+        LogCore(x, newBase, ans);
+    }
+    
+    /// <summary>
+    /// Operates log for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="newBase"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    public void Log<T>(ReadOnlySpan<T> x, T newBase, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        LogCore(x, newBase, ans);
+    }
+    
+    /// <summary>
+    /// Operates log for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="newBase"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    public void Log<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> newBase, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(newBase.Length == ans.Length, "`newBase` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref newBase, ans);
+        LogCore(x, newBase, ans);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="Log{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="newBase"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    protected internal virtual void LogCore<T>(T x, ReadOnlySpan<T> newBase, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Log(x, newBase[i]);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="Log{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="newBase"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    protected internal virtual void LogCore<T>(ReadOnlySpan<T> x, T newBase, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Log(x[i], newBase);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="Log{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="newBase"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    protected internal virtual void LogCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> newBase, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Log(x[i], newBase[i]);
+    }
+}
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    protected internal override sealed void LogCore<T>(T x, ReadOnlySpan<T> newBase, Span<T> ans)
+    {
+        var vectorX = new Vector<T>(x);
+        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(newBase);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Log(vectorX, vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vy = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            newBase.Slice(vectorLength).CopyTo(vy);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log(vectorX, Unsafe.As<T, Vector<T>>(ref vy[0])); 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override sealed void LogCore<T>(ReadOnlySpan<T> x, T newBase, Span<T> ans)
+    {
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorY = new Vector<T>(newBase);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Log(vectorX[i], vectorY);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vx);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log(Unsafe.As<T, Vector<T>>(ref vx[0]), vectorY); 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override sealed void LogCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> newBase, Span<T> ans)
+    {
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(newBase);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Log(vectorX[i], vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            var vy = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vx);
+            newBase.Slice(vectorLength).CopyTo(vy);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+}
+#endregion
+
+#region pow
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates pow for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="a"> The 1st operand elements. </param>
+    /// <param name="x"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    public void Pow<T>(T a, ReadOnlySpan<T> x, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref x, ans);
+        PowCore(a, x, ans);
+    }
+    
+    /// <summary>
+    /// Operates pow for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="a"> The 1st operand elements. </param>
+    /// <param name="x"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    public void Pow<T>(ReadOnlySpan<T> a, T x, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(a.Length == ans.Length, "`a` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref a, ans);
+        PowCore(a, x, ans);
+    }
+    
+    /// <summary>
+    /// Operates pow for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="a"> The 1st operand elements. </param>
+    /// <param name="x"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    public void Pow<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> x, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(a.Length == ans.Length, "`a` and `ans` must have same length.");
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref a, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref x, ans);
+        PowCore(a, x, ans);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="Pow{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="a"> The 1st operand elements. </param>
+    /// <param name="x"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    protected internal virtual void PowCore<T>(T a, ReadOnlySpan<T> x, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Pow(x[i], x[i]);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="Pow{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="a"> The 1st operand elements. </param>
+    /// <param name="x"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    protected internal virtual void PowCore<T>(ReadOnlySpan<T> a, T x, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Pow(x, x);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="Pow{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="a"> The 1st operand elements. </param>
+    /// <param name="x"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    protected internal virtual void PowCore<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> x, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarMath.Pow(x[i], x[i]);
+    }
+}
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    protected internal override sealed void PowCore<T>(T a, ReadOnlySpan<T> x, Span<T> ans)
+    {
+        var vectorX = new Vector<T>(a);
+        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Pow(vectorY[i], vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vy = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vy);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Pow(Unsafe.As<T, Vector<T>>(ref vy[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override sealed void PowCore<T>(ReadOnlySpan<T> a, T x, Span<T> ans)
+    {
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(a);
+        var vectorY = new Vector<T>(x);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Pow(vectorY, vectorY);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            a.Slice(vectorLength).CopyTo(vx);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Pow(vectorY, vectorY); 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override sealed void PowCore<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> x, Span<T> ans)
+    {
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(a);
+        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorMath.Pow(vectorY[i], vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            var vy = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            a.Slice(vectorLength).CopyTo(vx);
+            x.Slice(vectorLength).CopyTo(vy);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Pow(Unsafe.As<T, Vector<T>>(ref vy[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
