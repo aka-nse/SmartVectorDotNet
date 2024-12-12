@@ -6,30 +6,33 @@ using H = InternalHelpers;
 file class Sin_<T> : VectorMath.Const<T> where T : unmanaged
 {
     internal static ReadOnlySpan<Vector<T>> Coeffs => _coeffs;
-    private static readonly Vector<T>[] _coeffs = GetSinCoeffs();
-    static Vector<T>[] GetSinCoeffs()
+    private static readonly Vector<T>[] _coeffs;
+
+    static Sin_()
     {
         if (IsT<double>())
         {
-            var cosCoeffs = new Vector<double>[11];
-            for (var n = 1; n <= 11; ++n)
+            var cosCoeffs = new Vector<double>[10];
+            for (var n = 1; n <= cosCoeffs.Length; ++n)
             {
-                double value = 1.0 / ((2 * n + 1) * (2 * n));
-                cosCoeffs[n - 1] = new(value);
+                var _2n = 2 * n;
+                cosCoeffs[n - 1] = new(-1.0 / (_2n * (_2n + 1)));
             }
-            return H.ReinterpretVArray<double, T>(cosCoeffs);
+            _coeffs = H.ReinterpretVArray<double, T>(cosCoeffs);
+            return;
         }
         if (IsT<float>())
         {
             var cosCoeffs = new Vector<float>[6];
-            for (var n = 1; n <= 6; ++n)
+            for (var n = 1; n <= cosCoeffs.Length; ++n)
             {
-                float value = 1.0f / ((2 * n + 1) * (2 * n));
-                cosCoeffs[n - 1] = new(value);
+                var _2n = 2 * n;
+                cosCoeffs[n - 1] = new((float)(-1.0 / (_2n * (_2n + 1))));
             }
-            return H.ReinterpretVArray<float, T>(cosCoeffs);
+            _coeffs = H.ReinterpretVArray<float, T>(cosCoeffs);
+            return;
         }
-        return default!;
+        _coeffs = default!;
     }
 }
 
@@ -66,33 +69,38 @@ partial class VectorMath
     /// <param name="x"> $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ </param>
     private static Vector<double> SinBounded(Vector<double> x)
     {
-        Vector<double> y;
+        var coeffs = Sin_<double>.Coeffs;
+        var _1 = Sin_<double>._1;
+
         var x2 = x * x;
-        y = x2 * Sin_<double>.Coeffs[10];                          // a_11~
-        y = x2 * Sin_<double>.Coeffs[ 9] * (Sin_<double>._1 - y);  // a_10
-        y = x2 * Sin_<double>.Coeffs[ 8] * (Sin_<double>._1 - y);  // a_9
-        y = x2 * Sin_<double>.Coeffs[ 7] * (Sin_<double>._1 - y);  // a_8
-        y = x2 * Sin_<double>.Coeffs[ 6] * (Sin_<double>._1 - y);  // a_7
-        y = x2 * Sin_<double>.Coeffs[ 5] * (Sin_<double>._1 - y);  // a_6
-        y = x2 * Sin_<double>.Coeffs[ 4] * (Sin_<double>._1 - y);  // a_5
-        y = x2 * Sin_<double>.Coeffs[ 3] * (Sin_<double>._1 - y);  // a_4
-        y = x2 * Sin_<double>.Coeffs[ 2] * (Sin_<double>._1 - y);  // a_3
-        y = x2 * Sin_<double>.Coeffs[ 1] * (Sin_<double>._1 - y);  // a_2
-        y = x2 * Sin_<double>.Coeffs[ 0] * (Sin_<double>._1 - y);  // a_1
-        return x * (Sin_<double>._1 - y);                          // 1 - a_1
+        var y = _1;
+        y = FusedMultiplyAdd(coeffs[10 - 1] * x2, y, _1);  // a_10
+        y = FusedMultiplyAdd(coeffs[ 9 - 1] * x2, y, _1);  // a_9
+        y = FusedMultiplyAdd(coeffs[ 8 - 1] * x2, y, _1);  // a_8
+        y = FusedMultiplyAdd(coeffs[ 7 - 1] * x2, y, _1);  // a_7
+        y = FusedMultiplyAdd(coeffs[ 6 - 1] * x2, y, _1);  // a_6
+        y = FusedMultiplyAdd(coeffs[ 5 - 1] * x2, y, _1);  // a_5
+        y = FusedMultiplyAdd(coeffs[ 4 - 1] * x2, y, _1);  // a_4
+        y = FusedMultiplyAdd(coeffs[ 3 - 1] * x2, y, _1);  // a_3
+        y = FusedMultiplyAdd(coeffs[ 2 - 1] * x2, y, _1);  // a_2
+        y = FusedMultiplyAdd(coeffs[ 1 - 1] * x2, y, _1);  // a_1
+        return x * y;
     }
 
     /// <param name="x"> $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ </param>
     private static Vector<float> SinBounded(Vector<float> x)
     {
-        Vector<float> y;
+        var coeffs = Sin_<float>.Coeffs;
+        var _1 = Sin_<float>._1;
+
         var x2 = x * x;
-        y = x2 * Sin_<float>.Coeffs[5];                         // a_6~
-        y = x2 * Sin_<float>.Coeffs[4] * (Sin_<float>._1 - y);  // a_5
-        y = x2 * Sin_<float>.Coeffs[3] * (Sin_<float>._1 - y);  // a_4
-        y = x2 * Sin_<float>.Coeffs[2] * (Sin_<float>._1 - y);  // a_3
-        y = x2 * Sin_<float>.Coeffs[1] * (Sin_<float>._1 - y);  // a_2
-        y = x2 * Sin_<float>.Coeffs[0] * (Sin_<float>._1 - y);  // a_1
-        return x * (Sin_<float>._1 - y);                        // 1 - a_1
+        var y = _1;
+        y = FusedMultiplyAdd(coeffs[6 - 1] * x2, y, _1);  // a_6
+        y = FusedMultiplyAdd(coeffs[5 - 1] * x2, y, _1);  // a_5
+        y = FusedMultiplyAdd(coeffs[4 - 1] * x2, y, _1);  // a_4
+        y = FusedMultiplyAdd(coeffs[3 - 1] * x2, y, _1);  // a_3
+        y = FusedMultiplyAdd(coeffs[2 - 1] * x2, y, _1);  // a_2
+        y = FusedMultiplyAdd(coeffs[1 - 1] * x2, y, _1);  // a_1
+        return x * y;
     }
 }
