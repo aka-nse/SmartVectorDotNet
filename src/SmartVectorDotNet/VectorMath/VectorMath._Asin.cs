@@ -17,5 +17,5 @@ partial class VectorMath
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<T> Asin<T>(Vector<T> x)
         where T : unmanaged
-        => Asin_<T>._2 * Atan(x / (x + Sqrt(Asin_<T>._1 - x * x)));
+        => Asin_<T>._2 * Atan(x / (Asin_<T>._1 + Sqrt(Asin_<T>._1 - x * x)));
 }
