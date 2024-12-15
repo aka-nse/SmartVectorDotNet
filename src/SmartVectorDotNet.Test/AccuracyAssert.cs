@@ -53,13 +53,18 @@ internal static partial class AccuracyAssert
             }
             failedX.Add(x[i]);
         }
+
+        var largestError = errors.Max();
+        var argLargestError = x[Array.IndexOf(errors, largestError)];
+        sb.AppendLine();
+        sb.AppendLine($"maximum error: {largestError:0.000e+00} at x={argLargestError}");
         output?.WriteLine(sb.ToString());
         if(failedX.Count > 0)
         {
             Assert.Fail(
                 $"Errors are greater than threshold at {failedX.Count} points.\r\n"
                 + $"(test type: {typeof(T)})\r\n"
-                + $"(maximum error: {errors.Max():0.000e+00})");
+                + $"(maximum error: {largestError:0.000e+00} at x={argLargestError})");
         }
     }
 
