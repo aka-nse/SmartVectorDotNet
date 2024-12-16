@@ -25,6 +25,10 @@ internal static partial class AccuracyAssert
         {
             throw new ArgumentException();
         }
+        if (x.Length == 0)
+        {
+            return;
+        }
 
         var errors = Enumerable.Zip<T, T, T>(
             yExpected,
