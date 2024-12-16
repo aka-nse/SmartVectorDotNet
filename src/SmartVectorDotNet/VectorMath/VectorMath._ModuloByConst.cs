@@ -43,7 +43,13 @@ file class ModuloByConst_<T> : VectorMath.Const<T> where T : unmanaged
 
 partial class VectorMath
 {
-    private static Vector<T> ModuloByTau<T>(Vector<T> x)
+    /// <summary>
+    /// Calculates `x % Tau`.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<T> ModuloByTau<T>(Vector<T> x)
         where T : unmanaged
     {
         var quotient = Floor(x * ModuloByConst_<T>.OnePerTau);
@@ -51,8 +57,13 @@ partial class VectorMath
         return FusedMultiplyAdd(quotient, -ModuloByConst_<T>.TauLower, reminderHigh);
     }
 
-
-    private static Vector<T> ModuloByPI<T>(Vector<T> x)
+    /// <summary>
+    /// Calculates `x % Pi`.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<T> ModuloByPI<T>(Vector<T> x)
         where T : unmanaged
     {
         var quotient = Floor(x * ModuloByConst_<T>.OnePerPi);
@@ -60,8 +71,14 @@ partial class VectorMath
         return FusedMultiplyAdd(quotient, -ModuloByConst_<T>.PILower, reminderHigh);
     }
 
-
-    private static Vector<T> ModuloBy2<T>(Vector<T> x)
+    /// <summary>
+    /// Calculates `x % 2`.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public static Vector<T> ModuloBy2<T>(Vector<T> x)
         where T : unmanaged
     {
 #pragma warning disable format
