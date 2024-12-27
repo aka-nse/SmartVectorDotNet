@@ -41,7 +41,7 @@ They can be transformed as followings:
 $$
 \begin{align*}
 1.6974669 \times 10^{37}
-&= \mathrm{0xCC533D} \times 2^{123}\\
+&= (1 + \mathrm{0x4C533D} \times 2^{-23}) \times 2^{123}\\
 \left( \cfrac{\ \pi\ }{2} \right)^{-1}
 &=  \cfrac{\rm 0xA2}{2^{8}} +
     \cfrac{\rm 0xF9}{2^{16}} +
@@ -71,7 +71,7 @@ x\mod\alpha
     1.6974669 \times 10^{37} \times\left(\frac{\pi}{2}\right)^{-1}\mod 1
 \right\}  \\
 &= \cfrac{\ \pi\ }{2}\cdot\left[\left\{
-    \texttt{0xCC533D} \times 2^{123} \times \left(
+    \texttt{0xCC533D} \times 2^{100} \times \left(
         \cfrac{\texttt{0xA2}}{2^{8}} +
         \cfrac{\texttt{0xF9}}{2^{16}} +
         \cfrac{\texttt{0x83}}{2^{24}} +
@@ -83,39 +83,39 @@ x\mod\alpha
 &= \cfrac{\ \pi\ }{2}\cdot\left\{\left(
     \begin{array}{l}
         \left.\begin{array}{lrcl}
-             &\texttt{0x814CAC9A} &\times& 2^{123-8}    \\
-            +&\texttt{0xC6BCF655} &\times& 2^{123-16}   \\
-            +&\texttt{0x688E9837} &\times& 2^{123-24}   \\
+             &\texttt{0x814CAC9A} &\times& 2^{100-8}    \\
+            +&\texttt{0xC6BCF655} &\times& 2^{100-16}   \\
+            +&\texttt{0x688E9837} &\times& 2^{100-24}   \\
             +&\cdots              &      &              \\
-            +&\texttt{0xB063DBA9} &\times& 2^{123-120}  \\
+            +&\texttt{0xA6CFF4CD} &\times& 2^{100-96}  \\
         \end{array} \color{#DDD}\right\}\color{#000} \textcolor{#DDD}{\rm ignorable}\\[7ex]
         \begin{array}{lrcl}
-            +&\texttt{0x993E6DC0} &\times& 2^{123-128}  \\
-            +&\texttt{0xAECB352F} &\times& 2^{123-136}  \\
-            +&\texttt{0x4E37DD5A} &\times& 2^{123-144}  \\
-            +&\texttt{0x76EC7281} &\times& 2^{123-152}  \\
-            +&\texttt{0x7A1DBF75} &\times& 2^{123-160}  \\
-            +&\texttt{0x2FE3824C} &\times& 2^{123-168}  \\
-            +&\texttt{0x3579C8F7} &\times& 2^{123-176}  \\
+            +&\texttt{0xC38BA961} &\times& 2^{100-104}  \\
+            +&\texttt{0x2980E864} &\times& 2^{100-112}  \\
+            +&\texttt{0xB063DBA9} &\times& 2^{100-120}  \\
+            +&\texttt{0x993E6DC0} &\times& 2^{100-128}  \\
+            +&\texttt{0xAECB352F} &\times& 2^{100-136}  \\
+            +&\texttt{0x4E37DD5A} &\times& 2^{100-144}  \\
+            +&\texttt{0x76EC7281} &\times& 2^{100-152}  \\
         \end{array}\\
         \left.\begin{array}{lrcl}
-            +&\texttt{0x72EED250} &\times& 2^{123-184}  \\
+            +&\texttt{0x7A1DBF75} &\times& 2^{100-160}  \\
             +&\cdots
         \end{array} \color{#DDD}\right\}\color{#000} \textcolor{#DDD}{\rm ignorable}
     \end{array}
 \right) \mod 1\right\}  \\
 &\approx \cfrac{\ \pi\ }{2}\cdot\left\{\left(
     \begin{array}{lrcl}
-         &\texttt{0x993E6DC0} &\times& 2^{-5}  \\
-        +&\texttt{0xAECB352F} &\times& 2^{-13}  \\
-        +&\texttt{0x4E37DD5A} &\times& 2^{-21}  \\
-        +&\texttt{0x76EC7281} &\times& 2^{-29}  \\
-        +&\texttt{0x7A1DBF75} &\times& 2^{-37}  \\
-        +&\texttt{0x2FE3824C} &\times& 2^{-45}  \\
-        +&\texttt{0x3579C8F7} &\times& 2^{-53}  \\
+         &\texttt{0xC38BA961} &\times& 2^{-4}  \\
+        +&\texttt{0x2980E864} &\times& 2^{-12}  \\
+        +&\texttt{0xB063DBA9} &\times& 2^{-20}  \\
+        +&\texttt{0x993E6DC0} &\times& 2^{-28}  \\
+        +&\texttt{0xAECB352F} &\times& 2^{-36}  \\
+        +&\texttt{0x4E37DD5A} &\times& 2^{-44}  \\
+        +&\texttt{0x76EC7281} &\times& 2^{-52}  \\
     \end{array}
 \right) \mod 1\right\}  \\
-&\approx 1.5707964 \times 0.13905065 = 0.21842026043766
+&\approx 1.5707964 \times 0.4485327 = 0.7045535
 \end{align*}
 $$
 
@@ -147,7 +147,7 @@ public static float ModByPiP2(float x)
     Decompose(x, out var sign, out var expo_, out var frac_);
     var frac = ((uint)frac_) | (1u << 23);
     int expo, start;
-    expo = expo_ - 127;
+    expo = expo_ - 127 - 23;
     start = (expo + 7) / 8;
 
     // TODO: search first non-zero bit in frac * ipip2[start + (0 - 1)] << (expo - (start + 0) * 8 + 32)
