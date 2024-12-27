@@ -1,10 +1,19 @@
 // See https://aka.ms/new-console-template for more information
-using System.Numerics;
-using SmartVectorDotNet;
+
+// #define TEST_POPULATION
+// #define TEST_STRICT_MODULO
+#define TEST_MOD_BY_PI
+
 using SmartVectorDotNet.PoC;
 
-var v = new Vector<float>([-0.8f, -0.5f, -0.3f, -0.1f, 0.1f, 0.3f, 0.5f, 0.8f]);
-VectorMath.Exp(v);
+#if TEST_POPULATION
+PopulationPoC.Test();
+#endif
 
-// ScalarMath_SoftwareStrictModulo.TestModulo();
-// ScalarMath_Population.TestPopulation();
+#if TEST_STRICT_MODULO
+StrictModuloPoC.Test();
+#endif
+
+#if TEST_MOD_BY_PI
+ModByPiPoC.Test();
+#endif
