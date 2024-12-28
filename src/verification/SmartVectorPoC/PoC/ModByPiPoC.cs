@@ -10,13 +10,55 @@ internal static class ModByPiPoC
 {
     public static void Test()
     {
-        var x = 1.6974669e+37f;
+        TryCurrentImplement(1.6974669e+37f, "0.70455354449120667536127493266477339468833395837477139294799534593363841979...");
+
+        var riskyX = SearchForSmallModTau();
+        foreach(var x in riskyX)
+        {
+            var sin = Math.Sin((double)x);
+            TryCurrentImplement(x, $"{Math.Asin(sin)}");
+        }
+    }
+
+
+    private static IEnumerable<float> SearchForSmallModTau()
+    {
+        var x = 1e+30f;
+        var min = float.PositiveInfinity;
+        while (!float.IsNaN(x) && !float.IsInfinity(x))
+        {
+            var cos = Math.Cos((double)x);
+            var sin = Math.Sin((double)x);
+            var dist_1_0 = (cos - 1) * (cos - 1) + sin * sin;
+            if (dist_1_0 < min && sin >= 0)
+            {
+                min = (float)dist_1_0;
+                yield return x;
+            }
+            ScalarMath.Decompose(x, out int sign_, out int expo_, out int frac_);
+            ++frac_;
+            if (frac_ >= 0x800000)
+            {
+                frac_ &= ~0x7F800000;
+                ++expo_;
+            }
+            x = ScalarMath.Scale(sign_, expo_, frac_);
+        }
+    }
+
+
+    private static void TryCurrentImplement(float x, string? expected = null)
+    {
         ScalarMath.Decompose(x, out int _, out int expo_, out int frac_);
         Console.WriteLine($"target: {x}");
         Console.WriteLine($"exp part: {expo_:X02}");
         Console.WriteLine($"frac part: {frac_:X06}");
         Console.WriteLine($"x % pi/2 calculated: {ScalarMathPoC.ModByPiP2(x)}");
-        Console.WriteLine($"x % pi/2 expected  : 0.70455354449120667536127493266477339468833395837477139294799534593363841979...");
+        if(expected is { })
+        {
+            Console.WriteLine($"x % pi/2 expected  : {expected}");
+        }
+        Console.WriteLine();
     }
 }
 
@@ -53,8 +95,8 @@ file static class ScalarMathPoC
 
         // TODO: search first non-zero bit in frac * ipip2[start + (0 - 1)] << (expo - (start + 0) * 8 + 32)
 
-        var z = (
-            + ShiftBoth(frac * ipip2[start + (0 - 1)], expo - (start + 0) * 8 + 32)
+        var z = 
+            (+ShiftBoth(frac * ipip2[start + (0 - 1)], expo - (start + 0) * 8 + 32)
             + ShiftBoth(frac * ipip2[start + (1 - 1)], expo - (start + 1) * 8 + 32)
             + ShiftBoth(frac * ipip2[start + (2 - 1)], expo - (start + 2) * 8 + 32)
             + ShiftBoth(frac * ipip2[start + (3 - 1)], expo - (start + 3) * 8 + 32)
