@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -85,7 +87,7 @@ internal static class ModByPiPoC
 
 file static class ScalarMathPoC
 {
-    internal static readonly uint[] ipip2 = [
+    internal static readonly byte[] ipip2 = [
         0xA2, 0xF9, 0x83, 0x6E, 0x4E, 0x44, 0x15, 0x29,
         0xFC, 0x27, 0x57, 0xD1, 0xF5, 0x34, 0xDD, 0xC0,
         0xDB, 0x62, 0x95, 0x99, 0x3C, 0x43, 0x90, 0x41,
@@ -99,6 +101,20 @@ file static class ScalarMathPoC
         0x9C, 0x84, 0x5F, 0x8B, 0xBD, 0xF9, 0x28, 0x3B,
         0x1F, 0xF8,
     ];
+
+    private static void PickDenominator(int head, Span<uint> denominators)
+    {
+        Debug.Assert(denominators.Length == 7);
+        var a = Unsafe.As<byte, uint>(ref ipip2[head]);
+        var b = Unsafe.As<byte, uint>(ref ipip2[head + 4]);
+        denominators[0] = (a & 0x000000FF) >> 0;
+        denominators[1] = (a & 0x0000FF00) >> 8;
+        denominators[2] = (a & 0x00FF0000) >> 16;
+        denominators[3] = (a & 0xFF000000) >> 24;
+        denominators[4] = (b & 0x000000FF) >> 0;
+        denominators[5] = (b & 0x0000FF00) >> 8;
+        denominators[6] = (b & 0x00FF0000) >> 16;
+    }
 
     internal static uint ShiftBoth(uint x, int y)
         => y > 0
@@ -182,17 +198,19 @@ file static class ScalarMathPoC
         int exShift = 0;
         uint frac = ((uint)frac_) | (1u << 23);
         uint zz;
+        Span<uint> a = (stackalloc uint[7]);
         while (true)
         {
             start = (expo + 7) / 8;
+            PickDenominator(start + (0 - 1), a);
             zz =
-                (+ShiftBoth(frac * ipip2[start + (0 - 1)], expo - (start + 0) * 8 + 32)
-                + ShiftBoth(frac * ipip2[start + (1 - 1)], expo - (start + 1) * 8 + 32)
-                + ShiftBoth(frac * ipip2[start + (2 - 1)], expo - (start + 2) * 8 + 32)
-                + ShiftBoth(frac * ipip2[start + (3 - 1)], expo - (start + 3) * 8 + 32)
-                + ShiftBoth(frac * ipip2[start + (4 - 1)], expo - (start + 4) * 8 + 32)
-                + ShiftBoth(frac * ipip2[start + (5 - 1)], expo - (start + 5) * 8 + 32)
-                + ShiftBoth(frac * ipip2[start + (6 - 1)], expo - (start + 6) * 8 + 32)
+                (+ShiftBoth(frac * a[0], expo - (start + 0) * 8 + 32)
+                + ShiftBoth(frac * a[1], expo - (start + 1) * 8 + 32)
+                + ShiftBoth(frac * a[2], expo - (start + 2) * 8 + 32)
+                + ShiftBoth(frac * a[3], expo - (start + 3) * 8 + 32)
+                + ShiftBoth(frac * a[4], expo - (start + 4) * 8 + 32)
+                + ShiftBoth(frac * a[5], expo - (start + 5) * 8 + 32)
+                + ShiftBoth(frac * a[6], expo - (start + 6) * 8 + 32)
             );
             if (zz >= 0x800000)
             {
