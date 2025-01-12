@@ -530,7 +530,7 @@ public static partial class VectorOp
         {
         default:
             {
-                var retval = ScalarOp.Zero<T>();
+                var retval = ScalarOp.Const<T>.Zero;
                 for(var i = 0; i < Vector<T>.Count; ++i)
                 {
                     retval = ScalarOp.Add(retval, value[i]);

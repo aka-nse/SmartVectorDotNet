@@ -1445,7 +1445,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Equals(x, y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
+            ans[i] = ScalarOp.Equals(x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
     
     /// <summary>
@@ -1468,7 +1468,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Equals(x[i], y) ? ScalarOp.True<T>() : ScalarOp.False<T>();
+            ans[i] = ScalarOp.Equals(x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
     
     /// <summary>
@@ -1491,7 +1491,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Equals(x[i], y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
+            ans[i] = ScalarOp.Equals(x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
 }
 
@@ -1640,7 +1640,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThan(x, y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
+            ans[i] = ScalarOp.LessThan(x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
     
     /// <summary>
@@ -1663,7 +1663,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThan(x[i], y) ? ScalarOp.True<T>() : ScalarOp.False<T>();
+            ans[i] = ScalarOp.LessThan(x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
     
     /// <summary>
@@ -1686,7 +1686,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThan(x[i], y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
+            ans[i] = ScalarOp.LessThan(x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
 }
 
@@ -1835,7 +1835,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThanOrEquals(x, y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
+            ans[i] = ScalarOp.LessThanOrEquals(x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
     
     /// <summary>
@@ -1858,7 +1858,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThanOrEquals(x[i], y) ? ScalarOp.True<T>() : ScalarOp.False<T>();
+            ans[i] = ScalarOp.LessThanOrEquals(x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
     
     /// <summary>
@@ -1881,7 +1881,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThanOrEquals(x[i], y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
+            ans[i] = ScalarOp.LessThanOrEquals(x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
 }
 
@@ -2030,7 +2030,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThan(x, y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
+            ans[i] = ScalarOp.GreaterThan(x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
     
     /// <summary>
@@ -2053,7 +2053,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThan(x[i], y) ? ScalarOp.True<T>() : ScalarOp.False<T>();
+            ans[i] = ScalarOp.GreaterThan(x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
     
     /// <summary>
@@ -2076,7 +2076,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThan(x[i], y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
+            ans[i] = ScalarOp.GreaterThan(x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
 }
 
@@ -2225,7 +2225,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThanOrEquals(x, y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
+            ans[i] = ScalarOp.GreaterThanOrEquals(x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
     
     /// <summary>
@@ -2248,7 +2248,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThanOrEquals(x[i], y) ? ScalarOp.True<T>() : ScalarOp.False<T>();
+            ans[i] = ScalarOp.GreaterThanOrEquals(x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
     
     /// <summary>
@@ -2271,7 +2271,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThanOrEquals(x[i], y[i]) ? ScalarOp.True<T>() : ScalarOp.False<T>();
+            ans[i] = ScalarOp.GreaterThanOrEquals(x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
 }
 

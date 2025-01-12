@@ -13,15 +13,15 @@ public partial class ScalarOpTest
 
     public static TheoryData<byte, byte> SaturateTestCases_byte()
         => new (){
-            { ScalarOp.MinValue<byte>(), ScalarOp.MinValue<byte>() },
-            { ScalarOp.MinValue<byte>(), 0 },
-            { ScalarOp.MinValue<byte>(), ScalarOp.MaxValue<byte>() },
-            { 0, ScalarOp.MinValue<byte>() },
+            { ScalarOp.Const<byte>.MinValue, ScalarOp.Const<byte>.MinValue },
+            { ScalarOp.Const<byte>.MinValue, 0 },
+            { ScalarOp.Const<byte>.MinValue, ScalarOp.Const<byte>.MaxValue },
+            { 0, ScalarOp.Const<byte>.MinValue },
             { 0, 0 },
-            { 0, ScalarOp.MaxValue<byte>() },
-            { ScalarOp.MaxValue<byte>(), ScalarOp.MinValue<byte>() },
-            { ScalarOp.MaxValue<byte>(), 0 },
-            { ScalarOp.MaxValue<byte>(), ScalarOp.MaxValue<byte>() },
+            { 0, ScalarOp.Const<byte>.MaxValue },
+            { ScalarOp.Const<byte>.MaxValue, ScalarOp.Const<byte>.MinValue },
+            { ScalarOp.Const<byte>.MaxValue, 0 },
+            { ScalarOp.Const<byte>.MaxValue, ScalarOp.Const<byte>.MaxValue },
         };
 
     [Theory, MemberData(nameof(SaturateTestCases_byte))]
@@ -29,7 +29,7 @@ public partial class ScalarOpTest
     {
         unchecked
         {
-            var exp = (byte)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<byte>(), ScalarOp.MaxValue<byte>());
+            var exp = (byte)Int128.Clamp((Int128)a + b, ScalarOp.Const<byte>.MinValue, ScalarOp.Const<byte>.MaxValue);
             var act = ScalarOp.AddSaturate<byte>(a, b);
             Assert.Equal(exp, act);
         }
@@ -38,7 +38,7 @@ public partial class ScalarOpTest
     [Theory, MemberData(nameof(SaturateTestCases_byte))]
     public void SubtractSaturate_byte(byte a, byte b)
     {
-        var exp = (byte)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<byte>(), ScalarOp.MaxValue<byte>());
+        var exp = (byte)Int128.Clamp((Int128)a - b, ScalarOp.Const<byte>.MinValue, ScalarOp.Const<byte>.MaxValue);
         var act = ScalarOp.SubtractSaturate<byte>(a, b);
         Assert.Equal(exp, act);
     }
@@ -46,15 +46,15 @@ public partial class ScalarOpTest
 
     public static TheoryData<sbyte, sbyte> SaturateTestCases_sbyte()
         => new (){
-            { ScalarOp.MinValue<sbyte>(), ScalarOp.MinValue<sbyte>() },
-            { ScalarOp.MinValue<sbyte>(), 0 },
-            { ScalarOp.MinValue<sbyte>(), ScalarOp.MaxValue<sbyte>() },
-            { 0, ScalarOp.MinValue<sbyte>() },
+            { ScalarOp.Const<sbyte>.MinValue, ScalarOp.Const<sbyte>.MinValue },
+            { ScalarOp.Const<sbyte>.MinValue, 0 },
+            { ScalarOp.Const<sbyte>.MinValue, ScalarOp.Const<sbyte>.MaxValue },
+            { 0, ScalarOp.Const<sbyte>.MinValue },
             { 0, 0 },
-            { 0, ScalarOp.MaxValue<sbyte>() },
-            { ScalarOp.MaxValue<sbyte>(), ScalarOp.MinValue<sbyte>() },
-            { ScalarOp.MaxValue<sbyte>(), 0 },
-            { ScalarOp.MaxValue<sbyte>(), ScalarOp.MaxValue<sbyte>() },
+            { 0, ScalarOp.Const<sbyte>.MaxValue },
+            { ScalarOp.Const<sbyte>.MaxValue, ScalarOp.Const<sbyte>.MinValue },
+            { ScalarOp.Const<sbyte>.MaxValue, 0 },
+            { ScalarOp.Const<sbyte>.MaxValue, ScalarOp.Const<sbyte>.MaxValue },
         };
 
     [Theory, MemberData(nameof(SaturateTestCases_sbyte))]
@@ -62,7 +62,7 @@ public partial class ScalarOpTest
     {
         unchecked
         {
-            var exp = (sbyte)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<sbyte>(), ScalarOp.MaxValue<sbyte>());
+            var exp = (sbyte)Int128.Clamp((Int128)a + b, ScalarOp.Const<sbyte>.MinValue, ScalarOp.Const<sbyte>.MaxValue);
             var act = ScalarOp.AddSaturate<sbyte>(a, b);
             Assert.Equal(exp, act);
         }
@@ -71,7 +71,7 @@ public partial class ScalarOpTest
     [Theory, MemberData(nameof(SaturateTestCases_sbyte))]
     public void SubtractSaturate_sbyte(sbyte a, sbyte b)
     {
-        var exp = (sbyte)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<sbyte>(), ScalarOp.MaxValue<sbyte>());
+        var exp = (sbyte)Int128.Clamp((Int128)a - b, ScalarOp.Const<sbyte>.MinValue, ScalarOp.Const<sbyte>.MaxValue);
         var act = ScalarOp.SubtractSaturate<sbyte>(a, b);
         Assert.Equal(exp, act);
     }
@@ -79,15 +79,15 @@ public partial class ScalarOpTest
 
     public static TheoryData<short, short> SaturateTestCases_short()
         => new (){
-            { ScalarOp.MinValue<short>(), ScalarOp.MinValue<short>() },
-            { ScalarOp.MinValue<short>(), 0 },
-            { ScalarOp.MinValue<short>(), ScalarOp.MaxValue<short>() },
-            { 0, ScalarOp.MinValue<short>() },
+            { ScalarOp.Const<short>.MinValue, ScalarOp.Const<short>.MinValue },
+            { ScalarOp.Const<short>.MinValue, 0 },
+            { ScalarOp.Const<short>.MinValue, ScalarOp.Const<short>.MaxValue },
+            { 0, ScalarOp.Const<short>.MinValue },
             { 0, 0 },
-            { 0, ScalarOp.MaxValue<short>() },
-            { ScalarOp.MaxValue<short>(), ScalarOp.MinValue<short>() },
-            { ScalarOp.MaxValue<short>(), 0 },
-            { ScalarOp.MaxValue<short>(), ScalarOp.MaxValue<short>() },
+            { 0, ScalarOp.Const<short>.MaxValue },
+            { ScalarOp.Const<short>.MaxValue, ScalarOp.Const<short>.MinValue },
+            { ScalarOp.Const<short>.MaxValue, 0 },
+            { ScalarOp.Const<short>.MaxValue, ScalarOp.Const<short>.MaxValue },
         };
 
     [Theory, MemberData(nameof(SaturateTestCases_short))]
@@ -95,7 +95,7 @@ public partial class ScalarOpTest
     {
         unchecked
         {
-            var exp = (short)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<short>(), ScalarOp.MaxValue<short>());
+            var exp = (short)Int128.Clamp((Int128)a + b, ScalarOp.Const<short>.MinValue, ScalarOp.Const<short>.MaxValue);
             var act = ScalarOp.AddSaturate<short>(a, b);
             Assert.Equal(exp, act);
         }
@@ -104,7 +104,7 @@ public partial class ScalarOpTest
     [Theory, MemberData(nameof(SaturateTestCases_short))]
     public void SubtractSaturate_short(short a, short b)
     {
-        var exp = (short)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<short>(), ScalarOp.MaxValue<short>());
+        var exp = (short)Int128.Clamp((Int128)a - b, ScalarOp.Const<short>.MinValue, ScalarOp.Const<short>.MaxValue);
         var act = ScalarOp.SubtractSaturate<short>(a, b);
         Assert.Equal(exp, act);
     }
@@ -112,15 +112,15 @@ public partial class ScalarOpTest
 
     public static TheoryData<ushort, ushort> SaturateTestCases_ushort()
         => new (){
-            { ScalarOp.MinValue<ushort>(), ScalarOp.MinValue<ushort>() },
-            { ScalarOp.MinValue<ushort>(), 0 },
-            { ScalarOp.MinValue<ushort>(), ScalarOp.MaxValue<ushort>() },
-            { 0, ScalarOp.MinValue<ushort>() },
+            { ScalarOp.Const<ushort>.MinValue, ScalarOp.Const<ushort>.MinValue },
+            { ScalarOp.Const<ushort>.MinValue, 0 },
+            { ScalarOp.Const<ushort>.MinValue, ScalarOp.Const<ushort>.MaxValue },
+            { 0, ScalarOp.Const<ushort>.MinValue },
             { 0, 0 },
-            { 0, ScalarOp.MaxValue<ushort>() },
-            { ScalarOp.MaxValue<ushort>(), ScalarOp.MinValue<ushort>() },
-            { ScalarOp.MaxValue<ushort>(), 0 },
-            { ScalarOp.MaxValue<ushort>(), ScalarOp.MaxValue<ushort>() },
+            { 0, ScalarOp.Const<ushort>.MaxValue },
+            { ScalarOp.Const<ushort>.MaxValue, ScalarOp.Const<ushort>.MinValue },
+            { ScalarOp.Const<ushort>.MaxValue, 0 },
+            { ScalarOp.Const<ushort>.MaxValue, ScalarOp.Const<ushort>.MaxValue },
         };
 
     [Theory, MemberData(nameof(SaturateTestCases_ushort))]
@@ -128,7 +128,7 @@ public partial class ScalarOpTest
     {
         unchecked
         {
-            var exp = (ushort)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<ushort>(), ScalarOp.MaxValue<ushort>());
+            var exp = (ushort)Int128.Clamp((Int128)a + b, ScalarOp.Const<ushort>.MinValue, ScalarOp.Const<ushort>.MaxValue);
             var act = ScalarOp.AddSaturate<ushort>(a, b);
             Assert.Equal(exp, act);
         }
@@ -137,7 +137,7 @@ public partial class ScalarOpTest
     [Theory, MemberData(nameof(SaturateTestCases_ushort))]
     public void SubtractSaturate_ushort(ushort a, ushort b)
     {
-        var exp = (ushort)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<ushort>(), ScalarOp.MaxValue<ushort>());
+        var exp = (ushort)Int128.Clamp((Int128)a - b, ScalarOp.Const<ushort>.MinValue, ScalarOp.Const<ushort>.MaxValue);
         var act = ScalarOp.SubtractSaturate<ushort>(a, b);
         Assert.Equal(exp, act);
     }
@@ -145,15 +145,15 @@ public partial class ScalarOpTest
 
     public static TheoryData<int, int> SaturateTestCases_int()
         => new (){
-            { ScalarOp.MinValue<int>(), ScalarOp.MinValue<int>() },
-            { ScalarOp.MinValue<int>(), 0 },
-            { ScalarOp.MinValue<int>(), ScalarOp.MaxValue<int>() },
-            { 0, ScalarOp.MinValue<int>() },
+            { ScalarOp.Const<int>.MinValue, ScalarOp.Const<int>.MinValue },
+            { ScalarOp.Const<int>.MinValue, 0 },
+            { ScalarOp.Const<int>.MinValue, ScalarOp.Const<int>.MaxValue },
+            { 0, ScalarOp.Const<int>.MinValue },
             { 0, 0 },
-            { 0, ScalarOp.MaxValue<int>() },
-            { ScalarOp.MaxValue<int>(), ScalarOp.MinValue<int>() },
-            { ScalarOp.MaxValue<int>(), 0 },
-            { ScalarOp.MaxValue<int>(), ScalarOp.MaxValue<int>() },
+            { 0, ScalarOp.Const<int>.MaxValue },
+            { ScalarOp.Const<int>.MaxValue, ScalarOp.Const<int>.MinValue },
+            { ScalarOp.Const<int>.MaxValue, 0 },
+            { ScalarOp.Const<int>.MaxValue, ScalarOp.Const<int>.MaxValue },
         };
 
     [Theory, MemberData(nameof(SaturateTestCases_int))]
@@ -161,7 +161,7 @@ public partial class ScalarOpTest
     {
         unchecked
         {
-            var exp = (int)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<int>(), ScalarOp.MaxValue<int>());
+            var exp = (int)Int128.Clamp((Int128)a + b, ScalarOp.Const<int>.MinValue, ScalarOp.Const<int>.MaxValue);
             var act = ScalarOp.AddSaturate<int>(a, b);
             Assert.Equal(exp, act);
         }
@@ -170,7 +170,7 @@ public partial class ScalarOpTest
     [Theory, MemberData(nameof(SaturateTestCases_int))]
     public void SubtractSaturate_int(int a, int b)
     {
-        var exp = (int)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<int>(), ScalarOp.MaxValue<int>());
+        var exp = (int)Int128.Clamp((Int128)a - b, ScalarOp.Const<int>.MinValue, ScalarOp.Const<int>.MaxValue);
         var act = ScalarOp.SubtractSaturate<int>(a, b);
         Assert.Equal(exp, act);
     }
@@ -178,15 +178,15 @@ public partial class ScalarOpTest
 
     public static TheoryData<uint, uint> SaturateTestCases_uint()
         => new (){
-            { ScalarOp.MinValue<uint>(), ScalarOp.MinValue<uint>() },
-            { ScalarOp.MinValue<uint>(), 0 },
-            { ScalarOp.MinValue<uint>(), ScalarOp.MaxValue<uint>() },
-            { 0, ScalarOp.MinValue<uint>() },
+            { ScalarOp.Const<uint>.MinValue, ScalarOp.Const<uint>.MinValue },
+            { ScalarOp.Const<uint>.MinValue, 0 },
+            { ScalarOp.Const<uint>.MinValue, ScalarOp.Const<uint>.MaxValue },
+            { 0, ScalarOp.Const<uint>.MinValue },
             { 0, 0 },
-            { 0, ScalarOp.MaxValue<uint>() },
-            { ScalarOp.MaxValue<uint>(), ScalarOp.MinValue<uint>() },
-            { ScalarOp.MaxValue<uint>(), 0 },
-            { ScalarOp.MaxValue<uint>(), ScalarOp.MaxValue<uint>() },
+            { 0, ScalarOp.Const<uint>.MaxValue },
+            { ScalarOp.Const<uint>.MaxValue, ScalarOp.Const<uint>.MinValue },
+            { ScalarOp.Const<uint>.MaxValue, 0 },
+            { ScalarOp.Const<uint>.MaxValue, ScalarOp.Const<uint>.MaxValue },
         };
 
     [Theory, MemberData(nameof(SaturateTestCases_uint))]
@@ -194,7 +194,7 @@ public partial class ScalarOpTest
     {
         unchecked
         {
-            var exp = (uint)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<uint>(), ScalarOp.MaxValue<uint>());
+            var exp = (uint)Int128.Clamp((Int128)a + b, ScalarOp.Const<uint>.MinValue, ScalarOp.Const<uint>.MaxValue);
             var act = ScalarOp.AddSaturate<uint>(a, b);
             Assert.Equal(exp, act);
         }
@@ -203,7 +203,7 @@ public partial class ScalarOpTest
     [Theory, MemberData(nameof(SaturateTestCases_uint))]
     public void SubtractSaturate_uint(uint a, uint b)
     {
-        var exp = (uint)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<uint>(), ScalarOp.MaxValue<uint>());
+        var exp = (uint)Int128.Clamp((Int128)a - b, ScalarOp.Const<uint>.MinValue, ScalarOp.Const<uint>.MaxValue);
         var act = ScalarOp.SubtractSaturate<uint>(a, b);
         Assert.Equal(exp, act);
     }
@@ -211,15 +211,15 @@ public partial class ScalarOpTest
 
     public static TheoryData<long, long> SaturateTestCases_long()
         => new (){
-            { ScalarOp.MinValue<long>(), ScalarOp.MinValue<long>() },
-            { ScalarOp.MinValue<long>(), 0 },
-            { ScalarOp.MinValue<long>(), ScalarOp.MaxValue<long>() },
-            { 0, ScalarOp.MinValue<long>() },
+            { ScalarOp.Const<long>.MinValue, ScalarOp.Const<long>.MinValue },
+            { ScalarOp.Const<long>.MinValue, 0 },
+            { ScalarOp.Const<long>.MinValue, ScalarOp.Const<long>.MaxValue },
+            { 0, ScalarOp.Const<long>.MinValue },
             { 0, 0 },
-            { 0, ScalarOp.MaxValue<long>() },
-            { ScalarOp.MaxValue<long>(), ScalarOp.MinValue<long>() },
-            { ScalarOp.MaxValue<long>(), 0 },
-            { ScalarOp.MaxValue<long>(), ScalarOp.MaxValue<long>() },
+            { 0, ScalarOp.Const<long>.MaxValue },
+            { ScalarOp.Const<long>.MaxValue, ScalarOp.Const<long>.MinValue },
+            { ScalarOp.Const<long>.MaxValue, 0 },
+            { ScalarOp.Const<long>.MaxValue, ScalarOp.Const<long>.MaxValue },
         };
 
     [Theory, MemberData(nameof(SaturateTestCases_long))]
@@ -227,7 +227,7 @@ public partial class ScalarOpTest
     {
         unchecked
         {
-            var exp = (long)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<long>(), ScalarOp.MaxValue<long>());
+            var exp = (long)Int128.Clamp((Int128)a + b, ScalarOp.Const<long>.MinValue, ScalarOp.Const<long>.MaxValue);
             var act = ScalarOp.AddSaturate<long>(a, b);
             Assert.Equal(exp, act);
         }
@@ -236,7 +236,7 @@ public partial class ScalarOpTest
     [Theory, MemberData(nameof(SaturateTestCases_long))]
     public void SubtractSaturate_long(long a, long b)
     {
-        var exp = (long)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<long>(), ScalarOp.MaxValue<long>());
+        var exp = (long)Int128.Clamp((Int128)a - b, ScalarOp.Const<long>.MinValue, ScalarOp.Const<long>.MaxValue);
         var act = ScalarOp.SubtractSaturate<long>(a, b);
         Assert.Equal(exp, act);
     }
@@ -244,15 +244,15 @@ public partial class ScalarOpTest
 
     public static TheoryData<ulong, ulong> SaturateTestCases_ulong()
         => new (){
-            { ScalarOp.MinValue<ulong>(), ScalarOp.MinValue<ulong>() },
-            { ScalarOp.MinValue<ulong>(), 0 },
-            { ScalarOp.MinValue<ulong>(), ScalarOp.MaxValue<ulong>() },
-            { 0, ScalarOp.MinValue<ulong>() },
+            { ScalarOp.Const<ulong>.MinValue, ScalarOp.Const<ulong>.MinValue },
+            { ScalarOp.Const<ulong>.MinValue, 0 },
+            { ScalarOp.Const<ulong>.MinValue, ScalarOp.Const<ulong>.MaxValue },
+            { 0, ScalarOp.Const<ulong>.MinValue },
             { 0, 0 },
-            { 0, ScalarOp.MaxValue<ulong>() },
-            { ScalarOp.MaxValue<ulong>(), ScalarOp.MinValue<ulong>() },
-            { ScalarOp.MaxValue<ulong>(), 0 },
-            { ScalarOp.MaxValue<ulong>(), ScalarOp.MaxValue<ulong>() },
+            { 0, ScalarOp.Const<ulong>.MaxValue },
+            { ScalarOp.Const<ulong>.MaxValue, ScalarOp.Const<ulong>.MinValue },
+            { ScalarOp.Const<ulong>.MaxValue, 0 },
+            { ScalarOp.Const<ulong>.MaxValue, ScalarOp.Const<ulong>.MaxValue },
         };
 
     [Theory, MemberData(nameof(SaturateTestCases_ulong))]
@@ -260,7 +260,7 @@ public partial class ScalarOpTest
     {
         unchecked
         {
-            var exp = (ulong)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<ulong>(), ScalarOp.MaxValue<ulong>());
+            var exp = (ulong)Int128.Clamp((Int128)a + b, ScalarOp.Const<ulong>.MinValue, ScalarOp.Const<ulong>.MaxValue);
             var act = ScalarOp.AddSaturate<ulong>(a, b);
             Assert.Equal(exp, act);
         }
@@ -269,7 +269,7 @@ public partial class ScalarOpTest
     [Theory, MemberData(nameof(SaturateTestCases_ulong))]
     public void SubtractSaturate_ulong(ulong a, ulong b)
     {
-        var exp = (ulong)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<ulong>(), ScalarOp.MaxValue<ulong>());
+        var exp = (ulong)Int128.Clamp((Int128)a - b, ScalarOp.Const<ulong>.MinValue, ScalarOp.Const<ulong>.MaxValue);
         var act = ScalarOp.SubtractSaturate<ulong>(a, b);
         Assert.Equal(exp, act);
     }
@@ -277,15 +277,15 @@ public partial class ScalarOpTest
 
     public static TheoryData<nuint, nuint> SaturateTestCases_nuint()
         => new (){
-            { ScalarOp.MinValue<nuint>(), ScalarOp.MinValue<nuint>() },
-            { ScalarOp.MinValue<nuint>(), 0 },
-            { ScalarOp.MinValue<nuint>(), ScalarOp.MaxValue<nuint>() },
-            { 0, ScalarOp.MinValue<nuint>() },
+            { ScalarOp.Const<nuint>.MinValue, ScalarOp.Const<nuint>.MinValue },
+            { ScalarOp.Const<nuint>.MinValue, 0 },
+            { ScalarOp.Const<nuint>.MinValue, ScalarOp.Const<nuint>.MaxValue },
+            { 0, ScalarOp.Const<nuint>.MinValue },
             { 0, 0 },
-            { 0, ScalarOp.MaxValue<nuint>() },
-            { ScalarOp.MaxValue<nuint>(), ScalarOp.MinValue<nuint>() },
-            { ScalarOp.MaxValue<nuint>(), 0 },
-            { ScalarOp.MaxValue<nuint>(), ScalarOp.MaxValue<nuint>() },
+            { 0, ScalarOp.Const<nuint>.MaxValue },
+            { ScalarOp.Const<nuint>.MaxValue, ScalarOp.Const<nuint>.MinValue },
+            { ScalarOp.Const<nuint>.MaxValue, 0 },
+            { ScalarOp.Const<nuint>.MaxValue, ScalarOp.Const<nuint>.MaxValue },
         };
 
     [Theory, MemberData(nameof(SaturateTestCases_nuint))]
@@ -293,7 +293,7 @@ public partial class ScalarOpTest
     {
         unchecked
         {
-            var exp = (nuint)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<nuint>(), ScalarOp.MaxValue<nuint>());
+            var exp = (nuint)Int128.Clamp((Int128)a + b, ScalarOp.Const<nuint>.MinValue, ScalarOp.Const<nuint>.MaxValue);
             var act = ScalarOp.AddSaturate<nuint>(a, b);
             Assert.Equal(exp, act);
         }
@@ -302,7 +302,7 @@ public partial class ScalarOpTest
     [Theory, MemberData(nameof(SaturateTestCases_nuint))]
     public void SubtractSaturate_nuint(nuint a, nuint b)
     {
-        var exp = (nuint)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<nuint>(), ScalarOp.MaxValue<nuint>());
+        var exp = (nuint)Int128.Clamp((Int128)a - b, ScalarOp.Const<nuint>.MinValue, ScalarOp.Const<nuint>.MaxValue);
         var act = ScalarOp.SubtractSaturate<nuint>(a, b);
         Assert.Equal(exp, act);
     }
@@ -310,15 +310,15 @@ public partial class ScalarOpTest
 
     public static TheoryData<nint, nint> SaturateTestCases_nint()
         => new (){
-            { ScalarOp.MinValue<nint>(), ScalarOp.MinValue<nint>() },
-            { ScalarOp.MinValue<nint>(), 0 },
-            { ScalarOp.MinValue<nint>(), ScalarOp.MaxValue<nint>() },
-            { 0, ScalarOp.MinValue<nint>() },
+            { ScalarOp.Const<nint>.MinValue, ScalarOp.Const<nint>.MinValue },
+            { ScalarOp.Const<nint>.MinValue, 0 },
+            { ScalarOp.Const<nint>.MinValue, ScalarOp.Const<nint>.MaxValue },
+            { 0, ScalarOp.Const<nint>.MinValue },
             { 0, 0 },
-            { 0, ScalarOp.MaxValue<nint>() },
-            { ScalarOp.MaxValue<nint>(), ScalarOp.MinValue<nint>() },
-            { ScalarOp.MaxValue<nint>(), 0 },
-            { ScalarOp.MaxValue<nint>(), ScalarOp.MaxValue<nint>() },
+            { 0, ScalarOp.Const<nint>.MaxValue },
+            { ScalarOp.Const<nint>.MaxValue, ScalarOp.Const<nint>.MinValue },
+            { ScalarOp.Const<nint>.MaxValue, 0 },
+            { ScalarOp.Const<nint>.MaxValue, ScalarOp.Const<nint>.MaxValue },
         };
 
     [Theory, MemberData(nameof(SaturateTestCases_nint))]
@@ -326,7 +326,7 @@ public partial class ScalarOpTest
     {
         unchecked
         {
-            var exp = (nint)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<nint>(), ScalarOp.MaxValue<nint>());
+            var exp = (nint)Int128.Clamp((Int128)a + b, ScalarOp.Const<nint>.MinValue, ScalarOp.Const<nint>.MaxValue);
             var act = ScalarOp.AddSaturate<nint>(a, b);
             Assert.Equal(exp, act);
         }
@@ -335,7 +335,7 @@ public partial class ScalarOpTest
     [Theory, MemberData(nameof(SaturateTestCases_nint))]
     public void SubtractSaturate_nint(nint a, nint b)
     {
-        var exp = (nint)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<nint>(), ScalarOp.MaxValue<nint>());
+        var exp = (nint)Int128.Clamp((Int128)a - b, ScalarOp.Const<nint>.MinValue, ScalarOp.Const<nint>.MaxValue);
         var act = ScalarOp.SubtractSaturate<nint>(a, b);
         Assert.Equal(exp, act);
     }

@@ -11,7 +11,7 @@ partial class AccuracyAssert
     partial class Core<T>
     {
         public static partial bool IsValidAccuracy(T accuracy)
-            => ScalarOp.GreaterThanOrEquals(accuracy, ScalarOp.Zero<T>());
+            => ScalarOp.GreaterThanOrEquals(accuracy, ScalarOp.Const<T>.Zero);
 
         public static partial bool GetIsAccurate(T accuracy, T error)
         {
@@ -44,8 +44,8 @@ partial class AccuracyAssert
 
         public static partial T ErrorRel(T exp, T act)
         {
-            var one = ScalarOp.One<T>();
-            var maxval = ScalarOp.MaxValue<T>();
+            var one = ScalarOp.Const<T>.One;
+            var maxval = ScalarOp.Const<T>.MaxValue;
             var num = ScalarOp.Abs(ScalarOp.Subtract(exp, act));
             var denom = ScalarOp.Add(ScalarOp.Abs(exp), ScalarOp.Divide(one, maxval));
             return ScalarOp.Divide(num, denom);

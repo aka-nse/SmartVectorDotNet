@@ -8,210 +8,170 @@ using H = InternalHelpers;
 
 partial class ScalarOp
 {
-    /// <summary>
-    /// Gets a value of <typeparamref name="T"/> which is corresponding to <c>0</c>.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public static T Zero<T>() where T : unmanaged
+    partial class Const<T>
     {
-        if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(0);
-        if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(0);
-        if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(0);
-        if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(0);
-        if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(0);
-        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(0);
-        if(typeof(T) == typeof(short )) return Reinterpret<short , T>(0);
-        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(0);
-        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(0);
-        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(0);
-        if(typeof(T) == typeof(float )) return Reinterpret<float , T>(0);
-        if(typeof(T) == typeof(double)) return Reinterpret<double, T>(0);
-        throw new NotSupportedException();
-    }
+        /// <summary> Gets a value of <typeparamref name="T"/> which is corresponding to <c>0</c>. </summary>
+        public static readonly T Zero;
 
+        /// <summary> Gets a value of <typeparamref name="T"/> which is corresponding to <c>1</c>. </summary>
+        public static readonly T One;
 
-    /// <summary>
-    /// Gets a value of <typeparamref name="T"/> which is corresponding to <c>1</c>.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public static T One<T>() where T : unmanaged
-    {
-        if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(1);
-        if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(1);
-        if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(1);
-        if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(1);
-        if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(1);
-        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(1);
-        if(typeof(T) == typeof(short )) return Reinterpret<short , T>(1);
-        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(1);
-        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(1);
-        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(1);
-        if(typeof(T) == typeof(float )) return Reinterpret<float , T>(1);
-        if(typeof(T) == typeof(double)) return Reinterpret<double, T>(1);
-        throw new NotSupportedException();
-    }
+        /// <summary> Gets a value of <typeparamref name="T"/> which is corresponding to minimum value. </summary>
+        public static readonly T MinValue;
 
+        /// <summary> Gets a value of <typeparamref name="T"/> which is corresponding to maximum value. </summary>
+        public static readonly T MaxValue;
 
-    /// <summary>
-    /// Gets a value of <typeparamref name="T"/> which is corresponding to <c>false</c> on SIMD operation.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public static T False<T>() where T : unmanaged
-    {
-        if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(Constant.False_byte  );
-        if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(Constant.False_ushort);
-        if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(Constant.False_uint  );
-        if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(Constant.False_ulong );
-        if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(Constant.False_nuint );
-        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(Constant.False_sbyte );
-        if(typeof(T) == typeof(short )) return Reinterpret<short , T>(Constant.False_short );
-        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(Constant.False_int   );
-        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(Constant.False_long  );
-        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(Constant.False_nint  );
-        if(typeof(T) == typeof(float )) return Reinterpret<float , T>(Constant.False_float );
-        if(typeof(T) == typeof(double)) return Reinterpret<double, T>(Constant.False_double);
-        throw new NotSupportedException();
-    }
+        /// <summary> Gets a value of <typeparamref name="T"/> which is corresponding to <c>true</c> on SIMD operation. </summary>
+        public static readonly T TrueValue;
 
+        /// <summary> Gets a value of <typeparamref name="T"/> which is corresponding to <c>false</c> on SIMD operation. </summary>
+        public static readonly T FalseValue;
+        
+        /// <summary> Gets a value whose MSB is 1. </summary>
+        public static readonly T Msb;
+        
+        /// <summary> Gets a value whose LSB is 1. </summary>
+        public static readonly T Lsb;
 
-    /// <summary>
-    /// Gets a value of <typeparamref name="T"/> which is corresponding to <c>true</c> on SIMD operation.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public static T True<T>() where T : unmanaged
-    {
-        if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(Constant.True_byte  );
-        if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(Constant.True_ushort);
-        if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(Constant.True_uint  );
-        if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(Constant.True_ulong );
-        if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(Constant.True_nuint );
-        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(Constant.True_sbyte );
-        if(typeof(T) == typeof(short )) return Reinterpret<short , T>(Constant.True_short );
-        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(Constant.True_int   );
-        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(Constant.True_long  );
-        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(Constant.True_nint  );
-        if(typeof(T) == typeof(float )) return Reinterpret<float , T>(Constant.True_float );
-        if(typeof(T) == typeof(double)) return Reinterpret<double, T>(Constant.True_double);
-        throw new NotSupportedException();
-    }
-
-
-    /// <summary>
-    /// Gets a value of <typeparamref name="T"/> which is corresponding to minimum value.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public static T MinValue<T>() where T : unmanaged
-    {
-        if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(byte  .MinValue);
-        if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(ushort.MinValue);
-        if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(uint  .MinValue);
-        if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(ulong .MinValue);
-        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(sbyte .MinValue);
-        if(typeof(T) == typeof(short )) return Reinterpret<short , T>(short .MinValue);
-        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(int   .MinValue);
-        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(long  .MinValue);
-        if(typeof(T) == typeof(float )) return Reinterpret<float , T>(float .MinValue);
-        if(typeof(T) == typeof(double)) return Reinterpret<double, T>(double.MinValue);
-        #if NET5_0_OR_GREATER
-        if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(nuint .MinValue);
-        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(nint  .MinValue);
-        #else
-        if(typeof(T) == typeof(nuint ))
+        static Const()
         {
-            return Unsafe.SizeOf<nuint>() switch
+            if(typeof(T) == typeof(nuint))
             {
-                sizeof(ulong) => Reinterpret<ulong, T>(ulong.MinValue),
-                sizeof(uint ) => Reinterpret<uint , T>(uint .MinValue),
-                _ => throw new NotSupportedException(),
-            };
-        }
-        if(typeof(T) == typeof(nint  ))
-        {
-            return Unsafe.SizeOf<nint>() switch
+                Zero = Reinterpret<nuint, T>(0);
+                One = Reinterpret<nuint, T>(1);
+                Lsb = Reinterpret<nuint, T>(1);
+                Msb = Reinterpret<nuint, T>((nuint)(1uL << (Unsafe.SizeOf<nuint>() * 8 - 1)));
+#if NET5_0_OR_GREATER
+                MinValue = Reinterpret<nuint, T>(nuint.MinValue);
+                MaxValue = Reinterpret<nuint, T>(nuint.MaxValue);
+#else
+                if(IntPtr.Size == 8)
+                {
+                    MinValue = Reinterpret<nuint, T>(unchecked((nuint)ulong.MinValue));
+                    MaxValue = Reinterpret<nuint, T>(unchecked((nuint)ulong.MaxValue));
+                }
+                else
+                {
+                    MinValue = Reinterpret<nuint, T>((nuint)uint.MinValue);
+                    MaxValue = Reinterpret<nuint, T>((nuint)uint.MaxValue);
+                }
+#endif
+            }
+            else if(typeof(T) == typeof(nint))
             {
-                sizeof(long) => Reinterpret<long, T>(long.MinValue),
-                sizeof(int ) => Reinterpret<int , T>(int .MinValue),
-                _ => throw new NotSupportedException(),
-            };
+                Zero = Reinterpret<nint, T>(0);
+                One = Reinterpret<nint, T>(1);
+                Lsb = Reinterpret<nint, T>(1);
+                Msb = Reinterpret<nuint, T>((nuint)(1uL << (Unsafe.SizeOf<nint>() * 8 - 1)));
+#if NET5_0_OR_GREATER
+                MinValue = Reinterpret<nint, T>(nint.MinValue);
+                MaxValue = Reinterpret<nint, T>(nint.MaxValue);
+#else
+                if(IntPtr.Size == 8)
+                {
+                    MinValue = Reinterpret<nint, T>(unchecked((nint)long.MinValue));
+                    MaxValue = Reinterpret<nint, T>(unchecked((nint)long.MaxValue));
+                }
+                else
+                {
+                    MinValue = Reinterpret<nint, T>((nint)int.MinValue);
+                    MaxValue = Reinterpret<nint, T>((nint)int.MaxValue);
+                }
+#endif
+            }
+            else if(typeof(T) == typeof(byte))
+            {
+                Zero = Reinterpret<byte, T>(0);
+                One = Reinterpret<byte, T>(1);
+                MinValue = Reinterpret<byte, T>(byte.MinValue);
+                MaxValue = Reinterpret<byte, T>(byte.MaxValue);
+                Msb = Reinterpret<byte, T>((byte)(1uL << (sizeof(byte) * 8 - 1)));
+                Lsb = Reinterpret<byte, T>((byte)1);
+            }
+            else if(typeof(T) == typeof(ushort))
+            {
+                Zero = Reinterpret<ushort, T>(0);
+                One = Reinterpret<ushort, T>(1);
+                MinValue = Reinterpret<ushort, T>(ushort.MinValue);
+                MaxValue = Reinterpret<ushort, T>(ushort.MaxValue);
+                Msb = Reinterpret<ushort, T>((ushort)(1uL << (sizeof(ushort) * 8 - 1)));
+                Lsb = Reinterpret<ushort, T>((ushort)1);
+            }
+            else if(typeof(T) == typeof(uint))
+            {
+                Zero = Reinterpret<uint, T>(0);
+                One = Reinterpret<uint, T>(1);
+                MinValue = Reinterpret<uint, T>(uint.MinValue);
+                MaxValue = Reinterpret<uint, T>(uint.MaxValue);
+                Msb = Reinterpret<uint, T>((uint)(1uL << (sizeof(uint) * 8 - 1)));
+                Lsb = Reinterpret<uint, T>((uint)1);
+            }
+            else if(typeof(T) == typeof(ulong))
+            {
+                Zero = Reinterpret<ulong, T>(0);
+                One = Reinterpret<ulong, T>(1);
+                MinValue = Reinterpret<ulong, T>(ulong.MinValue);
+                MaxValue = Reinterpret<ulong, T>(ulong.MaxValue);
+                Msb = Reinterpret<ulong, T>((ulong)(1uL << (sizeof(ulong) * 8 - 1)));
+                Lsb = Reinterpret<ulong, T>((ulong)1);
+            }
+            else if(typeof(T) == typeof(sbyte))
+            {
+                Zero = Reinterpret<sbyte, T>(0);
+                One = Reinterpret<sbyte, T>(1);
+                MinValue = Reinterpret<sbyte, T>(sbyte.MinValue);
+                MaxValue = Reinterpret<sbyte, T>(sbyte.MaxValue);
+                Msb = Reinterpret<byte, T>((byte)(1uL << (sizeof(byte) * 8 - 1)));
+                Lsb = Reinterpret<byte, T>((byte)1);
+            }
+            else if(typeof(T) == typeof(short))
+            {
+                Zero = Reinterpret<short, T>(0);
+                One = Reinterpret<short, T>(1);
+                MinValue = Reinterpret<short, T>(short.MinValue);
+                MaxValue = Reinterpret<short, T>(short.MaxValue);
+                Msb = Reinterpret<ushort, T>((ushort)(1uL << (sizeof(ushort) * 8 - 1)));
+                Lsb = Reinterpret<ushort, T>((ushort)1);
+            }
+            else if(typeof(T) == typeof(int))
+            {
+                Zero = Reinterpret<int, T>(0);
+                One = Reinterpret<int, T>(1);
+                MinValue = Reinterpret<int, T>(int.MinValue);
+                MaxValue = Reinterpret<int, T>(int.MaxValue);
+                Msb = Reinterpret<uint, T>((uint)(1uL << (sizeof(uint) * 8 - 1)));
+                Lsb = Reinterpret<uint, T>((uint)1);
+            }
+            else if(typeof(T) == typeof(long))
+            {
+                Zero = Reinterpret<long, T>(0);
+                One = Reinterpret<long, T>(1);
+                MinValue = Reinterpret<long, T>(long.MinValue);
+                MaxValue = Reinterpret<long, T>(long.MaxValue);
+                Msb = Reinterpret<ulong, T>((ulong)(1uL << (sizeof(ulong) * 8 - 1)));
+                Lsb = Reinterpret<ulong, T>((ulong)1);
+            }
+            else if(typeof(T) == typeof(float))
+            {
+                Zero = Reinterpret<float, T>(0);
+                One = Reinterpret<float, T>(1);
+                MinValue = Reinterpret<float, T>(float.MinValue);
+                MaxValue = Reinterpret<float, T>(float.MaxValue);
+                Msb = Reinterpret<uint, T>((uint)(1uL << (sizeof(uint) * 8 - 1)));
+                Lsb = Reinterpret<uint, T>((uint)1);
+            }
+            else if(typeof(T) == typeof(double))
+            {
+                Zero = Reinterpret<double, T>(0);
+                One = Reinterpret<double, T>(1);
+                MinValue = Reinterpret<double, T>(double.MinValue);
+                MaxValue = Reinterpret<double, T>(double.MaxValue);
+                Msb = Reinterpret<ulong, T>((ulong)(1uL << (sizeof(ulong) * 8 - 1)));
+                Lsb = Reinterpret<ulong, T>((ulong)1);
+            }
+            TrueValue = VectorOp.Const<T>.TrueValue[0];
+            FalseValue = VectorOp.Const<T>.FalseValue[0];
         }
-        #endif
-        throw new NotSupportedException();
     }
-
-
-    /// <summary>
-    /// Gets a value of <typeparamref name="T"/> which is corresponding to maximum value.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public static T MaxValue<T>() where T : unmanaged
-    {
-        if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(byte  .MaxValue);
-        if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(ushort.MaxValue);
-        if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(uint  .MaxValue);
-        if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(ulong .MaxValue);
-        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(sbyte .MaxValue);
-        if(typeof(T) == typeof(short )) return Reinterpret<short , T>(short .MaxValue);
-        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(int   .MaxValue);
-        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(long  .MaxValue);
-        if(typeof(T) == typeof(float )) return Reinterpret<float , T>(float .MaxValue);
-        if(typeof(T) == typeof(double)) return Reinterpret<double, T>(double.MaxValue);
-        #if NET5_0_OR_GREATER
-        if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(nuint .MaxValue);
-        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(nint  .MaxValue);
-        #else
-        if(typeof(T) == typeof(nuint ))
-        {
-            return Unsafe.SizeOf<nuint>() switch
-            {
-                sizeof(ulong) => Reinterpret<ulong, T>(ulong.MaxValue),
-                sizeof(uint ) => Reinterpret<uint , T>(uint .MaxValue),
-                _ => throw new NotSupportedException(),
-            };
-        }
-        if(typeof(T) == typeof(nint  ))
-        {
-            return Unsafe.SizeOf<nint>() switch
-            {
-                sizeof(long) => Reinterpret<long, T>(long.MaxValue),
-                sizeof(int ) => Reinterpret<int , T>(int .MaxValue),
-                _ => throw new NotSupportedException(),
-            };
-        }
-        #endif
-        throw new NotSupportedException();
-    }
-}
-
-file class Constant
-{
-    public static readonly byte   False_byte   = VectorOp.Const<byte  >.FalseValue[0];
-    public static readonly byte   True_byte    = VectorOp.Const<byte  >.TrueValue [0];
-    public static readonly ushort False_ushort = VectorOp.Const<ushort>.FalseValue[0];
-    public static readonly ushort True_ushort  = VectorOp.Const<ushort>.TrueValue [0];
-    public static readonly uint   False_uint   = VectorOp.Const<uint  >.FalseValue[0];
-    public static readonly uint   True_uint    = VectorOp.Const<uint  >.TrueValue [0];
-    public static readonly ulong  False_ulong  = VectorOp.Const<ulong >.FalseValue[0];
-    public static readonly ulong  True_ulong   = VectorOp.Const<ulong >.TrueValue [0];
-    public static readonly nuint  False_nuint  = VectorOp.Const<nuint >.FalseValue[0];
-    public static readonly nuint  True_nuint   = VectorOp.Const<nuint >.TrueValue [0];
-    public static readonly sbyte  False_sbyte  = VectorOp.Const<sbyte >.FalseValue[0];
-    public static readonly sbyte  True_sbyte   = VectorOp.Const<sbyte >.TrueValue [0];
-    public static readonly short  False_short  = VectorOp.Const<short >.FalseValue[0];
-    public static readonly short  True_short   = VectorOp.Const<short >.TrueValue [0];
-    public static readonly int    False_int    = VectorOp.Const<int   >.FalseValue[0];
-    public static readonly int    True_int     = VectorOp.Const<int   >.TrueValue [0];
-    public static readonly long   False_long   = VectorOp.Const<long  >.FalseValue[0];
-    public static readonly long   True_long    = VectorOp.Const<long  >.TrueValue [0];
-    public static readonly nint   False_nint   = VectorOp.Const<nint  >.FalseValue[0];
-    public static readonly nint   True_nint    = VectorOp.Const<nint  >.TrueValue [0];
-    public static readonly float  False_float  = VectorOp.Const<float >.FalseValue[0];
-    public static readonly float  True_float   = VectorOp.Const<float >.TrueValue [0];
-    public static readonly double False_double = VectorOp.Const<double>.FalseValue[0];
-    public static readonly double True_double  = VectorOp.Const<double>.TrueValue [0];
 }
