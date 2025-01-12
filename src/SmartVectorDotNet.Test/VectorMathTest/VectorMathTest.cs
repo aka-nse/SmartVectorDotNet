@@ -7,9 +7,9 @@ using Xunit.Abstractions;
 
 namespace SmartVectorDotNet;
 
-public partial class VectorMathTest
+public partial class VectorOpTest
 {
     private ITestOutputHelper Output { get; }
 
-    public VectorMathTest(ITestOutputHelper output) => Output = output;
+    public VectorOpTest(ITestOutputHelper output) => Output = output;
 }

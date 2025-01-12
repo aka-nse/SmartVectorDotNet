@@ -23,7 +23,7 @@ file static class TrailingZeroCountTest
         {
             random.NextBytes(MemoryMarshal.Cast<T, byte>(buffer));
             var v = InternalHelpers.CreateVector(buffer);
-            var z = VectorMath.CountTrailingZeros(v);
+            var z = VectorOp.CountTrailingZeros(v);
             for(var j = 0; j < Vector<T>.Count; ++j)
             {
                 var expected = ScalarOp.CountTrailingZeros(v[j]);
@@ -34,7 +34,7 @@ file static class TrailingZeroCountTest
 }
 
 
-public partial class VectorMathTest
+public partial class VectorOpTest
 {
     [Fact] public void CtzUInt8() => TrailingZeroCountTest.Test<byte>();
     [Fact] public void CtzUInt16() => TrailingZeroCountTest.Test<ushort>();

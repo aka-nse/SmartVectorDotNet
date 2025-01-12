@@ -49,8 +49,8 @@ partial class VectorOp
     /// <returns></returns>
     public static Vector<float> Modulo(Vector<float> x, Vector<float> y)
     {
-        VectorMath.Decompose(x, out var s, out var n, out var a);
-        VectorMath.Decompose(y, out var _, out var m, out var b);
+        VectorOp.Decompose(x, out var s, out var n, out var a);
+        VectorOp.Decompose(y, out var _, out var m, out var b);
 
         var i = n - m;
         var shouldReturnX = LessThan(i, Vector<int>.Zero);
@@ -60,7 +60,7 @@ partial class VectorOp
         while(true)
         {
             var condition = H.Reinterpret<int, uint>(GreaterThan(i, Const.SingleExponentBits));
-            if(NVector.EqualsAll(condition, VectorMath.Const<uint>.FalseValue))
+            if(NVector.EqualsAll(condition, VectorOp.Const<uint>.FalseValue))
             {
                 break;
             }
@@ -74,11 +74,11 @@ partial class VectorOp
         i = Vector<int>.Zero;
 
         var shouldReturnZero = Equals(c, Vector<uint>.Zero);
-        var eBitShift = VectorMath.CountLeadingZeros(c) - Const.SingleEBitPosFromLeft;
+        var eBitShift = VectorOp.CountLeadingZeros(c) - Const.SingleEBitPosFromLeft;
         c = ShiftLeft(c, eBitShift);
         i -= H.Reinterpret<uint, int>(eBitShift);
         
-        var retval = VectorMath.Scale(s, m + i, H.Reinterpret<uint, int>(c) & VectorMath.IEEE754Single_.FracPartMask);
+        var retval = VectorOp.Scale(s, m + i, H.Reinterpret<uint, int>(c) & VectorOp.IEEE754Single_.FracPartMask);
         return ConditionalSelect(
             H.Reinterpret<int, float>(shouldReturnX),
             x,
@@ -96,8 +96,8 @@ partial class VectorOp
     /// <returns></returns>
     public static Vector<double> Modulo(Vector<double> x, Vector<double> y)
     {
-        VectorMath.Decompose(x, out var s, out var n, out var a);
-        VectorMath.Decompose(y, out var _, out var m, out var b);
+        VectorOp.Decompose(x, out var s, out var n, out var a);
+        VectorOp.Decompose(y, out var _, out var m, out var b);
 
         var i = n - m;
         var shouldReturnX = LessThan(i, Vector<long>.Zero);
@@ -107,7 +107,7 @@ partial class VectorOp
         while (true)
         {
             var condition = H.Reinterpret<long, ulong>(GreaterThan(i, Const.DoubleExponentBits));
-            if (NVector.EqualsAll(condition, VectorMath.Const<ulong>.FalseValue))
+            if (NVector.EqualsAll(condition, VectorOp.Const<ulong>.FalseValue))
             {
                 break;
             }
@@ -121,11 +121,11 @@ partial class VectorOp
         i = Vector<long>.Zero;
 
         var shouldReturnZero = Equals(c, Vector<ulong>.Zero);
-        var eBitShift = VectorMath.CountLeadingZeros(c) - Const.DoubleEBitPosFromLeft;
+        var eBitShift = VectorOp.CountLeadingZeros(c) - Const.DoubleEBitPosFromLeft;
         c = ShiftLeft(c, eBitShift);
         i -= H.Reinterpret<ulong, long>(eBitShift);
 
-        var retval = VectorMath.Scale(s, m + i, H.Reinterpret<ulong, long>(c) & VectorMath.IEEE754Double_.FracPartMask);
+        var retval = VectorOp.Scale(s, m + i, H.Reinterpret<ulong, long>(c) & VectorOp.IEEE754Double_.FracPartMask);
         return ConditionalSelect(
             H.Reinterpret<long, double>(shouldReturnX),
             x,

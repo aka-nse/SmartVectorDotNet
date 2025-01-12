@@ -9,7 +9,7 @@ using Xunit;
 
 namespace SmartVectorDotNet;
 
-public partial class VectorMathTest
+public partial class VectorOpTest
 {
     [Fact]
     public void PopulationTest()
@@ -24,7 +24,7 @@ public partial class VectorMathTest
                 buf[0] = testValue;
                 Assert.Equal(
                     ScalarOp.CountPopulation(testValue),
-                    VectorMath.CountPopulation(testVector)[0]);
+                    VectorOp.CountPopulation(testVector)[0]);
             }
         }
 

@@ -23,7 +23,7 @@ file static class LeadingZeroCountTest
         {
             random.NextBytes(MemoryMarshal.Cast<T, byte>(buffer));
             var v = InternalHelpers.CreateVector(buffer);
-            var z = VectorMath.CountLeadingZeros(v);
+            var z = VectorOp.CountLeadingZeros(v);
             for(var j = 0; j < Vector<T>.Count; ++j)
             {
                 var expected = ScalarOp.CountLeadingZeros(v[j]);
@@ -34,7 +34,7 @@ file static class LeadingZeroCountTest
 }
 
 
-public partial class VectorMathTest
+public partial class VectorOpTest
 {
     [Fact] public void ClzUInt8() => LeadingZeroCountTest.Test<byte>();
     [Fact] public void ClzUInt16() => LeadingZeroCountTest.Test<ushort>();

@@ -11,7 +11,7 @@ using Xunit.Abstractions;
 
 namespace SmartVectorDotNet;
 
-public partial class VectorMathTest
+public partial class VectorOpTest
 {
     public static IEnumerable<object[]> Permute2TestCases()
     {
@@ -116,7 +116,7 @@ public partial class VectorMathTest
     {
         var inputV = InternalHelpers.CreateVector<T>(input);
         var expectedV = InternalHelpers.CreateVector<T>(expected);
-        Assert.Equal(expectedV, VectorMath.Permute2(inputV, m1, m2));
+        Assert.Equal(expectedV, VectorOp.Permute2(inputV, m1, m2));
     }
 
     [Theory]
@@ -128,11 +128,11 @@ public partial class VectorMathTest
         var expectedV = InternalHelpers.CreateVector128<T>(expected);
         if (Vector128<T>.Count >= 4)
         {
-            Assert.Equal(expectedV, VectorMath.Permute2(inputV, m1, m2));
+            Assert.Equal(expectedV, VectorOp.Permute2(inputV, m1, m2));
         }
         else
         {
-            Assert.Throws<NotSupportedException>(() => VectorMath.Permute2(inputV, m1, m2));
+            Assert.Throws<NotSupportedException>(() => VectorOp.Permute2(inputV, m1, m2));
         }
     }
 
@@ -143,7 +143,7 @@ public partial class VectorMathTest
     {
         var inputV = InternalHelpers.CreateVector256<T>(input);
         var expectedV = InternalHelpers.CreateVector256<T>(expected);
-        Assert.Equal(expectedV, VectorMath.Permute2(inputV, m1, m2));
+        Assert.Equal(expectedV, VectorOp.Permute2(inputV, m1, m2));
     }
 }
 

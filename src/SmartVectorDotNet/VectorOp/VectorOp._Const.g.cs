@@ -10,10 +10,6 @@ namespace SmartVectorDotNet;
 
 partial class VectorOp
 {
-    /// <summary>
-    /// Provides constant definitions.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     public partial class Const<T>
         where T : unmanaged
     {

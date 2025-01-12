@@ -190,28 +190,28 @@ partial class ScalarOp
 
 file class Constant
 {
-    public static readonly byte   False_byte   = VectorMath.Const<byte  >.FalseValue[0];
-    public static readonly byte   True_byte    = VectorMath.Const<byte  >.TrueValue [0];
-    public static readonly ushort False_ushort = VectorMath.Const<ushort>.FalseValue[0];
-    public static readonly ushort True_ushort  = VectorMath.Const<ushort>.TrueValue [0];
-    public static readonly uint   False_uint   = VectorMath.Const<uint  >.FalseValue[0];
-    public static readonly uint   True_uint    = VectorMath.Const<uint  >.TrueValue [0];
-    public static readonly ulong  False_ulong  = VectorMath.Const<ulong >.FalseValue[0];
-    public static readonly ulong  True_ulong   = VectorMath.Const<ulong >.TrueValue [0];
-    public static readonly nuint  False_nuint  = VectorMath.Const<nuint >.FalseValue[0];
-    public static readonly nuint  True_nuint   = VectorMath.Const<nuint >.TrueValue [0];
-    public static readonly sbyte  False_sbyte  = VectorMath.Const<sbyte >.FalseValue[0];
-    public static readonly sbyte  True_sbyte   = VectorMath.Const<sbyte >.TrueValue [0];
-    public static readonly short  False_short  = VectorMath.Const<short >.FalseValue[0];
-    public static readonly short  True_short   = VectorMath.Const<short >.TrueValue [0];
-    public static readonly int    False_int    = VectorMath.Const<int   >.FalseValue[0];
-    public static readonly int    True_int     = VectorMath.Const<int   >.TrueValue [0];
-    public static readonly long   False_long   = VectorMath.Const<long  >.FalseValue[0];
-    public static readonly long   True_long    = VectorMath.Const<long  >.TrueValue [0];
-    public static readonly nint   False_nint   = VectorMath.Const<nint  >.FalseValue[0];
-    public static readonly nint   True_nint    = VectorMath.Const<nint  >.TrueValue [0];
-    public static readonly float  False_float  = VectorMath.Const<float >.FalseValue[0];
-    public static readonly float  True_float   = VectorMath.Const<float >.TrueValue [0];
-    public static readonly double False_double = VectorMath.Const<double>.FalseValue[0];
-    public static readonly double True_double  = VectorMath.Const<double>.TrueValue [0];
+    public static readonly byte   False_byte   = VectorOp.Const<byte  >.FalseValue[0];
+    public static readonly byte   True_byte    = VectorOp.Const<byte  >.TrueValue [0];
+    public static readonly ushort False_ushort = VectorOp.Const<ushort>.FalseValue[0];
+    public static readonly ushort True_ushort  = VectorOp.Const<ushort>.TrueValue [0];
+    public static readonly uint   False_uint   = VectorOp.Const<uint  >.FalseValue[0];
+    public static readonly uint   True_uint    = VectorOp.Const<uint  >.TrueValue [0];
+    public static readonly ulong  False_ulong  = VectorOp.Const<ulong >.FalseValue[0];
+    public static readonly ulong  True_ulong   = VectorOp.Const<ulong >.TrueValue [0];
+    public static readonly nuint  False_nuint  = VectorOp.Const<nuint >.FalseValue[0];
+    public static readonly nuint  True_nuint   = VectorOp.Const<nuint >.TrueValue [0];
+    public static readonly sbyte  False_sbyte  = VectorOp.Const<sbyte >.FalseValue[0];
+    public static readonly sbyte  True_sbyte   = VectorOp.Const<sbyte >.TrueValue [0];
+    public static readonly short  False_short  = VectorOp.Const<short >.FalseValue[0];
+    public static readonly short  True_short   = VectorOp.Const<short >.TrueValue [0];
+    public static readonly int    False_int    = VectorOp.Const<int   >.FalseValue[0];
+    public static readonly int    True_int     = VectorOp.Const<int   >.TrueValue [0];
+    public static readonly long   False_long   = VectorOp.Const<long  >.FalseValue[0];
+    public static readonly long   True_long    = VectorOp.Const<long  >.TrueValue [0];
+    public static readonly nint   False_nint   = VectorOp.Const<nint  >.FalseValue[0];
+    public static readonly nint   True_nint    = VectorOp.Const<nint  >.TrueValue [0];
+    public static readonly float  False_float  = VectorOp.Const<float >.FalseValue[0];
+    public static readonly float  True_float   = VectorOp.Const<float >.TrueValue [0];
+    public static readonly double False_double = VectorOp.Const<double>.FalseValue[0];
+    public static readonly double True_double  = VectorOp.Const<double>.TrueValue [0];
 }

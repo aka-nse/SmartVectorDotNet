@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SmartVectorDotNet;
 
-public partial class VectorMathTest
+public partial class VectorOpTest
 {
     private sealed class SpecialValueComparer : IEqualityComparer<double>, IEqualityComparer<float>
     {

@@ -187,7 +187,7 @@ partial class ScalarOp
 file class Constant
 {
 <# foreach(var type in types) { #>
-    public static readonly <#=type#> False_<#=type#> = VectorMath.Const<<#=type#>>.FalseValue[0];
-    public static readonly <#=type#> True_<#=type#>  = VectorMath.Const<<#=type#>>.TrueValue [0];
+    public static readonly <#=type#> False_<#=type#> = VectorOp.Const<<#=type#>>.FalseValue[0];
+    public static readonly <#=type#> True_<#=type#>  = VectorOp.Const<<#=type#>>.TrueValue [0];
 <# } #>
 }

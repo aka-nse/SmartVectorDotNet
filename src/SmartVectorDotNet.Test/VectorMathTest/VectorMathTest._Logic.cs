@@ -8,7 +8,7 @@ using Xunit;
 
 namespace SmartVectorDotNet;
 
-public partial class VectorMathTest
+public partial class VectorOpTest
 {
     private static class Cache<T>
         where T : unmanaged
@@ -49,10 +49,10 @@ public partial class VectorMathTest
     {
         Assert.Equal(
             Cache<double>.AsVector(double.IsNormal(x)),
-            VectorMath.IsNormalized<double>(new(x)));
+            VectorOp.IsNormalized<double>(new(x)));
         Assert.Equal(
             Cache<float>.AsVector(float.IsNormal((float)x)),
-            VectorMath.IsNormalized<float>(new((float)x)));
+            VectorOp.IsNormalized<float>(new((float)x)));
     }
 
 
@@ -62,10 +62,10 @@ public partial class VectorMathTest
     {
         Assert.Equal(
             Cache<double>.AsVector(double.IsSubnormal(x)),
-            VectorMath.IsSubnormalized<double>(new(x)));
+            VectorOp.IsSubnormalized<double>(new(x)));
         Assert.Equal(
             Cache<float>.AsVector(float.IsSubnormal((float)x)),
-            VectorMath.IsSubnormalized<float>(new((float)x)));
+            VectorOp.IsSubnormalized<float>(new((float)x)));
     }
 
 
@@ -75,10 +75,10 @@ public partial class VectorMathTest
     {
         Assert.Equal(
             Cache<double>.AsVector(double.IsInfinity(x)),
-            VectorMath.IsInfinity<double>(new(x)));
+            VectorOp.IsInfinity<double>(new(x)));
         Assert.Equal(
             Cache<float>.AsVector(float.IsInfinity((float)x)),
-            VectorMath.IsInfinity<float>(new((float)x)));
+            VectorOp.IsInfinity<float>(new((float)x)));
     }
 
 
@@ -88,10 +88,10 @@ public partial class VectorMathTest
     {
         Assert.Equal(
             Cache<double>.AsVector(double.IsPositiveInfinity(x)),
-            VectorMath.IsPositiveInfinity<double>(new(x)));
+            VectorOp.IsPositiveInfinity<double>(new(x)));
         Assert.Equal(
             Cache<float>.AsVector(float.IsPositiveInfinity((float)x)),
-            VectorMath.IsPositiveInfinity<float>(new((float)x)));
+            VectorOp.IsPositiveInfinity<float>(new((float)x)));
     }
 
 
@@ -101,10 +101,10 @@ public partial class VectorMathTest
     {
         Assert.Equal(
             Cache<double>.AsVector(double.IsNegativeInfinity(x)),
-            VectorMath.IsNegativeInfinity<double>(new(x)));
+            VectorOp.IsNegativeInfinity<double>(new(x)));
         Assert.Equal(
             Cache<float>.AsVector(float.IsNegativeInfinity((float)x)),
-            VectorMath.IsNegativeInfinity<float>(new((float)x)));
+            VectorOp.IsNegativeInfinity<float>(new((float)x)));
     }
 
 
@@ -114,9 +114,9 @@ public partial class VectorMathTest
     {
         Assert.Equal(
             Cache<double>.AsVector(double.IsNaN(x)),
-            VectorMath.IsNaN<double>(new(x)));
+            VectorOp.IsNaN<double>(new(x)));
         Assert.Equal(
             Cache<float>.AsVector(float.IsNaN((float)x)),
-            VectorMath.IsNaN<float>(new((float)x)));
+            VectorOp.IsNaN<float>(new((float)x)));
     }
 }

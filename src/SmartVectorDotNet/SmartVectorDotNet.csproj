@@ -139,18 +139,6 @@
             <LastGenOutput>VectorOp._Const.g.cs</LastGenOutput>
         </None>
     </ItemGroup>
-    
-    <ItemGroup Label="VectorOp\VectorOp._FrameworkFallbacks">
-        <None Update="VectorOp\VectorOp._FrameworkFallbacks.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorOp._FrameworkFallbacks.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="VectorOp\VectorOp._FrameworkFallbacks.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>VectorOp._FrameworkFallbacks.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
 
     <ItemGroup Label="VectorOp\VectorOp._Shift">
         <Compile Update="VectorOp\VectorOp._Shift.g.cs">
@@ -163,21 +151,19 @@
             <LastGenOutput>VectorOp._Shift.g.cs</LastGenOutput>
         </None>
     </ItemGroup>
-    <!-- #endregion VectorOp -->
-
-    <!-- #region VectorMath -->
-    <ItemGroup Label="VectorMath\VectorMath">
-        <None Update="VectorMath\VectorMath.tt">
+    
+    <ItemGroup Label="VectorOp\VectorOp">
+        <None Update="VectorOp\VectorOp.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorMath.g.cs</LastGenOutput>
+            <LastGenOutput>VectorOp.g.cs</LastGenOutput>
         </None>
-        <Compile Update="VectorMath\VectorMath.g.cs">
+        <Compile Update="VectorOp\VectorOp.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>VectorMath.tt</DependentUpon>
+            <DependentUpon>VectorOp.tt</DependentUpon>
         </Compile>
     </ItemGroup>
-    <!-- #endregion VectorMath -->
+    <!-- #endregion VectorOp -->
 
     <!-- #region Vectorization -->
     <ItemGroup Label="Vectorization\IVectorizationFormula">

@@ -10,7 +10,7 @@ using Xunit.Abstractions;
 
 namespace SmartVectorDotNet;
 
-public partial class VectorMathTest
+public partial class VectorOpTest
 {
     internal void TestAccuracy(double[] x, Func<double, double> exp, Func<double, double> act, double accuracy, AccuracyMode mode)
     {
@@ -34,7 +34,7 @@ public partial class VectorMathTest
         TestAccuracy(
             x,
             x => Math.Cbrt(x),
-            x => VectorMath.Cbrt<double>(new(x))[0],
+            x => VectorOp.Cbrt<double>(new(x))[0],
             1e-10, AccuracyMode.AbsoluteOrRelative);
     }
 
@@ -46,7 +46,7 @@ public partial class VectorMathTest
         TestAccuracy(
             x,
             x => x % Math.PI,
-            x => VectorMath.Modulo<double>(new(x), new(Math.PI))[0],
+            x => VectorOp.Modulo<double>(new(x), new(Math.PI))[0],
             1e-10, AccuracyMode.Relative);
     }
 
@@ -63,12 +63,12 @@ public partial class VectorMathTest
         TestAccuracy(
             testCase,
             x => Math.Sin(x),
-            x => VectorMath.Sin(new Vector<double>(x))[0],
+            x => VectorOp.Sin(new Vector<double>(x))[0],
             1e-10, AccuracyMode.Absolute);
         TestAccuracy(
             testCase,
             x => MathF.Sin(x),
-            x => VectorMath.Sin(new Vector<float>(x))[0],
+            x => VectorOp.Sin(new Vector<float>(x))[0],
             1e-5f, AccuracyMode.Absolute);
     }
 
@@ -79,12 +79,12 @@ public partial class VectorMathTest
         TestAccuracy(
             testCase,
             x => Math.Cos(x),
-            x => VectorMath.Cos(new Vector<double>(x))[0],
+            x => VectorOp.Cos(new Vector<double>(x))[0],
             1e-10, AccuracyMode.Absolute);
         TestAccuracy(
             testCase,
             x => MathF.Cos(x),
-            x => VectorMath.Cos(new Vector<float>(x))[0],
+            x => VectorOp.Cos(new Vector<float>(x))[0],
             1e-5f, AccuracyMode.Absolute);
     }
 
@@ -97,12 +97,12 @@ public partial class VectorMathTest
         TestAccuracy(
             testCase,
             x => Math.Tan(x),
-            x => VectorMath.Tan(new Vector<double>(x))[0],
+            x => VectorOp.Tan(new Vector<double>(x))[0],
             1e-10, AccuracyMode.AbsoluteOrRelative);
         TestAccuracy(
             testCase,
             x => MathF.Tan(x),
-            x => VectorMath.Tan(new Vector<float>(x))[0],
+            x => VectorOp.Tan(new Vector<float>(x))[0],
             1e-5f, AccuracyMode.AbsoluteOrRelative);
     }
 
@@ -116,12 +116,12 @@ public partial class VectorMathTest
         TestAccuracy(
             testCase,
             x => Math.Atan(x),
-            x => VectorMath.Atan(new Vector<double>(x))[0],
+            x => VectorOp.Atan(new Vector<double>(x))[0],
             1e-10, AccuracyMode.AbsoluteOrRelative);
         TestAccuracy(
             testCase,
             x => MathF.Atan(x),
-            x => VectorMath.Atan(new Vector<float>(x))[0],
+            x => VectorOp.Atan(new Vector<float>(x))[0],
             1e-5f, AccuracyMode.AbsoluteOrRelative);
     }
 
@@ -160,12 +160,12 @@ public partial class VectorMathTest
         TestAccuracy(
             x,
             x => Math.Log(x),
-            x => VectorMath.Log(new Vector<double>(x))[0],
+            x => VectorOp.Log(new Vector<double>(x))[0],
             1e-6, AccuracyMode.Relative);
         TestAccuracy(
             x,
             x => MathF.Log(x),
-            x => VectorMath.Log(new Vector<float>(x))[0],
+            x => VectorOp.Log(new Vector<float>(x))[0],
             1e-6f, AccuracyMode.Relative);
     }
 }

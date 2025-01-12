@@ -7,7 +7,7 @@ using Xunit;
 
 namespace SmartVectorDotNet;
 
-public partial class VectorMathTest
+public partial class VectorOpTest
 {
     public class SpecialValue
     {
@@ -48,7 +48,7 @@ public partial class VectorMathTest
         public void Acos_Double(double operand)
         {
             var exp = Math.Acos(operand);
-            var act = VectorMath.Acos<double>(new (operand))[0];
+            var act = VectorOp.Acos<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -57,7 +57,7 @@ public partial class VectorMathTest
         public void Acos_Single(float operand)
         {
             var exp = MathF.Acos(operand);
-            var act = VectorMath.Acos<float>(new (operand))[0];
+            var act = VectorOp.Acos<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -100,7 +100,7 @@ public partial class VectorMathTest
         public void Acosh_Double(double operand)
         {
             var exp = Math.Acosh(operand);
-            var act = VectorMath.Acosh<double>(new (operand))[0];
+            var act = VectorOp.Acosh<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -109,7 +109,7 @@ public partial class VectorMathTest
         public void Acosh_Single(float operand)
         {
             var exp = MathF.Acosh(operand);
-            var act = VectorMath.Acosh<float>(new (operand))[0];
+            var act = VectorOp.Acosh<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -152,7 +152,7 @@ public partial class VectorMathTest
         public void Asin_Double(double operand)
         {
             var exp = Math.Asin(operand);
-            var act = VectorMath.Asin<double>(new (operand))[0];
+            var act = VectorOp.Asin<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -161,7 +161,7 @@ public partial class VectorMathTest
         public void Asin_Single(float operand)
         {
             var exp = MathF.Asin(operand);
-            var act = VectorMath.Asin<float>(new (operand))[0];
+            var act = VectorOp.Asin<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -204,7 +204,7 @@ public partial class VectorMathTest
         public void Asinh_Double(double operand)
         {
             var exp = Math.Asinh(operand);
-            var act = VectorMath.Asinh<double>(new (operand))[0];
+            var act = VectorOp.Asinh<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -213,7 +213,7 @@ public partial class VectorMathTest
         public void Asinh_Single(float operand)
         {
             var exp = MathF.Asinh(operand);
-            var act = VectorMath.Asinh<float>(new (operand))[0];
+            var act = VectorOp.Asinh<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -256,7 +256,7 @@ public partial class VectorMathTest
         public void Atan_Double(double operand)
         {
             var exp = Math.Atan(operand);
-            var act = VectorMath.Atan<double>(new (operand))[0];
+            var act = VectorOp.Atan<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -265,7 +265,7 @@ public partial class VectorMathTest
         public void Atan_Single(float operand)
         {
             var exp = MathF.Atan(operand);
-            var act = VectorMath.Atan<float>(new (operand))[0];
+            var act = VectorOp.Atan<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -304,7 +304,7 @@ public partial class VectorMathTest
         public void Cos_Double(double operand)
         {
             var exp = Math.Cos(operand);
-            var act = VectorMath.Cos<double>(new (operand))[0];
+            var act = VectorOp.Cos<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -313,7 +313,7 @@ public partial class VectorMathTest
         public void Cos_Single(float operand)
         {
             var exp = MathF.Cos(operand);
-            var act = VectorMath.Cos<float>(new (operand))[0];
+            var act = VectorOp.Cos<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -356,7 +356,7 @@ public partial class VectorMathTest
         public void Cosh_Double(double operand)
         {
             var exp = Math.Cosh(operand);
-            var act = VectorMath.Cosh<double>(new (operand))[0];
+            var act = VectorOp.Cosh<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -365,7 +365,7 @@ public partial class VectorMathTest
         public void Cosh_Single(float operand)
         {
             var exp = MathF.Cosh(operand);
-            var act = VectorMath.Cosh<float>(new (operand))[0];
+            var act = VectorOp.Cosh<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -408,7 +408,7 @@ public partial class VectorMathTest
         public void Exp_Double(double operand)
         {
             var exp = Math.Exp(operand);
-            var act = VectorMath.Exp<double>(new (operand))[0];
+            var act = VectorOp.Exp<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -417,7 +417,7 @@ public partial class VectorMathTest
         public void Exp_Single(float operand)
         {
             var exp = MathF.Exp(operand);
-            var act = VectorMath.Exp<float>(new (operand))[0];
+            var act = VectorOp.Exp<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -460,7 +460,7 @@ public partial class VectorMathTest
         public void Atanh_Double(double operand)
         {
             var exp = Math.Atanh(operand);
-            var act = VectorMath.Atanh<double>(new (operand))[0];
+            var act = VectorOp.Atanh<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -469,7 +469,7 @@ public partial class VectorMathTest
         public void Atanh_Single(float operand)
         {
             var exp = MathF.Atanh(operand);
-            var act = VectorMath.Atanh<float>(new (operand))[0];
+            var act = VectorOp.Atanh<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -512,7 +512,7 @@ public partial class VectorMathTest
         public void Log_Double(double operand)
         {
             var exp = Math.Log(operand);
-            var act = VectorMath.Log<double>(new (operand))[0];
+            var act = VectorOp.Log<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -521,7 +521,7 @@ public partial class VectorMathTest
         public void Log_Single(float operand)
         {
             var exp = MathF.Log(operand);
-            var act = VectorMath.Log<float>(new (operand))[0];
+            var act = VectorOp.Log<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -564,7 +564,7 @@ public partial class VectorMathTest
         public void Log10_Double(double operand)
         {
             var exp = Math.Log10(operand);
-            var act = VectorMath.Log10<double>(new (operand))[0];
+            var act = VectorOp.Log10<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -573,7 +573,7 @@ public partial class VectorMathTest
         public void Log10_Single(float operand)
         {
             var exp = MathF.Log10(operand);
-            var act = VectorMath.Log10<float>(new (operand))[0];
+            var act = VectorOp.Log10<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -616,7 +616,7 @@ public partial class VectorMathTest
         public void Log2_Double(double operand)
         {
             var exp = Math.Log2(operand);
-            var act = VectorMath.Log2<double>(new (operand))[0];
+            var act = VectorOp.Log2<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -625,7 +625,7 @@ public partial class VectorMathTest
         public void Log2_Single(float operand)
         {
             var exp = MathF.Log2(operand);
-            var act = VectorMath.Log2<float>(new (operand))[0];
+            var act = VectorOp.Log2<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -664,7 +664,7 @@ public partial class VectorMathTest
         public void Sin_Double(double operand)
         {
             var exp = Math.Sin(operand);
-            var act = VectorMath.Sin<double>(new (operand))[0];
+            var act = VectorOp.Sin<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -673,7 +673,7 @@ public partial class VectorMathTest
         public void Sin_Single(float operand)
         {
             var exp = MathF.Sin(operand);
-            var act = VectorMath.Sin<float>(new (operand))[0];
+            var act = VectorOp.Sin<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -716,7 +716,7 @@ public partial class VectorMathTest
         public void Sinh_Double(double operand)
         {
             var exp = Math.Sinh(operand);
-            var act = VectorMath.Sinh<double>(new (operand))[0];
+            var act = VectorOp.Sinh<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -725,7 +725,7 @@ public partial class VectorMathTest
         public void Sinh_Single(float operand)
         {
             var exp = MathF.Sinh(operand);
-            var act = VectorMath.Sinh<float>(new (operand))[0];
+            var act = VectorOp.Sinh<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -764,7 +764,7 @@ public partial class VectorMathTest
         public void Tan_Double(double operand)
         {
             var exp = Math.Tan(operand);
-            var act = VectorMath.Tan<double>(new (operand))[0];
+            var act = VectorOp.Tan<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -773,7 +773,7 @@ public partial class VectorMathTest
         public void Tan_Single(float operand)
         {
             var exp = MathF.Tan(operand);
-            var act = VectorMath.Tan<float>(new (operand))[0];
+            var act = VectorOp.Tan<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -816,7 +816,7 @@ public partial class VectorMathTest
         public void Tanh_Double(double operand)
         {
             var exp = Math.Tanh(operand);
-            var act = VectorMath.Tanh<double>(new (operand))[0];
+            var act = VectorOp.Tanh<double>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 
@@ -825,7 +825,7 @@ public partial class VectorMathTest
         public void Tanh_Single(float operand)
         {
             var exp = MathF.Tanh(operand);
-            var act = VectorMath.Tanh<float>(new (operand))[0];
+            var act = VectorOp.Tanh<float>(new (operand))[0];
             Assert.Equal(exp, act, SpecialValueComparer.Instance);
         }
 

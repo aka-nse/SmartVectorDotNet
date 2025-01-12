@@ -25,11 +25,11 @@ var operations = new MethodDef[]
     new ("AddSaturate"        , "x", "y", (x, y) => $"ScalarOp.AddSaturate({x}, {y})"     , (x, y) => $"VectorOp.AddSaturate({x}, {y})"     ),
     new ("SubtractSaturate"   , "x", "y", (x, y) => $"ScalarOp.SubtractSaturate({x}, {y})", (x, y) => $"VectorOp.SubtractSaturate({x}, {y})"),
 
-    new ("Atan2"        , "y", "x", (y, x) => $"ScalarOp.Atan2({y}, {x})", (y, x) => $"VectorMath.Atan2({y}, {x})"),
-    new ("Log"          , "x", "newBase", (x, newBase) => $"ScalarOp.Log({x}, {newBase})", (x, newBase) => $"VectorMath.Log({x}, {newBase})"),
+    new ("Atan2"        , "y", "x", (y, x) => $"ScalarOp.Atan2({y}, {x})", (y, x) => $"VectorOp.Atan2({y}, {x})"),
+    new ("Log"          , "x", "newBase", (x, newBase) => $"ScalarOp.Log({x}, {newBase})", (x, newBase) => $"VectorOp.Log({x}, {newBase})"),
 //  new ("Modulo"       , "x", "y"),
 //  new ("ModuloByFloor", "x", "y"),
-    new ("Pow"          , "a", "x", (a, x) => $"ScalarOp.Pow({x}, {x})", (a, x) => $"VectorMath.Pow({x}, {x})"),
+    new ("Pow"          , "a", "x", (a, x) => $"ScalarOp.Pow({x}, {x})", (a, x) => $"VectorOp.Pow({x}, {x})"),
 };
 #>
 #nullable enable
