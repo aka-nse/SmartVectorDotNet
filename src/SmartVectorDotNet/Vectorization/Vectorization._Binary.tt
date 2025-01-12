@@ -21,6 +21,9 @@ var operations = new MethodDef[]
     new ("LessThanOrEquals"   , "x", "y", (x, y) => $"ScalarOp.LessThanOrEquals({x}, {y}) ? ScalarOp.True<T>() : ScalarOp.False<T>()"   , (x, y) => $"Vector.LessThanOrEqual({x}, {y})"   ),
     new ("GreaterThan"        , "x", "y", (x, y) => $"ScalarOp.GreaterThan({x}, {y}) ? ScalarOp.True<T>() : ScalarOp.False<T>()"        , (x, y) => $"Vector.GreaterThan({x}, {y})"       ),
     new ("GreaterThanOrEquals", "x", "y", (x, y) => $"ScalarOp.GreaterThanOrEquals({x}, {y}) ? ScalarOp.True<T>() : ScalarOp.False<T>()", (x, y) => $"Vector.GreaterThanOrEqual({x}, {y})"),
+    
+    new ("AddSaturate"        , "x", "y", (x, y) => $"ScalarOp.AddSaturate({x}, {y})"     , (x, y) => $"VectorOp.AddSaturate({x}, {y})"     ),
+    new ("SubtractSaturate"   , "x", "y", (x, y) => $"ScalarOp.SubtractSaturate({x}, {y})", (x, y) => $"VectorOp.SubtractSaturate({x}, {y})"),
 
     new ("Atan2"        , "y", "x", (y, x) => $"ScalarMath.Atan2({y}, {x})", (y, x) => $"VectorMath.Atan2({y}, {x})"),
     new ("Log"          , "x", "newBase", (x, newBase) => $"ScalarMath.Log({x}, {newBase})", (x, newBase) => $"VectorMath.Log({x}, {newBase})"),

@@ -2344,6 +2344,396 @@ partial class SimdVectorization
 }
 #endregion
 
+#region addsaturate
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates addsaturate for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    public void AddSaturate<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        AddSaturateCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates addsaturate for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    public void AddSaturate<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        AddSaturateCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates addsaturate for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    public void AddSaturate<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        AddSaturateCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="AddSaturate{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    protected internal virtual void AddSaturateCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.AddSaturate(x, y[i]);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="AddSaturate{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    protected internal virtual void AddSaturateCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.AddSaturate(x[i], y);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="AddSaturate{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    protected internal virtual void AddSaturateCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.AddSaturate(x[i], y[i]);
+    }
+}
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    protected internal override sealed void AddSaturateCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = new Vector<T>(x);
+        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorOp.AddSaturate(vectorX, vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vy = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            y.Slice(vectorLength).CopyTo(vy);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.AddSaturate(vectorX, Unsafe.As<T, Vector<T>>(ref vy[0])); 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override sealed void AddSaturateCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    {
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorY = new Vector<T>(y);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorOp.AddSaturate(vectorX[i], vectorY);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vx);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.AddSaturate(Unsafe.As<T, Vector<T>>(ref vx[0]), vectorY); 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override sealed void AddSaturateCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorOp.AddSaturate(vectorX[i], vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            var vy = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vx);
+            y.Slice(vectorLength).CopyTo(vy);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.AddSaturate(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+}
+#endregion
+
+#region subtractsaturate
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates subtractsaturate for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    public void SubtractSaturate<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        SubtractSaturateCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates subtractsaturate for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    public void SubtractSaturate<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        SubtractSaturateCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates subtractsaturate for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    public void SubtractSaturate<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        SubtractSaturateCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="SubtractSaturate{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    protected internal virtual void SubtractSaturateCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.SubtractSaturate(x, y[i]);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="SubtractSaturate{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    protected internal virtual void SubtractSaturateCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.SubtractSaturate(x[i], y);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="SubtractSaturate{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    protected internal virtual void SubtractSaturateCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.SubtractSaturate(x[i], y[i]);
+    }
+}
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    protected internal override sealed void SubtractSaturateCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = new Vector<T>(x);
+        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorOp.SubtractSaturate(vectorX, vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vy = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            y.Slice(vectorLength).CopyTo(vy);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.SubtractSaturate(vectorX, Unsafe.As<T, Vector<T>>(ref vy[0])); 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override sealed void SubtractSaturateCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    {
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorY = new Vector<T>(y);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorOp.SubtractSaturate(vectorX[i], vectorY);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vx);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.SubtractSaturate(Unsafe.As<T, Vector<T>>(ref vx[0]), vectorY); 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override sealed void SubtractSaturateCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
+        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = VectorOp.SubtractSaturate(vectorX[i], vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            var vx = (stackalloc T[Vector<T>.Count]);
+            var vy = (stackalloc T[Vector<T>.Count]);
+            var vans = (stackalloc T[Vector<T>.Count]);
+            x.Slice(vectorLength).CopyTo(vx);
+            y.Slice(vectorLength).CopyTo(vy);
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.SubtractSaturate(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
+            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+        }
+    }
+}
+#endregion
+
 #region atan2
 partial class Vectorization
 {
