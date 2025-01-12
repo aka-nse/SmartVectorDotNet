@@ -19,11 +19,11 @@
 
 This library has 3 layers:
 
-1. `ScalarOp`/`ScalarOp`<br/>
+1. `ScalarOp`<br/>
    provides generalized and backward-compatibility-enhanced operators and `Math`/`MathF` functions.
 
-2. `VectorOp`/`VectorOp`<br/>
-   provides SIMD parallelized APIs which are corresponding with each method in `ScalarOp`/`ScalarOp`.
+2. `VectorOp`<br/>
+   provides SIMD parallelized APIs which are corresponding with each method in `ScalarOp` and `Vector<T>` specific operations.
 
 3. `Vectorization`<br/>
    provides span based sequential operation.

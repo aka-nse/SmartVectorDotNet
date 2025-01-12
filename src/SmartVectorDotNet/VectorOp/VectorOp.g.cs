@@ -12,6 +12,11 @@ partial class VectorOp
 {
 }
 
+// VectorOp._DivideLike.cs
+partial class VectorOp
+{
+}
+
 // VectorOp._Math.Abs.cs
 partial class VectorOp
 {
@@ -134,11 +139,6 @@ partial class VectorOp
 }
 
 // VectorOp._Math.CountTrailingZeros.cs
-partial class VectorOp
-{
-}
-
-// VectorOp._Math.DivideLike.cs
 partial class VectorOp
 {
 }
