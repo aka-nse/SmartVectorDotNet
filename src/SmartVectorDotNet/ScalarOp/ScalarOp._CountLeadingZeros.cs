@@ -7,7 +7,7 @@ namespace SmartVectorDotNet;
 using H = InternalHelpers;
 
 
-partial class ScalarMath
+partial class ScalarOp
 {
     /// <summary> Count the number of leading zero bits in a mask. </summary>
     public static T CountLeadingZeros<T>(T x)

@@ -15,7 +15,7 @@ file class Atan_<T> : VectorMath.Const<T> where T : unmanaged
             var atanCoeffs = new Vector<double>[11];
             for (var n = 1; n <= 11; ++n)
             {
-                atanCoeffs[n - 1] = new(ScalarMath.Pow(-1.0, n) / (2 * n + 1));
+                atanCoeffs[n - 1] = new(ScalarOp.Pow(-1.0, n) / (2 * n + 1));
             }
             return H.ReinterpretVArray<double, T>(atanCoeffs);
         }
@@ -24,7 +24,7 @@ file class Atan_<T> : VectorMath.Const<T> where T : unmanaged
             var atanCoeffs = new Vector<float>[6];
             for (var n = 1; n <= 6; ++n)
             {
-                atanCoeffs[n - 1] = new(ScalarMath.Pow(-1f, n) / (2 * n + 1));
+                atanCoeffs[n - 1] = new(ScalarOp.Pow(-1f, n) / (2 * n + 1));
             }
             return H.ReinterpretVArray<float, T>(atanCoeffs);
         }
@@ -32,11 +32,11 @@ file class Atan_<T> : VectorMath.Const<T> where T : unmanaged
     }
 
     internal static readonly Vector<T> CoreReflectThreshold
-        = AsVector(ScalarMath.Sqrt(2.0) - 1);
+        = AsVector(ScalarOp.Sqrt(2.0) - 1);
     internal static readonly Vector<T> CoreReflectedOffset
-        = AsVector(ScalarMath.Const<double>.PI / 4);
+        = AsVector(ScalarOp.Const<double>.PI / 4);
     internal static readonly Vector<T> ReflectOffset
-        = AsVector(ScalarMath.Const<double>.PI / 2);
+        = AsVector(ScalarOp.Const<double>.PI / 2);
 }
 
 

@@ -250,7 +250,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Abs(d[i]);
+            ans[i] = ScalarOp.Abs(d[i]);
     }
 }
 
@@ -318,7 +318,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Acos(d[i]);
+            ans[i] = ScalarOp.Acos(d[i]);
     }
 }
 
@@ -386,7 +386,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Acosh(d[i]);
+            ans[i] = ScalarOp.Acosh(d[i]);
     }
 }
 
@@ -454,7 +454,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Asin(d[i]);
+            ans[i] = ScalarOp.Asin(d[i]);
     }
 }
 
@@ -522,7 +522,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Asinh(d[i]);
+            ans[i] = ScalarOp.Asinh(d[i]);
     }
 }
 
@@ -590,7 +590,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Atan(d[i]);
+            ans[i] = ScalarOp.Atan(d[i]);
     }
 }
 
@@ -658,7 +658,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Atanh(d[i]);
+            ans[i] = ScalarOp.Atanh(d[i]);
     }
 }
 
@@ -726,7 +726,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Cbrt(d[i]);
+            ans[i] = ScalarOp.Cbrt(d[i]);
     }
 }
 
@@ -794,7 +794,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Ceiling(d[i]);
+            ans[i] = ScalarOp.Ceiling(d[i]);
     }
 }
 
@@ -862,7 +862,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Cos(d[i]);
+            ans[i] = ScalarOp.Cos(d[i]);
     }
 }
 
@@ -930,7 +930,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Cosh(d[i]);
+            ans[i] = ScalarOp.Cosh(d[i]);
     }
 }
 
@@ -998,7 +998,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Exp(d[i]);
+            ans[i] = ScalarOp.Exp(d[i]);
     }
 }
 
@@ -1066,7 +1066,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Floor(d[i]);
+            ans[i] = ScalarOp.Floor(d[i]);
     }
 }
 
@@ -1134,7 +1134,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Log(d[i]);
+            ans[i] = ScalarOp.Log(d[i]);
     }
 }
 
@@ -1202,7 +1202,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Log10(d[i]);
+            ans[i] = ScalarOp.Log10(d[i]);
     }
 }
 
@@ -1270,7 +1270,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Log2(d[i]);
+            ans[i] = ScalarOp.Log2(d[i]);
     }
 }
 
@@ -1338,7 +1338,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Round(d[i]);
+            ans[i] = ScalarOp.Round(d[i]);
     }
 }
 
@@ -1406,7 +1406,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Sign(d[i]);
+            ans[i] = ScalarOp.Sign(d[i]);
     }
 }
 
@@ -1474,7 +1474,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Sin(d[i]);
+            ans[i] = ScalarOp.Sin(d[i]);
     }
 }
 
@@ -1542,7 +1542,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Sinh(d[i]);
+            ans[i] = ScalarOp.Sinh(d[i]);
     }
 }
 
@@ -1610,7 +1610,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Sqrt(d[i]);
+            ans[i] = ScalarOp.Sqrt(d[i]);
     }
 }
 
@@ -1678,7 +1678,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Tan(d[i]);
+            ans[i] = ScalarOp.Tan(d[i]);
     }
 }
 
@@ -1746,7 +1746,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Tanh(d[i]);
+            ans[i] = ScalarOp.Tanh(d[i]);
     }
 }
 
@@ -1814,7 +1814,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Truncate(d[i]);
+            ans[i] = ScalarOp.Truncate(d[i]);
     }
 }
 

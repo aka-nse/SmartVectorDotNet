@@ -58,10 +58,10 @@ public static partial class VectorMath
 
 
         /// <summary> Vectorized Napier's constant. </summary>
-        public static readonly Vector<T> E = new (ScalarMath.Const<T>.E);
+        public static readonly Vector<T> E = new (ScalarOp.Const<T>.E);
 
         /// <summary> Vectorized Pi. </summary>
-        public static readonly Vector<T> PI = new(ScalarMath.Const<T>.PI);
+        public static readonly Vector<T> PI = new(ScalarOp.Const<T>.PI);
 
         internal static readonly Vector<T> PI_1p2 = AsVector(0.5) * PI;
         internal static readonly Vector<T> PI_2p2 = AsVector(1.0) * PI;
@@ -106,7 +106,7 @@ public static partial class VectorMath
             = AsVector(1.0);
 
         internal static readonly Vector<T> _Sqrt2
-            = AsVector(ScalarMath.Sqrt(2.0));
+            = AsVector(ScalarOp.Sqrt(2.0));
 
         internal static readonly Vector<T> _2
             = AsVector(2.0);
@@ -114,8 +114,8 @@ public static partial class VectorMath
         internal static readonly Vector<T> _3
             = AsVector(3.0);
 
-        internal static readonly Vector<T> Log_2_E = AsVector(ScalarMath.Log(ScalarMath.Const<double>.E, 2));
-        internal static readonly Vector<T> Log_E_2 = AsVector(ScalarMath.Log(2, ScalarMath.Const<double>.E));
+        internal static readonly Vector<T> Log_2_E = AsVector(ScalarOp.Log(ScalarOp.Const<double>.E, 2));
+        internal static readonly Vector<T> Log_E_2 = AsVector(ScalarOp.Log(2, ScalarOp.Const<double>.E));
 
         private protected Const() { }
     }

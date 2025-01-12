@@ -39,26 +39,26 @@ partial class AccuracyAssert
 
         public static partial T ErrorAbs(T exp, T act)
         {
-            return ScalarMath.Abs(ScalarOp.Subtract(exp, act));
+            return ScalarOp.Abs(ScalarOp.Subtract(exp, act));
         }
 
         public static partial T ErrorRel(T exp, T act)
         {
             var one = ScalarOp.One<T>();
             var maxval = ScalarOp.MaxValue<T>();
-            var num = ScalarMath.Abs(ScalarOp.Subtract(exp, act));
-            var denom = ScalarOp.Add(ScalarMath.Abs(exp), ScalarOp.Divide(one, maxval));
+            var num = ScalarOp.Abs(ScalarOp.Subtract(exp, act));
+            var denom = ScalarOp.Add(ScalarOp.Abs(exp), ScalarOp.Divide(one, maxval));
             return ScalarOp.Divide(num, denom);
         }
 
         public static partial T ErrorAbsAndRel(T exp, T act)
         {
-            return ScalarMath.Max(ErrorAbs(exp, act), ErrorRel(exp, act));
+            return ScalarOp.Max(ErrorAbs(exp, act), ErrorRel(exp, act));
         }
 
         public static partial T ErrorAbsOrRel(T exp, T act)
         {
-            return ScalarMath.Min(ErrorAbs(exp, act), ErrorRel(exp, act));
+            return ScalarOp.Min(ErrorAbs(exp, act), ErrorRel(exp, act));
         }
     }
 }

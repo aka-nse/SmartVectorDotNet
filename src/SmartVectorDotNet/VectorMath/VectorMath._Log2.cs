@@ -5,7 +5,7 @@ using H = InternalHelpers;
 
 file class Log2_<T> : VectorMath.Const<T> where T : unmanaged
 {
-    internal static readonly Vector<T> OnePerLog_E_2 = AsVector(1.0 / ScalarMath.Log(2, ScalarMath.Const<double>.E));
+    internal static readonly Vector<T> OnePerLog_E_2 = AsVector(1.0 / ScalarOp.Log(2, ScalarOp.Const<double>.E));
 }
 
 

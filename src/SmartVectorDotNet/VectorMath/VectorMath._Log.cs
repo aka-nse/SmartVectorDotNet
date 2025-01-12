@@ -14,7 +14,7 @@ file class Log_<T> : VectorMath.Const<T> where T : unmanaged
             var logCoeffs = new Vector<double>[20];
             for (var i = 0; i < logCoeffs.Length; ++i)
             {
-                logCoeffs[i] = new(ScalarMath.Pow(-1.0, i) / (i + 1.0));
+                logCoeffs[i] = new(ScalarOp.Pow(-1.0, i) / (i + 1.0));
             }
             return H.Reinterpret<Vector<double>[], Vector<T>[]>(logCoeffs);
         }
@@ -23,7 +23,7 @@ file class Log_<T> : VectorMath.Const<T> where T : unmanaged
             var logCoeffs = new Vector<float>[10];
             for (var i = 0; i < logCoeffs.Length; ++i)
             {
-                logCoeffs[i] = new(ScalarMath.Pow(-1.0f, i) / (i + 1.0f));
+                logCoeffs[i] = new(ScalarOp.Pow(-1.0f, i) / (i + 1.0f));
             }
             return H.Reinterpret<Vector<float>[], Vector<T>[]>(logCoeffs);
         }

@@ -12,7 +12,7 @@ partial class VectorMath
     private struct Floor_<T> : IOperation1<T>
         where T : unmanaged
     {
-        public T Calculate(T x) => ScalarMath.Floor(x);
+        public T Calculate(T x) => ScalarOp.Floor(x);
     }
 
     private static Vector<double> Floor(Vector<double> x)

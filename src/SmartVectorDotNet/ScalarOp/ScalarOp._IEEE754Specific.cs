@@ -1,7 +1,7 @@
 namespace SmartVectorDotNet;
-using static ScalarMath.Const;
+using static ScalarOp.Const;
 
-partial class ScalarMath
+partial class ScalarOp
 {
     partial class Const
     {

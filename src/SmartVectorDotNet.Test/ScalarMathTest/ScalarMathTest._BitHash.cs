@@ -7,7 +7,7 @@ using Xunit;
 
 namespace SmartVectorDotNet;
 
-public partial class ScalarMathTest
+public partial class ScalarOpTest
 {
     [Fact]
     public void BitHash32()
@@ -15,7 +15,7 @@ public partial class ScalarMathTest
         var set = new HashSet<int>();
         for(var i = 0; i < 32; ++i)
         {
-            set.Add(ScalarMath.BitHash(1u << i));
+            set.Add(ScalarOp.BitHash(1u << i));
         }
 
         Assert.Equal(32, set.Count);
@@ -31,7 +31,7 @@ public partial class ScalarMathTest
         var set = new HashSet<int>();
         for (var i = 0; i < 64; ++i)
         {
-            set.Add(ScalarMath.BitHash(1uL << i));
+            set.Add(ScalarOp.BitHash(1uL << i));
         }
 
         Assert.Equal(64, set.Count);

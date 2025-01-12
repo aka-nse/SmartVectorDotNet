@@ -23,7 +23,7 @@ public partial class VectorMathTest
             {
                 buf[0] = testValue;
                 Assert.Equal(
-                    ScalarMath.CountPopulation(testValue),
+                    ScalarOp.CountPopulation(testValue),
                     VectorMath.CountPopulation(testVector)[0]);
             }
         }

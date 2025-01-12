@@ -26,7 +26,7 @@ file static class LeadingZeroCountTest
             var z = VectorMath.CountLeadingZeros(v);
             for(var j = 0; j < Vector<T>.Count; ++j)
             {
-                var expected = ScalarMath.CountLeadingZeros(v[j]);
+                var expected = ScalarOp.CountLeadingZeros(v[j]);
                 Assert.Equal(expected, z[j]);
             }
         }

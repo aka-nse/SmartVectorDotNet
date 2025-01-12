@@ -1,6 +1,6 @@
 namespace SmartVectorDotNet;
 using OP = VectorOp;
-using SC = ScalarMath.Const;
+using SC = ScalarOp.Const;
 using H = InternalHelpers;
 
 partial class VectorMath

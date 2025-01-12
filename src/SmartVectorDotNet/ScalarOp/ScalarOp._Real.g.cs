@@ -4,7 +4,7 @@
 namespace SmartVectorDotNet;
 
 
-partial class ScalarMath
+partial class ScalarOp
 {
 
     /// <summary>

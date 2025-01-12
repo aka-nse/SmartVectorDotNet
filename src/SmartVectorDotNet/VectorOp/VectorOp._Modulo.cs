@@ -8,13 +8,13 @@ namespace SmartVectorDotNet;
 
 file static class Const
 {
-    public static readonly Vector<uint> SingleEBitPosFromLeft = new(31u - (uint)ScalarMath.Const.SingleExpBitOffset);
-    public static readonly Vector<int> SingleEconomizedBit = new(1 << ScalarMath.Const.SingleExpBitOffset);
-    public static readonly Vector<int> SingleExponentBits = new(32 - ScalarMath.Const.SingleExpBitOffset - 1);
+    public static readonly Vector<uint> SingleEBitPosFromLeft = new(31u - (uint)ScalarOp.Const.SingleExpBitOffset);
+    public static readonly Vector<int> SingleEconomizedBit = new(1 << ScalarOp.Const.SingleExpBitOffset);
+    public static readonly Vector<int> SingleExponentBits = new(32 - ScalarOp.Const.SingleExpBitOffset - 1);
 
-    public static readonly Vector<ulong> DoubleEBitPosFromLeft = new(63u - (ulong)ScalarMath.Const.DoubleExpBitOffset);
-    public static readonly Vector<long> DoubleEconomizedBit = new(1L << ScalarMath.Const.DoubleExpBitOffset);
-    public static readonly Vector<long> DoubleExponentBits = new(64L - ScalarMath.Const.DoubleExpBitOffset - 1);
+    public static readonly Vector<ulong> DoubleEBitPosFromLeft = new(63u - (ulong)ScalarOp.Const.DoubleExpBitOffset);
+    public static readonly Vector<long> DoubleEconomizedBit = new(1L << ScalarOp.Const.DoubleExpBitOffset);
+    public static readonly Vector<long> DoubleExponentBits = new(64L - ScalarOp.Const.DoubleExpBitOffset - 1);
 }
 
 

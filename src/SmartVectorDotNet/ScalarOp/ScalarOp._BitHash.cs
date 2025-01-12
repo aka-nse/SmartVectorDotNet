@@ -6,7 +6,7 @@ namespace SmartVectorDotNet;
 using H = InternalHelpers;
 
 
-partial class ScalarMath
+partial class ScalarOp
 {
     /// <summary>
     /// Maps an integer with only one bit being <c>1</c> into <c>0</c>-<c>31</c> bijectively and fastly.

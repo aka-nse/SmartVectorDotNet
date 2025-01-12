@@ -6,7 +6,7 @@ partial class VectorMath
 {
     internal class Log10_<T> : Const<T> where T : unmanaged
     {
-        internal static readonly Vector<T> OnePerLog_E_10 = AsVector(1.0 / ScalarMath.Log(10, ScalarMath.Const<double>.E));
+        internal static readonly Vector<T> OnePerLog_E_10 = AsVector(1.0 / ScalarOp.Log(10, ScalarOp.Const<double>.E));
     }
 
     /// <summary>

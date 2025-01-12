@@ -23,33 +23,33 @@ partial class VectorOp
         {
         case 2:
             return CreateVector(stackalloc []{
-                ScalarMath.Ceiling(value[0]),
-                ScalarMath.Ceiling(value[1]),
+                ScalarOp.Ceiling(value[0]),
+                ScalarOp.Ceiling(value[1]),
             });
         case 4:
             return CreateVector(stackalloc []{
-                ScalarMath.Ceiling(value[0]),
-                ScalarMath.Ceiling(value[1]),
-                ScalarMath.Ceiling(value[2]),
-                ScalarMath.Ceiling(value[3]),
+                ScalarOp.Ceiling(value[0]),
+                ScalarOp.Ceiling(value[1]),
+                ScalarOp.Ceiling(value[2]),
+                ScalarOp.Ceiling(value[3]),
             });
         case 8:
             return CreateVector(stackalloc []{
-                ScalarMath.Ceiling(value[0]),
-                ScalarMath.Ceiling(value[1]),
-                ScalarMath.Ceiling(value[2]),
-                ScalarMath.Ceiling(value[3]),
-                ScalarMath.Ceiling(value[4]),
-                ScalarMath.Ceiling(value[5]),
-                ScalarMath.Ceiling(value[6]),
-                ScalarMath.Ceiling(value[7]),
+                ScalarOp.Ceiling(value[0]),
+                ScalarOp.Ceiling(value[1]),
+                ScalarOp.Ceiling(value[2]),
+                ScalarOp.Ceiling(value[3]),
+                ScalarOp.Ceiling(value[4]),
+                ScalarOp.Ceiling(value[5]),
+                ScalarOp.Ceiling(value[6]),
+                ScalarOp.Ceiling(value[7]),
             });
         default:
             {
                 var buffer = (stackalloc float[Vector<float>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = ScalarMath.Ceiling(value[i]);
+                    buffer[i] = ScalarOp.Ceiling(value[i]);
                 }
                 return Unsafe.As<float, Vector<float>>(ref buffer[0]);
             }
@@ -67,26 +67,26 @@ partial class VectorOp
         {
         case 1:
             return CreateVector(stackalloc []{
-                ScalarMath.Ceiling(value[0]),
+                ScalarOp.Ceiling(value[0]),
             });
         case 2:
             return CreateVector(stackalloc []{
-                ScalarMath.Ceiling(value[0]),
-                ScalarMath.Ceiling(value[1]),
+                ScalarOp.Ceiling(value[0]),
+                ScalarOp.Ceiling(value[1]),
             });
         case 4:
             return CreateVector(stackalloc []{
-                ScalarMath.Ceiling(value[0]),
-                ScalarMath.Ceiling(value[1]),
-                ScalarMath.Ceiling(value[2]),
-                ScalarMath.Ceiling(value[3]),
+                ScalarOp.Ceiling(value[0]),
+                ScalarOp.Ceiling(value[1]),
+                ScalarOp.Ceiling(value[2]),
+                ScalarOp.Ceiling(value[3]),
             });
         default:
             {
                 var buffer = (stackalloc double[Vector<double>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = ScalarMath.Ceiling(value[i]);
+                    buffer[i] = ScalarOp.Ceiling(value[i]);
                 }
                 return Unsafe.As<double, Vector<double>>(ref buffer[0]);
             }
@@ -104,33 +104,33 @@ partial class VectorOp
         {
         case 2:
             return CreateVector(stackalloc []{
-                ScalarMath.Floor  (value[0]),
-                ScalarMath.Floor  (value[1]),
+                ScalarOp.Floor  (value[0]),
+                ScalarOp.Floor  (value[1]),
             });
         case 4:
             return CreateVector(stackalloc []{
-                ScalarMath.Floor  (value[0]),
-                ScalarMath.Floor  (value[1]),
-                ScalarMath.Floor  (value[2]),
-                ScalarMath.Floor  (value[3]),
+                ScalarOp.Floor  (value[0]),
+                ScalarOp.Floor  (value[1]),
+                ScalarOp.Floor  (value[2]),
+                ScalarOp.Floor  (value[3]),
             });
         case 8:
             return CreateVector(stackalloc []{
-                ScalarMath.Floor  (value[0]),
-                ScalarMath.Floor  (value[1]),
-                ScalarMath.Floor  (value[2]),
-                ScalarMath.Floor  (value[3]),
-                ScalarMath.Floor  (value[4]),
-                ScalarMath.Floor  (value[5]),
-                ScalarMath.Floor  (value[6]),
-                ScalarMath.Floor  (value[7]),
+                ScalarOp.Floor  (value[0]),
+                ScalarOp.Floor  (value[1]),
+                ScalarOp.Floor  (value[2]),
+                ScalarOp.Floor  (value[3]),
+                ScalarOp.Floor  (value[4]),
+                ScalarOp.Floor  (value[5]),
+                ScalarOp.Floor  (value[6]),
+                ScalarOp.Floor  (value[7]),
             });
         default:
             {
                 var buffer = (stackalloc float[Vector<float>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = ScalarMath.Floor  (value[i]);
+                    buffer[i] = ScalarOp.Floor  (value[i]);
                 }
                 return Unsafe.As<float, Vector<float>>(ref buffer[0]);
             }
@@ -148,26 +148,26 @@ partial class VectorOp
         {
         case 1:
             return CreateVector(stackalloc []{
-                ScalarMath.Floor  (value[0]),
+                ScalarOp.Floor  (value[0]),
             });
         case 2:
             return CreateVector(stackalloc []{
-                ScalarMath.Floor  (value[0]),
-                ScalarMath.Floor  (value[1]),
+                ScalarOp.Floor  (value[0]),
+                ScalarOp.Floor  (value[1]),
             });
         case 4:
             return CreateVector(stackalloc []{
-                ScalarMath.Floor  (value[0]),
-                ScalarMath.Floor  (value[1]),
-                ScalarMath.Floor  (value[2]),
-                ScalarMath.Floor  (value[3]),
+                ScalarOp.Floor  (value[0]),
+                ScalarOp.Floor  (value[1]),
+                ScalarOp.Floor  (value[2]),
+                ScalarOp.Floor  (value[3]),
             });
         default:
             {
                 var buffer = (stackalloc double[Vector<double>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = ScalarMath.Floor  (value[i]);
+                    buffer[i] = ScalarOp.Floor  (value[i]);
                 }
                 return Unsafe.As<double, Vector<double>>(ref buffer[0]);
             }

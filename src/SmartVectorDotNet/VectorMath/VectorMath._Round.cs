@@ -24,7 +24,7 @@ partial class VectorMath
     private struct Round_<T> : IOperation1<T>
         where T : unmanaged
     {
-        public T Calculate(T x) => ScalarMath.Round(x);
+        public T Calculate(T x) => ScalarOp.Round(x);
     }
 
     /// <summary> Calculates round. </summary>

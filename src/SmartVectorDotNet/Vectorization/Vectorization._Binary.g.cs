@@ -2810,7 +2810,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Atan2(y, x[i]);
+            ans[i] = ScalarOp.Atan2(y, x[i]);
     }
     
     /// <summary>
@@ -2833,7 +2833,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Atan2(y[i], x);
+            ans[i] = ScalarOp.Atan2(y[i], x);
     }
     
     /// <summary>
@@ -2856,7 +2856,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Atan2(y[i], x[i]);
+            ans[i] = ScalarOp.Atan2(y[i], x[i]);
     }
 }
 
@@ -3005,7 +3005,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Log(x, newBase[i]);
+            ans[i] = ScalarOp.Log(x, newBase[i]);
     }
     
     /// <summary>
@@ -3028,7 +3028,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Log(x[i], newBase);
+            ans[i] = ScalarOp.Log(x[i], newBase);
     }
     
     /// <summary>
@@ -3051,7 +3051,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Log(x[i], newBase[i]);
+            ans[i] = ScalarOp.Log(x[i], newBase[i]);
     }
 }
 
@@ -3200,7 +3200,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Pow(x[i], x[i]);
+            ans[i] = ScalarOp.Pow(x[i], x[i]);
     }
     
     /// <summary>
@@ -3223,7 +3223,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Pow(x, x);
+            ans[i] = ScalarOp.Pow(x, x);
     }
     
     /// <summary>
@@ -3246,7 +3246,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Pow(x[i], x[i]);
+            ans[i] = ScalarOp.Pow(x[i], x[i]);
     }
 }
 

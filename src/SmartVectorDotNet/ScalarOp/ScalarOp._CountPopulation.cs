@@ -6,7 +6,7 @@ namespace SmartVectorDotNet;
 using H = InternalHelpers;
 
 
-partial class ScalarMath
+partial class ScalarOp
 {
     /// <summary> Counts <c>1</c> bit. </summary>
     public static T CountPopulation<T>(T x)

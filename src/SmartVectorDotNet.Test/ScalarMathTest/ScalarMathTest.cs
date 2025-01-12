@@ -7,16 +7,16 @@ using Xunit;
 
 namespace SmartVectorDotNet;
 
-public partial class ScalarMathTest
+public partial class ScalarOpTest
 {
     [Fact]
     public void Constants()
     {
-        Assert.Equal(MathF.Pow(2.0f, -23), ScalarMath.Const<float>.MachineEpsilon);
-        Assert.Equal(Math.Pow(2.0, -52), ScalarMath.Const<double>.MachineEpsilon);
+        Assert.Equal(MathF.Pow(2.0f, -23), ScalarOp.Const<float>.MachineEpsilon);
+        Assert.Equal(Math.Pow(2.0, -52), ScalarOp.Const<double>.MachineEpsilon);
 
-        Assert.Equal(MathF.Pow(2.0f, -126), ScalarMath.Const<float>.PositiveMinimumNormalizedNumber);
-        Assert.Equal(Math.Pow(2.0, -1022), ScalarMath.Const<double>.PositiveMinimumNormalizedNumber);
+        Assert.Equal(MathF.Pow(2.0f, -126), ScalarOp.Const<float>.PositiveMinimumNormalizedNumber);
+        Assert.Equal(Math.Pow(2.0, -1022), ScalarOp.Const<double>.PositiveMinimumNormalizedNumber);
     }
 
     public static IEnumerable<object[]> DecomposeTestCases()
@@ -42,7 +42,7 @@ public partial class ScalarMathTest
     public void DecomposeTest(double x)
     {
         {
-            ScalarMath.Decompose<double>(x, out var n, out var a);
+            ScalarOp.Decompose<double>(x, out var n, out var a);
             Assert.True(1 <= Math.Abs(a));
             Assert.True(Math.Abs(a) < 2);
             Assert.Equal(n, Math.Truncate(n), 10);
@@ -50,7 +50,7 @@ public partial class ScalarMathTest
         }
         {
             var y = (float)x;
-            ScalarMath.Decompose<float>(y, out var n, out var a);
+            ScalarOp.Decompose<float>(y, out var n, out var a);
             Assert.True(1 <= MathF.Abs(a));
             Assert.True(MathF.Abs(a) < 2);
             Assert.Equal(n, MathF.Truncate(n), 10);

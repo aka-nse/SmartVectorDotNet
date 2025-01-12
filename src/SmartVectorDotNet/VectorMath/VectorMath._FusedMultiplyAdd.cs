@@ -84,6 +84,6 @@ partial class VectorMath
         where T : unmanaged
     {
         public readonly T Calculate(T x, T y, T z)
-            => ScalarMath.FusedMultiplyAdd(x, y, z);
+            => ScalarOp.FusedMultiplyAdd(x, y, z);
     }
 }

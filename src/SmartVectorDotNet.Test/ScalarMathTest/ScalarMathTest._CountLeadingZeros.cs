@@ -7,7 +7,7 @@ using Xunit;
 
 namespace SmartVectorDotNet;
 
-public partial class ScalarMathTest
+public partial class ScalarOpTest
 {
     [Fact]
     public void Clz32()
@@ -24,7 +24,7 @@ public partial class ScalarMathTest
         }
 
         static void testCore(uint x)
-            => Assert.Equal(clzReference(x), ScalarMath.CountLeadingZeros(x));
+            => Assert.Equal(clzReference(x), ScalarOp.CountLeadingZeros(x));
 
         static int clzReference(uint x)
         {
@@ -59,7 +59,7 @@ public partial class ScalarMathTest
         }
 
         static void testCore(ulong x)
-            => Assert.Equal(clzReference(x), ScalarMath.CountLeadingZeros(x));
+            => Assert.Equal(clzReference(x), ScalarOp.CountLeadingZeros(x));
 
         static int clzReference(ulong x)
         {

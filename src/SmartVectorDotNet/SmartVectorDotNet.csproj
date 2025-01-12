@@ -78,6 +78,30 @@
         </Compile>
     </ItemGroup>
 
+    <ItemGroup Label="ScalarOp\ScalarOp._General">
+        <None Update="ScalarOp\ScalarOp._General.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarOp._General.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarOp\ScalarOp._General.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarOp._General.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup Label="ScalarOp\ScalarOp._Real">
+        <None Update="ScalarOp\ScalarOp._Real.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarOp._Real.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarOp\ScalarOp._Real.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarOp._Real.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
     <ItemGroup Label="ScalarOp\ScalarOp._Shift">
         <None Update="ScalarOp\ScalarOp._Shift.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
@@ -102,32 +126,6 @@
         </Compile>
     </ItemGroup>
     <!-- #endregion ScalarOp -->
-    
-    <!-- #region ScalarMath -->
-    <ItemGroup Label="ScalarMath\ScalarMath._General">
-        <None Update="ScalarMath\ScalarMath._General.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarMath._General.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="ScalarMath\ScalarMath._General.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarMath._General.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup Label="ScalarMath\ScalarMath._Real">
-        <None Update="ScalarMath\ScalarMath._Real.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarMath._Real.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="ScalarMath\ScalarMath._Real.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarMath._Real.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
-    <!-- #endregion ScalarMath -->
 
     <!-- #region VectorOp -->
     <ItemGroup Label="VectorOp\VectorOp._Const">

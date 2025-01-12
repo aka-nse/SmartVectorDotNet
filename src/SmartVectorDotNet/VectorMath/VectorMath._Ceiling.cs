@@ -13,7 +13,7 @@ partial class VectorMath
     private struct Ceiling_<T> : IOperation1<T>
         where T : unmanaged
     {
-        public T Calculate(T x) => ScalarMath.Ceiling(x);
+        public T Calculate(T x) => ScalarOp.Ceiling(x);
     }
 
     private static Vector<double> Ceiling(Vector<double> x)

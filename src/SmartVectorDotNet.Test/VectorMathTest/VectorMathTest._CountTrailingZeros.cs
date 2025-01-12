@@ -26,7 +26,7 @@ file static class TrailingZeroCountTest
             var z = VectorMath.CountTrailingZeros(v);
             for(var j = 0; j < Vector<T>.Count; ++j)
             {
-                var expected = ScalarMath.CountTrailingZeros(v[j]);
+                var expected = ScalarOp.CountTrailingZeros(v[j]);
                 Assert.Equal(expected, z[j]);
             }
         }

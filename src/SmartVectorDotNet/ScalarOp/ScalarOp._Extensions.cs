@@ -1,7 +1,7 @@
 namespace SmartVectorDotNet;
 using OP = ScalarOp;
 
-partial class ScalarMath
+partial class ScalarOp
 {
     /// <summary>
     /// Returns an integer that indicates the sign of a number.

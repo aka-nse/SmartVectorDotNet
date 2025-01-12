@@ -5,8 +5,8 @@ using H = InternalHelpers;
 
 file class Exp_<T> : VectorMath.Const<T> where T : unmanaged
 {
-    internal static readonly Vector<T> Max = AsVector(ScalarMath.Log(double.MaxValue));
-    internal static readonly Vector<T> Min = AsVector(ScalarMath.Log(1 / double.MaxValue));
+    internal static readonly Vector<T> Max = AsVector(ScalarOp.Log(double.MaxValue));
+    internal static readonly Vector<T> Min = AsVector(ScalarOp.Log(1 / double.MaxValue));
 
     internal static ReadOnlySpan<Vector<T>> Coeffs => _expCoeffs;
     private static readonly Vector<T>[] _expCoeffs = GetExpCoeffs();
