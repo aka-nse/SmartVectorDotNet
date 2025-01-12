@@ -130,6 +130,18 @@
     <!-- #endregion ScalarMath -->
 
     <!-- #region VectorOp -->
+    <ItemGroup Label="VectorOp\VectorOp._Const">
+        <Compile Update="VectorOp\VectorOp._Const.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorOp._Const.tt</DependentUpon>
+        </Compile>
+        <None Update="VectorOp\VectorOp._Const.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorOp._Const.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+    
     <ItemGroup Label="VectorOp\VectorOp._FrameworkFallbacks">
         <None Update="VectorOp\VectorOp._FrameworkFallbacks.tt">
             <Generator>TextTemplatingFileGenerator</Generator>

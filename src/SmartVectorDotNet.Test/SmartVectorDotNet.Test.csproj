@@ -40,6 +40,16 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>VectorMathTest._SpecialValue_Unary.tt</DependentUpon>
         </Compile>
+        <Compile Update="VectorOpTest\VectorOpTest._Saturate.g.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>VectorOpTest._Saturate.tt</DependentUpon>
+        </Compile>
+        <Compile Update="VectorOpTest\VectorOpTest._Shift.g.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>VectorOpTest._Shift.tt</DependentUpon>
+        </Compile>
         <None Update="VectorMathTest/VectorMathTest._SpecialValue_Unary.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>VectorMathTest._SpecialValue_Unary.g.cs</LastGenOutput>
@@ -67,6 +77,18 @@
         <None Update="VectorizationTest\VectorizationTest.VectorizationStrategy.tt">
           <Generator>TextTemplatingFileGenerator</Generator>
           <LastGenOutput>VectorizationTest.VectorizationStrategy.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="VectorOpTest/VectorOpTest._Saturate.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorOpTest._Saturate.tt</DependentUpon>
+        </Compile>
+        <None Update="VectorOpTest/VectorOpTest._Saturate.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorOpTest._Saturate.g.cs</LastGenOutput>
         </None>
     </ItemGroup>
 
