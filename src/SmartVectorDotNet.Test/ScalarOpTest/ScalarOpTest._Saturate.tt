@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace SmartVectorDotNet;
 
-public partial class VectorOpTest
+public partial class ScalarOpTest
 {
 #if NET7_0_OR_GREATER
 <#  foreach(var type in types) { #>
@@ -41,8 +41,8 @@ public partial class VectorOpTest
     {
         unchecked
         {
-            var exp = ScalarOp.AddSaturate<<#=type#>>(a, b);
-            var act = VectorOp.AddSaturate<<#=type#>>(new(a), new(b))[0];
+            var exp = (<#=type#>)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<<#=type#>>(), ScalarOp.MaxValue<<#=type#>>());
+            var act = ScalarOp.AddSaturate<<#=type#>>(a, b);
             Assert.Equal(exp, act);
         }
     }
@@ -50,8 +50,8 @@ public partial class VectorOpTest
     [Theory, MemberData(nameof(SaturateTestCases_<#=type#>))]
     public void SubtractSaturate_<#=type#>(<#=type#> a, <#=type#> b)
     {
-        var exp = ScalarOp.SubtractSaturate<<#=type#>>(a, b);
-        var act = VectorOp.SubtractSaturate<<#=type#>>(new(a), new(b))[0];
+        var exp = (<#=type#>)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<<#=type#>>(), ScalarOp.MaxValue<<#=type#>>());
+        var act = ScalarOp.SubtractSaturate<<#=type#>>(a, b);
         Assert.Equal(exp, act);
     }
 

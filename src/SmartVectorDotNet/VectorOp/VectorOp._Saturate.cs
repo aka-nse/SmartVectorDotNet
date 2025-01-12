@@ -17,7 +17,7 @@ partial class VectorOp
     /// <param name="lhs"></param>
     /// <param name="rhs"></param>
     /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
+    /// <exception cref="NotSupportedException"></exception>
     public static Vector<T> AddSaturate<T>(Vector<T> lhs, Vector<T> rhs)
         where T : unmanaged
     {

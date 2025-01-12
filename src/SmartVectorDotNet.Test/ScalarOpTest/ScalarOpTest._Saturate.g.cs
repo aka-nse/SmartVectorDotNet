@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SmartVectorDotNet;
 
-public partial class VectorOpTest
+public partial class ScalarOpTest
 {
 #if NET7_0_OR_GREATER
 
@@ -29,8 +29,8 @@ public partial class VectorOpTest
     {
         unchecked
         {
-            var exp = ScalarOp.AddSaturate<byte>(a, b);
-            var act = VectorOp.AddSaturate<byte>(new(a), new(b))[0];
+            var exp = (byte)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<byte>(), ScalarOp.MaxValue<byte>());
+            var act = ScalarOp.AddSaturate<byte>(a, b);
             Assert.Equal(exp, act);
         }
     }
@@ -38,8 +38,8 @@ public partial class VectorOpTest
     [Theory, MemberData(nameof(SaturateTestCases_byte))]
     public void SubtractSaturate_byte(byte a, byte b)
     {
-        var exp = ScalarOp.SubtractSaturate<byte>(a, b);
-        var act = VectorOp.SubtractSaturate<byte>(new(a), new(b))[0];
+        var exp = (byte)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<byte>(), ScalarOp.MaxValue<byte>());
+        var act = ScalarOp.SubtractSaturate<byte>(a, b);
         Assert.Equal(exp, act);
     }
 
@@ -62,8 +62,8 @@ public partial class VectorOpTest
     {
         unchecked
         {
-            var exp = ScalarOp.AddSaturate<sbyte>(a, b);
-            var act = VectorOp.AddSaturate<sbyte>(new(a), new(b))[0];
+            var exp = (sbyte)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<sbyte>(), ScalarOp.MaxValue<sbyte>());
+            var act = ScalarOp.AddSaturate<sbyte>(a, b);
             Assert.Equal(exp, act);
         }
     }
@@ -71,8 +71,8 @@ public partial class VectorOpTest
     [Theory, MemberData(nameof(SaturateTestCases_sbyte))]
     public void SubtractSaturate_sbyte(sbyte a, sbyte b)
     {
-        var exp = ScalarOp.SubtractSaturate<sbyte>(a, b);
-        var act = VectorOp.SubtractSaturate<sbyte>(new(a), new(b))[0];
+        var exp = (sbyte)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<sbyte>(), ScalarOp.MaxValue<sbyte>());
+        var act = ScalarOp.SubtractSaturate<sbyte>(a, b);
         Assert.Equal(exp, act);
     }
 
@@ -95,8 +95,8 @@ public partial class VectorOpTest
     {
         unchecked
         {
-            var exp = ScalarOp.AddSaturate<short>(a, b);
-            var act = VectorOp.AddSaturate<short>(new(a), new(b))[0];
+            var exp = (short)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<short>(), ScalarOp.MaxValue<short>());
+            var act = ScalarOp.AddSaturate<short>(a, b);
             Assert.Equal(exp, act);
         }
     }
@@ -104,8 +104,8 @@ public partial class VectorOpTest
     [Theory, MemberData(nameof(SaturateTestCases_short))]
     public void SubtractSaturate_short(short a, short b)
     {
-        var exp = ScalarOp.SubtractSaturate<short>(a, b);
-        var act = VectorOp.SubtractSaturate<short>(new(a), new(b))[0];
+        var exp = (short)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<short>(), ScalarOp.MaxValue<short>());
+        var act = ScalarOp.SubtractSaturate<short>(a, b);
         Assert.Equal(exp, act);
     }
 
@@ -128,8 +128,8 @@ public partial class VectorOpTest
     {
         unchecked
         {
-            var exp = ScalarOp.AddSaturate<ushort>(a, b);
-            var act = VectorOp.AddSaturate<ushort>(new(a), new(b))[0];
+            var exp = (ushort)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<ushort>(), ScalarOp.MaxValue<ushort>());
+            var act = ScalarOp.AddSaturate<ushort>(a, b);
             Assert.Equal(exp, act);
         }
     }
@@ -137,8 +137,8 @@ public partial class VectorOpTest
     [Theory, MemberData(nameof(SaturateTestCases_ushort))]
     public void SubtractSaturate_ushort(ushort a, ushort b)
     {
-        var exp = ScalarOp.SubtractSaturate<ushort>(a, b);
-        var act = VectorOp.SubtractSaturate<ushort>(new(a), new(b))[0];
+        var exp = (ushort)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<ushort>(), ScalarOp.MaxValue<ushort>());
+        var act = ScalarOp.SubtractSaturate<ushort>(a, b);
         Assert.Equal(exp, act);
     }
 
@@ -161,8 +161,8 @@ public partial class VectorOpTest
     {
         unchecked
         {
-            var exp = ScalarOp.AddSaturate<int>(a, b);
-            var act = VectorOp.AddSaturate<int>(new(a), new(b))[0];
+            var exp = (int)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<int>(), ScalarOp.MaxValue<int>());
+            var act = ScalarOp.AddSaturate<int>(a, b);
             Assert.Equal(exp, act);
         }
     }
@@ -170,8 +170,8 @@ public partial class VectorOpTest
     [Theory, MemberData(nameof(SaturateTestCases_int))]
     public void SubtractSaturate_int(int a, int b)
     {
-        var exp = ScalarOp.SubtractSaturate<int>(a, b);
-        var act = VectorOp.SubtractSaturate<int>(new(a), new(b))[0];
+        var exp = (int)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<int>(), ScalarOp.MaxValue<int>());
+        var act = ScalarOp.SubtractSaturate<int>(a, b);
         Assert.Equal(exp, act);
     }
 
@@ -194,8 +194,8 @@ public partial class VectorOpTest
     {
         unchecked
         {
-            var exp = ScalarOp.AddSaturate<uint>(a, b);
-            var act = VectorOp.AddSaturate<uint>(new(a), new(b))[0];
+            var exp = (uint)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<uint>(), ScalarOp.MaxValue<uint>());
+            var act = ScalarOp.AddSaturate<uint>(a, b);
             Assert.Equal(exp, act);
         }
     }
@@ -203,8 +203,8 @@ public partial class VectorOpTest
     [Theory, MemberData(nameof(SaturateTestCases_uint))]
     public void SubtractSaturate_uint(uint a, uint b)
     {
-        var exp = ScalarOp.SubtractSaturate<uint>(a, b);
-        var act = VectorOp.SubtractSaturate<uint>(new(a), new(b))[0];
+        var exp = (uint)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<uint>(), ScalarOp.MaxValue<uint>());
+        var act = ScalarOp.SubtractSaturate<uint>(a, b);
         Assert.Equal(exp, act);
     }
 
@@ -227,8 +227,8 @@ public partial class VectorOpTest
     {
         unchecked
         {
-            var exp = ScalarOp.AddSaturate<long>(a, b);
-            var act = VectorOp.AddSaturate<long>(new(a), new(b))[0];
+            var exp = (long)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<long>(), ScalarOp.MaxValue<long>());
+            var act = ScalarOp.AddSaturate<long>(a, b);
             Assert.Equal(exp, act);
         }
     }
@@ -236,8 +236,8 @@ public partial class VectorOpTest
     [Theory, MemberData(nameof(SaturateTestCases_long))]
     public void SubtractSaturate_long(long a, long b)
     {
-        var exp = ScalarOp.SubtractSaturate<long>(a, b);
-        var act = VectorOp.SubtractSaturate<long>(new(a), new(b))[0];
+        var exp = (long)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<long>(), ScalarOp.MaxValue<long>());
+        var act = ScalarOp.SubtractSaturate<long>(a, b);
         Assert.Equal(exp, act);
     }
 
@@ -260,8 +260,8 @@ public partial class VectorOpTest
     {
         unchecked
         {
-            var exp = ScalarOp.AddSaturate<ulong>(a, b);
-            var act = VectorOp.AddSaturate<ulong>(new(a), new(b))[0];
+            var exp = (ulong)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<ulong>(), ScalarOp.MaxValue<ulong>());
+            var act = ScalarOp.AddSaturate<ulong>(a, b);
             Assert.Equal(exp, act);
         }
     }
@@ -269,8 +269,8 @@ public partial class VectorOpTest
     [Theory, MemberData(nameof(SaturateTestCases_ulong))]
     public void SubtractSaturate_ulong(ulong a, ulong b)
     {
-        var exp = ScalarOp.SubtractSaturate<ulong>(a, b);
-        var act = VectorOp.SubtractSaturate<ulong>(new(a), new(b))[0];
+        var exp = (ulong)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<ulong>(), ScalarOp.MaxValue<ulong>());
+        var act = ScalarOp.SubtractSaturate<ulong>(a, b);
         Assert.Equal(exp, act);
     }
 
@@ -293,8 +293,8 @@ public partial class VectorOpTest
     {
         unchecked
         {
-            var exp = ScalarOp.AddSaturate<nuint>(a, b);
-            var act = VectorOp.AddSaturate<nuint>(new(a), new(b))[0];
+            var exp = (nuint)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<nuint>(), ScalarOp.MaxValue<nuint>());
+            var act = ScalarOp.AddSaturate<nuint>(a, b);
             Assert.Equal(exp, act);
         }
     }
@@ -302,8 +302,8 @@ public partial class VectorOpTest
     [Theory, MemberData(nameof(SaturateTestCases_nuint))]
     public void SubtractSaturate_nuint(nuint a, nuint b)
     {
-        var exp = ScalarOp.SubtractSaturate<nuint>(a, b);
-        var act = VectorOp.SubtractSaturate<nuint>(new(a), new(b))[0];
+        var exp = (nuint)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<nuint>(), ScalarOp.MaxValue<nuint>());
+        var act = ScalarOp.SubtractSaturate<nuint>(a, b);
         Assert.Equal(exp, act);
     }
 
@@ -326,8 +326,8 @@ public partial class VectorOpTest
     {
         unchecked
         {
-            var exp = ScalarOp.AddSaturate<nint>(a, b);
-            var act = VectorOp.AddSaturate<nint>(new(a), new(b))[0];
+            var exp = (nint)Int128.Clamp((Int128)a + b, ScalarOp.MinValue<nint>(), ScalarOp.MaxValue<nint>());
+            var act = ScalarOp.AddSaturate<nint>(a, b);
             Assert.Equal(exp, act);
         }
     }
@@ -335,8 +335,8 @@ public partial class VectorOpTest
     [Theory, MemberData(nameof(SaturateTestCases_nint))]
     public void SubtractSaturate_nint(nint a, nint b)
     {
-        var exp = ScalarOp.SubtractSaturate<nint>(a, b);
-        var act = VectorOp.SubtractSaturate<nint>(new(a), new(b))[0];
+        var exp = (nint)Int128.Clamp((Int128)a - b, ScalarOp.MinValue<nint>(), ScalarOp.MaxValue<nint>());
+        var act = ScalarOp.SubtractSaturate<nint>(a, b);
         Assert.Equal(exp, act);
     }
 
