@@ -8,28 +8,37 @@ file class Exp_<T> : VectorOp.Const<T> where T : unmanaged
     internal static readonly Vector<T> Min = AsVector(ScalarOp.Log(1 / double.MaxValue));
 
     internal static ReadOnlySpan<Vector<T>> Coeffs => _expCoeffs;
-    private static readonly Vector<T>[] _expCoeffs = GetExpCoeffs();
-    static Vector<T>[] GetExpCoeffs()
+    private static readonly Vector<T>[] _expCoeffs;
+
+    static Exp_()
     {
         if (IsT<double>())
         {
+            Max = H.Reinterpret<double, T>(new Vector<double>(ScalarOp.Log(double.MaxValue)));
+            Min = H.Reinterpret<double, T>(new Vector<double>(ScalarOp.Log(1 / double.MaxValue)));
             var expCoeffs = new Vector<double>[11];
             for (var i = 1; i <= 11; ++i)
             {
                 expCoeffs[i - 1] = new Vector<double>(1 / (double)i);
             }
-            return H.Reinterpret<Vector<double>[], Vector<T>[]>(expCoeffs);
+            _expCoeffs = H.Reinterpret<Vector<double>[], Vector<T>[]>(expCoeffs);
         }
-        if (IsT<float>())
+        else if (IsT<float>())
         {
+            Max = H.Reinterpret<float, T>(new Vector<float>(ScalarOp.Log(float.MaxValue)));
+            Min = H.Reinterpret<float, T>(new Vector<float>(ScalarOp.Log(1 / float.MaxValue)));
+
             var expCoeffs = new Vector<float>[6];
             for (var i = 1; i <= 6; ++i)
             {
                 expCoeffs[i - 1] = new Vector<float>(1 / (float)i);
             }
-            return H.Reinterpret<Vector<float>[], Vector<T>[]>(expCoeffs);
+            _expCoeffs = H.Reinterpret<Vector<float>[], Vector<T>[]>(expCoeffs);
         }
-        return default!;
+        else
+        {
+            _expCoeffs = [];
+        }
     }
 }
 
