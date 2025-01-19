@@ -16,19 +16,27 @@ public readonly ref struct TemporaryBuffer<T>
     private readonly int _size;
 
     /// <summary>
-    /// Gets size of the rent resource.
+    /// Gets size which has been requested.
     /// </summary>
     public int Size => _size;
 
     /// <summary>
     /// Gets span of the rent resource.
+    /// Its length just equals to requested size.
     /// </summary>
     public Span<T> Span => _buffer.AsSpan(0, _size);
 
     /// <summary>
     /// Gets memory of the rent resource.
+    /// Its length just equals to requested size.
     /// </summary>
     public Memory<T> Memory => _buffer.AsMemory(0, _size);
+
+    /// <summary>
+    /// Gets array of the rent resource.
+    /// Its length may be greater than requested size.
+    /// </summary>
+    public T[] Array => _buffer;
 
     /// <summary>
     /// Creates a new instance op <see cref="TemporaryBuffer{T}"/>

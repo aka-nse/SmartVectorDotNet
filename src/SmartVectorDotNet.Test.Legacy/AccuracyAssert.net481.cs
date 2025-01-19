@@ -20,19 +20,19 @@ partial class AccuracyAssert
             return !double.IsNaN(err) && err < acc;
         }
 
-        public static partial bool GetIsValidNaN(T yExpected, T yActual, AccuracyMode mode)
+        public static partial bool GetIsValidNaN(T zExpected, T zActual, AccuracyMode mode)
         {
-            var yexp = Convert.ToDouble(yExpected);
-            var yact = Convert.ToDouble(yActual);
+            var zexp = Convert.ToDouble(zExpected);
+            var zact = Convert.ToDouble(zActual);
             if (mode.HasFlag(AccuracyMode.RelaxNaNCheck))
             {
-                var actIsNaN = double.IsNaN(yact) || double.IsInfinity(yact);
-                return double.IsNaN(yexp) || (double.IsInfinity(yexp) && actIsNaN);
+                var actIsNaN = double.IsNaN(zact) || double.IsInfinity(zact);
+                return double.IsNaN(zexp) || (double.IsInfinity(zexp) && actIsNaN);
             }
             else
             {
-                var expIsNaN = double.IsNaN(yexp);
-                var actIsNaN = double.IsNaN(yact);
+                var expIsNaN = double.IsNaN(zexp);
+                var actIsNaN = double.IsNaN(zact);
                 return !(expIsNaN ^ actIsNaN);
             }
         }

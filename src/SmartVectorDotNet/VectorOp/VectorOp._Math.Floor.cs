@@ -17,7 +17,7 @@ partial class VectorOp
     private static Vector<double> Floor_double(Vector<double> x)
     {
 #if NET6_0_OR_GREATER
-        return Floor_double(x);
+        return Vector.Floor(x);
 #else
         return Emulate<double, Floor_<double>>(x);
 #endif
@@ -26,7 +26,7 @@ partial class VectorOp
     private static Vector<float> Floor_float(Vector<float> x)
     {
 #if NET6_0_OR_GREATER
-        return Floor_float(x);
+        return Vector.Floor(x);
 #else
         return Emulate<float, Floor_<float>>(x);
 #endif

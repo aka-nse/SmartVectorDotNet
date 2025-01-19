@@ -10,6 +10,12 @@ partial class ScalarOp
 {
     partial class Const<T>
     {
+        /// <summary> Gets a value of <typeparamref name="T"/> which is corresponding to <c>true</c> on SIMD operation. </summary>
+        public static readonly T TrueValue = Vector.Equals(Vector<T>.Zero, Vector<T>.Zero)[0];
+
+        /// <summary> Gets a value of <typeparamref name="T"/> which is corresponding to <c>false</c> on SIMD operation. </summary>
+        public static readonly T FalseValue = Vector.Equals(Vector<T>.Zero, Vector<T>.One)[0];
+        
         /// <summary> Gets a value of <typeparamref name="T"/> which is corresponding to <c>0</c>. </summary>
         public static readonly T Zero;
 
@@ -22,12 +28,6 @@ partial class ScalarOp
         /// <summary> Gets a value of <typeparamref name="T"/> which is corresponding to maximum value. </summary>
         public static readonly T MaxValue;
 
-        /// <summary> Gets a value of <typeparamref name="T"/> which is corresponding to <c>true</c> on SIMD operation. </summary>
-        public static readonly T TrueValue;
-
-        /// <summary> Gets a value of <typeparamref name="T"/> which is corresponding to <c>false</c> on SIMD operation. </summary>
-        public static readonly T FalseValue;
-        
         /// <summary> Gets a value whose MSB is 1. </summary>
         public static readonly T Msb;
         
@@ -36,7 +36,7 @@ partial class ScalarOp
 
         static Const()
         {
-            if(typeof(T) == typeof(nuint))
+            if (typeof(T) == typeof(nuint))
             {
                 Zero = Reinterpret<nuint, T>(0);
                 One = Reinterpret<nuint, T>(1);
@@ -170,8 +170,6 @@ partial class ScalarOp
                 Msb = Reinterpret<ulong, T>((ulong)(1uL << (sizeof(ulong) * 8 - 1)));
                 Lsb = Reinterpret<ulong, T>((ulong)1);
             }
-            TrueValue = VectorOp.Const<T>.TrueValue[0];
-            FalseValue = VectorOp.Const<T>.FalseValue[0];
         }
     }
 }

@@ -16,7 +16,7 @@ public partial class VectorOpTest
     {
         var expected = x.Select(exp).ToArray();
         var actual = x.Select(act).ToArray();
-        AccuracyAssert.Accurate(x, expected, actual, accuracy, mode, Output);
+        AccuracyAssert.Accurate(x, null, expected, actual, accuracy, mode, Output);
     }
 
     internal void TestAccuracy(double[] x, Func<float, float> exp, Func<float, float> act, float accuracy, AccuracyMode mode)
@@ -24,7 +24,7 @@ public partial class VectorOpTest
         var xx = x.Select(x => (float)x).ToArray();
         var expected = xx.Select(x => exp(x)).ToArray();
         var actual = xx.Select(x => act(x)).ToArray();
-        AccuracyAssert.Accurate(xx, expected, actual, accuracy, mode, Output);
+        AccuracyAssert.Accurate(xx, null, expected, actual, accuracy, mode, Output);
     }
 
     [Fact]

@@ -8,7 +8,6 @@ using Xunit;
 
 namespace SmartVectorDotNet;
 
-
 file static class LeadingZeroCountTest
 {
     public const int Seed = 12345678;
@@ -32,7 +31,6 @@ file static class LeadingZeroCountTest
         }
     }
 }
-
 
 public partial class VectorOpTest
 {

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Numerics;
-using System.Runtime.Intrinsics;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
+#if NETCOREAPP3_0_OR_GREATER
+using System.Runtime.Intrinsics;
+#endif
 
 namespace SmartVectorDotNet;
 
@@ -161,6 +163,8 @@ public partial class VectorOpTest
         }
     }
 
+#if NETCOREAPP3_0_OR_GREATER
+
     [Theory]
     [MemberData(nameof(Permute4TestCases))]
     public void Permute4_Vector128<T>(T[] expected, T[] input, byte m1, byte m2, byte m3, byte m4)
@@ -187,5 +191,7 @@ public partial class VectorOpTest
         var expectedV = InternalHelpers.CreateVector256<T>(expected);
         Assert.Equal(expectedV, VectorOp.Permute4(inputV, m1, m2, m3, m4));
     }
+
+#endif
 }
 
