@@ -1,6 +1,4 @@
 namespace SmartVectorDotNet;
-using OP = VectorOp;
-using H = InternalHelpers;
 
 
 partial class VectorOp
@@ -9,5 +7,5 @@ partial class VectorOp
     [VectorOp]
     public static Vector<T> Sqrt<T>(Vector<T> d)
         where T : unmanaged
-        => OP.SquareRoot(d);
+        => SquareRoot(d);
 }

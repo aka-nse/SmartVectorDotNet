@@ -1,12 +1,10 @@
-using System.Runtime.CompilerServices;
 #if NET6_0_OR_GREATER
+using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 #endif
 
 namespace SmartVectorDotNet;
-using OP = VectorOp;
-using H = InternalHelpers;
 
 
 partial class VectorOp
@@ -28,7 +26,7 @@ partial class VectorOp
     }
 
     /// <summary> Calculates round. </summary>
-    private static Vector<double> Round(Vector<double> x)
+    private static Vector<double> Round_double(Vector<double> x)
     {
 #if NET6_0_OR_GREATER
         if (Unsafe.SizeOf<Vector<double>>() == Unsafe.SizeOf<Vector256<double>>() && Avx.IsSupported)
@@ -46,7 +44,7 @@ partial class VectorOp
     }
 
 
-    private static Vector<float> Round(Vector<float> x)
+    private static Vector<float> Round_float(Vector<float> x)
     {
 #if NET6_0_OR_GREATER
         if (Unsafe.SizeOf<Vector<float>>() == Unsafe.SizeOf<Vector256<float>>() && Avx.IsSupported)

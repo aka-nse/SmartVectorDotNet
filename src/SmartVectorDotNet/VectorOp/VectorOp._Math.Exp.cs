@@ -1,5 +1,4 @@
 namespace SmartVectorDotNet;
-using OP = VectorOp;
 using H = InternalHelpers;
 
 
@@ -41,14 +40,14 @@ partial class VectorOp
     public static Vector<T> Exp<T>(Vector<T> x)
         where T : unmanaged
     {
-        var isSaturatedMax = OP.GreaterThan(x, Exp_<T>.Max);
-        var isSaturatedMin = OP.LessThan(x, Exp_<T>.Min);
-        var isNormal = OP.OnesComplement(OP.BitwiseOr(isSaturatedMax, isSaturatedMin));
+        var isSaturatedMax = GreaterThan(x, Exp_<T>.Max);
+        var isSaturatedMin = LessThan(x, Exp_<T>.Min);
+        var isNormal = OnesComplement(BitwiseOr(isSaturatedMax, isSaturatedMin));
 
-        return OP.ConditionalSelect(
+        return ConditionalSelect(
             isNormal,
             ExpCore(x),
-            OP.ConditionalSelect(
+            ConditionalSelect(
                 isSaturatedMin,
                 Exp_<T>._0,
                 Exp_<T>.PInf)
@@ -60,10 +59,10 @@ partial class VectorOp
         where T : unmanaged;
 
 #pragma warning disable format
-    private static Vector<double> ExpCore(Vector<double> x)
+    private static Vector<double> ExpCore_double(Vector<double> x)
     {
         var y = x * Exp_<double>.Log_2_E;
-        var n = Round(y);
+        var n = Round_double(y);
         var a = y - n;
         var b = a * Exp_<double>.Log_E_2;
         var z = Exp_<double>._0;                                        // a_11~
@@ -78,13 +77,13 @@ partial class VectorOp
         z = (b * Exp_<double>.Coeffs[ 2 - 1]) * (Exp_<double>._1 + z);  // a_2
         z = (b * Exp_<double>.Coeffs[ 1 - 1]) * (Exp_<double>._1 + z);  // a_1
         z = z + Exp_<double>._1;                                        // a_0
-        return Scale(n, z);
+        return Scale_double(n, z);
     }
 
-    private static Vector<float> ExpCore(Vector<float> x)
+    private static Vector<float> ExpCore_float(Vector<float> x)
     {
         var y = x * Exp_<float>.Log_2_E;
-        var n = Round(y);
+        var n = Round_float(y);
         var a = y - n;
         var b = a * Exp_<float>.Log_E_2;
         var z = Exp_<float>._0;                                         // a_7~
@@ -95,7 +94,7 @@ partial class VectorOp
         z = (b * Exp_<float>.Coeffs[2 - 1]) * (Exp_<float>._1 + z);  // a_2
         z = (b * Exp_<float>.Coeffs[1 - 1]) * (Exp_<float>._1 + z);  // a_1
         z = z + Exp_<float>._1;                                         // a_0
-        return Scale(n, z);
+        return Scale_float(n, z);
     }
 #pragma warning restore format
 }

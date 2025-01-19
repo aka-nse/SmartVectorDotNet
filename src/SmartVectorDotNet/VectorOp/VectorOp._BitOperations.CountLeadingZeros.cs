@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace SmartVectorDotNet;
-using OP = VectorOp;
 using H = InternalHelpers;
 
 partial class VectorOp
@@ -30,9 +26,9 @@ partial class VectorOp
     public static Vector<byte> CountLeadingZeros(Vector<byte> x)
     {
         Vector<byte> y = x;
-        y |= OP.ShiftRightLogical(y, 1);
-        y |= OP.ShiftRightLogical(y, 2);
-        y |= OP.ShiftRightLogical(y, 4);
+        y |= ShiftRightLogical(y, 1);
+        y |= ShiftRightLogical(y, 2);
+        y |= ShiftRightLogical(y, 4);
         return CountPopulation(~y);
     }
 
@@ -40,10 +36,10 @@ partial class VectorOp
     public static Vector<ushort> CountLeadingZeros(Vector<ushort> x)
     {
         Vector<ushort> y = x;
-        y |= OP.ShiftRightLogical(y, 1);
-        y |= OP.ShiftRightLogical(y, 2);
-        y |= OP.ShiftRightLogical(y, 4);
-        y |= OP.ShiftRightLogical(y, 8);
+        y |= ShiftRightLogical(y, 1);
+        y |= ShiftRightLogical(y, 2);
+        y |= ShiftRightLogical(y, 4);
+        y |= ShiftRightLogical(y, 8);
         return CountPopulation(~y);
     }
 
@@ -51,11 +47,11 @@ partial class VectorOp
     public static Vector<uint> CountLeadingZeros(Vector<uint> x)
     {
         Vector<uint> y = x;
-        y |= OP.ShiftRightLogical(y, 1);
-        y |= OP.ShiftRightLogical(y, 2);
-        y |= OP.ShiftRightLogical(y, 4);
-        y |= OP.ShiftRightLogical(y, 8);
-        y |= OP.ShiftRightLogical(y, 16);
+        y |= ShiftRightLogical(y, 1);
+        y |= ShiftRightLogical(y, 2);
+        y |= ShiftRightLogical(y, 4);
+        y |= ShiftRightLogical(y, 8);
+        y |= ShiftRightLogical(y, 16);
         return CountPopulation(~y);
     }
 
@@ -63,12 +59,12 @@ partial class VectorOp
     public static Vector<ulong> CountLeadingZeros(Vector<ulong> x)
     {
         Vector<ulong> y = x;
-        y |= OP.ShiftRightLogical(y, 1);
-        y |= OP.ShiftRightLogical(y, 2);
-        y |= OP.ShiftRightLogical(y, 4);
-        y |= OP.ShiftRightLogical(y, 8);
-        y |= OP.ShiftRightLogical(y, 16);
-        y |= OP.ShiftRightLogical(y, 32);
+        y |= ShiftRightLogical(y, 1);
+        y |= ShiftRightLogical(y, 2);
+        y |= ShiftRightLogical(y, 4);
+        y |= ShiftRightLogical(y, 8);
+        y |= ShiftRightLogical(y, 16);
+        y |= ShiftRightLogical(y, 32);
         return CountPopulation(~y);
     }
 

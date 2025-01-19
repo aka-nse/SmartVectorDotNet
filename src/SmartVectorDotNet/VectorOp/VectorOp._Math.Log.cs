@@ -1,5 +1,4 @@
 namespace SmartVectorDotNet;
-using OP = VectorOp;
 using H = InternalHelpers;
 
 
@@ -39,44 +38,44 @@ partial class VectorOp
     public static partial Vector<T> Log<T>(Vector<T> x)
         where T : unmanaged;
 
-    private static Vector<double> Log(Vector<double> x)
+    private static Vector<double> Log_double(Vector<double> x)
     {
         var isNaN = IsNaN(x);
-        var isNega = OP.LessThan(x, Log_<double>._0);
-        var isZero = OP.Equals(x, Log_<double>._0);
+        var isNega = LessThan(x, Log_<double>._0);
+        var isZero = Equals(x, Log_<double>._0);
         var isPInf = IsPositiveInfinity(x);
         Decompose<double>(x, out var n, out var a);
         Decompose<double>(a, out var m, out a);
         var y = (n + m) * Log_<double>.Log_E_2 + LogBounded(a);
         return
-            OP.ConditionalSelect(
+            ConditionalSelect(
                 isNaN, Log_<double>.NaN,
-            OP.ConditionalSelect(
+            ConditionalSelect(
                 isNega, Log_<double>.NaN,
-            OP.ConditionalSelect(
+            ConditionalSelect(
                 isZero, Log_<double>.NInf,
-            OP.ConditionalSelect(
+            ConditionalSelect(
                 isPInf, Log_<double>.PInf,
             y))));
     }
 
-    private static Vector<float> Log(Vector<float> x)
+    private static Vector<float> Log_float(Vector<float> x)
     {
         var isNaN = IsNaN(x);
-        var isNega = OP.LessThan(x, Log_<float>._0);
-        var isZero = OP.Equals(x, Log_<float>._0);
+        var isNega = LessThan(x, Log_<float>._0);
+        var isZero = Equals(x, Log_<float>._0);
         var isPInf = IsPositiveInfinity(x);
         Decompose<float>(x, out var n, out var a);
         Decompose<float>(a, out var m, out a);
         var y = (n + m) * Log_<float>.Log_E_2 + LogBounded(a);
         return
-            OP.ConditionalSelect(
+            ConditionalSelect(
                 isNaN, Log_<float>.NaN,
-            OP.ConditionalSelect(
+            ConditionalSelect(
                 isNega, Log_<float>.NaN,
-            OP.ConditionalSelect(
+            ConditionalSelect(
                 isZero, Log_<float>.NInf,
-            OP.ConditionalSelect(
+            ConditionalSelect(
                 isPInf, Log_<float>.PInf,
             y))));
     }

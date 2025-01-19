@@ -1,7 +1,6 @@
 using System.Runtime.CompilerServices;
 namespace SmartVectorDotNet;
-using OP = VectorOp;
-using H = InternalHelpers;
+
 
 file class Acos_<T> : VectorOp.Const<T> where T : unmanaged { }
 

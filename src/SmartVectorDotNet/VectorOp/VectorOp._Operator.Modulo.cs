@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using NVector = System.Numerics.Vector;
 using H = SmartVectorDotNet.InternalHelpers;
 
@@ -78,7 +75,7 @@ partial class VectorOp
         c = ShiftLeft(c, eBitShift);
         i -= H.Reinterpret<uint, int>(eBitShift);
         
-        var retval = VectorOp.Scale(s, m + i, H.Reinterpret<uint, int>(c) & VectorOp.IEEE754Single_.FracPartMask);
+        var retval = VectorOp.Scale_float(s, m + i, H.Reinterpret<uint, int>(c) & VectorOp.IEEE754Single_.FracPartMask);
         return ConditionalSelect(
             H.Reinterpret<int, float>(shouldReturnX),
             x,
@@ -125,7 +122,7 @@ partial class VectorOp
         c = ShiftLeft(c, eBitShift);
         i -= H.Reinterpret<ulong, long>(eBitShift);
 
-        var retval = VectorOp.Scale(s, m + i, H.Reinterpret<ulong, long>(c) & VectorOp.IEEE754Double_.FracPartMask);
+        var retval = VectorOp.Scale_double(s, m + i, H.Reinterpret<ulong, long>(c) & VectorOp.IEEE754Double_.FracPartMask);
         return ConditionalSelect(
             H.Reinterpret<long, double>(shouldReturnX),
             x,

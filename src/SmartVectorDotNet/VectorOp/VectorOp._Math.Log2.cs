@@ -1,6 +1,4 @@
 namespace SmartVectorDotNet;
-using OP = VectorOp;
-using H = InternalHelpers;
 
 
 file class Log2_<T> : VectorOp.Const<T> where T : unmanaged

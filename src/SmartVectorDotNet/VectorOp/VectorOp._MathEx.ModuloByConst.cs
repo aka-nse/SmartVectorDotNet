@@ -1,5 +1,4 @@
 namespace SmartVectorDotNet;
-using OP = VectorOp;
 using H = InternalHelpers;
 
 
@@ -79,7 +78,7 @@ partial class VectorOp
     private static Vector<float> ModuloBy2(Vector<float> x)
     {
         var xx = x * ModuloByConst_<float>._1p2;
-        xx = xx - Floor(xx);
+        xx = xx - Floor_float(xx);
         return xx * ModuloByConst_<float>._2;
     }
 
@@ -87,7 +86,7 @@ partial class VectorOp
     private static Vector<double> ModuloBy2(Vector<double> x)
     {
         var xx = x * ModuloByConst_<double>._1p2;
-        xx = xx - Floor(xx);
+        xx = xx - Floor_double(xx);
         return xx * ModuloByConst_<double>._2;
     }
 }

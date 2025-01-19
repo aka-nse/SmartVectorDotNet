@@ -1,10 +1,11 @@
-﻿#if NETCOREAPP3_0_OR_GREATER
+﻿namespace SmartVectorDotNet;
+
+#if NETCOREAPP3_0_OR_GREATER
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
+using H = InternalHelpers;
 #endif
 
-namespace SmartVectorDotNet;
-using H = InternalHelpers;
 
 partial class VectorOp
 {

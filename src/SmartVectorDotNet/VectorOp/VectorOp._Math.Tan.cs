@@ -1,6 +1,4 @@
 namespace SmartVectorDotNet;
-using OP = VectorOp;
-using H = InternalHelpers;
 
 
 file class Tan_<T> : VectorOp.Const<T> where T : unmanaged
@@ -21,22 +19,22 @@ partial class VectorOp
         where T : unmanaged
     {
         var xx = ModuloByPI(x);
-        var shouldReverse = OP.GreaterThan(xx, Tan_<T>.PI_1p2);
-        var sign = OP.ConditionalSelect(
+        var shouldReverse = GreaterThan(xx, Tan_<T>.PI_1p2);
+        var sign = ConditionalSelect(
             shouldReverse,
             Tan_<T>._m1,
             Tan_<T>._1);
-        xx = OP.ConditionalSelect(
+        xx = ConditionalSelect(
             shouldReverse,
             Tan_<T>.PI - xx,
             xx);
-        var modifiesByAdditionTheorem = OP.GreaterThan(xx, Tan_<T>.PI_1p4);
-        xx = OP.ConditionalSelect(
+        var modifiesByAdditionTheorem = GreaterThan(xx, Tan_<T>.PI_1p4);
+        xx = ConditionalSelect(
             modifiesByAdditionTheorem,
             xx - Tan_<T>.PI_1p4,
             xx);
         var tanxx = TanBounded(xx);
-        return sign * OP.ConditionalSelect(
+        return sign * ConditionalSelect(
             modifiesByAdditionTheorem,
             (Tan_<T>._1 + tanxx) / (Tan_<T>._1 - tanxx),
             tanxx);

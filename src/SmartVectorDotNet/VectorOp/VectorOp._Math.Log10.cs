@@ -1,6 +1,5 @@
 namespace SmartVectorDotNet;
-using OP = VectorOp;
-using H = InternalHelpers;
+
 
 partial class VectorOp
 {

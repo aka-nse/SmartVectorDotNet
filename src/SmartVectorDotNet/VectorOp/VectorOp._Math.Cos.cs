@@ -1,6 +1,4 @@
-using System.Runtime.CompilerServices;
 namespace SmartVectorDotNet;
-using OP = VectorOp;
 using H = InternalHelpers;
 
 
@@ -48,19 +46,19 @@ partial class VectorOp
         where T : unmanaged
     {
         var xx = ModuloByTau(x);
-        var lessThan_1_2 = OP.LessThan(xx, Cos_<T>.PI_1p2);
-        var lessThan_3_2 = OP.LessThan(xx, Cos_<T>.PI_3p2);
+        var lessThan_1_2 = LessThan(xx, Cos_<T>.PI_1p2);
+        var lessThan_3_2 = LessThan(xx, Cos_<T>.PI_3p2);
         xx =
-            OP.ConditionalSelect(lessThan_1_2,
+            ConditionalSelect(lessThan_1_2,
                 xx,
-            OP.ConditionalSelect(lessThan_3_2,
+            ConditionalSelect(lessThan_3_2,
                 Cos_<T>.PI_2p2 - xx,
                 xx - Cos_<T>.PI_4p2
                 ));
         var sign =
-            OP.ConditionalSelect(lessThan_1_2,
+            ConditionalSelect(lessThan_1_2,
                 Cos_<T>._1,
-            OP.ConditionalSelect(lessThan_3_2,
+            ConditionalSelect(lessThan_3_2,
                 Cos_<T>._m1,
                 Cos_<T>._1
                 ));
@@ -72,7 +70,7 @@ partial class VectorOp
         where T : unmanaged;
 
     /// <param name="x"> $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ </param>
-    private static Vector<double> CosBounded(Vector<double> x)
+    private static Vector<double> CosBounded_double(Vector<double> x)
     {
         Vector<double> y;
         var x2 = x * x;
@@ -91,7 +89,7 @@ partial class VectorOp
     }
 
     /// <param name="x"> $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ </param>
-    private static Vector<float> CosBounded(Vector<float> x)
+    private static Vector<float> CosBounded_float(Vector<float> x)
     {
         Vector<float> y;
         var x2 = x * x;

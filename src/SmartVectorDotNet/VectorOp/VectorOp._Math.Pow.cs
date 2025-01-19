@@ -1,6 +1,4 @@
 namespace SmartVectorDotNet;
-using OP = VectorOp;
-using H = InternalHelpers;
 
 file class Pow_<T> : VectorOp.Const<T> where T : unmanaged
 {
@@ -18,43 +16,43 @@ partial class VectorOp
     public static Vector<T> Pow<T>(Vector<T> a, Vector<T> x)
         where T : unmanaged
     {
-        var isAZero = OP.Equals(a, Pow_<T>._0);
-        var isXZero = OP.Equals(x, Pow_<T>._0);
-        var isANegative = OP.LessThan(a, Pow_<T>._0);
-        var isXNegative = OP.LessThan(x, Pow_<T>._0);
+        var isAZero = Equals(a, Pow_<T>._0);
+        var isXZero = Equals(x, Pow_<T>._0);
+        var isANegative = LessThan(a, Pow_<T>._0);
+        var isXNegative = LessThan(x, Pow_<T>._0);
 
         // if a < 0:
         //   x % 2.0 == 0.0 -> positive
         //   x % 2.0 == 1.0 -> negative
         //   else           -> NaN
         var xModBy2 = ModuloBy2(x);
-        var sign = OP.ConditionalSelect(
+        var sign = ConditionalSelect(
             isANegative,
-            OP.ConditionalSelect(
-                OP.Equals(Pow_<T>._0, xModBy2),
+            ConditionalSelect(
+                Equals(Pow_<T>._0, xModBy2),
                 Pow_<T>._1,
-                OP.ConditionalSelect(
-                    OP.Equals(Pow_<T>._1, xModBy2),
+                ConditionalSelect(
+                    Equals(Pow_<T>._1, xModBy2),
                     Pow_<T>._m1,
                     Pow_<T>.NaN)),
             Pow_<T>._1);
 
-        var aa = Abs(OP.ConditionalSelect(
+        var aa = Abs(ConditionalSelect(
             isXNegative,
             Pow_<T>._1 / a,
             a));
-        var xx = OP.ConditionalSelect(
+        var xx = ConditionalSelect(
             isXNegative,
             -x,
             x);
         var exp = Exp(xx * Log(aa));
 
-        return OP.ConditionalSelect(
+        return ConditionalSelect(
             isXZero,
             Vector<T>.One,
-            OP.ConditionalSelect(
+            ConditionalSelect(
                 isAZero,
-                OP.ConditionalSelect(isXNegative, Pow_<T>.PInf, Pow_<T>._0),
+                ConditionalSelect(isXNegative, Pow_<T>.PInf, Pow_<T>._0),
                 sign * exp
                 )
             );

@@ -1,5 +1,4 @@
 namespace SmartVectorDotNet;
-using OP = VectorOp;
 using SC = ScalarOp.Const;
 using H = InternalHelpers;
 
@@ -76,28 +75,28 @@ partial class VectorOp
     public static void Decompose(Vector<double> x, out Vector<long> sign, out Vector<long> expo, out Vector<long> frac)
     {
         var bin = H.Reinterpret<double, long>(x);
-        sign = OP.ShiftRightLogical(
-            OP.BitwiseAnd(bin, IEEE754Double_.SignPartMask),
+        sign = ShiftRightLogical(
+            BitwiseAnd(bin, IEEE754Double_.SignPartMask),
             SC.DoubleSignBitOffset);
-        expo = OP.ShiftRightLogical(
-            OP.BitwiseAnd(bin, IEEE754Double_.ExpPartMask),
+        expo = ShiftRightLogical(
+            BitwiseAnd(bin, IEEE754Double_.ExpPartMask),
             SC.DoubleExpBitOffset);
-        frac = OP.BitwiseAnd(bin, IEEE754Double_.FracPartMask);
+        frac = BitwiseAnd(bin, IEEE754Double_.FracPartMask);
     }
 
     internal static void Decompose(Vector<double> x, out Vector<long> n, out Vector<double> a)
     {
         Decompose(x, out var sign, out var expo, out var frac);
-        var xsign = OP.ConditionalSelect(
-            OP.Equals(sign, IEEE754Double_.IntOne),
+        var xsign = ConditionalSelect(
+            Equals(sign, IEEE754Double_.IntOne),
             IEEE754Double_._m1,
             IEEE754Double_._1);
-        var economized = OP.ConditionalSelect(
-            OP.Equals(expo, IEEE754Double_.IntZero),
+        var economized = ConditionalSelect(
+            Equals(expo, IEEE754Double_.IntZero),
             IEEE754Double_._0,
             IEEE754Double_._1);
-        n = OP.Max(expo, IEEE754Double_.IntOne) - IEEE754Double_.ExpPartBias;
-        a = xsign * (economized + OP.ConvertToDouble(frac) * IEEE754Double_.FracPartOffsetDenom);
+        n = Max(expo, IEEE754Double_.IntOne) - IEEE754Double_.ExpPartBias;
+        a = xsign * (economized + ConvertToDouble(frac) * IEEE754Double_.FracPartOffsetDenom);
     }
 
     /// <summary>
@@ -110,28 +109,28 @@ partial class VectorOp
     public static void Decompose(Vector<float> x, out Vector<int> sign, out Vector<int> expo, out Vector<int> frac)
     {
         var bin = H.Reinterpret<float, int>(x);
-        sign = OP.ShiftRightLogical(
-            OP.BitwiseAnd(bin, IEEE754Single_.SignPartMask),
+        sign = ShiftRightLogical(
+            BitwiseAnd(bin, IEEE754Single_.SignPartMask),
             SC.SingleSignBitOffset);
-        expo = OP.ShiftRightLogical(
-            OP.BitwiseAnd(bin, IEEE754Single_.ExpPartMask),
+        expo = ShiftRightLogical(
+            BitwiseAnd(bin, IEEE754Single_.ExpPartMask),
             SC.SingleExpBitOffset);
-        frac = OP.BitwiseAnd(bin, IEEE754Single_.FracPartMask);
+        frac = BitwiseAnd(bin, IEEE754Single_.FracPartMask);
     }
 
     internal static void Decompose(Vector<float> x, out Vector<int> n, out Vector<float> a)
     {
         Decompose(x, out var sign, out var expo, out var frac);
-        var xsign = OP.ConditionalSelect(
-            OP.Equals(sign, IEEE754Single_.IntOne),
+        var xsign = ConditionalSelect(
+            Equals(sign, IEEE754Single_.IntOne),
             IEEE754Single_._m1,
             IEEE754Single_._1);
         var economized = Vector.ConditionalSelect(
-            OP.Equals(expo, IEEE754Single_.IntZero),
+            Equals(expo, IEEE754Single_.IntZero),
             IEEE754Single_._0,
             IEEE754Single_._1);
-        n = OP.Max(expo, IEEE754Single_.IntOne) - IEEE754Single_.ExpPartBias;
-        a = xsign * (economized + OP.ConvertToSingle(frac) * IEEE754Single_.FracPartOffsetDenom);
+        n = Max(expo, IEEE754Single_.IntOne) - IEEE754Single_.ExpPartBias;
+        a = xsign * (economized + ConvertToSingle(frac) * IEEE754Single_.FracPartOffsetDenom);
     }
 
     #endregion
@@ -150,20 +149,20 @@ partial class VectorOp
         where T : unmanaged;
 
     // pow(2, n) * x
-    static Vector<double> Scale(Vector<double> n, Vector<double> x)
+    static Vector<double> Scale_double(Vector<double> n, Vector<double> x)
     {
-        var nn = OP.ConvertToInt64(n);
-        var pow2n = OP.ShiftLeft(nn + IEEE754Double_.ExpPartBias, 52);
-        return x * OP.AsVectorDouble(pow2n);
+        var nn = ConvertToInt64(n);
+        var pow2n = ShiftLeft(nn + IEEE754Double_.ExpPartBias, 52);
+        return x * AsVectorDouble(pow2n);
     }
 
 
     // pow(2, n) * x
-    static Vector<float> Scale(Vector<float> n, Vector<float> x)
+    static Vector<float> Scale_float(Vector<float> n, Vector<float> x)
     {
-        var nn = OP.ConvertToInt32(n);
-        var pow2n = OP.ShiftLeft(nn + IEEE754Single_.ExpPartBias, 23);
-        return x * OP.AsVectorSingle(pow2n);
+        var nn = ConvertToInt32(n);
+        var pow2n = ShiftLeft(nn + IEEE754Single_.ExpPartBias, 23);
+        return x * AsVectorSingle(pow2n);
     }
 
 
@@ -174,8 +173,8 @@ partial class VectorOp
     /// <param name="expo"></param>
     /// <param name="frac"></param>
     /// <returns></returns>
-    public static Vector<double> Scale(Vector<long> sign, Vector<long> expo, Vector<long> frac)
-        => H.Reinterpret<long, double>(OP.ShiftLeft(sign, SC.DoubleSignBitOffset) | OP.ShiftLeft(expo, SC.DoubleExpBitOffset) | frac);
+    public static Vector<double> Scale_double(Vector<long> sign, Vector<long> expo, Vector<long> frac)
+        => H.Reinterpret<long, double>(ShiftLeft(sign, SC.DoubleSignBitOffset) | ShiftLeft(expo, SC.DoubleExpBitOffset) | frac);
 
 
     /// <summary>
@@ -185,8 +184,8 @@ partial class VectorOp
     /// <param name="expo"></param>
     /// <param name="frac"></param>
     /// <returns></returns>
-    public static Vector<float> Scale(Vector<int> sign, Vector<int> expo, Vector<int> frac)
-        => H.Reinterpret<int, float>(OP.ShiftLeft(sign, SC.SingleSignBitOffset) | OP.ShiftLeft(expo, SC.SingleExpBitOffset) | frac);
+    public static Vector<float> Scale_float(Vector<int> sign, Vector<int> expo, Vector<int> frac)
+        => H.Reinterpret<int, float>(ShiftLeft(sign, SC.SingleSignBitOffset) | ShiftLeft(expo, SC.SingleExpBitOffset) | frac);
 
     #endregion
 
@@ -342,12 +341,12 @@ partial class VectorOp
     public static Vector<long> IsPositiveInfinity(Vector<double> x)
     {
         Decompose(x, out var sign, out Vector<long> n, out var a);
-        return OP.BitwiseAnd(
-            OP.BitwiseAnd(
-                OP.Equals(n, IEEE754Double_.NRange),
-                OP.Equals(a, IEEE754Double_.IntZero)
+        return BitwiseAnd(
+            BitwiseAnd(
+                Equals(n, IEEE754Double_.NRange),
+                Equals(a, IEEE754Double_.IntZero)
                 ),
-            OP.Equals(sign, IEEE754Double_.IntZero)
+            Equals(sign, IEEE754Double_.IntZero)
             );
     }
 
@@ -359,12 +358,12 @@ partial class VectorOp
     public static Vector<int> IsPositiveInfinity(Vector<float> x)
     {
         Decompose(x, out var sign, out Vector<int> n, out var a);
-        return OP.BitwiseAnd(
-            OP.BitwiseAnd(
-                OP.Equals(n, IEEE754Single_.NRange),
-                OP.Equals(a, IEEE754Single_.IntZero)
+        return BitwiseAnd(
+            BitwiseAnd(
+                Equals(n, IEEE754Single_.NRange),
+                Equals(a, IEEE754Single_.IntZero)
                 ),
-            OP.Equals(sign, IEEE754Single_.IntZero)
+            Equals(sign, IEEE754Single_.IntZero)
             );
     }
 
@@ -402,12 +401,12 @@ partial class VectorOp
     public static Vector<long> IsNegativeInfinity(Vector<double> x)
     {
         Decompose(x, out var sign, out Vector<long> n, out var a);
-        return OP.BitwiseAnd(
-            OP.BitwiseAnd(
-                OP.Equals(n, IEEE754Double_.NRange),
-                OP.Equals(a, IEEE754Double_.IntZero)
+        return BitwiseAnd(
+            BitwiseAnd(
+                Equals(n, IEEE754Double_.NRange),
+                Equals(a, IEEE754Double_.IntZero)
                 ),
-            OP.Equals(sign, IEEE754Double_.IntOne)
+            Equals(sign, IEEE754Double_.IntOne)
             );
     }
 
@@ -419,12 +418,12 @@ partial class VectorOp
     public static Vector<int> IsNegativeInfinity(Vector<float> x)
     {
         Decompose(x, out var sign, out Vector<int> n, out var a);
-        return OP.BitwiseAnd(
-            OP.BitwiseAnd(
-                OP.Equals(n, IEEE754Single_.NRange),
-                OP.Equals(a, IEEE754Single_.IntZero)
+        return BitwiseAnd(
+            BitwiseAnd(
+                Equals(n, IEEE754Single_.NRange),
+                Equals(a, IEEE754Single_.IntZero)
                 ),
-            OP.Equals(sign, IEEE754Single_.IntOne)
+            Equals(sign, IEEE754Single_.IntOne)
             );
     }
 

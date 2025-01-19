@@ -1,6 +1,4 @@
 namespace SmartVectorDotNet;
-using OP = VectorOp;
-using H = InternalHelpers;
 
 
 file class Sinh_<T> : VectorOp.Const<T> where T : unmanaged { }

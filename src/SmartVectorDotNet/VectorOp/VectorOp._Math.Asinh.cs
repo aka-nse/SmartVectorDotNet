@@ -1,6 +1,5 @@
 using System.Runtime.CompilerServices;
 namespace SmartVectorDotNet;
-using OP = VectorOp;
 using H = InternalHelpers;
 
 
@@ -40,8 +39,8 @@ partial class VectorOp
         //    $$
         var absX = Abs(x);
         var sign = Sign(x);
-        return OP.ConditionalSelect(
-            OP.LessThan(absX, Asinh_<T>.Border),
+        return ConditionalSelect(
+            LessThan(absX, Asinh_<T>.Border),
             Log(absX + Sqrt(x * x + Asinh_<T>._1)),
             Asinh_<T>.Log_E_2 + Log(absX)
             ) * sign;

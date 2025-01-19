@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartVectorDotNet;
-using H = SmartVectorDotNet.InternalHelpers;
+﻿namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 
 /// <summary>

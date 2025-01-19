@@ -1,6 +1,4 @@
 namespace SmartVectorDotNet;
-using OP = VectorOp;
-using H = InternalHelpers;
 
 file class Tanh_<T> : VectorOp.Const<T> where T : unmanaged
 {
@@ -22,9 +20,9 @@ partial class VectorOp
         var a = p - n;
         var b = p + n;
         return
-            OP.ConditionalSelect(OP.BitwiseAnd(IsPositiveInfinity(a), IsPositiveInfinity(b)),
+            ConditionalSelect(BitwiseAnd(IsPositiveInfinity(a), IsPositiveInfinity(b)),
                 Tanh_<T>._1,
-            OP.ConditionalSelect(OP.BitwiseAnd(IsNegativeInfinity(a), IsPositiveInfinity(b)),
+            ConditionalSelect(BitwiseAnd(IsNegativeInfinity(a), IsPositiveInfinity(b)),
                 Tanh_<T>._m1,
                 (p - n) / (p + n)
                 ));

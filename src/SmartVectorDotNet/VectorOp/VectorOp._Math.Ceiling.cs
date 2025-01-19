@@ -1,7 +1,4 @@
-using System.Runtime.CompilerServices;
 namespace SmartVectorDotNet;
-using OP = VectorOp;
-using H = InternalHelpers;
 
 
 partial class VectorOp
@@ -16,7 +13,7 @@ partial class VectorOp
         public T Calculate(T x) => ScalarOp.Ceiling(x);
     }
 
-    private static Vector<double> Ceiling(Vector<double> x)
+    private static Vector<double> Ceiling_double(Vector<double> x)
     {
 #if NET6_0_OR_GREATER
         return Vector.Ceiling(x);
@@ -25,7 +22,7 @@ partial class VectorOp
 #endif
     }
 
-    private static Vector<float> Ceiling(Vector<float> x)
+    private static Vector<float> Ceiling_float(Vector<float> x)
     {
 #if NET6_0_OR_GREATER
         return Vector.Ceiling(x);

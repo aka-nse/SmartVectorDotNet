@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
-
 namespace SmartVectorDotNet;
-using OP = VectorOp;
 using H = InternalHelpers;
 
 
@@ -29,23 +23,23 @@ partial class VectorOp
     
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
     public static Vector<byte> CountTrailingZeros(Vector<byte> x)
-        => CountPopulation(OP.Subtract(OP.BitwiseAnd(x, -x), Const<byte>._1));
+        => CountPopulation(Subtract(BitwiseAnd(x, -x), Const<byte>._1));
 
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
     public static Vector<ushort> CountTrailingZeros(Vector<ushort> x)
-        => CountPopulation(OP.Subtract(OP.BitwiseAnd(x, -x), Const<ushort>._1));
+        => CountPopulation(Subtract(BitwiseAnd(x, -x), Const<ushort>._1));
 
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
     public static Vector<uint> CountTrailingZeros(Vector<uint> x)
-        => CountPopulation(OP.Subtract(OP.BitwiseAnd(x, -x), Const<uint>._1));
+        => CountPopulation(Subtract(BitwiseAnd(x, -x), Const<uint>._1));
 
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
     public static Vector<ulong> CountTrailingZeros(Vector<ulong> x)
-        => CountPopulation(OP.Subtract(OP.BitwiseAnd(x, -x), Const<ulong>._1));
+        => CountPopulation(Subtract(BitwiseAnd(x, -x), Const<ulong>._1));
 
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
     public static Vector<nuint> CountTrailingZeros(Vector<nuint> x)
-        => CountPopulation(OP.Subtract(OP.BitwiseAnd(x, -x), Const<nuint>._1));
+        => CountPopulation(Subtract(BitwiseAnd(x, -x), Const<nuint>._1));
 
 #pragma warning restore format
 }

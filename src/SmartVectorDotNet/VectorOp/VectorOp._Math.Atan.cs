@@ -1,6 +1,4 @@
-using System.Runtime.CompilerServices;
 namespace SmartVectorDotNet;
-using OP = VectorOp;
 using H = InternalHelpers;
 
 
@@ -52,17 +50,17 @@ partial class VectorOp
     public static partial Vector<T> Atan<T>(Vector<T> x)
         where T : unmanaged;
 
-    private static Vector<double> Atan(Vector<double> x)
+    private static Vector<double> Atan_double(Vector<double> x)
     {
         static Vector<double> core(Vector<double> x)
         {
-            var condition = OP.LessThan(x, Atan_<double>.CoreReflectThreshold);
-            x = OP.ConditionalSelect(
+            var condition = LessThan(x, Atan_<double>.CoreReflectThreshold);
+            x = ConditionalSelect(
                 condition,
                 x,
                 (x - Atan_<double>._1) / (x + Atan_<double>._1)
             );
-            var offset = OP.ConditionalSelect(
+            var offset = ConditionalSelect(
                 condition,
                 Atan_<double>._0,
                 Atan_<double>.CoreReflectedOffset
@@ -85,31 +83,31 @@ partial class VectorOp
 
         var sign = SignFast(x);
         var xx = sign * x;
-        var xIsLessThan1 = OP.LessThan(xx, Atan_<double>._1);
-        xx = OP.ConditionalSelect(
+        var xIsLessThan1 = LessThan(xx, Atan_<double>._1);
+        xx = ConditionalSelect(
             xIsLessThan1,
             xx,
             Atan_<double>._1 / xx
         );
         var y = core(xx);
-        return sign * OP.ConditionalSelect(
+        return sign * ConditionalSelect(
             xIsLessThan1,
             y,
             Atan_<double>.ReflectOffset - y
         );
     }
 
-    private static Vector<float> Atan(Vector<float> x)
+    private static Vector<float> Atan_float(Vector<float> x)
     {
         static Vector<float> core(Vector<float> x)
         {
-            var condition = OP.LessThan(x, Atan_<float>.CoreReflectThreshold);
-            x = OP.ConditionalSelect(
+            var condition = LessThan(x, Atan_<float>.CoreReflectThreshold);
+            x = ConditionalSelect(
                 condition,
                 x,
                 (x - Atan_<float>._1) / (x + Atan_<float>._1)
             );
-            var offset = OP.ConditionalSelect(
+            var offset = ConditionalSelect(
                 condition,
                 Vector<float>.Zero,
                 Atan_<float>.CoreReflectedOffset
@@ -127,14 +125,14 @@ partial class VectorOp
 
         var sign = SignFast(x);
         x = sign * x;
-        var xx = OP.ConditionalSelect(
-            OP.LessThan(x, Atan_<float>._1),
+        var xx = ConditionalSelect(
+            LessThan(x, Atan_<float>._1),
             x,
             Atan_<float>._1 / x
         );
         var y = core(xx);
-        return sign * OP.ConditionalSelect(
-            OP.LessThan(x, Atan_<float>._1),
+        return sign * ConditionalSelect(
+            LessThan(x, Atan_<float>._1),
             y,
             Atan_<float>.ReflectOffset - y
         );

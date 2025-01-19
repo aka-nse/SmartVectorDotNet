@@ -1,9 +1,7 @@
 namespace SmartVectorDotNet;
-using OP = VectorOp;
 using H = InternalHelpers;
 #if NET6_0_OR_GREATER
 using System.Runtime.Intrinsics;
-using System.Runtime.CompilerServices;
 #endif
 
 partial class VectorOp
