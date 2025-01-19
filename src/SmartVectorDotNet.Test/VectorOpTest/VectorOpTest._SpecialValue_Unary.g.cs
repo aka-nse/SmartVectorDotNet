@@ -47,18 +47,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Acos_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Acos_Double(double operand)
         {
-            var exp = Math.Acos(operand);
-            var act = VectorOp.Acos<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Acos(operand);
+                var act = VectorOp.Acos<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Acos_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Acos_Single(float operand)
         {
-            var exp = MathF.Acos(operand);
-            var act = VectorOp.Acos<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Acos(operand);
+                var act = VectorOp.Acos<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
@@ -99,18 +117,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Acosh_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Acosh_Double(double operand)
         {
-            var exp = Math.Acosh(operand);
-            var act = VectorOp.Acosh<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Acosh(operand);
+                var act = VectorOp.Acosh<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Acosh_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Acosh_Single(float operand)
         {
-            var exp = MathF.Acosh(operand);
-            var act = VectorOp.Acosh<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Acosh(operand);
+                var act = VectorOp.Acosh<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
@@ -151,18 +187,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Asin_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Asin_Double(double operand)
         {
-            var exp = Math.Asin(operand);
-            var act = VectorOp.Asin<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Asin(operand);
+                var act = VectorOp.Asin<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Asin_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Asin_Single(float operand)
         {
-            var exp = MathF.Asin(operand);
-            var act = VectorOp.Asin<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Asin(operand);
+                var act = VectorOp.Asin<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
@@ -203,18 +257,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Asinh_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Asinh_Double(double operand)
         {
-            var exp = Math.Asinh(operand);
-            var act = VectorOp.Asinh<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Asinh(operand);
+                var act = VectorOp.Asinh<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Asinh_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Asinh_Single(float operand)
         {
-            var exp = MathF.Asinh(operand);
-            var act = VectorOp.Asinh<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Asinh(operand);
+                var act = VectorOp.Asinh<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
@@ -255,18 +327,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Atan_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Atan_Double(double operand)
         {
-            var exp = Math.Atan(operand);
-            var act = VectorOp.Atan<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Atan(operand);
+                var act = VectorOp.Atan<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Atan_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Atan_Single(float operand)
         {
-            var exp = MathF.Atan(operand);
-            var act = VectorOp.Atan<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Atan(operand);
+                var act = VectorOp.Atan<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
@@ -303,18 +393,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Cos_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Cos_Double(double operand)
         {
-            var exp = Math.Cos(operand);
-            var act = VectorOp.Cos<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Cos(operand);
+                var act = VectorOp.Cos<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Cos_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Cos_Single(float operand)
         {
-            var exp = MathF.Cos(operand);
-            var act = VectorOp.Cos<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Cos(operand);
+                var act = VectorOp.Cos<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
@@ -355,18 +463,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Cosh_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Cosh_Double(double operand)
         {
-            var exp = Math.Cosh(operand);
-            var act = VectorOp.Cosh<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Cosh(operand);
+                var act = VectorOp.Cosh<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Cosh_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Cosh_Single(float operand)
         {
-            var exp = MathF.Cosh(operand);
-            var act = VectorOp.Cosh<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Cosh(operand);
+                var act = VectorOp.Cosh<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
@@ -407,18 +533,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Exp_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Exp_Double(double operand)
         {
-            var exp = Math.Exp(operand);
-            var act = VectorOp.Exp<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Exp(operand);
+                var act = VectorOp.Exp<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Exp_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Exp_Single(float operand)
         {
-            var exp = MathF.Exp(operand);
-            var act = VectorOp.Exp<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Exp(operand);
+                var act = VectorOp.Exp<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
@@ -459,18 +603,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Atanh_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Atanh_Double(double operand)
         {
-            var exp = Math.Atanh(operand);
-            var act = VectorOp.Atanh<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Atanh(operand);
+                var act = VectorOp.Atanh<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Atanh_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Atanh_Single(float operand)
         {
-            var exp = MathF.Atanh(operand);
-            var act = VectorOp.Atanh<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Atanh(operand);
+                var act = VectorOp.Atanh<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
@@ -511,18 +673,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Log_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Log_Double(double operand)
         {
-            var exp = Math.Log(operand);
-            var act = VectorOp.Log<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Log(operand);
+                var act = VectorOp.Log<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Log_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Log_Single(float operand)
         {
-            var exp = MathF.Log(operand);
-            var act = VectorOp.Log<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Log(operand);
+                var act = VectorOp.Log<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
@@ -563,18 +743,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Log10_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Log10_Double(double operand)
         {
-            var exp = Math.Log10(operand);
-            var act = VectorOp.Log10<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Log10(operand);
+                var act = VectorOp.Log10<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Log10_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Log10_Single(float operand)
         {
-            var exp = MathF.Log10(operand);
-            var act = VectorOp.Log10<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Log10(operand);
+                var act = VectorOp.Log10<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
@@ -615,18 +813,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Log2_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Log2_Double(double operand)
         {
-            var exp = Math.Log2(operand);
-            var act = VectorOp.Log2<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Log2(operand);
+                var act = VectorOp.Log2<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Log2_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Log2_Single(float operand)
         {
-            var exp = MathF.Log2(operand);
-            var act = VectorOp.Log2<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Log2(operand);
+                var act = VectorOp.Log2<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
@@ -663,18 +879,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Sin_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Sin_Double(double operand)
         {
-            var exp = Math.Sin(operand);
-            var act = VectorOp.Sin<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Sin(operand);
+                var act = VectorOp.Sin<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Sin_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Sin_Single(float operand)
         {
-            var exp = MathF.Sin(operand);
-            var act = VectorOp.Sin<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Sin(operand);
+                var act = VectorOp.Sin<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
@@ -715,18 +949,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Sinh_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Sinh_Double(double operand)
         {
-            var exp = Math.Sinh(operand);
-            var act = VectorOp.Sinh<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Sinh(operand);
+                var act = VectorOp.Sinh<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Sinh_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Sinh_Single(float operand)
         {
-            var exp = MathF.Sinh(operand);
-            var act = VectorOp.Sinh<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Sinh(operand);
+                var act = VectorOp.Sinh<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
@@ -763,18 +1015,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Tan_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Tan_Double(double operand)
         {
-            var exp = Math.Tan(operand);
-            var act = VectorOp.Tan<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Tan(operand);
+                var act = VectorOp.Tan<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Tan_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Tan_Single(float operand)
         {
-            var exp = MathF.Tan(operand);
-            var act = VectorOp.Tan<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Tan(operand);
+                var act = VectorOp.Tan<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
@@ -815,18 +1085,36 @@ public partial class VectorOpTest
         [MemberData(nameof(Tanh_SpecialValueTestCase_Unary_Double_TestCases))]
         public void Tanh_Double(double operand)
         {
-            var exp = Math.Tanh(operand);
-            var act = VectorOp.Tanh<double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Tanh(operand);
+                var act = VectorOp.Tanh<double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(Tanh_SpecialValueTestCase_Unary_Single_TestCases))]
         public void Tanh_Single(float operand)
         {
-            var exp = MathF.Tanh(operand);
-            var act = VectorOp.Tanh<float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.Tanh(operand);
+                var act = VectorOp.Tanh<float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion

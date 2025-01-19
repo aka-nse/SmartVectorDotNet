@@ -8,6 +8,56 @@ using Xunit;
 
 namespace SmartVectorDotNet;
 
+file static class Helpers
+{
+#if NETCOREAPP2_1_OR_GREATER
+    public static bool IsNormal(float x) => float.IsNormal(x);
+    public static bool IsNormal(double x) => double.IsNormal(x);
+    public static bool IsSubnormal(float x) => float.IsSubnormal(x);
+    public static bool IsSubnormal(double x) => double.IsSubnormal(x);
+#else
+    private static readonly float MinNormal32 = ScalarOp.Scale(0, 1, 0);
+    private static readonly double MinNormal64 = ScalarOp.Scale(0L, 1L, 0L);
+
+    public static bool IsNormal(float x)
+    {
+        if(float.IsNaN(x) || float.IsInfinity(x) || x == 0)
+        {
+            return false;
+        }
+        return Math.Abs(x) >= MinNormal32;
+    }
+
+    public static bool IsNormal(double x)
+    {
+        if (double.IsNaN(x) || double.IsInfinity(x) || x == 0)
+        {
+            return false;
+        }
+        return Math.Abs(x) >= MinNormal64;
+    }
+
+    public static bool IsSubnormal(float x)
+    {
+        if (float.IsNaN(x) || float.IsInfinity(x) || x == 0)
+        {
+            return false;
+        }
+        return Math.Abs(x) < MinNormal32;
+    }
+
+    public static bool IsSubnormal(double x)
+    {
+        if (double.IsNaN(x) || double.IsInfinity(x) || x == 0)
+        {
+            return false;
+        }
+        return Math.Abs(x) < MinNormal64;
+    }
+
+#endif
+}
+
 public partial class VectorOpTest
 {
     private static class Cache<T>
@@ -48,11 +98,13 @@ public partial class VectorOpTest
     public void IsNormalizedTest(double x)
     {
         Assert.Equal(
-            Cache<double>.AsVector(double.IsNormal(x)),
-            VectorOp.IsNormalized<double>(new(x)));
+            Cache<double>.AsVector(Helpers.IsNormal(x)),
+            VectorOp.IsNormalized<double>(new(x)),
+            VectorComparer<double>.Instance);
         Assert.Equal(
-            Cache<float>.AsVector(float.IsNormal((float)x)),
-            VectorOp.IsNormalized<float>(new((float)x)));
+            Cache<float>.AsVector(Helpers.IsNormal((float)x)),
+            VectorOp.IsNormalized<float>(new((float)x)),
+            VectorComparer<float>.Instance);
     }
 
 
@@ -61,11 +113,13 @@ public partial class VectorOpTest
     public void IsSubnormalizedTest(double x)
     {
         Assert.Equal(
-            Cache<double>.AsVector(double.IsSubnormal(x)),
-            VectorOp.IsSubnormalized<double>(new(x)));
+            Cache<double>.AsVector(Helpers.IsSubnormal(x)),
+            VectorOp.IsSubnormalized<double>(new(x)),
+            VectorComparer<double>.Instance);
         Assert.Equal(
-            Cache<float>.AsVector(float.IsSubnormal((float)x)),
-            VectorOp.IsSubnormalized<float>(new((float)x)));
+            Cache<float>.AsVector(Helpers.IsSubnormal((float)x)),
+            VectorOp.IsSubnormalized<float>(new((float)x)),
+            VectorComparer<float>.Instance);
     }
 
 
@@ -75,10 +129,12 @@ public partial class VectorOpTest
     {
         Assert.Equal(
             Cache<double>.AsVector(double.IsInfinity(x)),
-            VectorOp.IsInfinity<double>(new(x)));
+            VectorOp.IsInfinity<double>(new(x)),
+            VectorComparer<double>.Instance);
         Assert.Equal(
             Cache<float>.AsVector(float.IsInfinity((float)x)),
-            VectorOp.IsInfinity<float>(new((float)x)));
+            VectorOp.IsInfinity<float>(new((float)x)),
+            VectorComparer<float>.Instance);
     }
 
 
@@ -88,10 +144,12 @@ public partial class VectorOpTest
     {
         Assert.Equal(
             Cache<double>.AsVector(double.IsPositiveInfinity(x)),
-            VectorOp.IsPositiveInfinity<double>(new(x)));
+            VectorOp.IsPositiveInfinity<double>(new(x)),
+            VectorComparer<double>.Instance);
         Assert.Equal(
             Cache<float>.AsVector(float.IsPositiveInfinity((float)x)),
-            VectorOp.IsPositiveInfinity<float>(new((float)x)));
+            VectorOp.IsPositiveInfinity<float>(new((float)x)),
+            VectorComparer<float>.Instance);
     }
 
 
@@ -101,10 +159,12 @@ public partial class VectorOpTest
     {
         Assert.Equal(
             Cache<double>.AsVector(double.IsNegativeInfinity(x)),
-            VectorOp.IsNegativeInfinity<double>(new(x)));
+            VectorOp.IsNegativeInfinity<double>(new(x)),
+            VectorComparer<double>.Instance);
         Assert.Equal(
             Cache<float>.AsVector(float.IsNegativeInfinity((float)x)),
-            VectorOp.IsNegativeInfinity<float>(new((float)x)));
+            VectorOp.IsNegativeInfinity<float>(new((float)x)),
+            VectorComparer<float>.Instance);
     }
 
 
@@ -114,9 +174,11 @@ public partial class VectorOpTest
     {
         Assert.Equal(
             Cache<double>.AsVector(double.IsNaN(x)),
-            VectorOp.IsNaN<double>(new(x)));
+            VectorOp.IsNaN<double>(new(x)),
+            VectorComparer<double>.Instance);
         Assert.Equal(
             Cache<float>.AsVector(float.IsNaN((float)x)),
-            VectorOp.IsNaN<float>(new((float)x)));
+            VectorOp.IsNaN<float>(new((float)x)),
+            VectorComparer<float>.Instance);
     }
 }

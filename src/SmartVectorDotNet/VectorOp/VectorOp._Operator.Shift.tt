@@ -151,7 +151,7 @@ partial class VectorOp
     
     internal static Vector<<#=type#>> ShiftRightLogicalFallback(Vector<<#=type#>> value, int shiftCount)
     {
-<#      GenerateFallback(type, i => $"value[{i}] >> (shiftCount & {type.BitMask})"); #>
+<#      GenerateFallback(type, i => $"({type.ShiftLogicalType})value[{i}] >> (shiftCount & {type.BitMask})"); #>
     }
 
 <#  } #>
@@ -183,7 +183,7 @@ partial class VectorOp
 
     internal static Vector<<#=type#>> ShiftRightLogicalFallback(Vector<<#=type#>> value, Vector<<#=type#>> shiftCount)
     {
-<#      GenerateFallback(type, i => $"value[{i}] >> ((int)shiftCount[{i}] & {type.BitMask})"); #>
+<#      GenerateFallback(type, i => $"({type.ShiftLogicalType})value[{i}] >> ((int)shiftCount[{i}] & {type.BitMask})"); #>
     }
 
 <#  } #>
@@ -310,6 +310,14 @@ public record TypeDef
         "uint"   or "int"   => "31",
         "ulong"  or "long"  => "63",
         _ => $"(Unsafe.SizeOf<{Name}>() * 8 - 1)",
+    };
+    public string ShiftLogicalType => Name switch
+    {
+        "byte"   or "sbyte" => "uint",
+        "ushort" or "short" => "uint",
+        "uint"   or "int"   => "uint",
+        "ulong"  or "long"  => "ulong",
+        _ => Name,
     };
 
     public TypeDef(

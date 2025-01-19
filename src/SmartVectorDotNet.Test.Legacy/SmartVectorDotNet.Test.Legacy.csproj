@@ -39,4 +39,8 @@
         <Compile Include="..\SmartVectorDotNet.Test\VectorOpTest\*.cs" LinkBase="VectorOpTest" />
     </ItemGroup>
 
+    <ItemGroup>
+        <None Remove="TestResults/**/*" />
+    </ItemGroup>
+
 </Project>

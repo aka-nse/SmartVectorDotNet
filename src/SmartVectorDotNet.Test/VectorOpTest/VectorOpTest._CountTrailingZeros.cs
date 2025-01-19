@@ -40,11 +40,14 @@ public partial class VectorOpTest
     [Fact] public void CtzUInt16() => TrailingZeroCountTest.Test<ushort>();
     [Fact] public void CtzUInt32() => TrailingZeroCountTest.Test<uint>();
     [Fact] public void CtzUInt64() => TrailingZeroCountTest.Test<ulong>();
-    [Fact] public void CtzUIntN() => TrailingZeroCountTest.Test<nuint>();
 
     [Fact] public void CtzInt8() => TrailingZeroCountTest.Test<sbyte>();
     [Fact] public void CtzInt16() => TrailingZeroCountTest.Test<short>();
     [Fact] public void CtzInt32() => TrailingZeroCountTest.Test<int>();
     [Fact] public void CtzInt64() => TrailingZeroCountTest.Test<long>();
+
+#if NET5_0_OR_GREATER
+    [Fact] public void CtzUIntN() => TrailingZeroCountTest.Test<nuint>();
     [Fact] public void CtzIntN() => TrailingZeroCountTest.Test<nint>();
+#endif
 }

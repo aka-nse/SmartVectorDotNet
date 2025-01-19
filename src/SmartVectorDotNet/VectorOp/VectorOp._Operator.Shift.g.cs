@@ -1332,75 +1332,75 @@ partial class VectorOp
         {
         case 8:
             return H.CreateVector(stackalloc [] {
-                (byte)(value[0] >> (shiftCount & 7)),
-                (byte)(value[1] >> (shiftCount & 7)),
-                (byte)(value[2] >> (shiftCount & 7)),
-                (byte)(value[3] >> (shiftCount & 7)),
-                (byte)(value[4] >> (shiftCount & 7)),
-                (byte)(value[5] >> (shiftCount & 7)),
-                (byte)(value[6] >> (shiftCount & 7)),
-                (byte)(value[7] >> (shiftCount & 7)),
+                (byte)((uint)value[0] >> (shiftCount & 7)),
+                (byte)((uint)value[1] >> (shiftCount & 7)),
+                (byte)((uint)value[2] >> (shiftCount & 7)),
+                (byte)((uint)value[3] >> (shiftCount & 7)),
+                (byte)((uint)value[4] >> (shiftCount & 7)),
+                (byte)((uint)value[5] >> (shiftCount & 7)),
+                (byte)((uint)value[6] >> (shiftCount & 7)),
+                (byte)((uint)value[7] >> (shiftCount & 7)),
             });
         case 16:
             return H.CreateVector(stackalloc [] {
-                (byte)(value[0] >> (shiftCount & 7)),
-                (byte)(value[1] >> (shiftCount & 7)),
-                (byte)(value[2] >> (shiftCount & 7)),
-                (byte)(value[3] >> (shiftCount & 7)),
-                (byte)(value[4] >> (shiftCount & 7)),
-                (byte)(value[5] >> (shiftCount & 7)),
-                (byte)(value[6] >> (shiftCount & 7)),
-                (byte)(value[7] >> (shiftCount & 7)),
-                (byte)(value[8] >> (shiftCount & 7)),
-                (byte)(value[9] >> (shiftCount & 7)),
-                (byte)(value[10] >> (shiftCount & 7)),
-                (byte)(value[11] >> (shiftCount & 7)),
-                (byte)(value[12] >> (shiftCount & 7)),
-                (byte)(value[13] >> (shiftCount & 7)),
-                (byte)(value[14] >> (shiftCount & 7)),
-                (byte)(value[15] >> (shiftCount & 7)),
+                (byte)((uint)value[0] >> (shiftCount & 7)),
+                (byte)((uint)value[1] >> (shiftCount & 7)),
+                (byte)((uint)value[2] >> (shiftCount & 7)),
+                (byte)((uint)value[3] >> (shiftCount & 7)),
+                (byte)((uint)value[4] >> (shiftCount & 7)),
+                (byte)((uint)value[5] >> (shiftCount & 7)),
+                (byte)((uint)value[6] >> (shiftCount & 7)),
+                (byte)((uint)value[7] >> (shiftCount & 7)),
+                (byte)((uint)value[8] >> (shiftCount & 7)),
+                (byte)((uint)value[9] >> (shiftCount & 7)),
+                (byte)((uint)value[10] >> (shiftCount & 7)),
+                (byte)((uint)value[11] >> (shiftCount & 7)),
+                (byte)((uint)value[12] >> (shiftCount & 7)),
+                (byte)((uint)value[13] >> (shiftCount & 7)),
+                (byte)((uint)value[14] >> (shiftCount & 7)),
+                (byte)((uint)value[15] >> (shiftCount & 7)),
             });
         case 32:
             return H.CreateVector(stackalloc [] {
-                (byte)(value[0] >> (shiftCount & 7)),
-                (byte)(value[1] >> (shiftCount & 7)),
-                (byte)(value[2] >> (shiftCount & 7)),
-                (byte)(value[3] >> (shiftCount & 7)),
-                (byte)(value[4] >> (shiftCount & 7)),
-                (byte)(value[5] >> (shiftCount & 7)),
-                (byte)(value[6] >> (shiftCount & 7)),
-                (byte)(value[7] >> (shiftCount & 7)),
-                (byte)(value[8] >> (shiftCount & 7)),
-                (byte)(value[9] >> (shiftCount & 7)),
-                (byte)(value[10] >> (shiftCount & 7)),
-                (byte)(value[11] >> (shiftCount & 7)),
-                (byte)(value[12] >> (shiftCount & 7)),
-                (byte)(value[13] >> (shiftCount & 7)),
-                (byte)(value[14] >> (shiftCount & 7)),
-                (byte)(value[15] >> (shiftCount & 7)),
-                (byte)(value[16] >> (shiftCount & 7)),
-                (byte)(value[17] >> (shiftCount & 7)),
-                (byte)(value[18] >> (shiftCount & 7)),
-                (byte)(value[19] >> (shiftCount & 7)),
-                (byte)(value[20] >> (shiftCount & 7)),
-                (byte)(value[21] >> (shiftCount & 7)),
-                (byte)(value[22] >> (shiftCount & 7)),
-                (byte)(value[23] >> (shiftCount & 7)),
-                (byte)(value[24] >> (shiftCount & 7)),
-                (byte)(value[25] >> (shiftCount & 7)),
-                (byte)(value[26] >> (shiftCount & 7)),
-                (byte)(value[27] >> (shiftCount & 7)),
-                (byte)(value[28] >> (shiftCount & 7)),
-                (byte)(value[29] >> (shiftCount & 7)),
-                (byte)(value[30] >> (shiftCount & 7)),
-                (byte)(value[31] >> (shiftCount & 7)),
+                (byte)((uint)value[0] >> (shiftCount & 7)),
+                (byte)((uint)value[1] >> (shiftCount & 7)),
+                (byte)((uint)value[2] >> (shiftCount & 7)),
+                (byte)((uint)value[3] >> (shiftCount & 7)),
+                (byte)((uint)value[4] >> (shiftCount & 7)),
+                (byte)((uint)value[5] >> (shiftCount & 7)),
+                (byte)((uint)value[6] >> (shiftCount & 7)),
+                (byte)((uint)value[7] >> (shiftCount & 7)),
+                (byte)((uint)value[8] >> (shiftCount & 7)),
+                (byte)((uint)value[9] >> (shiftCount & 7)),
+                (byte)((uint)value[10] >> (shiftCount & 7)),
+                (byte)((uint)value[11] >> (shiftCount & 7)),
+                (byte)((uint)value[12] >> (shiftCount & 7)),
+                (byte)((uint)value[13] >> (shiftCount & 7)),
+                (byte)((uint)value[14] >> (shiftCount & 7)),
+                (byte)((uint)value[15] >> (shiftCount & 7)),
+                (byte)((uint)value[16] >> (shiftCount & 7)),
+                (byte)((uint)value[17] >> (shiftCount & 7)),
+                (byte)((uint)value[18] >> (shiftCount & 7)),
+                (byte)((uint)value[19] >> (shiftCount & 7)),
+                (byte)((uint)value[20] >> (shiftCount & 7)),
+                (byte)((uint)value[21] >> (shiftCount & 7)),
+                (byte)((uint)value[22] >> (shiftCount & 7)),
+                (byte)((uint)value[23] >> (shiftCount & 7)),
+                (byte)((uint)value[24] >> (shiftCount & 7)),
+                (byte)((uint)value[25] >> (shiftCount & 7)),
+                (byte)((uint)value[26] >> (shiftCount & 7)),
+                (byte)((uint)value[27] >> (shiftCount & 7)),
+                (byte)((uint)value[28] >> (shiftCount & 7)),
+                (byte)((uint)value[29] >> (shiftCount & 7)),
+                (byte)((uint)value[30] >> (shiftCount & 7)),
+                (byte)((uint)value[31] >> (shiftCount & 7)),
             });
         default:
             {
                 var buffer = (stackalloc byte[Vector<byte>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (byte)(value[i] >> (shiftCount & 7));
+                    buffer[i] = (byte)((uint)value[i] >> (shiftCount & 7));
                 }
                 return Unsafe.As<byte, Vector<byte>>(ref buffer[0]);
             }
@@ -1433,47 +1433,47 @@ partial class VectorOp
         {
         case 4:
             return H.CreateVector(stackalloc [] {
-                (ushort)(value[0] >> (shiftCount & 15)),
-                (ushort)(value[1] >> (shiftCount & 15)),
-                (ushort)(value[2] >> (shiftCount & 15)),
-                (ushort)(value[3] >> (shiftCount & 15)),
+                (ushort)((uint)value[0] >> (shiftCount & 15)),
+                (ushort)((uint)value[1] >> (shiftCount & 15)),
+                (ushort)((uint)value[2] >> (shiftCount & 15)),
+                (ushort)((uint)value[3] >> (shiftCount & 15)),
             });
         case 8:
             return H.CreateVector(stackalloc [] {
-                (ushort)(value[0] >> (shiftCount & 15)),
-                (ushort)(value[1] >> (shiftCount & 15)),
-                (ushort)(value[2] >> (shiftCount & 15)),
-                (ushort)(value[3] >> (shiftCount & 15)),
-                (ushort)(value[4] >> (shiftCount & 15)),
-                (ushort)(value[5] >> (shiftCount & 15)),
-                (ushort)(value[6] >> (shiftCount & 15)),
-                (ushort)(value[7] >> (shiftCount & 15)),
+                (ushort)((uint)value[0] >> (shiftCount & 15)),
+                (ushort)((uint)value[1] >> (shiftCount & 15)),
+                (ushort)((uint)value[2] >> (shiftCount & 15)),
+                (ushort)((uint)value[3] >> (shiftCount & 15)),
+                (ushort)((uint)value[4] >> (shiftCount & 15)),
+                (ushort)((uint)value[5] >> (shiftCount & 15)),
+                (ushort)((uint)value[6] >> (shiftCount & 15)),
+                (ushort)((uint)value[7] >> (shiftCount & 15)),
             });
         case 16:
             return H.CreateVector(stackalloc [] {
-                (ushort)(value[0] >> (shiftCount & 15)),
-                (ushort)(value[1] >> (shiftCount & 15)),
-                (ushort)(value[2] >> (shiftCount & 15)),
-                (ushort)(value[3] >> (shiftCount & 15)),
-                (ushort)(value[4] >> (shiftCount & 15)),
-                (ushort)(value[5] >> (shiftCount & 15)),
-                (ushort)(value[6] >> (shiftCount & 15)),
-                (ushort)(value[7] >> (shiftCount & 15)),
-                (ushort)(value[8] >> (shiftCount & 15)),
-                (ushort)(value[9] >> (shiftCount & 15)),
-                (ushort)(value[10] >> (shiftCount & 15)),
-                (ushort)(value[11] >> (shiftCount & 15)),
-                (ushort)(value[12] >> (shiftCount & 15)),
-                (ushort)(value[13] >> (shiftCount & 15)),
-                (ushort)(value[14] >> (shiftCount & 15)),
-                (ushort)(value[15] >> (shiftCount & 15)),
+                (ushort)((uint)value[0] >> (shiftCount & 15)),
+                (ushort)((uint)value[1] >> (shiftCount & 15)),
+                (ushort)((uint)value[2] >> (shiftCount & 15)),
+                (ushort)((uint)value[3] >> (shiftCount & 15)),
+                (ushort)((uint)value[4] >> (shiftCount & 15)),
+                (ushort)((uint)value[5] >> (shiftCount & 15)),
+                (ushort)((uint)value[6] >> (shiftCount & 15)),
+                (ushort)((uint)value[7] >> (shiftCount & 15)),
+                (ushort)((uint)value[8] >> (shiftCount & 15)),
+                (ushort)((uint)value[9] >> (shiftCount & 15)),
+                (ushort)((uint)value[10] >> (shiftCount & 15)),
+                (ushort)((uint)value[11] >> (shiftCount & 15)),
+                (ushort)((uint)value[12] >> (shiftCount & 15)),
+                (ushort)((uint)value[13] >> (shiftCount & 15)),
+                (ushort)((uint)value[14] >> (shiftCount & 15)),
+                (ushort)((uint)value[15] >> (shiftCount & 15)),
             });
         default:
             {
                 var buffer = (stackalloc ushort[Vector<ushort>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (ushort)(value[i] >> (shiftCount & 15));
+                    buffer[i] = (ushort)((uint)value[i] >> (shiftCount & 15));
                 }
                 return Unsafe.As<ushort, Vector<ushort>>(ref buffer[0]);
             }
@@ -1506,33 +1506,33 @@ partial class VectorOp
         {
         case 2:
             return H.CreateVector(stackalloc [] {
-                (uint)(value[0] >> (shiftCount & 31)),
-                (uint)(value[1] >> (shiftCount & 31)),
+                (uint)((uint)value[0] >> (shiftCount & 31)),
+                (uint)((uint)value[1] >> (shiftCount & 31)),
             });
         case 4:
             return H.CreateVector(stackalloc [] {
-                (uint)(value[0] >> (shiftCount & 31)),
-                (uint)(value[1] >> (shiftCount & 31)),
-                (uint)(value[2] >> (shiftCount & 31)),
-                (uint)(value[3] >> (shiftCount & 31)),
+                (uint)((uint)value[0] >> (shiftCount & 31)),
+                (uint)((uint)value[1] >> (shiftCount & 31)),
+                (uint)((uint)value[2] >> (shiftCount & 31)),
+                (uint)((uint)value[3] >> (shiftCount & 31)),
             });
         case 8:
             return H.CreateVector(stackalloc [] {
-                (uint)(value[0] >> (shiftCount & 31)),
-                (uint)(value[1] >> (shiftCount & 31)),
-                (uint)(value[2] >> (shiftCount & 31)),
-                (uint)(value[3] >> (shiftCount & 31)),
-                (uint)(value[4] >> (shiftCount & 31)),
-                (uint)(value[5] >> (shiftCount & 31)),
-                (uint)(value[6] >> (shiftCount & 31)),
-                (uint)(value[7] >> (shiftCount & 31)),
+                (uint)((uint)value[0] >> (shiftCount & 31)),
+                (uint)((uint)value[1] >> (shiftCount & 31)),
+                (uint)((uint)value[2] >> (shiftCount & 31)),
+                (uint)((uint)value[3] >> (shiftCount & 31)),
+                (uint)((uint)value[4] >> (shiftCount & 31)),
+                (uint)((uint)value[5] >> (shiftCount & 31)),
+                (uint)((uint)value[6] >> (shiftCount & 31)),
+                (uint)((uint)value[7] >> (shiftCount & 31)),
             });
         default:
             {
                 var buffer = (stackalloc uint[Vector<uint>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (uint)(value[i] >> (shiftCount & 31));
+                    buffer[i] = (uint)((uint)value[i] >> (shiftCount & 31));
                 }
                 return Unsafe.As<uint, Vector<uint>>(ref buffer[0]);
             }
@@ -1565,26 +1565,26 @@ partial class VectorOp
         {
         case 1:
             return H.CreateVector(stackalloc [] {
-                (ulong)(value[0] >> (shiftCount & 63)),
+                (ulong)((ulong)value[0] >> (shiftCount & 63)),
             });
         case 2:
             return H.CreateVector(stackalloc [] {
-                (ulong)(value[0] >> (shiftCount & 63)),
-                (ulong)(value[1] >> (shiftCount & 63)),
+                (ulong)((ulong)value[0] >> (shiftCount & 63)),
+                (ulong)((ulong)value[1] >> (shiftCount & 63)),
             });
         case 4:
             return H.CreateVector(stackalloc [] {
-                (ulong)(value[0] >> (shiftCount & 63)),
-                (ulong)(value[1] >> (shiftCount & 63)),
-                (ulong)(value[2] >> (shiftCount & 63)),
-                (ulong)(value[3] >> (shiftCount & 63)),
+                (ulong)((ulong)value[0] >> (shiftCount & 63)),
+                (ulong)((ulong)value[1] >> (shiftCount & 63)),
+                (ulong)((ulong)value[2] >> (shiftCount & 63)),
+                (ulong)((ulong)value[3] >> (shiftCount & 63)),
             });
         default:
             {
                 var buffer = (stackalloc ulong[Vector<ulong>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (ulong)(value[i] >> (shiftCount & 63));
+                    buffer[i] = (ulong)((ulong)value[i] >> (shiftCount & 63));
                 }
                 return Unsafe.As<ulong, Vector<ulong>>(ref buffer[0]);
             }
@@ -1607,37 +1607,37 @@ partial class VectorOp
         {
         case 1:
             return H.CreateVector(stackalloc [] {
-                (nuint)(value[0] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[0] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
             });
         case 2:
             return H.CreateVector(stackalloc [] {
-                (nuint)(value[0] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[1] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[0] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[1] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
             });
         case 4:
             return H.CreateVector(stackalloc [] {
-                (nuint)(value[0] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[1] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[2] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[3] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[0] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[1] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[2] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[3] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
             });
         case 8:
             return H.CreateVector(stackalloc [] {
-                (nuint)(value[0] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[1] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[2] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[3] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[4] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[5] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[6] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[7] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[0] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[1] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[2] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[3] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[4] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[5] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[6] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[7] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1))),
             });
         default:
             {
                 var buffer = (stackalloc nuint[Vector<nuint>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (nuint)(value[i] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1)));
+                    buffer[i] = (nuint)((nuint)value[i] >> (shiftCount & (Unsafe.SizeOf<nuint>() * 8 - 1)));
                 }
                 return Unsafe.As<nuint, Vector<nuint>>(ref buffer[0]);
             }
@@ -1660,75 +1660,75 @@ partial class VectorOp
         {
         case 8:
             return H.CreateVector(stackalloc [] {
-                (sbyte)(value[0] >> (shiftCount & 7)),
-                (sbyte)(value[1] >> (shiftCount & 7)),
-                (sbyte)(value[2] >> (shiftCount & 7)),
-                (sbyte)(value[3] >> (shiftCount & 7)),
-                (sbyte)(value[4] >> (shiftCount & 7)),
-                (sbyte)(value[5] >> (shiftCount & 7)),
-                (sbyte)(value[6] >> (shiftCount & 7)),
-                (sbyte)(value[7] >> (shiftCount & 7)),
+                (sbyte)((uint)value[0] >> (shiftCount & 7)),
+                (sbyte)((uint)value[1] >> (shiftCount & 7)),
+                (sbyte)((uint)value[2] >> (shiftCount & 7)),
+                (sbyte)((uint)value[3] >> (shiftCount & 7)),
+                (sbyte)((uint)value[4] >> (shiftCount & 7)),
+                (sbyte)((uint)value[5] >> (shiftCount & 7)),
+                (sbyte)((uint)value[6] >> (shiftCount & 7)),
+                (sbyte)((uint)value[7] >> (shiftCount & 7)),
             });
         case 16:
             return H.CreateVector(stackalloc [] {
-                (sbyte)(value[0] >> (shiftCount & 7)),
-                (sbyte)(value[1] >> (shiftCount & 7)),
-                (sbyte)(value[2] >> (shiftCount & 7)),
-                (sbyte)(value[3] >> (shiftCount & 7)),
-                (sbyte)(value[4] >> (shiftCount & 7)),
-                (sbyte)(value[5] >> (shiftCount & 7)),
-                (sbyte)(value[6] >> (shiftCount & 7)),
-                (sbyte)(value[7] >> (shiftCount & 7)),
-                (sbyte)(value[8] >> (shiftCount & 7)),
-                (sbyte)(value[9] >> (shiftCount & 7)),
-                (sbyte)(value[10] >> (shiftCount & 7)),
-                (sbyte)(value[11] >> (shiftCount & 7)),
-                (sbyte)(value[12] >> (shiftCount & 7)),
-                (sbyte)(value[13] >> (shiftCount & 7)),
-                (sbyte)(value[14] >> (shiftCount & 7)),
-                (sbyte)(value[15] >> (shiftCount & 7)),
+                (sbyte)((uint)value[0] >> (shiftCount & 7)),
+                (sbyte)((uint)value[1] >> (shiftCount & 7)),
+                (sbyte)((uint)value[2] >> (shiftCount & 7)),
+                (sbyte)((uint)value[3] >> (shiftCount & 7)),
+                (sbyte)((uint)value[4] >> (shiftCount & 7)),
+                (sbyte)((uint)value[5] >> (shiftCount & 7)),
+                (sbyte)((uint)value[6] >> (shiftCount & 7)),
+                (sbyte)((uint)value[7] >> (shiftCount & 7)),
+                (sbyte)((uint)value[8] >> (shiftCount & 7)),
+                (sbyte)((uint)value[9] >> (shiftCount & 7)),
+                (sbyte)((uint)value[10] >> (shiftCount & 7)),
+                (sbyte)((uint)value[11] >> (shiftCount & 7)),
+                (sbyte)((uint)value[12] >> (shiftCount & 7)),
+                (sbyte)((uint)value[13] >> (shiftCount & 7)),
+                (sbyte)((uint)value[14] >> (shiftCount & 7)),
+                (sbyte)((uint)value[15] >> (shiftCount & 7)),
             });
         case 32:
             return H.CreateVector(stackalloc [] {
-                (sbyte)(value[0] >> (shiftCount & 7)),
-                (sbyte)(value[1] >> (shiftCount & 7)),
-                (sbyte)(value[2] >> (shiftCount & 7)),
-                (sbyte)(value[3] >> (shiftCount & 7)),
-                (sbyte)(value[4] >> (shiftCount & 7)),
-                (sbyte)(value[5] >> (shiftCount & 7)),
-                (sbyte)(value[6] >> (shiftCount & 7)),
-                (sbyte)(value[7] >> (shiftCount & 7)),
-                (sbyte)(value[8] >> (shiftCount & 7)),
-                (sbyte)(value[9] >> (shiftCount & 7)),
-                (sbyte)(value[10] >> (shiftCount & 7)),
-                (sbyte)(value[11] >> (shiftCount & 7)),
-                (sbyte)(value[12] >> (shiftCount & 7)),
-                (sbyte)(value[13] >> (shiftCount & 7)),
-                (sbyte)(value[14] >> (shiftCount & 7)),
-                (sbyte)(value[15] >> (shiftCount & 7)),
-                (sbyte)(value[16] >> (shiftCount & 7)),
-                (sbyte)(value[17] >> (shiftCount & 7)),
-                (sbyte)(value[18] >> (shiftCount & 7)),
-                (sbyte)(value[19] >> (shiftCount & 7)),
-                (sbyte)(value[20] >> (shiftCount & 7)),
-                (sbyte)(value[21] >> (shiftCount & 7)),
-                (sbyte)(value[22] >> (shiftCount & 7)),
-                (sbyte)(value[23] >> (shiftCount & 7)),
-                (sbyte)(value[24] >> (shiftCount & 7)),
-                (sbyte)(value[25] >> (shiftCount & 7)),
-                (sbyte)(value[26] >> (shiftCount & 7)),
-                (sbyte)(value[27] >> (shiftCount & 7)),
-                (sbyte)(value[28] >> (shiftCount & 7)),
-                (sbyte)(value[29] >> (shiftCount & 7)),
-                (sbyte)(value[30] >> (shiftCount & 7)),
-                (sbyte)(value[31] >> (shiftCount & 7)),
+                (sbyte)((uint)value[0] >> (shiftCount & 7)),
+                (sbyte)((uint)value[1] >> (shiftCount & 7)),
+                (sbyte)((uint)value[2] >> (shiftCount & 7)),
+                (sbyte)((uint)value[3] >> (shiftCount & 7)),
+                (sbyte)((uint)value[4] >> (shiftCount & 7)),
+                (sbyte)((uint)value[5] >> (shiftCount & 7)),
+                (sbyte)((uint)value[6] >> (shiftCount & 7)),
+                (sbyte)((uint)value[7] >> (shiftCount & 7)),
+                (sbyte)((uint)value[8] >> (shiftCount & 7)),
+                (sbyte)((uint)value[9] >> (shiftCount & 7)),
+                (sbyte)((uint)value[10] >> (shiftCount & 7)),
+                (sbyte)((uint)value[11] >> (shiftCount & 7)),
+                (sbyte)((uint)value[12] >> (shiftCount & 7)),
+                (sbyte)((uint)value[13] >> (shiftCount & 7)),
+                (sbyte)((uint)value[14] >> (shiftCount & 7)),
+                (sbyte)((uint)value[15] >> (shiftCount & 7)),
+                (sbyte)((uint)value[16] >> (shiftCount & 7)),
+                (sbyte)((uint)value[17] >> (shiftCount & 7)),
+                (sbyte)((uint)value[18] >> (shiftCount & 7)),
+                (sbyte)((uint)value[19] >> (shiftCount & 7)),
+                (sbyte)((uint)value[20] >> (shiftCount & 7)),
+                (sbyte)((uint)value[21] >> (shiftCount & 7)),
+                (sbyte)((uint)value[22] >> (shiftCount & 7)),
+                (sbyte)((uint)value[23] >> (shiftCount & 7)),
+                (sbyte)((uint)value[24] >> (shiftCount & 7)),
+                (sbyte)((uint)value[25] >> (shiftCount & 7)),
+                (sbyte)((uint)value[26] >> (shiftCount & 7)),
+                (sbyte)((uint)value[27] >> (shiftCount & 7)),
+                (sbyte)((uint)value[28] >> (shiftCount & 7)),
+                (sbyte)((uint)value[29] >> (shiftCount & 7)),
+                (sbyte)((uint)value[30] >> (shiftCount & 7)),
+                (sbyte)((uint)value[31] >> (shiftCount & 7)),
             });
         default:
             {
                 var buffer = (stackalloc sbyte[Vector<sbyte>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (sbyte)(value[i] >> (shiftCount & 7));
+                    buffer[i] = (sbyte)((uint)value[i] >> (shiftCount & 7));
                 }
                 return Unsafe.As<sbyte, Vector<sbyte>>(ref buffer[0]);
             }
@@ -1761,47 +1761,47 @@ partial class VectorOp
         {
         case 4:
             return H.CreateVector(stackalloc [] {
-                (short)(value[0] >> (shiftCount & 15)),
-                (short)(value[1] >> (shiftCount & 15)),
-                (short)(value[2] >> (shiftCount & 15)),
-                (short)(value[3] >> (shiftCount & 15)),
+                (short)((uint)value[0] >> (shiftCount & 15)),
+                (short)((uint)value[1] >> (shiftCount & 15)),
+                (short)((uint)value[2] >> (shiftCount & 15)),
+                (short)((uint)value[3] >> (shiftCount & 15)),
             });
         case 8:
             return H.CreateVector(stackalloc [] {
-                (short)(value[0] >> (shiftCount & 15)),
-                (short)(value[1] >> (shiftCount & 15)),
-                (short)(value[2] >> (shiftCount & 15)),
-                (short)(value[3] >> (shiftCount & 15)),
-                (short)(value[4] >> (shiftCount & 15)),
-                (short)(value[5] >> (shiftCount & 15)),
-                (short)(value[6] >> (shiftCount & 15)),
-                (short)(value[7] >> (shiftCount & 15)),
+                (short)((uint)value[0] >> (shiftCount & 15)),
+                (short)((uint)value[1] >> (shiftCount & 15)),
+                (short)((uint)value[2] >> (shiftCount & 15)),
+                (short)((uint)value[3] >> (shiftCount & 15)),
+                (short)((uint)value[4] >> (shiftCount & 15)),
+                (short)((uint)value[5] >> (shiftCount & 15)),
+                (short)((uint)value[6] >> (shiftCount & 15)),
+                (short)((uint)value[7] >> (shiftCount & 15)),
             });
         case 16:
             return H.CreateVector(stackalloc [] {
-                (short)(value[0] >> (shiftCount & 15)),
-                (short)(value[1] >> (shiftCount & 15)),
-                (short)(value[2] >> (shiftCount & 15)),
-                (short)(value[3] >> (shiftCount & 15)),
-                (short)(value[4] >> (shiftCount & 15)),
-                (short)(value[5] >> (shiftCount & 15)),
-                (short)(value[6] >> (shiftCount & 15)),
-                (short)(value[7] >> (shiftCount & 15)),
-                (short)(value[8] >> (shiftCount & 15)),
-                (short)(value[9] >> (shiftCount & 15)),
-                (short)(value[10] >> (shiftCount & 15)),
-                (short)(value[11] >> (shiftCount & 15)),
-                (short)(value[12] >> (shiftCount & 15)),
-                (short)(value[13] >> (shiftCount & 15)),
-                (short)(value[14] >> (shiftCount & 15)),
-                (short)(value[15] >> (shiftCount & 15)),
+                (short)((uint)value[0] >> (shiftCount & 15)),
+                (short)((uint)value[1] >> (shiftCount & 15)),
+                (short)((uint)value[2] >> (shiftCount & 15)),
+                (short)((uint)value[3] >> (shiftCount & 15)),
+                (short)((uint)value[4] >> (shiftCount & 15)),
+                (short)((uint)value[5] >> (shiftCount & 15)),
+                (short)((uint)value[6] >> (shiftCount & 15)),
+                (short)((uint)value[7] >> (shiftCount & 15)),
+                (short)((uint)value[8] >> (shiftCount & 15)),
+                (short)((uint)value[9] >> (shiftCount & 15)),
+                (short)((uint)value[10] >> (shiftCount & 15)),
+                (short)((uint)value[11] >> (shiftCount & 15)),
+                (short)((uint)value[12] >> (shiftCount & 15)),
+                (short)((uint)value[13] >> (shiftCount & 15)),
+                (short)((uint)value[14] >> (shiftCount & 15)),
+                (short)((uint)value[15] >> (shiftCount & 15)),
             });
         default:
             {
                 var buffer = (stackalloc short[Vector<short>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (short)(value[i] >> (shiftCount & 15));
+                    buffer[i] = (short)((uint)value[i] >> (shiftCount & 15));
                 }
                 return Unsafe.As<short, Vector<short>>(ref buffer[0]);
             }
@@ -1834,33 +1834,33 @@ partial class VectorOp
         {
         case 2:
             return H.CreateVector(stackalloc [] {
-                (int)(value[0] >> (shiftCount & 31)),
-                (int)(value[1] >> (shiftCount & 31)),
+                (int)((uint)value[0] >> (shiftCount & 31)),
+                (int)((uint)value[1] >> (shiftCount & 31)),
             });
         case 4:
             return H.CreateVector(stackalloc [] {
-                (int)(value[0] >> (shiftCount & 31)),
-                (int)(value[1] >> (shiftCount & 31)),
-                (int)(value[2] >> (shiftCount & 31)),
-                (int)(value[3] >> (shiftCount & 31)),
+                (int)((uint)value[0] >> (shiftCount & 31)),
+                (int)((uint)value[1] >> (shiftCount & 31)),
+                (int)((uint)value[2] >> (shiftCount & 31)),
+                (int)((uint)value[3] >> (shiftCount & 31)),
             });
         case 8:
             return H.CreateVector(stackalloc [] {
-                (int)(value[0] >> (shiftCount & 31)),
-                (int)(value[1] >> (shiftCount & 31)),
-                (int)(value[2] >> (shiftCount & 31)),
-                (int)(value[3] >> (shiftCount & 31)),
-                (int)(value[4] >> (shiftCount & 31)),
-                (int)(value[5] >> (shiftCount & 31)),
-                (int)(value[6] >> (shiftCount & 31)),
-                (int)(value[7] >> (shiftCount & 31)),
+                (int)((uint)value[0] >> (shiftCount & 31)),
+                (int)((uint)value[1] >> (shiftCount & 31)),
+                (int)((uint)value[2] >> (shiftCount & 31)),
+                (int)((uint)value[3] >> (shiftCount & 31)),
+                (int)((uint)value[4] >> (shiftCount & 31)),
+                (int)((uint)value[5] >> (shiftCount & 31)),
+                (int)((uint)value[6] >> (shiftCount & 31)),
+                (int)((uint)value[7] >> (shiftCount & 31)),
             });
         default:
             {
                 var buffer = (stackalloc int[Vector<int>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (int)(value[i] >> (shiftCount & 31));
+                    buffer[i] = (int)((uint)value[i] >> (shiftCount & 31));
                 }
                 return Unsafe.As<int, Vector<int>>(ref buffer[0]);
             }
@@ -1893,26 +1893,26 @@ partial class VectorOp
         {
         case 1:
             return H.CreateVector(stackalloc [] {
-                (long)(value[0] >> (shiftCount & 63)),
+                (long)((ulong)value[0] >> (shiftCount & 63)),
             });
         case 2:
             return H.CreateVector(stackalloc [] {
-                (long)(value[0] >> (shiftCount & 63)),
-                (long)(value[1] >> (shiftCount & 63)),
+                (long)((ulong)value[0] >> (shiftCount & 63)),
+                (long)((ulong)value[1] >> (shiftCount & 63)),
             });
         case 4:
             return H.CreateVector(stackalloc [] {
-                (long)(value[0] >> (shiftCount & 63)),
-                (long)(value[1] >> (shiftCount & 63)),
-                (long)(value[2] >> (shiftCount & 63)),
-                (long)(value[3] >> (shiftCount & 63)),
+                (long)((ulong)value[0] >> (shiftCount & 63)),
+                (long)((ulong)value[1] >> (shiftCount & 63)),
+                (long)((ulong)value[2] >> (shiftCount & 63)),
+                (long)((ulong)value[3] >> (shiftCount & 63)),
             });
         default:
             {
                 var buffer = (stackalloc long[Vector<long>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (long)(value[i] >> (shiftCount & 63));
+                    buffer[i] = (long)((ulong)value[i] >> (shiftCount & 63));
                 }
                 return Unsafe.As<long, Vector<long>>(ref buffer[0]);
             }
@@ -1935,37 +1935,37 @@ partial class VectorOp
         {
         case 1:
             return H.CreateVector(stackalloc [] {
-                (nint)(value[0] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[0] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
             });
         case 2:
             return H.CreateVector(stackalloc [] {
-                (nint)(value[0] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[1] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[0] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[1] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
             });
         case 4:
             return H.CreateVector(stackalloc [] {
-                (nint)(value[0] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[1] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[2] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[3] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[0] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[1] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[2] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[3] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
             });
         case 8:
             return H.CreateVector(stackalloc [] {
-                (nint)(value[0] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[1] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[2] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[3] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[4] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[5] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[6] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[7] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[0] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[1] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[2] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[3] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[4] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[5] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[6] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[7] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1))),
             });
         default:
             {
                 var buffer = (stackalloc nint[Vector<nint>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (nint)(value[i] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1)));
+                    buffer[i] = (nint)((nint)value[i] >> (shiftCount & (Unsafe.SizeOf<nint>() * 8 - 1)));
                 }
                 return Unsafe.As<nint, Vector<nint>>(ref buffer[0]);
             }
@@ -1989,75 +1989,75 @@ partial class VectorOp
         {
         case 8:
             return H.CreateVector(stackalloc [] {
-                (byte)(value[0] >> ((int)shiftCount[0] & 7)),
-                (byte)(value[1] >> ((int)shiftCount[1] & 7)),
-                (byte)(value[2] >> ((int)shiftCount[2] & 7)),
-                (byte)(value[3] >> ((int)shiftCount[3] & 7)),
-                (byte)(value[4] >> ((int)shiftCount[4] & 7)),
-                (byte)(value[5] >> ((int)shiftCount[5] & 7)),
-                (byte)(value[6] >> ((int)shiftCount[6] & 7)),
-                (byte)(value[7] >> ((int)shiftCount[7] & 7)),
+                (byte)((uint)value[0] >> ((int)shiftCount[0] & 7)),
+                (byte)((uint)value[1] >> ((int)shiftCount[1] & 7)),
+                (byte)((uint)value[2] >> ((int)shiftCount[2] & 7)),
+                (byte)((uint)value[3] >> ((int)shiftCount[3] & 7)),
+                (byte)((uint)value[4] >> ((int)shiftCount[4] & 7)),
+                (byte)((uint)value[5] >> ((int)shiftCount[5] & 7)),
+                (byte)((uint)value[6] >> ((int)shiftCount[6] & 7)),
+                (byte)((uint)value[7] >> ((int)shiftCount[7] & 7)),
             });
         case 16:
             return H.CreateVector(stackalloc [] {
-                (byte)(value[0] >> ((int)shiftCount[0] & 7)),
-                (byte)(value[1] >> ((int)shiftCount[1] & 7)),
-                (byte)(value[2] >> ((int)shiftCount[2] & 7)),
-                (byte)(value[3] >> ((int)shiftCount[3] & 7)),
-                (byte)(value[4] >> ((int)shiftCount[4] & 7)),
-                (byte)(value[5] >> ((int)shiftCount[5] & 7)),
-                (byte)(value[6] >> ((int)shiftCount[6] & 7)),
-                (byte)(value[7] >> ((int)shiftCount[7] & 7)),
-                (byte)(value[8] >> ((int)shiftCount[8] & 7)),
-                (byte)(value[9] >> ((int)shiftCount[9] & 7)),
-                (byte)(value[10] >> ((int)shiftCount[10] & 7)),
-                (byte)(value[11] >> ((int)shiftCount[11] & 7)),
-                (byte)(value[12] >> ((int)shiftCount[12] & 7)),
-                (byte)(value[13] >> ((int)shiftCount[13] & 7)),
-                (byte)(value[14] >> ((int)shiftCount[14] & 7)),
-                (byte)(value[15] >> ((int)shiftCount[15] & 7)),
+                (byte)((uint)value[0] >> ((int)shiftCount[0] & 7)),
+                (byte)((uint)value[1] >> ((int)shiftCount[1] & 7)),
+                (byte)((uint)value[2] >> ((int)shiftCount[2] & 7)),
+                (byte)((uint)value[3] >> ((int)shiftCount[3] & 7)),
+                (byte)((uint)value[4] >> ((int)shiftCount[4] & 7)),
+                (byte)((uint)value[5] >> ((int)shiftCount[5] & 7)),
+                (byte)((uint)value[6] >> ((int)shiftCount[6] & 7)),
+                (byte)((uint)value[7] >> ((int)shiftCount[7] & 7)),
+                (byte)((uint)value[8] >> ((int)shiftCount[8] & 7)),
+                (byte)((uint)value[9] >> ((int)shiftCount[9] & 7)),
+                (byte)((uint)value[10] >> ((int)shiftCount[10] & 7)),
+                (byte)((uint)value[11] >> ((int)shiftCount[11] & 7)),
+                (byte)((uint)value[12] >> ((int)shiftCount[12] & 7)),
+                (byte)((uint)value[13] >> ((int)shiftCount[13] & 7)),
+                (byte)((uint)value[14] >> ((int)shiftCount[14] & 7)),
+                (byte)((uint)value[15] >> ((int)shiftCount[15] & 7)),
             });
         case 32:
             return H.CreateVector(stackalloc [] {
-                (byte)(value[0] >> ((int)shiftCount[0] & 7)),
-                (byte)(value[1] >> ((int)shiftCount[1] & 7)),
-                (byte)(value[2] >> ((int)shiftCount[2] & 7)),
-                (byte)(value[3] >> ((int)shiftCount[3] & 7)),
-                (byte)(value[4] >> ((int)shiftCount[4] & 7)),
-                (byte)(value[5] >> ((int)shiftCount[5] & 7)),
-                (byte)(value[6] >> ((int)shiftCount[6] & 7)),
-                (byte)(value[7] >> ((int)shiftCount[7] & 7)),
-                (byte)(value[8] >> ((int)shiftCount[8] & 7)),
-                (byte)(value[9] >> ((int)shiftCount[9] & 7)),
-                (byte)(value[10] >> ((int)shiftCount[10] & 7)),
-                (byte)(value[11] >> ((int)shiftCount[11] & 7)),
-                (byte)(value[12] >> ((int)shiftCount[12] & 7)),
-                (byte)(value[13] >> ((int)shiftCount[13] & 7)),
-                (byte)(value[14] >> ((int)shiftCount[14] & 7)),
-                (byte)(value[15] >> ((int)shiftCount[15] & 7)),
-                (byte)(value[16] >> ((int)shiftCount[16] & 7)),
-                (byte)(value[17] >> ((int)shiftCount[17] & 7)),
-                (byte)(value[18] >> ((int)shiftCount[18] & 7)),
-                (byte)(value[19] >> ((int)shiftCount[19] & 7)),
-                (byte)(value[20] >> ((int)shiftCount[20] & 7)),
-                (byte)(value[21] >> ((int)shiftCount[21] & 7)),
-                (byte)(value[22] >> ((int)shiftCount[22] & 7)),
-                (byte)(value[23] >> ((int)shiftCount[23] & 7)),
-                (byte)(value[24] >> ((int)shiftCount[24] & 7)),
-                (byte)(value[25] >> ((int)shiftCount[25] & 7)),
-                (byte)(value[26] >> ((int)shiftCount[26] & 7)),
-                (byte)(value[27] >> ((int)shiftCount[27] & 7)),
-                (byte)(value[28] >> ((int)shiftCount[28] & 7)),
-                (byte)(value[29] >> ((int)shiftCount[29] & 7)),
-                (byte)(value[30] >> ((int)shiftCount[30] & 7)),
-                (byte)(value[31] >> ((int)shiftCount[31] & 7)),
+                (byte)((uint)value[0] >> ((int)shiftCount[0] & 7)),
+                (byte)((uint)value[1] >> ((int)shiftCount[1] & 7)),
+                (byte)((uint)value[2] >> ((int)shiftCount[2] & 7)),
+                (byte)((uint)value[3] >> ((int)shiftCount[3] & 7)),
+                (byte)((uint)value[4] >> ((int)shiftCount[4] & 7)),
+                (byte)((uint)value[5] >> ((int)shiftCount[5] & 7)),
+                (byte)((uint)value[6] >> ((int)shiftCount[6] & 7)),
+                (byte)((uint)value[7] >> ((int)shiftCount[7] & 7)),
+                (byte)((uint)value[8] >> ((int)shiftCount[8] & 7)),
+                (byte)((uint)value[9] >> ((int)shiftCount[9] & 7)),
+                (byte)((uint)value[10] >> ((int)shiftCount[10] & 7)),
+                (byte)((uint)value[11] >> ((int)shiftCount[11] & 7)),
+                (byte)((uint)value[12] >> ((int)shiftCount[12] & 7)),
+                (byte)((uint)value[13] >> ((int)shiftCount[13] & 7)),
+                (byte)((uint)value[14] >> ((int)shiftCount[14] & 7)),
+                (byte)((uint)value[15] >> ((int)shiftCount[15] & 7)),
+                (byte)((uint)value[16] >> ((int)shiftCount[16] & 7)),
+                (byte)((uint)value[17] >> ((int)shiftCount[17] & 7)),
+                (byte)((uint)value[18] >> ((int)shiftCount[18] & 7)),
+                (byte)((uint)value[19] >> ((int)shiftCount[19] & 7)),
+                (byte)((uint)value[20] >> ((int)shiftCount[20] & 7)),
+                (byte)((uint)value[21] >> ((int)shiftCount[21] & 7)),
+                (byte)((uint)value[22] >> ((int)shiftCount[22] & 7)),
+                (byte)((uint)value[23] >> ((int)shiftCount[23] & 7)),
+                (byte)((uint)value[24] >> ((int)shiftCount[24] & 7)),
+                (byte)((uint)value[25] >> ((int)shiftCount[25] & 7)),
+                (byte)((uint)value[26] >> ((int)shiftCount[26] & 7)),
+                (byte)((uint)value[27] >> ((int)shiftCount[27] & 7)),
+                (byte)((uint)value[28] >> ((int)shiftCount[28] & 7)),
+                (byte)((uint)value[29] >> ((int)shiftCount[29] & 7)),
+                (byte)((uint)value[30] >> ((int)shiftCount[30] & 7)),
+                (byte)((uint)value[31] >> ((int)shiftCount[31] & 7)),
             });
         default:
             {
                 var buffer = (stackalloc byte[Vector<byte>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (byte)(value[i] >> ((int)shiftCount[i] & 7));
+                    buffer[i] = (byte)((uint)value[i] >> ((int)shiftCount[i] & 7));
                 }
                 return Unsafe.As<byte, Vector<byte>>(ref buffer[0]);
             }
@@ -2078,47 +2078,47 @@ partial class VectorOp
         {
         case 4:
             return H.CreateVector(stackalloc [] {
-                (ushort)(value[0] >> ((int)shiftCount[0] & 15)),
-                (ushort)(value[1] >> ((int)shiftCount[1] & 15)),
-                (ushort)(value[2] >> ((int)shiftCount[2] & 15)),
-                (ushort)(value[3] >> ((int)shiftCount[3] & 15)),
+                (ushort)((uint)value[0] >> ((int)shiftCount[0] & 15)),
+                (ushort)((uint)value[1] >> ((int)shiftCount[1] & 15)),
+                (ushort)((uint)value[2] >> ((int)shiftCount[2] & 15)),
+                (ushort)((uint)value[3] >> ((int)shiftCount[3] & 15)),
             });
         case 8:
             return H.CreateVector(stackalloc [] {
-                (ushort)(value[0] >> ((int)shiftCount[0] & 15)),
-                (ushort)(value[1] >> ((int)shiftCount[1] & 15)),
-                (ushort)(value[2] >> ((int)shiftCount[2] & 15)),
-                (ushort)(value[3] >> ((int)shiftCount[3] & 15)),
-                (ushort)(value[4] >> ((int)shiftCount[4] & 15)),
-                (ushort)(value[5] >> ((int)shiftCount[5] & 15)),
-                (ushort)(value[6] >> ((int)shiftCount[6] & 15)),
-                (ushort)(value[7] >> ((int)shiftCount[7] & 15)),
+                (ushort)((uint)value[0] >> ((int)shiftCount[0] & 15)),
+                (ushort)((uint)value[1] >> ((int)shiftCount[1] & 15)),
+                (ushort)((uint)value[2] >> ((int)shiftCount[2] & 15)),
+                (ushort)((uint)value[3] >> ((int)shiftCount[3] & 15)),
+                (ushort)((uint)value[4] >> ((int)shiftCount[4] & 15)),
+                (ushort)((uint)value[5] >> ((int)shiftCount[5] & 15)),
+                (ushort)((uint)value[6] >> ((int)shiftCount[6] & 15)),
+                (ushort)((uint)value[7] >> ((int)shiftCount[7] & 15)),
             });
         case 16:
             return H.CreateVector(stackalloc [] {
-                (ushort)(value[0] >> ((int)shiftCount[0] & 15)),
-                (ushort)(value[1] >> ((int)shiftCount[1] & 15)),
-                (ushort)(value[2] >> ((int)shiftCount[2] & 15)),
-                (ushort)(value[3] >> ((int)shiftCount[3] & 15)),
-                (ushort)(value[4] >> ((int)shiftCount[4] & 15)),
-                (ushort)(value[5] >> ((int)shiftCount[5] & 15)),
-                (ushort)(value[6] >> ((int)shiftCount[6] & 15)),
-                (ushort)(value[7] >> ((int)shiftCount[7] & 15)),
-                (ushort)(value[8] >> ((int)shiftCount[8] & 15)),
-                (ushort)(value[9] >> ((int)shiftCount[9] & 15)),
-                (ushort)(value[10] >> ((int)shiftCount[10] & 15)),
-                (ushort)(value[11] >> ((int)shiftCount[11] & 15)),
-                (ushort)(value[12] >> ((int)shiftCount[12] & 15)),
-                (ushort)(value[13] >> ((int)shiftCount[13] & 15)),
-                (ushort)(value[14] >> ((int)shiftCount[14] & 15)),
-                (ushort)(value[15] >> ((int)shiftCount[15] & 15)),
+                (ushort)((uint)value[0] >> ((int)shiftCount[0] & 15)),
+                (ushort)((uint)value[1] >> ((int)shiftCount[1] & 15)),
+                (ushort)((uint)value[2] >> ((int)shiftCount[2] & 15)),
+                (ushort)((uint)value[3] >> ((int)shiftCount[3] & 15)),
+                (ushort)((uint)value[4] >> ((int)shiftCount[4] & 15)),
+                (ushort)((uint)value[5] >> ((int)shiftCount[5] & 15)),
+                (ushort)((uint)value[6] >> ((int)shiftCount[6] & 15)),
+                (ushort)((uint)value[7] >> ((int)shiftCount[7] & 15)),
+                (ushort)((uint)value[8] >> ((int)shiftCount[8] & 15)),
+                (ushort)((uint)value[9] >> ((int)shiftCount[9] & 15)),
+                (ushort)((uint)value[10] >> ((int)shiftCount[10] & 15)),
+                (ushort)((uint)value[11] >> ((int)shiftCount[11] & 15)),
+                (ushort)((uint)value[12] >> ((int)shiftCount[12] & 15)),
+                (ushort)((uint)value[13] >> ((int)shiftCount[13] & 15)),
+                (ushort)((uint)value[14] >> ((int)shiftCount[14] & 15)),
+                (ushort)((uint)value[15] >> ((int)shiftCount[15] & 15)),
             });
         default:
             {
                 var buffer = (stackalloc ushort[Vector<ushort>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (ushort)(value[i] >> ((int)shiftCount[i] & 15));
+                    buffer[i] = (ushort)((uint)value[i] >> ((int)shiftCount[i] & 15));
                 }
                 return Unsafe.As<ushort, Vector<ushort>>(ref buffer[0]);
             }
@@ -2151,33 +2151,33 @@ partial class VectorOp
         {
         case 2:
             return H.CreateVector(stackalloc [] {
-                (uint)(value[0] >> ((int)shiftCount[0] & 31)),
-                (uint)(value[1] >> ((int)shiftCount[1] & 31)),
+                (uint)((uint)value[0] >> ((int)shiftCount[0] & 31)),
+                (uint)((uint)value[1] >> ((int)shiftCount[1] & 31)),
             });
         case 4:
             return H.CreateVector(stackalloc [] {
-                (uint)(value[0] >> ((int)shiftCount[0] & 31)),
-                (uint)(value[1] >> ((int)shiftCount[1] & 31)),
-                (uint)(value[2] >> ((int)shiftCount[2] & 31)),
-                (uint)(value[3] >> ((int)shiftCount[3] & 31)),
+                (uint)((uint)value[0] >> ((int)shiftCount[0] & 31)),
+                (uint)((uint)value[1] >> ((int)shiftCount[1] & 31)),
+                (uint)((uint)value[2] >> ((int)shiftCount[2] & 31)),
+                (uint)((uint)value[3] >> ((int)shiftCount[3] & 31)),
             });
         case 8:
             return H.CreateVector(stackalloc [] {
-                (uint)(value[0] >> ((int)shiftCount[0] & 31)),
-                (uint)(value[1] >> ((int)shiftCount[1] & 31)),
-                (uint)(value[2] >> ((int)shiftCount[2] & 31)),
-                (uint)(value[3] >> ((int)shiftCount[3] & 31)),
-                (uint)(value[4] >> ((int)shiftCount[4] & 31)),
-                (uint)(value[5] >> ((int)shiftCount[5] & 31)),
-                (uint)(value[6] >> ((int)shiftCount[6] & 31)),
-                (uint)(value[7] >> ((int)shiftCount[7] & 31)),
+                (uint)((uint)value[0] >> ((int)shiftCount[0] & 31)),
+                (uint)((uint)value[1] >> ((int)shiftCount[1] & 31)),
+                (uint)((uint)value[2] >> ((int)shiftCount[2] & 31)),
+                (uint)((uint)value[3] >> ((int)shiftCount[3] & 31)),
+                (uint)((uint)value[4] >> ((int)shiftCount[4] & 31)),
+                (uint)((uint)value[5] >> ((int)shiftCount[5] & 31)),
+                (uint)((uint)value[6] >> ((int)shiftCount[6] & 31)),
+                (uint)((uint)value[7] >> ((int)shiftCount[7] & 31)),
             });
         default:
             {
                 var buffer = (stackalloc uint[Vector<uint>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (uint)(value[i] >> ((int)shiftCount[i] & 31));
+                    buffer[i] = (uint)((uint)value[i] >> ((int)shiftCount[i] & 31));
                 }
                 return Unsafe.As<uint, Vector<uint>>(ref buffer[0]);
             }
@@ -2210,26 +2210,26 @@ partial class VectorOp
         {
         case 1:
             return H.CreateVector(stackalloc [] {
-                (ulong)(value[0] >> ((int)shiftCount[0] & 63)),
+                (ulong)((ulong)value[0] >> ((int)shiftCount[0] & 63)),
             });
         case 2:
             return H.CreateVector(stackalloc [] {
-                (ulong)(value[0] >> ((int)shiftCount[0] & 63)),
-                (ulong)(value[1] >> ((int)shiftCount[1] & 63)),
+                (ulong)((ulong)value[0] >> ((int)shiftCount[0] & 63)),
+                (ulong)((ulong)value[1] >> ((int)shiftCount[1] & 63)),
             });
         case 4:
             return H.CreateVector(stackalloc [] {
-                (ulong)(value[0] >> ((int)shiftCount[0] & 63)),
-                (ulong)(value[1] >> ((int)shiftCount[1] & 63)),
-                (ulong)(value[2] >> ((int)shiftCount[2] & 63)),
-                (ulong)(value[3] >> ((int)shiftCount[3] & 63)),
+                (ulong)((ulong)value[0] >> ((int)shiftCount[0] & 63)),
+                (ulong)((ulong)value[1] >> ((int)shiftCount[1] & 63)),
+                (ulong)((ulong)value[2] >> ((int)shiftCount[2] & 63)),
+                (ulong)((ulong)value[3] >> ((int)shiftCount[3] & 63)),
             });
         default:
             {
                 var buffer = (stackalloc ulong[Vector<ulong>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (ulong)(value[i] >> ((int)shiftCount[i] & 63));
+                    buffer[i] = (ulong)((ulong)value[i] >> ((int)shiftCount[i] & 63));
                 }
                 return Unsafe.As<ulong, Vector<ulong>>(ref buffer[0]);
             }
@@ -2250,37 +2250,37 @@ partial class VectorOp
         {
         case 1:
             return H.CreateVector(stackalloc [] {
-                (nuint)(value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
             });
         case 2:
             return H.CreateVector(stackalloc [] {
-                (nuint)(value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[1] >> ((int)shiftCount[1] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[1] >> ((int)shiftCount[1] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
             });
         case 4:
             return H.CreateVector(stackalloc [] {
-                (nuint)(value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[1] >> ((int)shiftCount[1] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[2] >> ((int)shiftCount[2] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[3] >> ((int)shiftCount[3] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[1] >> ((int)shiftCount[1] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[2] >> ((int)shiftCount[2] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[3] >> ((int)shiftCount[3] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
             });
         case 8:
             return H.CreateVector(stackalloc [] {
-                (nuint)(value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[1] >> ((int)shiftCount[1] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[2] >> ((int)shiftCount[2] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[3] >> ((int)shiftCount[3] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[4] >> ((int)shiftCount[4] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[5] >> ((int)shiftCount[5] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[6] >> ((int)shiftCount[6] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
-                (nuint)(value[7] >> ((int)shiftCount[7] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[1] >> ((int)shiftCount[1] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[2] >> ((int)shiftCount[2] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[3] >> ((int)shiftCount[3] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[4] >> ((int)shiftCount[4] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[5] >> ((int)shiftCount[5] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[6] >> ((int)shiftCount[6] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
+                (nuint)((nuint)value[7] >> ((int)shiftCount[7] & (Unsafe.SizeOf<nuint>() * 8 - 1))),
             });
         default:
             {
                 var buffer = (stackalloc nuint[Vector<nuint>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (nuint)(value[i] >> ((int)shiftCount[i] & (Unsafe.SizeOf<nuint>() * 8 - 1)));
+                    buffer[i] = (nuint)((nuint)value[i] >> ((int)shiftCount[i] & (Unsafe.SizeOf<nuint>() * 8 - 1)));
                 }
                 return Unsafe.As<nuint, Vector<nuint>>(ref buffer[0]);
             }
@@ -2301,75 +2301,75 @@ partial class VectorOp
         {
         case 8:
             return H.CreateVector(stackalloc [] {
-                (sbyte)(value[0] >> ((int)shiftCount[0] & 7)),
-                (sbyte)(value[1] >> ((int)shiftCount[1] & 7)),
-                (sbyte)(value[2] >> ((int)shiftCount[2] & 7)),
-                (sbyte)(value[3] >> ((int)shiftCount[3] & 7)),
-                (sbyte)(value[4] >> ((int)shiftCount[4] & 7)),
-                (sbyte)(value[5] >> ((int)shiftCount[5] & 7)),
-                (sbyte)(value[6] >> ((int)shiftCount[6] & 7)),
-                (sbyte)(value[7] >> ((int)shiftCount[7] & 7)),
+                (sbyte)((uint)value[0] >> ((int)shiftCount[0] & 7)),
+                (sbyte)((uint)value[1] >> ((int)shiftCount[1] & 7)),
+                (sbyte)((uint)value[2] >> ((int)shiftCount[2] & 7)),
+                (sbyte)((uint)value[3] >> ((int)shiftCount[3] & 7)),
+                (sbyte)((uint)value[4] >> ((int)shiftCount[4] & 7)),
+                (sbyte)((uint)value[5] >> ((int)shiftCount[5] & 7)),
+                (sbyte)((uint)value[6] >> ((int)shiftCount[6] & 7)),
+                (sbyte)((uint)value[7] >> ((int)shiftCount[7] & 7)),
             });
         case 16:
             return H.CreateVector(stackalloc [] {
-                (sbyte)(value[0] >> ((int)shiftCount[0] & 7)),
-                (sbyte)(value[1] >> ((int)shiftCount[1] & 7)),
-                (sbyte)(value[2] >> ((int)shiftCount[2] & 7)),
-                (sbyte)(value[3] >> ((int)shiftCount[3] & 7)),
-                (sbyte)(value[4] >> ((int)shiftCount[4] & 7)),
-                (sbyte)(value[5] >> ((int)shiftCount[5] & 7)),
-                (sbyte)(value[6] >> ((int)shiftCount[6] & 7)),
-                (sbyte)(value[7] >> ((int)shiftCount[7] & 7)),
-                (sbyte)(value[8] >> ((int)shiftCount[8] & 7)),
-                (sbyte)(value[9] >> ((int)shiftCount[9] & 7)),
-                (sbyte)(value[10] >> ((int)shiftCount[10] & 7)),
-                (sbyte)(value[11] >> ((int)shiftCount[11] & 7)),
-                (sbyte)(value[12] >> ((int)shiftCount[12] & 7)),
-                (sbyte)(value[13] >> ((int)shiftCount[13] & 7)),
-                (sbyte)(value[14] >> ((int)shiftCount[14] & 7)),
-                (sbyte)(value[15] >> ((int)shiftCount[15] & 7)),
+                (sbyte)((uint)value[0] >> ((int)shiftCount[0] & 7)),
+                (sbyte)((uint)value[1] >> ((int)shiftCount[1] & 7)),
+                (sbyte)((uint)value[2] >> ((int)shiftCount[2] & 7)),
+                (sbyte)((uint)value[3] >> ((int)shiftCount[3] & 7)),
+                (sbyte)((uint)value[4] >> ((int)shiftCount[4] & 7)),
+                (sbyte)((uint)value[5] >> ((int)shiftCount[5] & 7)),
+                (sbyte)((uint)value[6] >> ((int)shiftCount[6] & 7)),
+                (sbyte)((uint)value[7] >> ((int)shiftCount[7] & 7)),
+                (sbyte)((uint)value[8] >> ((int)shiftCount[8] & 7)),
+                (sbyte)((uint)value[9] >> ((int)shiftCount[9] & 7)),
+                (sbyte)((uint)value[10] >> ((int)shiftCount[10] & 7)),
+                (sbyte)((uint)value[11] >> ((int)shiftCount[11] & 7)),
+                (sbyte)((uint)value[12] >> ((int)shiftCount[12] & 7)),
+                (sbyte)((uint)value[13] >> ((int)shiftCount[13] & 7)),
+                (sbyte)((uint)value[14] >> ((int)shiftCount[14] & 7)),
+                (sbyte)((uint)value[15] >> ((int)shiftCount[15] & 7)),
             });
         case 32:
             return H.CreateVector(stackalloc [] {
-                (sbyte)(value[0] >> ((int)shiftCount[0] & 7)),
-                (sbyte)(value[1] >> ((int)shiftCount[1] & 7)),
-                (sbyte)(value[2] >> ((int)shiftCount[2] & 7)),
-                (sbyte)(value[3] >> ((int)shiftCount[3] & 7)),
-                (sbyte)(value[4] >> ((int)shiftCount[4] & 7)),
-                (sbyte)(value[5] >> ((int)shiftCount[5] & 7)),
-                (sbyte)(value[6] >> ((int)shiftCount[6] & 7)),
-                (sbyte)(value[7] >> ((int)shiftCount[7] & 7)),
-                (sbyte)(value[8] >> ((int)shiftCount[8] & 7)),
-                (sbyte)(value[9] >> ((int)shiftCount[9] & 7)),
-                (sbyte)(value[10] >> ((int)shiftCount[10] & 7)),
-                (sbyte)(value[11] >> ((int)shiftCount[11] & 7)),
-                (sbyte)(value[12] >> ((int)shiftCount[12] & 7)),
-                (sbyte)(value[13] >> ((int)shiftCount[13] & 7)),
-                (sbyte)(value[14] >> ((int)shiftCount[14] & 7)),
-                (sbyte)(value[15] >> ((int)shiftCount[15] & 7)),
-                (sbyte)(value[16] >> ((int)shiftCount[16] & 7)),
-                (sbyte)(value[17] >> ((int)shiftCount[17] & 7)),
-                (sbyte)(value[18] >> ((int)shiftCount[18] & 7)),
-                (sbyte)(value[19] >> ((int)shiftCount[19] & 7)),
-                (sbyte)(value[20] >> ((int)shiftCount[20] & 7)),
-                (sbyte)(value[21] >> ((int)shiftCount[21] & 7)),
-                (sbyte)(value[22] >> ((int)shiftCount[22] & 7)),
-                (sbyte)(value[23] >> ((int)shiftCount[23] & 7)),
-                (sbyte)(value[24] >> ((int)shiftCount[24] & 7)),
-                (sbyte)(value[25] >> ((int)shiftCount[25] & 7)),
-                (sbyte)(value[26] >> ((int)shiftCount[26] & 7)),
-                (sbyte)(value[27] >> ((int)shiftCount[27] & 7)),
-                (sbyte)(value[28] >> ((int)shiftCount[28] & 7)),
-                (sbyte)(value[29] >> ((int)shiftCount[29] & 7)),
-                (sbyte)(value[30] >> ((int)shiftCount[30] & 7)),
-                (sbyte)(value[31] >> ((int)shiftCount[31] & 7)),
+                (sbyte)((uint)value[0] >> ((int)shiftCount[0] & 7)),
+                (sbyte)((uint)value[1] >> ((int)shiftCount[1] & 7)),
+                (sbyte)((uint)value[2] >> ((int)shiftCount[2] & 7)),
+                (sbyte)((uint)value[3] >> ((int)shiftCount[3] & 7)),
+                (sbyte)((uint)value[4] >> ((int)shiftCount[4] & 7)),
+                (sbyte)((uint)value[5] >> ((int)shiftCount[5] & 7)),
+                (sbyte)((uint)value[6] >> ((int)shiftCount[6] & 7)),
+                (sbyte)((uint)value[7] >> ((int)shiftCount[7] & 7)),
+                (sbyte)((uint)value[8] >> ((int)shiftCount[8] & 7)),
+                (sbyte)((uint)value[9] >> ((int)shiftCount[9] & 7)),
+                (sbyte)((uint)value[10] >> ((int)shiftCount[10] & 7)),
+                (sbyte)((uint)value[11] >> ((int)shiftCount[11] & 7)),
+                (sbyte)((uint)value[12] >> ((int)shiftCount[12] & 7)),
+                (sbyte)((uint)value[13] >> ((int)shiftCount[13] & 7)),
+                (sbyte)((uint)value[14] >> ((int)shiftCount[14] & 7)),
+                (sbyte)((uint)value[15] >> ((int)shiftCount[15] & 7)),
+                (sbyte)((uint)value[16] >> ((int)shiftCount[16] & 7)),
+                (sbyte)((uint)value[17] >> ((int)shiftCount[17] & 7)),
+                (sbyte)((uint)value[18] >> ((int)shiftCount[18] & 7)),
+                (sbyte)((uint)value[19] >> ((int)shiftCount[19] & 7)),
+                (sbyte)((uint)value[20] >> ((int)shiftCount[20] & 7)),
+                (sbyte)((uint)value[21] >> ((int)shiftCount[21] & 7)),
+                (sbyte)((uint)value[22] >> ((int)shiftCount[22] & 7)),
+                (sbyte)((uint)value[23] >> ((int)shiftCount[23] & 7)),
+                (sbyte)((uint)value[24] >> ((int)shiftCount[24] & 7)),
+                (sbyte)((uint)value[25] >> ((int)shiftCount[25] & 7)),
+                (sbyte)((uint)value[26] >> ((int)shiftCount[26] & 7)),
+                (sbyte)((uint)value[27] >> ((int)shiftCount[27] & 7)),
+                (sbyte)((uint)value[28] >> ((int)shiftCount[28] & 7)),
+                (sbyte)((uint)value[29] >> ((int)shiftCount[29] & 7)),
+                (sbyte)((uint)value[30] >> ((int)shiftCount[30] & 7)),
+                (sbyte)((uint)value[31] >> ((int)shiftCount[31] & 7)),
             });
         default:
             {
                 var buffer = (stackalloc sbyte[Vector<sbyte>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (sbyte)(value[i] >> ((int)shiftCount[i] & 7));
+                    buffer[i] = (sbyte)((uint)value[i] >> ((int)shiftCount[i] & 7));
                 }
                 return Unsafe.As<sbyte, Vector<sbyte>>(ref buffer[0]);
             }
@@ -2390,47 +2390,47 @@ partial class VectorOp
         {
         case 4:
             return H.CreateVector(stackalloc [] {
-                (short)(value[0] >> ((int)shiftCount[0] & 15)),
-                (short)(value[1] >> ((int)shiftCount[1] & 15)),
-                (short)(value[2] >> ((int)shiftCount[2] & 15)),
-                (short)(value[3] >> ((int)shiftCount[3] & 15)),
+                (short)((uint)value[0] >> ((int)shiftCount[0] & 15)),
+                (short)((uint)value[1] >> ((int)shiftCount[1] & 15)),
+                (short)((uint)value[2] >> ((int)shiftCount[2] & 15)),
+                (short)((uint)value[3] >> ((int)shiftCount[3] & 15)),
             });
         case 8:
             return H.CreateVector(stackalloc [] {
-                (short)(value[0] >> ((int)shiftCount[0] & 15)),
-                (short)(value[1] >> ((int)shiftCount[1] & 15)),
-                (short)(value[2] >> ((int)shiftCount[2] & 15)),
-                (short)(value[3] >> ((int)shiftCount[3] & 15)),
-                (short)(value[4] >> ((int)shiftCount[4] & 15)),
-                (short)(value[5] >> ((int)shiftCount[5] & 15)),
-                (short)(value[6] >> ((int)shiftCount[6] & 15)),
-                (short)(value[7] >> ((int)shiftCount[7] & 15)),
+                (short)((uint)value[0] >> ((int)shiftCount[0] & 15)),
+                (short)((uint)value[1] >> ((int)shiftCount[1] & 15)),
+                (short)((uint)value[2] >> ((int)shiftCount[2] & 15)),
+                (short)((uint)value[3] >> ((int)shiftCount[3] & 15)),
+                (short)((uint)value[4] >> ((int)shiftCount[4] & 15)),
+                (short)((uint)value[5] >> ((int)shiftCount[5] & 15)),
+                (short)((uint)value[6] >> ((int)shiftCount[6] & 15)),
+                (short)((uint)value[7] >> ((int)shiftCount[7] & 15)),
             });
         case 16:
             return H.CreateVector(stackalloc [] {
-                (short)(value[0] >> ((int)shiftCount[0] & 15)),
-                (short)(value[1] >> ((int)shiftCount[1] & 15)),
-                (short)(value[2] >> ((int)shiftCount[2] & 15)),
-                (short)(value[3] >> ((int)shiftCount[3] & 15)),
-                (short)(value[4] >> ((int)shiftCount[4] & 15)),
-                (short)(value[5] >> ((int)shiftCount[5] & 15)),
-                (short)(value[6] >> ((int)shiftCount[6] & 15)),
-                (short)(value[7] >> ((int)shiftCount[7] & 15)),
-                (short)(value[8] >> ((int)shiftCount[8] & 15)),
-                (short)(value[9] >> ((int)shiftCount[9] & 15)),
-                (short)(value[10] >> ((int)shiftCount[10] & 15)),
-                (short)(value[11] >> ((int)shiftCount[11] & 15)),
-                (short)(value[12] >> ((int)shiftCount[12] & 15)),
-                (short)(value[13] >> ((int)shiftCount[13] & 15)),
-                (short)(value[14] >> ((int)shiftCount[14] & 15)),
-                (short)(value[15] >> ((int)shiftCount[15] & 15)),
+                (short)((uint)value[0] >> ((int)shiftCount[0] & 15)),
+                (short)((uint)value[1] >> ((int)shiftCount[1] & 15)),
+                (short)((uint)value[2] >> ((int)shiftCount[2] & 15)),
+                (short)((uint)value[3] >> ((int)shiftCount[3] & 15)),
+                (short)((uint)value[4] >> ((int)shiftCount[4] & 15)),
+                (short)((uint)value[5] >> ((int)shiftCount[5] & 15)),
+                (short)((uint)value[6] >> ((int)shiftCount[6] & 15)),
+                (short)((uint)value[7] >> ((int)shiftCount[7] & 15)),
+                (short)((uint)value[8] >> ((int)shiftCount[8] & 15)),
+                (short)((uint)value[9] >> ((int)shiftCount[9] & 15)),
+                (short)((uint)value[10] >> ((int)shiftCount[10] & 15)),
+                (short)((uint)value[11] >> ((int)shiftCount[11] & 15)),
+                (short)((uint)value[12] >> ((int)shiftCount[12] & 15)),
+                (short)((uint)value[13] >> ((int)shiftCount[13] & 15)),
+                (short)((uint)value[14] >> ((int)shiftCount[14] & 15)),
+                (short)((uint)value[15] >> ((int)shiftCount[15] & 15)),
             });
         default:
             {
                 var buffer = (stackalloc short[Vector<short>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (short)(value[i] >> ((int)shiftCount[i] & 15));
+                    buffer[i] = (short)((uint)value[i] >> ((int)shiftCount[i] & 15));
                 }
                 return Unsafe.As<short, Vector<short>>(ref buffer[0]);
             }
@@ -2463,33 +2463,33 @@ partial class VectorOp
         {
         case 2:
             return H.CreateVector(stackalloc [] {
-                (int)(value[0] >> ((int)shiftCount[0] & 31)),
-                (int)(value[1] >> ((int)shiftCount[1] & 31)),
+                (int)((uint)value[0] >> ((int)shiftCount[0] & 31)),
+                (int)((uint)value[1] >> ((int)shiftCount[1] & 31)),
             });
         case 4:
             return H.CreateVector(stackalloc [] {
-                (int)(value[0] >> ((int)shiftCount[0] & 31)),
-                (int)(value[1] >> ((int)shiftCount[1] & 31)),
-                (int)(value[2] >> ((int)shiftCount[2] & 31)),
-                (int)(value[3] >> ((int)shiftCount[3] & 31)),
+                (int)((uint)value[0] >> ((int)shiftCount[0] & 31)),
+                (int)((uint)value[1] >> ((int)shiftCount[1] & 31)),
+                (int)((uint)value[2] >> ((int)shiftCount[2] & 31)),
+                (int)((uint)value[3] >> ((int)shiftCount[3] & 31)),
             });
         case 8:
             return H.CreateVector(stackalloc [] {
-                (int)(value[0] >> ((int)shiftCount[0] & 31)),
-                (int)(value[1] >> ((int)shiftCount[1] & 31)),
-                (int)(value[2] >> ((int)shiftCount[2] & 31)),
-                (int)(value[3] >> ((int)shiftCount[3] & 31)),
-                (int)(value[4] >> ((int)shiftCount[4] & 31)),
-                (int)(value[5] >> ((int)shiftCount[5] & 31)),
-                (int)(value[6] >> ((int)shiftCount[6] & 31)),
-                (int)(value[7] >> ((int)shiftCount[7] & 31)),
+                (int)((uint)value[0] >> ((int)shiftCount[0] & 31)),
+                (int)((uint)value[1] >> ((int)shiftCount[1] & 31)),
+                (int)((uint)value[2] >> ((int)shiftCount[2] & 31)),
+                (int)((uint)value[3] >> ((int)shiftCount[3] & 31)),
+                (int)((uint)value[4] >> ((int)shiftCount[4] & 31)),
+                (int)((uint)value[5] >> ((int)shiftCount[5] & 31)),
+                (int)((uint)value[6] >> ((int)shiftCount[6] & 31)),
+                (int)((uint)value[7] >> ((int)shiftCount[7] & 31)),
             });
         default:
             {
                 var buffer = (stackalloc int[Vector<int>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (int)(value[i] >> ((int)shiftCount[i] & 31));
+                    buffer[i] = (int)((uint)value[i] >> ((int)shiftCount[i] & 31));
                 }
                 return Unsafe.As<int, Vector<int>>(ref buffer[0]);
             }
@@ -2522,26 +2522,26 @@ partial class VectorOp
         {
         case 1:
             return H.CreateVector(stackalloc [] {
-                (long)(value[0] >> ((int)shiftCount[0] & 63)),
+                (long)((ulong)value[0] >> ((int)shiftCount[0] & 63)),
             });
         case 2:
             return H.CreateVector(stackalloc [] {
-                (long)(value[0] >> ((int)shiftCount[0] & 63)),
-                (long)(value[1] >> ((int)shiftCount[1] & 63)),
+                (long)((ulong)value[0] >> ((int)shiftCount[0] & 63)),
+                (long)((ulong)value[1] >> ((int)shiftCount[1] & 63)),
             });
         case 4:
             return H.CreateVector(stackalloc [] {
-                (long)(value[0] >> ((int)shiftCount[0] & 63)),
-                (long)(value[1] >> ((int)shiftCount[1] & 63)),
-                (long)(value[2] >> ((int)shiftCount[2] & 63)),
-                (long)(value[3] >> ((int)shiftCount[3] & 63)),
+                (long)((ulong)value[0] >> ((int)shiftCount[0] & 63)),
+                (long)((ulong)value[1] >> ((int)shiftCount[1] & 63)),
+                (long)((ulong)value[2] >> ((int)shiftCount[2] & 63)),
+                (long)((ulong)value[3] >> ((int)shiftCount[3] & 63)),
             });
         default:
             {
                 var buffer = (stackalloc long[Vector<long>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (long)(value[i] >> ((int)shiftCount[i] & 63));
+                    buffer[i] = (long)((ulong)value[i] >> ((int)shiftCount[i] & 63));
                 }
                 return Unsafe.As<long, Vector<long>>(ref buffer[0]);
             }
@@ -2562,37 +2562,37 @@ partial class VectorOp
         {
         case 1:
             return H.CreateVector(stackalloc [] {
-                (nint)(value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nint>() * 8 - 1))),
             });
         case 2:
             return H.CreateVector(stackalloc [] {
-                (nint)(value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[1] >> ((int)shiftCount[1] & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[1] >> ((int)shiftCount[1] & (Unsafe.SizeOf<nint>() * 8 - 1))),
             });
         case 4:
             return H.CreateVector(stackalloc [] {
-                (nint)(value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[1] >> ((int)shiftCount[1] & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[2] >> ((int)shiftCount[2] & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[3] >> ((int)shiftCount[3] & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[1] >> ((int)shiftCount[1] & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[2] >> ((int)shiftCount[2] & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[3] >> ((int)shiftCount[3] & (Unsafe.SizeOf<nint>() * 8 - 1))),
             });
         case 8:
             return H.CreateVector(stackalloc [] {
-                (nint)(value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[1] >> ((int)shiftCount[1] & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[2] >> ((int)shiftCount[2] & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[3] >> ((int)shiftCount[3] & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[4] >> ((int)shiftCount[4] & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[5] >> ((int)shiftCount[5] & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[6] >> ((int)shiftCount[6] & (Unsafe.SizeOf<nint>() * 8 - 1))),
-                (nint)(value[7] >> ((int)shiftCount[7] & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[0] >> ((int)shiftCount[0] & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[1] >> ((int)shiftCount[1] & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[2] >> ((int)shiftCount[2] & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[3] >> ((int)shiftCount[3] & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[4] >> ((int)shiftCount[4] & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[5] >> ((int)shiftCount[5] & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[6] >> ((int)shiftCount[6] & (Unsafe.SizeOf<nint>() * 8 - 1))),
+                (nint)((nint)value[7] >> ((int)shiftCount[7] & (Unsafe.SizeOf<nint>() * 8 - 1))),
             });
         default:
             {
                 var buffer = (stackalloc nint[Vector<nint>.Count]);
                 for(var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = (nint)(value[i] >> ((int)shiftCount[i] & (Unsafe.SizeOf<nint>() * 8 - 1)));
+                    buffer[i] = (nint)((nint)value[i] >> ((int)shiftCount[i] & (Unsafe.SizeOf<nint>() * 8 - 1)));
                 }
                 return Unsafe.As<nint, Vector<nint>>(ref buffer[0]);
             }

@@ -74,18 +74,36 @@ public partial class VectorOpTest
         [MemberData(nameof(<#=func#>_SpecialValueTestCase_Unary_Double_TestCases))]
         public void <#=func#>_Double(double operand)
         {
-            var exp = Math.<#=func#>(operand);
-            var act = VectorOp.<#=func#><double>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.<#=func#>(operand);
+                var act = VectorOp.<#=func#><double>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         [Theory]
         [MemberData(nameof(<#=func#>_SpecialValueTestCase_Unary_Single_TestCases))]
         public void <#=func#>_Single(float operand)
         {
-            var exp = MathF.<#=func#>(operand);
-            var act = VectorOp.<#=func#><float>(new (operand))[0];
-            Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            try
+            {
+                var exp = ScalarOp.<#=func#>(operand);
+                var act = VectorOp.<#=func#><float>(new (operand))[0];
+                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+            }
+            catch(NotSupportedException)
+            {
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
+                throw;
+#endif
+            }
         }
 
         #endregion
