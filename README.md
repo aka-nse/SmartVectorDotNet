@@ -19,11 +19,11 @@
 
 This library has 3 layers:
 
-1. `ScalarOp`/`ScalarMath`<br/>
+1. `ScalarOp`<br/>
    provides generalized and backward-compatibility-enhanced operators and `Math`/`MathF` functions.
 
-2. `VectorOp`/`VectorMath`<br/>
-   provides SIMD parallelized APIs which are corresponding with each method in `ScalarOp`/`ScalarMath`.
+2. `VectorOp`<br/>
+   provides SIMD parallelized APIs which are corresponding with each method in `ScalarOp` and `Vector<T>` specific operations.
 
 3. `Vectorization`<br/>
    provides span based sequential operation.
@@ -39,7 +39,7 @@ using System.Numerics;
 using SmartVectorDotNet;
 
 var x = new Vector<double>(0, 1, 2, 3);
-var sin_x_pi = VectorMath.Sin(VectorMath.Multiply(x, VectorMath.Const<double>.PI));
+var sin_x_pi = VectorOp.Sin(VectorOp.Multiply(x, VectorOp.Const<double>.PI));
 Console.WriteLine(sin_x_pi);
 ```
 

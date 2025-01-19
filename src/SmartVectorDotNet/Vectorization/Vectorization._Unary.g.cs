@@ -250,7 +250,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Abs(d[i]);
+            ans[i] = ScalarOp.Abs(d[i]);
     }
 }
 
@@ -264,14 +264,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Abs(vectorX[i]);
+            vectorAns[i] = VectorOp.Abs(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Abs(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Abs(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -318,7 +318,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Acos(d[i]);
+            ans[i] = ScalarOp.Acos(d[i]);
     }
 }
 
@@ -332,14 +332,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Acos(vectorX[i]);
+            vectorAns[i] = VectorOp.Acos(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Acos(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Acos(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -386,7 +386,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Acosh(d[i]);
+            ans[i] = ScalarOp.Acosh(d[i]);
     }
 }
 
@@ -400,14 +400,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Acosh(vectorX[i]);
+            vectorAns[i] = VectorOp.Acosh(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Acosh(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Acosh(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -454,7 +454,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Asin(d[i]);
+            ans[i] = ScalarOp.Asin(d[i]);
     }
 }
 
@@ -468,14 +468,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Asin(vectorX[i]);
+            vectorAns[i] = VectorOp.Asin(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Asin(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Asin(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -522,7 +522,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Asinh(d[i]);
+            ans[i] = ScalarOp.Asinh(d[i]);
     }
 }
 
@@ -536,14 +536,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Asinh(vectorX[i]);
+            vectorAns[i] = VectorOp.Asinh(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Asinh(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Asinh(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -590,7 +590,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Atan(d[i]);
+            ans[i] = ScalarOp.Atan(d[i]);
     }
 }
 
@@ -604,14 +604,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Atan(vectorX[i]);
+            vectorAns[i] = VectorOp.Atan(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Atan(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Atan(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -658,7 +658,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Atanh(d[i]);
+            ans[i] = ScalarOp.Atanh(d[i]);
     }
 }
 
@@ -672,14 +672,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Atanh(vectorX[i]);
+            vectorAns[i] = VectorOp.Atanh(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Atanh(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Atanh(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -726,7 +726,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Cbrt(d[i]);
+            ans[i] = ScalarOp.Cbrt(d[i]);
     }
 }
 
@@ -740,14 +740,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Cbrt(vectorX[i]);
+            vectorAns[i] = VectorOp.Cbrt(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Cbrt(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Cbrt(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -794,7 +794,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Ceiling(d[i]);
+            ans[i] = ScalarOp.Ceiling(d[i]);
     }
 }
 
@@ -808,14 +808,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Ceiling(vectorX[i]);
+            vectorAns[i] = VectorOp.Ceiling(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Ceiling(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Ceiling(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -862,7 +862,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Cos(d[i]);
+            ans[i] = ScalarOp.Cos(d[i]);
     }
 }
 
@@ -876,14 +876,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Cos(vectorX[i]);
+            vectorAns[i] = VectorOp.Cos(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Cos(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Cos(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -930,7 +930,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Cosh(d[i]);
+            ans[i] = ScalarOp.Cosh(d[i]);
     }
 }
 
@@ -944,14 +944,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Cosh(vectorX[i]);
+            vectorAns[i] = VectorOp.Cosh(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Cosh(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Cosh(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -998,7 +998,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Exp(d[i]);
+            ans[i] = ScalarOp.Exp(d[i]);
     }
 }
 
@@ -1012,14 +1012,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Exp(vectorX[i]);
+            vectorAns[i] = VectorOp.Exp(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Exp(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Exp(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -1066,7 +1066,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Floor(d[i]);
+            ans[i] = ScalarOp.Floor(d[i]);
     }
 }
 
@@ -1080,14 +1080,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Floor(vectorX[i]);
+            vectorAns[i] = VectorOp.Floor(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Floor(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Floor(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -1134,7 +1134,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Log(d[i]);
+            ans[i] = ScalarOp.Log(d[i]);
     }
 }
 
@@ -1148,14 +1148,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Log(vectorX[i]);
+            vectorAns[i] = VectorOp.Log(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Log(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -1202,7 +1202,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Log10(d[i]);
+            ans[i] = ScalarOp.Log10(d[i]);
     }
 }
 
@@ -1216,14 +1216,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Log10(vectorX[i]);
+            vectorAns[i] = VectorOp.Log10(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log10(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Log10(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -1270,7 +1270,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Log2(d[i]);
+            ans[i] = ScalarOp.Log2(d[i]);
     }
 }
 
@@ -1284,14 +1284,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Log2(vectorX[i]);
+            vectorAns[i] = VectorOp.Log2(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Log2(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Log2(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -1338,7 +1338,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Round(d[i]);
+            ans[i] = ScalarOp.Round(d[i]);
     }
 }
 
@@ -1352,14 +1352,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Round(vectorX[i]);
+            vectorAns[i] = VectorOp.Round(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Round(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Round(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -1406,7 +1406,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Sign(d[i]);
+            ans[i] = ScalarOp.Sign(d[i]);
     }
 }
 
@@ -1420,14 +1420,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Sign(vectorX[i]);
+            vectorAns[i] = VectorOp.Sign(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Sign(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Sign(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -1474,7 +1474,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Sin(d[i]);
+            ans[i] = ScalarOp.Sin(d[i]);
     }
 }
 
@@ -1488,14 +1488,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Sin(vectorX[i]);
+            vectorAns[i] = VectorOp.Sin(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Sin(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Sin(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -1542,7 +1542,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Sinh(d[i]);
+            ans[i] = ScalarOp.Sinh(d[i]);
     }
 }
 
@@ -1556,14 +1556,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Sinh(vectorX[i]);
+            vectorAns[i] = VectorOp.Sinh(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Sinh(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Sinh(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -1610,7 +1610,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Sqrt(d[i]);
+            ans[i] = ScalarOp.Sqrt(d[i]);
     }
 }
 
@@ -1624,14 +1624,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Sqrt(vectorX[i]);
+            vectorAns[i] = VectorOp.Sqrt(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Sqrt(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Sqrt(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -1678,7 +1678,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Tan(d[i]);
+            ans[i] = ScalarOp.Tan(d[i]);
     }
 }
 
@@ -1692,14 +1692,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Tan(vectorX[i]);
+            vectorAns[i] = VectorOp.Tan(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Tan(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Tan(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -1746,7 +1746,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Tanh(d[i]);
+            ans[i] = ScalarOp.Tanh(d[i]);
     }
 }
 
@@ -1760,14 +1760,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Tanh(vectorX[i]);
+            vectorAns[i] = VectorOp.Tanh(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Tanh(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Tanh(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }
@@ -1814,7 +1814,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarMath.Truncate(d[i]);
+            ans[i] = ScalarOp.Truncate(d[i]);
     }
 }
 
@@ -1828,14 +1828,14 @@ partial class SimdVectorization
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorMath.Truncate(vectorX[i]);
+            vectorAns[i] = VectorOp.Truncate(vectorX[i]);
         }
         if(vectorLength < ans.Length)
         {
             var vx = (stackalloc T[Vector<T>.Count]);
             var vans = (stackalloc T[Vector<T>.Count]);
             d.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorMath.Truncate(Unsafe.As<T, Vector<T>>(ref vx[0])); 
+            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Truncate(Unsafe.As<T, Vector<T>>(ref vx[0])); 
             vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
         }
     }

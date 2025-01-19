@@ -16,20 +16,20 @@ var operations = new MethodDef[]
     new ("BitwiseAnd"         , "x", "y", (x, y) => $"ScalarOp.BitwiseAnd({x}, {y})", (x, y) => $"{x} & {y}"),
     new ("BitwiseOr"          , "x", "y", (x, y) => $"ScalarOp.BitwiseOr({x}, {y})" , (x, y) => $"{x} | {y}"),
     new ("BitwiseXor"         , "x", "y", (x, y) => $"ScalarOp.BitwiseXor({x}, {y})", (x, y) => $"{x} ^ {y}"),
-    new ("Equals"             , "x", "y", (x, y) => $"ScalarOp.Equals({x}, {y}) ? ScalarOp.True<T>() : ScalarOp.False<T>()"             , (x, y) => $"Vector.Equals({x}, {y})"            ),
-    new ("LessThan"           , "x", "y", (x, y) => $"ScalarOp.LessThan({x}, {y}) ? ScalarOp.True<T>() : ScalarOp.False<T>()"           , (x, y) => $"Vector.LessThan({x}, {y})"          ),
-    new ("LessThanOrEquals"   , "x", "y", (x, y) => $"ScalarOp.LessThanOrEquals({x}, {y}) ? ScalarOp.True<T>() : ScalarOp.False<T>()"   , (x, y) => $"Vector.LessThanOrEqual({x}, {y})"   ),
-    new ("GreaterThan"        , "x", "y", (x, y) => $"ScalarOp.GreaterThan({x}, {y}) ? ScalarOp.True<T>() : ScalarOp.False<T>()"        , (x, y) => $"Vector.GreaterThan({x}, {y})"       ),
-    new ("GreaterThanOrEquals", "x", "y", (x, y) => $"ScalarOp.GreaterThanOrEquals({x}, {y}) ? ScalarOp.True<T>() : ScalarOp.False<T>()", (x, y) => $"Vector.GreaterThanOrEqual({x}, {y})"),
+    new ("Equals"             , "x", "y", (x, y) => $"ScalarOp.Equals({x}, {y}) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue"             , (x, y) => $"Vector.Equals({x}, {y})"            ),
+    new ("LessThan"           , "x", "y", (x, y) => $"ScalarOp.LessThan({x}, {y}) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue"           , (x, y) => $"Vector.LessThan({x}, {y})"          ),
+    new ("LessThanOrEquals"   , "x", "y", (x, y) => $"ScalarOp.LessThanOrEquals({x}, {y}) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue"   , (x, y) => $"Vector.LessThanOrEqual({x}, {y})"   ),
+    new ("GreaterThan"        , "x", "y", (x, y) => $"ScalarOp.GreaterThan({x}, {y}) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue"        , (x, y) => $"Vector.GreaterThan({x}, {y})"       ),
+    new ("GreaterThanOrEquals", "x", "y", (x, y) => $"ScalarOp.GreaterThanOrEquals({x}, {y}) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue", (x, y) => $"Vector.GreaterThanOrEqual({x}, {y})"),
     
     new ("AddSaturate"        , "x", "y", (x, y) => $"ScalarOp.AddSaturate({x}, {y})"     , (x, y) => $"VectorOp.AddSaturate({x}, {y})"     ),
     new ("SubtractSaturate"   , "x", "y", (x, y) => $"ScalarOp.SubtractSaturate({x}, {y})", (x, y) => $"VectorOp.SubtractSaturate({x}, {y})"),
 
-    new ("Atan2"        , "y", "x", (y, x) => $"ScalarMath.Atan2({y}, {x})", (y, x) => $"VectorMath.Atan2({y}, {x})"),
-    new ("Log"          , "x", "newBase", (x, newBase) => $"ScalarMath.Log({x}, {newBase})", (x, newBase) => $"VectorMath.Log({x}, {newBase})"),
+    new ("Atan2"        , "y", "x", (y, x) => $"ScalarOp.Atan2({y}, {x})", (y, x) => $"VectorOp.Atan2({y}, {x})"),
+    new ("Log"          , "x", "newBase", (x, newBase) => $"ScalarOp.Log({x}, {newBase})", (x, newBase) => $"VectorOp.Log({x}, {newBase})"),
 //  new ("Modulo"       , "x", "y"),
 //  new ("ModuloByFloor", "x", "y"),
-    new ("Pow"          , "a", "x", (a, x) => $"ScalarMath.Pow({x}, {x})", (a, x) => $"VectorMath.Pow({x}, {x})"),
+    new ("Pow"          , "a", "x", (a, x) => $"ScalarOp.Pow({x}, {x})", (a, x) => $"VectorOp.Pow({x}, {x})"),
 };
 #>
 #nullable enable

@@ -1,0 +1,18 @@
+namespace SmartVectorDotNet;
+
+
+file class Cosh_<T> : VectorOp.Const<T> where T : unmanaged { }
+
+
+partial class VectorOp
+{
+    /// <summary>
+    /// Calculates cosh(x).
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public static Vector<T> Cosh<T>(Vector<T> x)
+        where T : unmanaged
+        => (Exp(x) + Exp(-x)) * Cosh_<T>._1p2;
+}

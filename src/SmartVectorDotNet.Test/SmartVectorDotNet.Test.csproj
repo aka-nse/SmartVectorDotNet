@@ -71,15 +71,15 @@
         </None>
     </ItemGroup>
 
-    <ItemGroup Label="VectorMathTest/VectorMathTest._SpecialValue_Unary">
-        <Compile Update="VectorMathTest/VectorMathTest._SpecialValue_Unary.g.cs">
+    <ItemGroup Label="VectorOpTest/VectorOpTest._SpecialValue_Unary">
+        <Compile Update="VectorOpTest/VectorOpTest._SpecialValue_Unary.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>VectorMathTest._SpecialValue_Unary.tt</DependentUpon>
+            <DependentUpon>VectorOpTest._SpecialValue_Unary.tt</DependentUpon>
         </Compile>
-        <None Update="VectorMathTest/VectorMathTest._SpecialValue_Unary.tt">
+        <None Update="VectorOpTest/VectorOpTest._SpecialValue_Unary.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorMathTest._SpecialValue_Unary.g.cs</LastGenOutput>
+            <LastGenOutput>VectorOpTest._SpecialValue_Unary.g.cs</LastGenOutput>
         </None>
     </ItemGroup>
 
@@ -105,6 +105,10 @@
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>VectorOpTest._Shift.g.cs</LastGenOutput>
         </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="TestResults/**/*" />
     </ItemGroup>
 
 </Project>

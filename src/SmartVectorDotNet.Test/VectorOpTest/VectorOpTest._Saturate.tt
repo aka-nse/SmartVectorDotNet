@@ -25,15 +25,15 @@ public partial class VectorOpTest
 
     public static TheoryData<<#=type#>, <#=type#>> SaturateTestCases_<#=type#>()
         => new (){
-            { ScalarOp.MinValue<<#=type#>>(), ScalarOp.MinValue<<#=type#>>() },
-            { ScalarOp.MinValue<<#=type#>>(), 0 },
-            { ScalarOp.MinValue<<#=type#>>(), ScalarOp.MaxValue<<#=type#>>() },
-            { 0, ScalarOp.MinValue<<#=type#>>() },
+            { ScalarOp.Const<<#=type#>>.MinValue, ScalarOp.Const<<#=type#>>.MinValue },
+            { ScalarOp.Const<<#=type#>>.MinValue, 0 },
+            { ScalarOp.Const<<#=type#>>.MinValue, ScalarOp.Const<<#=type#>>.MaxValue },
+            { 0, ScalarOp.Const<<#=type#>>.MinValue },
             { 0, 0 },
-            { 0, ScalarOp.MaxValue<<#=type#>>() },
-            { ScalarOp.MaxValue<<#=type#>>(), ScalarOp.MinValue<<#=type#>>() },
-            { ScalarOp.MaxValue<<#=type#>>(), 0 },
-            { ScalarOp.MaxValue<<#=type#>>(), ScalarOp.MaxValue<<#=type#>>() },
+            { 0, ScalarOp.Const<<#=type#>>.MaxValue },
+            { ScalarOp.Const<<#=type#>>.MaxValue, ScalarOp.Const<<#=type#>>.MinValue },
+            { ScalarOp.Const<<#=type#>>.MaxValue, 0 },
+            { ScalarOp.Const<<#=type#>>.MaxValue, ScalarOp.Const<<#=type#>>.MaxValue },
         };
 
     [Theory, MemberData(nameof(SaturateTestCases_<#=type#>))]

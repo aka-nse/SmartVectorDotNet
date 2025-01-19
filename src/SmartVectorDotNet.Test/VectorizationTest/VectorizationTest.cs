@@ -4,7 +4,7 @@ using Xunit.Abstractions;
 namespace SmartVectorDotNet;
 
 
-public partial class VectorizationTest
+public partial class VectorizationTest(ITestOutputHelper output)
 {
     private const AccuracyMode TestAccuracyMode
         = AccuracyMode.AbsoluteOrRelative | AccuracyMode.RelaxNaNCheck;
@@ -125,25 +125,25 @@ public partial class VectorizationTest
         protected abstract void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, T y, Span<T> result) where T : unmanaged;
         protected abstract void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) where T : unmanaged;
 
-        public void DoubleAccuracy(double[] x, double[] y)
+        public void DoubleAccuracy(double[] x, double[] y, ITestOutputHelper? output)
         {
             var exp = new double[x.Length];
             var act = new double[x.Length];
 
             Operate<double>(Emulated, x.FirstOrDefault(), y, exp);
             Operate<double>(SIMD, x.FirstOrDefault(), y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+            AccuracyAssert.Accurate(x.FirstOrDefault(), y, exp, act, 1e-10, TestAccuracyMode, output);
 
             Operate<double>(Emulated, x, y.FirstOrDefault(), exp);
             Operate<double>(SIMD, x, y.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+            AccuracyAssert.Accurate(x, y.FirstOrDefault(), exp, act, 1e-10, TestAccuracyMode, output);
 
             Operate<double>(Emulated, x, y, exp);
             Operate<double>(SIMD, x, y, act);
-            AccuracyAssert.Accurate(x, exp, act, 1e-10, TestAccuracyMode);
+            AccuracyAssert.Accurate(x, y, exp, act, 1e-10, TestAccuracyMode, output);
         }
 
-        public void FloatAccuracy(double[] x, double[] y)
+        public void FloatAccuracy(double[] x, double[] y, ITestOutputHelper? output)
         { // float accuracy
             var xx = x.Select(x => (float)x).ToArray();
             var yy = y.Select(y => (float)y).ToArray();
@@ -152,15 +152,19 @@ public partial class VectorizationTest
 
             Operate<float>(Emulated, xx.FirstOrDefault(), yy, exp);
             Operate<float>(SIMD, xx.FirstOrDefault(), yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+            AccuracyAssert.Accurate(xx, yy, exp, act, 1e-5f, TestAccuracyMode, output);
 
+            exp.AsSpan().Clear();
+            act.AsSpan().Clear();
             Operate<float>(Emulated, xx, yy.FirstOrDefault(), exp);
             Operate<float>(SIMD, xx, yy.FirstOrDefault(), act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+            AccuracyAssert.Accurate(xx, yy, exp, act, 1e-5f, TestAccuracyMode, output);
 
+            exp.AsSpan().Clear();
+            act.AsSpan().Clear();
             Operate<float>(Emulated, xx, yy, exp);
             Operate<float>(SIMD, xx, yy, act);
-            AccuracyAssert.Accurate(null, exp, act, 1e-5f, TestAccuracyMode);
+            AccuracyAssert.Accurate(xx, yy, exp, act, 1e-5f, TestAccuracyMode, output);
         }
 
         public void RhsOverlap(Vectorization vectorization, double x, double[] y)
@@ -319,12 +323,12 @@ public partial class VectorizationTest
     [Theory]
     [MemberData(nameof(BinaryOperatorTestCases))]
     public void Binary_DoubleAccuracy(BinaryOperatorTestSuite suite, double[] x, double[] y)
-        => suite.DoubleAccuracy(x, y);
+        => suite.DoubleAccuracy(x, y, output);
 
     [Theory]
     [MemberData(nameof(BinaryOperatorTestCases))]
     public void Binary_FloatAccuracy(BinaryOperatorTestSuite suite, double[] x, double[] y)
-        => suite.FloatAccuracy(x, y);
+        => suite.FloatAccuracy(x, y, output);
 
     [Theory]
     [MemberData(nameof(BinaryOperatorTestCases))]

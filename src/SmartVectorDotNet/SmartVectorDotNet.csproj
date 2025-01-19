@@ -30,156 +30,128 @@
     </ItemGroup>
 
     <!-- #region ScalarOp -->
-    <ItemGroup Label="ScalarOp\ScalarOp._Binary">
-        <None Update="ScalarOp\ScalarOp._Binary.tt">
+    <ItemGroup Label="ScalarOp\ScalarOp._Convert">
+        <None Update="ScalarOp\ScalarOp._Convert.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarOp._Binary.g.cs</LastGenOutput>
+            <LastGenOutput>ScalarOp._Convert.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ScalarOp\ScalarOp._Binary.g.cs">
+        <Compile Update="ScalarOp\ScalarOp._Convert.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarOp._Binary.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup Label="ScalarOp\ScalarOp._Cast">
-        <None Update="ScalarOp\ScalarOp._Cast.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarOp._Cast.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="ScalarOp\ScalarOp._Cast.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarOp._Cast.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup Label="ScalarOp\ScalarOp._Comparison">
-        <None Update="ScalarOp\ScalarOp._Comparison.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarOp._Comparison.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="ScalarOp\ScalarOp._Comparison.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarOp._Comparison.tt</DependentUpon>
+            <DependentUpon>ScalarOp._Convert.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
     <ItemGroup Label="ScalarOp\ScalarOp._Constant">
-        <None Update="ScalarOp\ScalarOp._Constant.tt">
+        <None Update="ScalarOp\ScalarOp._Const.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarOp._Constant.g.cs</LastGenOutput>
+            <LastGenOutput>ScalarOp._Const.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ScalarOp\ScalarOp._Constant.g.cs">
+        <Compile Update="ScalarOp\ScalarOp._Const.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarOp._Constant.tt</DependentUpon>
+            <DependentUpon>ScalarOp._Const.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
-    <ItemGroup Label="ScalarOp\ScalarOp._Shift">
-        <None Update="ScalarOp\ScalarOp._Shift.tt">
+    <ItemGroup Label="ScalarOp\ScalarOp._Math.General">
+        <None Update="ScalarOp\ScalarOp._Math.General.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarOp._Shift.g.cs</LastGenOutput>
+            <LastGenOutput>ScalarOp._Math.General.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ScalarOp\ScalarOp._Shift.g.cs">
+        <Compile Update="ScalarOp\ScalarOp._Math.General.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarOp._Shift.tt</DependentUpon>
+            <DependentUpon>ScalarOp._Math.General.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
-    <ItemGroup Label="ScalarOp\ScalarOp._Unary">
-        <None Update="ScalarOp\ScalarOp._Unary.tt">
+    <ItemGroup Label="ScalarOp\ScalarOp._Math.Real">
+        <None Update="ScalarOp\ScalarOp._Math.Real.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarOp._Unary.g.cs</LastGenOutput>
+            <LastGenOutput>ScalarOp._Math.Real.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ScalarOp\ScalarOp._Unary.g.cs">
+        <Compile Update="ScalarOp\ScalarOp._Math.Real.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarOp._Unary.tt</DependentUpon>
+            <DependentUpon>ScalarOp._Math.Real.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup Label="ScalarOp\ScalarOp._Operator.Binary">
+        <None Update="ScalarOp\ScalarOp._Operator.Binary.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarOp._Operator.Binary.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarOp\ScalarOp._Operator.Binary.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarOp._Operator.Binary.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup Label="ScalarOp\ScalarOp._Operator.Shift">
+        <None Update="ScalarOp\ScalarOp._Operator.Shift.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarOp._Operator.Shift.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarOp\ScalarOp._Operator.Shift.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarOp._Operator.Shift.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup Label="ScalarOp\ScalarOp._Operator.Comparison">
+        <None Update="ScalarOp\ScalarOp._Operator.Comparison.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarOp._Operator.Comparison.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarOp\ScalarOp._Operator.Comparison.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarOp._Operator.Comparison.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup Label="ScalarOp\ScalarOp._Operator.Unary">
+        <None Update="ScalarOp\ScalarOp._Operator.Unary.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarOp._Operator.Unary.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="ScalarOp\ScalarOp._Operator.Unary.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarOp._Operator.Unary.tt</DependentUpon>
         </Compile>
     </ItemGroup>
     <!-- #endregion ScalarOp -->
-    
-    <!-- #region ScalarMath -->
-    <ItemGroup Label="ScalarMath\ScalarMath._General">
-        <None Update="ScalarMath\ScalarMath._General.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarMath._General.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="ScalarMath\ScalarMath._General.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarMath._General.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup Label="ScalarMath\ScalarMath._Real">
-        <None Update="ScalarMath\ScalarMath._Real.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarMath._Real.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="ScalarMath\ScalarMath._Real.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarMath._Real.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
-    <!-- #endregion ScalarMath -->
 
     <!-- #region VectorOp -->
-    <ItemGroup Label="VectorOp\VectorOp._Const">
-        <Compile Update="VectorOp\VectorOp._Const.g.cs">
+    <ItemGroup Label="VectorOp\VectorOp._Shift">
+        <Compile Update="VectorOp\VectorOp._Operator.Shift.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>VectorOp._Const.tt</DependentUpon>
+            <DependentUpon>VectorOp._Operator.Shift.tt</DependentUpon>
         </Compile>
-        <None Update="VectorOp\VectorOp._Const.tt">
+        <None Update="VectorOp\VectorOp._Operator.Shift.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorOp._Const.g.cs</LastGenOutput>
+            <LastGenOutput>VectorOp._Operator.Shift.g.cs</LastGenOutput>
         </None>
     </ItemGroup>
     
-    <ItemGroup Label="VectorOp\VectorOp._FrameworkFallbacks">
-        <None Update="VectorOp\VectorOp._FrameworkFallbacks.tt">
+    <ItemGroup Label="VectorOp\VectorOp.Specialized">
+        <None Update="VectorOp\VectorOp.Specialized.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorOp._FrameworkFallbacks.g.cs</LastGenOutput>
+            <LastGenOutput>VectorOp.Specialized.g.cs</LastGenOutput>
         </None>
-        <Compile Update="VectorOp\VectorOp._FrameworkFallbacks.g.cs">
+        <Compile Update="VectorOp\VectorOp.Specialized.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>VectorOp._FrameworkFallbacks.tt</DependentUpon>
+            <DependentUpon>VectorOp.Specialized.tt</DependentUpon>
         </Compile>
-    </ItemGroup>
-
-    <ItemGroup Label="VectorOp\VectorOp._Shift">
-        <Compile Update="VectorOp\VectorOp._Shift.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>VectorOp._Shift.tt</DependentUpon>
-        </Compile>
-        <None Update="VectorOp\VectorOp._Shift.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorOp._Shift.g.cs</LastGenOutput>
-        </None>
     </ItemGroup>
     <!-- #endregion VectorOp -->
-
-    <!-- #region VectorMath -->
-    <ItemGroup Label="VectorMath\VectorMath">
-        <None Update="VectorMath\VectorMath.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorMath.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="VectorMath\VectorMath.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>VectorMath.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
-    <!-- #endregion VectorMath -->
 
     <!-- #region Vectorization -->
     <ItemGroup Label="Vectorization\IVectorizationFormula">

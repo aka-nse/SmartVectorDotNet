@@ -4,5 +4,5 @@ using SmartVectorDotNet;
 using SmartVectorDotNet.PoC;
 
 
-ScalarMath_SoftwareStrictModulo.TestModulo();
-// ScalarMath_Population.TestPopulation();
+ScalarOp_SoftwareStrictModulo.TestModulo();
+// ScalarOp_Population.TestPopulation();

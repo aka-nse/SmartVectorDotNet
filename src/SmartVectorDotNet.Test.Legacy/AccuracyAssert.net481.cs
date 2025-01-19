@@ -11,7 +11,7 @@ partial class AccuracyAssert
     partial class Core<T>
     {
         public static partial bool IsValidAccuracy(T accuracy)
-            => ScalarOp.GreaterThanOrEquals(accuracy, ScalarOp.Zero<T>());
+            => ScalarOp.GreaterThanOrEquals(accuracy, ScalarOp.Const<T>.Zero);
 
         public static partial bool GetIsAccurate(T accuracy, T error)
         {
@@ -20,45 +20,45 @@ partial class AccuracyAssert
             return !double.IsNaN(err) && err < acc;
         }
 
-        public static partial bool GetIsValidNaN(T yExpected, T yActual, AccuracyMode mode)
+        public static partial bool GetIsValidNaN(T zExpected, T zActual, AccuracyMode mode)
         {
-            var yexp = Convert.ToDouble(yExpected);
-            var yact = Convert.ToDouble(yActual);
+            var zexp = Convert.ToDouble(zExpected);
+            var zact = Convert.ToDouble(zActual);
             if (mode.HasFlag(AccuracyMode.RelaxNaNCheck))
             {
-                var actIsNaN = double.IsNaN(yact) || double.IsInfinity(yact);
-                return double.IsNaN(yexp) || (double.IsInfinity(yexp) && actIsNaN);
+                var actIsNaN = double.IsNaN(zact) || double.IsInfinity(zact);
+                return double.IsNaN(zexp) || (double.IsInfinity(zexp) && actIsNaN);
             }
             else
             {
-                var expIsNaN = double.IsNaN(yexp);
-                var actIsNaN = double.IsNaN(yact);
+                var expIsNaN = double.IsNaN(zexp);
+                var actIsNaN = double.IsNaN(zact);
                 return !(expIsNaN ^ actIsNaN);
             }
         }
 
         public static partial T ErrorAbs(T exp, T act)
         {
-            return ScalarMath.Abs(ScalarOp.Subtract(exp, act));
+            return ScalarOp.Abs(ScalarOp.Subtract(exp, act));
         }
 
         public static partial T ErrorRel(T exp, T act)
         {
-            var one = ScalarOp.One<T>();
-            var maxval = ScalarOp.MaxValue<T>();
-            var num = ScalarMath.Abs(ScalarOp.Subtract(exp, act));
-            var denom = ScalarOp.Add(ScalarMath.Abs(exp), ScalarOp.Divide(one, maxval));
+            var one = ScalarOp.Const<T>.One;
+            var maxval = ScalarOp.Const<T>.MaxValue;
+            var num = ScalarOp.Abs(ScalarOp.Subtract(exp, act));
+            var denom = ScalarOp.Add(ScalarOp.Abs(exp), ScalarOp.Divide(one, maxval));
             return ScalarOp.Divide(num, denom);
         }
 
         public static partial T ErrorAbsAndRel(T exp, T act)
         {
-            return ScalarMath.Max(ErrorAbs(exp, act), ErrorRel(exp, act));
+            return ScalarOp.Max(ErrorAbs(exp, act), ErrorRel(exp, act));
         }
 
         public static partial T ErrorAbsOrRel(T exp, T act)
         {
-            return ScalarMath.Min(ErrorAbs(exp, act), ErrorRel(exp, act));
+            return ScalarOp.Min(ErrorAbs(exp, act), ErrorRel(exp, act));
         }
     }
 }
