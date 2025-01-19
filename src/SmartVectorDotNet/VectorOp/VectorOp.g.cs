@@ -12,7 +12,56 @@ partial class VectorOp
 {
 }
 
-// VectorOp._DivideLike.cs
+// VectorOp._BitOperations.CountLeadingZeros.cs
+partial class VectorOp
+{
+}
+
+// VectorOp._BitOperations.CountPopulation.cs
+partial class VectorOp
+{
+}
+
+// VectorOp._BitOperations.CountTrailingZeros.cs
+partial class VectorOp
+{
+}
+
+// VectorOp._BitOperations.IEEE754Specific.cs
+partial class VectorOp
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static partial Vector<T> Scale<T>(Vector<T> n, Vector<T> x)
+        where T : unmanaged
+    {
+        if(typeof(T) == typeof(double))
+        {
+            ref readonly var n_ = ref H.Reinterpret<T, double>(n);
+            ref readonly var x_ = ref H.Reinterpret<T, double>(x);
+            return H.Reinterpret<double, T>(Scale(n_, x_));
+        }
+        if(typeof(T) == typeof(float))
+        {
+            ref readonly var n_ = ref H.Reinterpret<T, float>(n);
+            ref readonly var x_ = ref H.Reinterpret<T, float>(x);
+            return H.Reinterpret<float, T>(Scale(n_, x_));
+        }
+        throw new NotSupportedException();
+    }
+
+}
+
+// VectorOp._Const.cs
+partial class VectorOp
+{
+}
+
+// VectorOp._Const.Internal.cs
+partial class VectorOp
+{
+}
+
+// VectorOp._Convert.cs
 partial class VectorOp
 {
 }
@@ -128,21 +177,6 @@ partial class VectorOp
 {
 }
 
-// VectorOp._Math.CountLeadingZeros.cs
-partial class VectorOp
-{
-}
-
-// VectorOp._Math.CountPopulation.cs
-partial class VectorOp
-{
-}
-
-// VectorOp._Math.CountTrailingZeros.cs
-partial class VectorOp
-{
-}
-
 // VectorOp._Math.Exp.cs
 partial class VectorOp
 {
@@ -192,30 +226,6 @@ partial class VectorOp
 {
 }
 
-// VectorOp._Math.IEEE754Specific.cs
-partial class VectorOp
-{
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static partial Vector<T> Scale<T>(Vector<T> n, Vector<T> x)
-        where T : unmanaged
-    {
-        if(typeof(T) == typeof(double))
-        {
-            ref readonly var n_ = ref H.Reinterpret<T, double>(n);
-            ref readonly var x_ = ref H.Reinterpret<T, double>(x);
-            return H.Reinterpret<double, T>(Scale(n_, x_));
-        }
-        if(typeof(T) == typeof(float))
-        {
-            ref readonly var n_ = ref H.Reinterpret<T, float>(n);
-            ref readonly var x_ = ref H.Reinterpret<T, float>(x);
-            return H.Reinterpret<float, T>(Scale(n_, x_));
-        }
-        throw new NotSupportedException();
-    }
-
-}
-
 // VectorOp._Math.Log.cs
 partial class VectorOp
 {
@@ -254,26 +264,6 @@ partial class VectorOp
 }
 
 // VectorOp._Math.MinMax.cs
-partial class VectorOp
-{
-}
-
-// VectorOp._Math.ModuloByConst.cs
-partial class VectorOp
-{
-}
-
-// VectorOp._Math.Permute2.cs
-partial class VectorOp
-{
-}
-
-// VectorOp._Math.Permute4.cs
-partial class VectorOp
-{
-}
-
-// VectorOp._Math.Permute_Internal.cs
 partial class VectorOp
 {
 }
@@ -374,12 +364,42 @@ partial class VectorOp
 
 }
 
-// VectorOp._Modulo.cs
+// VectorOp._MathEx.DivideLike.cs
 partial class VectorOp
 {
 }
 
-// VectorOp._Saturate.cs
+// VectorOp._MathEx.ModuloByConst.cs
+partial class VectorOp
+{
+}
+
+// VectorOp._Operator.cs
+partial class VectorOp
+{
+}
+
+// VectorOp._Operator.Modulo.cs
+partial class VectorOp
+{
+}
+
+// VectorOp._OperatorEx.Saturate.cs
+partial class VectorOp
+{
+}
+
+// VectorOp._Vector.Permute2.cs
+partial class VectorOp
+{
+}
+
+// VectorOp._Vector.Permute4.cs
+partial class VectorOp
+{
+}
+
+// VectorOp._Vector.Permute_Internal.cs
 partial class VectorOp
 {
 }
