@@ -128,6 +128,7 @@
     <!-- #endregion ScalarOp -->
 
     <!-- #region VectorOp -->
+    
     <ItemGroup Label="VectorOp\VectorOp._Shift">
         <Compile Update="VectorOp\VectorOp._Operator.Shift.g.cs">
             <DesignTime>True</DesignTime>
@@ -150,6 +151,18 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>VectorOp.Specialized.tt</DependentUpon>
         </Compile>
+    </ItemGroup>
+
+    <ItemGroup Label="VectorOp\VectorOp._Vector.Gather">
+        <Compile Update="VectorOp\VectorOp._Vector.Gather.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorOp._Vector.Gather.tt</DependentUpon>
+        </Compile>
+        <None Update="VectorOp\VectorOp._Vector.Gather.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorOp._Vector.Gather.g.cs</LastGenOutput>
+        </None>
     </ItemGroup>
     <!-- #endregion VectorOp -->
 
