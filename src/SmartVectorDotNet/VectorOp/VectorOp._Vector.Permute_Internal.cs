@@ -52,6 +52,7 @@ file class Permute_
 
 partial class VectorOp
 {
+    /// <remarks> <c>m0, m1</c> must be <c>0 or 1</c>. </remarks>
     internal static Vector128<T> Permute2<T>(Vector128<T> v, byte m0, byte m1)
         where T : unmanaged
         => Unsafe.SizeOf<T>() switch
@@ -65,6 +66,7 @@ partial class VectorOp
             _ => throw new NotSupportedException(),
         };
 
+    /// <remarks> <c>m0, m1, m2, m3</c> must be <c>0, 1, 2, or 3</c>. </remarks>
     internal static Vector128<T> Permute4<T>(Vector128<T> v, byte m0, byte m1, byte m2, byte m3)
         where T : unmanaged
         => Unsafe.SizeOf<T>() switch
@@ -78,9 +80,10 @@ partial class VectorOp
             _ => throw new NotSupportedException(),
         };
 
+    /// <remarks> <c>m0, m1, m2, m3</c> must be <c>0, 1, 2, or 3</c>. </remarks>
     internal static Vector128<byte> PermuteX(Vector128<byte> v, byte m0, byte m1, byte m2, byte m3, ReadOnlySpan<byte> maskBase)
     {
-        var maskOffsets = (stackalloc byte[4] { (byte)(m0 & 0b11), (byte)(m1 & 0b11), (byte)(m2 & 0b11), (byte)(m3 & 0b11), });
+        var maskOffsets = (stackalloc byte[4] { m0, m1, m2, m3, });
         if (Sse3.IsSupported)
         {
             var maskBytes = (stackalloc byte[Vector128<byte>.Count]);
@@ -101,6 +104,7 @@ partial class VectorOp
         }
     }
 
+    /// <remarks> <c>m0, m1, m2, m3</c> must be <c>0, 1, 2, or 3</c>. </remarks>
     internal static Vector128<ushort> Permute4(Vector128<ushort> v, byte m0, byte m1, byte m2, byte m3)
     {
         if (Sse2.IsSupported)
@@ -131,6 +135,7 @@ partial class VectorOp
         }
     }
 
+    /// <remarks> <c>m0, m1, m2, m3</c> must be <c>0, 1, 2, or 3</c>. </remarks>
     internal static Vector128<uint> Permute4(Vector128<uint> v, byte m0, byte m1, byte m2, byte m3)
     {
         if (Sse2.IsSupported)
@@ -153,20 +158,19 @@ partial class VectorOp
         }
     }
 
+    /// <remarks> <c>m0, m1, m2, m3</c> must be <c>0, 1, 2, or 3</c>. </remarks>
     internal static Vector128<ulong> Permute4(Vector128<ulong> v, byte m0, byte m1, byte m2, byte m3)
     {
         throw new NotSupportedException();
     }
 
-
-
-
+    /// <remarks> <c>m0, m1</c> must be <c>0 or 1</c>. </remarks>
     internal static Vector256<T> Permute2<T>(Vector256<T> v, byte m0, byte m1)
         where T : unmanaged
         => Unsafe.SizeOf<T>() switch
         {
 #pragma warning disable format
-            sizeof(byte  ) => H.Reinterpret<byte  , T>(PermuteX(H.Reinterpret<T, byte  >(v), m0, m1, m0, m1, Permute_.MaskBaseUInt8_Permute2)),
+            sizeof(byte  ) => H.Reinterpret<byte  , T>(Permute4(H.Reinterpret<T, byte  >(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
             sizeof(ushort) => H.Reinterpret<ushort, T>(Permute4(H.Reinterpret<T, ushort>(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
             sizeof(uint  ) => H.Reinterpret<uint  , T>(Permute4(H.Reinterpret<T, uint  >(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
             sizeof(ulong ) => H.Reinterpret<ulong , T>(Permute4(H.Reinterpret<T, ulong >(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
@@ -174,6 +178,7 @@ partial class VectorOp
             _ => throw new NotSupportedException(),
         };
 
+    /// <remarks> <c>m0, m1, m2, m3</c> must be <c>0, 1, 2, or 3</c>. </remarks>
     internal static Vector256<T> Permute4<T>(Vector256<T> v, byte m0, byte m1, byte m2, byte m3)
         where T : unmanaged
         => Unsafe.SizeOf<T>() switch
@@ -187,9 +192,10 @@ partial class VectorOp
             _ => throw new NotSupportedException(),
         };
 
+    /// <remarks> <c>m0, m1, m2, m3</c> must be <c>0, 1, 2, or 3</c>. </remarks>
     internal static Vector256<byte> PermuteX(Vector256<byte> v, byte m0, byte m1, byte m2, byte m3, ReadOnlySpan<byte> maskBase)
     {
-        var maskOffsets = (stackalloc byte[4] { (byte)(m0 & 0b11), (byte)(m1 & 0b11), (byte)(m2 & 0b11), (byte)(m3 & 0b11), });
+        var maskOffsets = (stackalloc byte[4] { m0, m1, m2, m3, });
         if (Avx2.IsSupported)
         {
             var maskBytes = (stackalloc byte[Vector256<byte>.Count]);
@@ -210,6 +216,7 @@ partial class VectorOp
         }
     }
 
+    /// <remarks> <c>m0, m1, m2, m3</c> must be <c>0, 1, 2, or 3</c>. </remarks>
     internal static Vector256<ushort> Permute4(Vector256<ushort> v, byte m0, byte m1, byte m2, byte m3)
     {
         if (Avx2.IsSupported)
@@ -242,6 +249,7 @@ partial class VectorOp
         }
     }
 
+    /// <remarks> <c>m0, m1, m2, m3</c> must be <c>0, 1, 2, or 3</c>. </remarks>
     internal static Vector256<uint> Permute4(Vector256<uint> v, byte m0, byte m1, byte m2, byte m3)
     {
         if (Avx2.IsSupported)
@@ -264,6 +272,7 @@ partial class VectorOp
         }
     }
 
+    /// <remarks> <c>m0, m1, m2, m3</c> must be <c>0, 1, 2, or 3</c>. </remarks>
     internal static Vector256<ulong> Permute4(Vector256<ulong> v, byte m0, byte m1, byte m2, byte m3)
     {
         if (Avx2.IsSupported)
