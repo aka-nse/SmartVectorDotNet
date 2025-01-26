@@ -67,10 +67,9 @@ partial class VectorOp
     /// <exception cref="ArgumentException" />
     public static unsafe Vector<<#=def.ApiType#>> Gather(ReadOnlySpan<<#=def.ApiType#>> table, <#=string.Join(", ", def.IndexArgs.Select(index => $"Vector<{def.IndexArgType}> {index}"))#>)
     {
-        var length = new Vector<<#=def.IndexArgType#>>(table.Length);
+        var length = new Vector<u<#=def.IndexArgType#>>((u<#=def.IndexArgType#>)table.Length);
 <#      foreach(var index in def.IndexArgs) { #>
-        Guard.ValidArgument(LessThanOrEqualAll(default, <#=index#>), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(<#=index#>, length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<<#=def.IndexArgType#>, u<#=def.IndexArgType#>>(<#=index#>), length), Gather_.IndexRangeError);
 <#      } #>
         fixed (<#=def.ApiType#>* ptr = table)
         {

@@ -310,9 +310,8 @@ partial class VectorOp
     /// <remarks> Note that this method will not validate buffer index. </remarks>
     public static unsafe Vector<nuint> Gather(ReadOnlySpan<nuint> table, Vector<nint> index)
     {
-        var length = new Vector<nint>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index, length), Gather_.IndexRangeError);
+        var length = new Vector<nuint>((nuint)table.Length);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<nint, nuint>(index), length), Gather_.IndexRangeError);
         fixed (nuint* ptr = table)
         {
             return GatherUnsafe(ptr, index);
@@ -328,9 +327,8 @@ partial class VectorOp
     /// <remarks> Note that this method will not validate buffer index. </remarks>
     public static unsafe Vector<nint> Gather(ReadOnlySpan<nint> table, Vector<nint> index)
     {
-        var length = new Vector<nint>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index, length), Gather_.IndexRangeError);
+        var length = new Vector<nuint>((nuint)table.Length);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<nint, nuint>(index), length), Gather_.IndexRangeError);
         fixed (nint* ptr = table)
         {
             return GatherUnsafe(ptr, index);

@@ -83,15 +83,11 @@ partial class VectorOp
     /// <exception cref="ArgumentException" />
     public static unsafe Vector<byte> Gather(ReadOnlySpan<byte> table, Vector<int> index0, Vector<int> index1, Vector<int> index2, Vector<int> index3)
     {
-        var length = new Vector<int>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index0), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index0, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index1), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index1, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index2), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index2, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index3), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index3, length), Gather_.IndexRangeError);
+        var length = new Vector<uint>((uint)table.Length);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index0), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index1), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index2), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index3), length), Gather_.IndexRangeError);
         fixed (byte* ptr = table)
         {
             return GatherUnsafe(ptr, index0, index1, index2, index3);
@@ -108,15 +104,11 @@ partial class VectorOp
     /// <exception cref="ArgumentException" />
     public static unsafe Vector<sbyte> Gather(ReadOnlySpan<sbyte> table, Vector<int> index0, Vector<int> index1, Vector<int> index2, Vector<int> index3)
     {
-        var length = new Vector<int>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index0), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index0, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index1), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index1, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index2), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index2, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index3), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index3, length), Gather_.IndexRangeError);
+        var length = new Vector<uint>((uint)table.Length);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index0), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index1), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index2), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index3), length), Gather_.IndexRangeError);
         fixed (sbyte* ptr = table)
         {
             return GatherUnsafe(ptr, index0, index1, index2, index3);
@@ -131,11 +123,9 @@ partial class VectorOp
     /// <exception cref="ArgumentException" />
     public static unsafe Vector<ushort> Gather(ReadOnlySpan<ushort> table, Vector<int> indexLo, Vector<int> indexHi)
     {
-        var length = new Vector<int>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, indexLo), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(indexLo, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, indexHi), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(indexHi, length), Gather_.IndexRangeError);
+        var length = new Vector<uint>((uint)table.Length);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(indexLo), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(indexHi), length), Gather_.IndexRangeError);
         fixed (ushort* ptr = table)
         {
             return GatherUnsafe(ptr, indexLo, indexHi);
@@ -150,11 +140,9 @@ partial class VectorOp
     /// <exception cref="ArgumentException" />
     public static unsafe Vector<short> Gather(ReadOnlySpan<short> table, Vector<int> indexLo, Vector<int> indexHi)
     {
-        var length = new Vector<int>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, indexLo), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(indexLo, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, indexHi), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(indexHi, length), Gather_.IndexRangeError);
+        var length = new Vector<uint>((uint)table.Length);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(indexLo), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(indexHi), length), Gather_.IndexRangeError);
         fixed (short* ptr = table)
         {
             return GatherUnsafe(ptr, indexLo, indexHi);
@@ -168,9 +156,8 @@ partial class VectorOp
     /// <exception cref="ArgumentException" />
     public static unsafe Vector<uint> Gather(ReadOnlySpan<uint> table, Vector<int> index)
     {
-        var length = new Vector<int>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index, length), Gather_.IndexRangeError);
+        var length = new Vector<uint>((uint)table.Length);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index), length), Gather_.IndexRangeError);
         fixed (uint* ptr = table)
         {
             return GatherUnsafe(ptr, index);
@@ -184,9 +171,8 @@ partial class VectorOp
     /// <exception cref="ArgumentException" />
     public static unsafe Vector<int> Gather(ReadOnlySpan<int> table, Vector<int> index)
     {
-        var length = new Vector<int>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index, length), Gather_.IndexRangeError);
+        var length = new Vector<uint>((uint)table.Length);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index), length), Gather_.IndexRangeError);
         fixed (int* ptr = table)
         {
             return GatherUnsafe(ptr, index);
@@ -200,9 +186,8 @@ partial class VectorOp
     /// <exception cref="ArgumentException" />
     public static unsafe Vector<float> Gather(ReadOnlySpan<float> table, Vector<int> index)
     {
-        var length = new Vector<int>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index, length), Gather_.IndexRangeError);
+        var length = new Vector<uint>((uint)table.Length);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index), length), Gather_.IndexRangeError);
         fixed (float* ptr = table)
         {
             return GatherUnsafe(ptr, index);
@@ -216,9 +201,8 @@ partial class VectorOp
     /// <exception cref="ArgumentException" />
     public static unsafe Vector<ulong> Gather(ReadOnlySpan<ulong> table, Vector<long> index)
     {
-        var length = new Vector<long>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index, length), Gather_.IndexRangeError);
+        var length = new Vector<ulong>((ulong)table.Length);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<long, ulong>(index), length), Gather_.IndexRangeError);
         fixed (ulong* ptr = table)
         {
             return GatherUnsafe(ptr, index);
@@ -232,9 +216,8 @@ partial class VectorOp
     /// <exception cref="ArgumentException" />
     public static unsafe Vector<long> Gather(ReadOnlySpan<long> table, Vector<long> index)
     {
-        var length = new Vector<long>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index, length), Gather_.IndexRangeError);
+        var length = new Vector<ulong>((ulong)table.Length);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<long, ulong>(index), length), Gather_.IndexRangeError);
         fixed (long* ptr = table)
         {
             return GatherUnsafe(ptr, index);
@@ -248,9 +231,8 @@ partial class VectorOp
     /// <exception cref="ArgumentException" />
     public static unsafe Vector<double> Gather(ReadOnlySpan<double> table, Vector<long> index)
     {
-        var length = new Vector<long>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index, length), Gather_.IndexRangeError);
+        var length = new Vector<ulong>((ulong)table.Length);
+        Guard.ValidArgument(LessThanAll(H.Reinterpret<long, ulong>(index), length), Gather_.IndexRangeError);
         fixed (double* ptr = table)
         {
             return GatherUnsafe(ptr, index);
