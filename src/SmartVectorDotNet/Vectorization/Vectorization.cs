@@ -42,7 +42,7 @@ public partial class Vectorization
                 s0 = Unsafe.ByteOffset(ref getUntypedRef(source[0]), ref getUntypedRef(source[0]));
                 s1 = Unsafe.ByteOffset(ref getUntypedRef(source[0]), ref getUntypedRef(source[source.Length - 1]));
                 d0 = Unsafe.ByteOffset(ref getUntypedRef(source[0]), ref getUntypedRef(destination[0]));
-                d1 = Unsafe.ByteOffset(ref getUntypedRef(source[0]), ref getUntypedRef(destination[source.Length - 1]));
+                d1 = Unsafe.ByteOffset(ref getUntypedRef(source[0]), ref getUntypedRef(destination[destination.Length - 1]));
 
                 // ensure no memory compaction
                 if (Unsafe.ByteOffset(ref getUntypedRef(source[0]), ref getUntypedRef(source[0])) == s0
