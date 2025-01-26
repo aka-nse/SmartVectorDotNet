@@ -27,7 +27,7 @@ partial class Vectorization
     public void Gather<T>(ReadOnlySpan<T> table, ReadOnlySpan<int> indices, Span<T> dst)
         where T : unmanaged
     {
-        Guard.ValidArgument(indices.Length == table.Length, "`indices` and `table` must have save length.");
+        Guard.ValidArgument(indices.Length == dst.Length, "`indices` and `dst` must have same length.");
         using var safeTableBuffer = EnsureSourceSafe(ref table, dst);
         GatherCore(table, indices, dst);
     }
