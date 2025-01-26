@@ -154,19 +154,6 @@ partial class VectorOp
     /// Looks up the table.
     /// </summary>
     /// <param name="ptr"></param>
-    /// <param name="index0"></param>
-    /// <param name="index1"></param>
-    /// <param name="index2"></param>
-    /// <param name="index3"></param>
-    /// <returns></returns>
-    /// <remarks> Note that this method will not validate buffer index. </remarks>
-    public static unsafe Vector<sbyte> GatherUnsafe(sbyte* ptr, Vector<int> index0, Vector<int> index1, Vector<int> index2, Vector<int> index3)
-        => H.Reinterpret<byte, sbyte>(GatherUnsafe((byte*)ptr, index0, index1, index2, index3));
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="ptr"></param>
     /// <param name="indexLo"></param>
     /// <param name="indexHi"></param>
     /// <returns></returns>
@@ -212,17 +199,6 @@ partial class VectorOp
     /// Looks up the table.
     /// </summary>
     /// <param name="ptr"></param>
-    /// <param name="indexLo"></param>
-    /// <param name="indexHi"></param>
-    /// <returns></returns>
-    /// <remarks> Note that this method will not validate buffer index. </remarks>
-    public static unsafe Vector<short> GatherUnsafe(short* ptr, Vector<int> indexLo, Vector<int> indexHi)
-        => H.Reinterpret<ushort, short>(GatherUnsafe((ushort*)ptr, indexLo, indexHi));
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="ptr"></param>
     /// <param name="index"></param>
     /// <returns></returns>
     /// <remarks> Note that this method will not validate buffer index. </remarks>
@@ -251,26 +227,6 @@ partial class VectorOp
             return GatherUnsafe(ptr, index_);
         }
     }
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="ptr"></param>
-    /// <param name="index"></param>
-    /// <returns></returns>
-    /// <remarks> Note that this method will not validate buffer index. </remarks>
-    public static unsafe Vector<int> GatherUnsafe(int* ptr, Vector<int> index)
-        => H.Reinterpret<uint, int>(GatherUnsafe((uint*)ptr, index));
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="ptr"></param>
-    /// <param name="index"></param>
-    /// <returns></returns>
-    /// <remarks> Note that this method will not validate buffer index. </remarks>
-    public static unsafe Vector<float> GatherUnsafe(float* ptr, Vector<int> index)
-        => H.Reinterpret<uint, float>(GatherUnsafe((uint*)ptr, index));
 
     /// <summary>
     /// Looks up the table.
@@ -312,26 +268,6 @@ partial class VectorOp
     /// <param name="index"></param>
     /// <returns></returns>
     /// <remarks> Note that this method will not validate buffer index. </remarks>
-    public static unsafe Vector<long> GatherUnsafe(long* ptr, Vector<long> index)
-        => H.Reinterpret<ulong, long>(GatherUnsafe((ulong*)ptr, index));
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="ptr"></param>
-    /// <param name="index"></param>
-    /// <returns></returns>
-    /// <remarks> Note that this method will not validate buffer index. </remarks>
-    public static unsafe Vector<double> GatherUnsafe(double* ptr, Vector<long> index)
-        => H.Reinterpret<ulong, double>(GatherUnsafe((ulong*)ptr, index));
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="ptr"></param>
-    /// <param name="index"></param>
-    /// <returns></returns>
-    /// <remarks> Note that this method will not validate buffer index. </remarks>
     public static unsafe Vector<nuint> GatherUnsafe(nuint* ptr, Vector<nint> index)
     {
         if (IntPtr.Size == 8)
@@ -363,207 +299,6 @@ partial class VectorOp
             return H.Reinterpret<uint, nint>(GatherUnsafe((uint*)ptr, H.Reinterpret<nint, int>(index)));
         }
         throw new NotSupportedException();
-    }
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="table"></param>
-    /// <param name="index0"></param>
-    /// <param name="index1"></param>
-    /// <param name="index2"></param>
-    /// <param name="index3"></param>
-    /// <returns></returns>
-    public static unsafe Vector<byte> Gather(ReadOnlySpan<byte> table, Vector<int> index0, Vector<int> index1, Vector<int> index2, Vector<int> index3)
-    {
-        var length = new Vector<int>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index0), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index1), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index2), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index3), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index0, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index1, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index2, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index3, length), Gather_.IndexRangeError);
-        fixed (byte* ptr = table)
-        {
-            return GatherUnsafe(ptr, index0, index1, index2, index3);
-        }
-    }
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="table"></param>
-    /// <param name="index0"></param>
-    /// <param name="index1"></param>
-    /// <param name="index2"></param>
-    /// <param name="index3"></param>
-    /// <returns></returns>
-    public static unsafe Vector<sbyte> Gather(ReadOnlySpan<sbyte> table, Vector<int> index0, Vector<int> index1, Vector<int> index2, Vector<int> index3)
-    {
-        var length = new Vector<int>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index0), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index1), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index2), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index3), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index0, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index1, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index2, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index3, length), Gather_.IndexRangeError);
-        fixed (sbyte* ptr = table)
-        {
-            return GatherUnsafe(ptr, index0, index1, index2, index3);
-        }
-    }
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="table"></param>
-    /// <param name="indexLo"></param>
-    /// <param name="indexHi"></param>
-    /// <returns></returns>
-    public static unsafe Vector<ushort> Gather(ReadOnlySpan<ushort> table, Vector<int> indexLo, Vector<int> indexHi)
-    {
-        var length = new Vector<int>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, indexLo), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, indexHi), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(indexLo, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(indexHi, length), Gather_.IndexRangeError);
-        fixed (ushort* ptr = table)
-        {
-            return GatherUnsafe(ptr, indexLo, indexHi);
-        }
-    }
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="table"></param>
-    /// <param name="indexLo"></param>
-    /// <param name="indexHi"></param>
-    /// <returns></returns>
-    /// <remarks> Note that this method will not validate buffer index. </remarks>
-    public static unsafe Vector<short> Gather(ReadOnlySpan<short> table, Vector<int> indexLo, Vector<int> indexHi)
-    {
-        var length = new Vector<int>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, indexLo), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanOrEqualAll(default, indexHi), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(indexLo, length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(indexHi, length), Gather_.IndexRangeError);
-        fixed (short* ptr = table)
-        {
-            return GatherUnsafe(ptr, indexLo, indexHi);
-        }
-    }
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="table"></param>
-    /// <param name="index"></param>
-    /// <returns></returns>
-    /// <remarks> Note that this method will not validate buffer index. </remarks>
-    public static unsafe Vector<uint> Gather(ReadOnlySpan<uint> table, Vector<int> index)
-    {
-        var length = new Vector<int>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index, length), Gather_.IndexRangeError);
-        fixed (uint* ptr = table)
-        {
-            return GatherUnsafe(ptr, index);
-        }
-    }
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="table"></param>
-    /// <param name="index"></param>
-    /// <returns></returns>
-    /// <remarks> Note that this method will not validate buffer index. </remarks>
-    public static unsafe Vector<int> Gather(ReadOnlySpan<int> table, Vector<int> index)
-    {
-        var length = new Vector<int>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index, length), Gather_.IndexRangeError);
-        fixed (int* ptr = table)
-        {
-            return GatherUnsafe(ptr, index);
-        }
-    }
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="table"></param>
-    /// <param name="index"></param>
-    /// <returns></returns>
-    /// <remarks> Note that this method will not validate buffer index. </remarks>
-    public static unsafe Vector<float> Gather(ReadOnlySpan<float> table, Vector<int> index)
-    {
-        var length = new Vector<int>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index, length), Gather_.IndexRangeError);
-        fixed (float* ptr = table)
-        {
-            return GatherUnsafe(ptr, index);
-        }
-    }
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="table"></param>
-    /// <param name="index"></param>
-    /// <returns></returns>
-    /// <remarks> Note that this method will not validate buffer index. </remarks>
-    public static unsafe Vector<ulong> Gather(ReadOnlySpan<ulong> table, Vector<long> index)
-    {
-        var length = new Vector<long>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index, length), Gather_.IndexRangeError);
-        fixed (ulong* ptr = table)
-        {
-            return GatherUnsafe(ptr, index);
-        }
-    }
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="table"></param>
-    /// <param name="index"></param>
-    /// <returns></returns>
-    /// <remarks> Note that this method will not validate buffer index. </remarks>
-    public static unsafe Vector<long> Gather(ReadOnlySpan<long> table, Vector<long> index)
-    {
-        var length = new Vector<long>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index, length), Gather_.IndexRangeError);
-        fixed (long* ptr = table)
-        {
-            return GatherUnsafe(ptr, index);
-        }
-    }
-
-    /// <summary>
-    /// Looks up the table.
-    /// </summary>
-    /// <param name="table"></param>
-    /// <param name="index"></param>
-    /// <returns></returns>
-    /// <remarks> Note that this method will not validate buffer index. </remarks>
-    public static unsafe Vector<double> Gather(ReadOnlySpan<double> table, Vector<long> index)
-    {
-        var length = new Vector<long>(table.Length);
-        Guard.ValidArgument(LessThanOrEqualAll(default, index), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(index, length), Gather_.IndexRangeError);
-        fixed (double* ptr = table)
-        {
-            return GatherUnsafe(ptr, index);
-        }
     }
 
     /// <summary>
