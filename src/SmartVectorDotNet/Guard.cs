@@ -120,6 +120,16 @@ internal static class Guard
 
     [DebuggerHidden]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void ValidRange(bool shouldBe, string message)
+    {
+        if (!shouldBe)
+        {
+            throw new ArgumentOutOfRangeException(message);
+        }
+    }
+
+    [DebuggerHidden]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ValidArgument(bool shouldBe, string message)
     {
         if (!shouldBe)

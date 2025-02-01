@@ -21,6 +21,28 @@ partial class VectorOp
     /// or<br/>
     /// <see cref="Vector{T}.Count"/> is less than 4.
     /// </exception>
+    /// <remarks>
+    /// example:
+    /// <code><![CDATA[
+    /// var x = new Vector<ulong>([0uL, 1uL, 2uL, 3uL]);
+    /// Console.WriteLine(VectorOp.Permute4(x, 0, 0, 0, 0));  // <0, 0, 0, 0>
+    /// Console.WriteLine(VectorOp.Permute4(x, 1, 1, 1, 1));  // <1, 1, 1, 1>
+    /// Console.WriteLine(VectorOp.Permute4(x, 2, 2, 2, 2));  // <2, 2, 2, 2>
+    /// Console.WriteLine(VectorOp.Permute4(x, 3, 3, 3, 3));  // <3, 3, 3, 3>
+    /// Console.WriteLine(VectorOp.Permute4(x, 0, 1, 2, 3));  // <0, 1, 2, 3>
+    /// Console.WriteLine(VectorOp.Permute4(x, 3, 2, 1, 0));  // <3, 2, 1, 0>
+    /// Console.WriteLine(VectorOp.Permute4(x, 4, 5, 6, 7));  // <0, 1, 2, 3> : b7-b2 are ignored
+    ///
+    /// var y = new Vector<uint>([0u, 1u, 2u, 3u, 4u, 5u, 6u, 7u]);
+    /// Console.WriteLine(VectorOp.Permute4(y, 0, 0, 0, 0));  // <0, 0, 0, 0, 4, 4, 4, 4>
+    /// Console.WriteLine(VectorOp.Permute4(y, 1, 1, 1, 1));  // <1, 1, 1, 1, 5, 5, 5, 5>
+    /// Console.WriteLine(VectorOp.Permute4(y, 2, 2, 2, 2));  // <2, 2, 2, 2, 6, 6, 6, 6>
+    /// Console.WriteLine(VectorOp.Permute4(y, 3, 3, 3, 3));  // <3, 3, 3, 3, 7, 7, 7, 7>
+    /// Console.WriteLine(VectorOp.Permute4(y, 0, 1, 2, 3));  // <0, 1, 2, 3, 4, 5, 6, 7>
+    /// Console.WriteLine(VectorOp.Permute4(y, 3, 2, 1, 0));  // <3, 2, 1, 0, 7, 6, 5, 4>
+    /// Console.WriteLine(VectorOp.Permute4(y, 4, 5, 6, 7));  // <0, 1, 2, 3, 4, 5, 6, 7> : b7-b2 are ignored
+    /// ]]></code>
+    /// </remarks>
     public static Vector<T> Permute4<T>(Vector<T> v, byte m0, byte m1, byte m2, byte m3)
         where T : unmanaged
     {
