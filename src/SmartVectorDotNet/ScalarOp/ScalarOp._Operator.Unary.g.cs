@@ -14,7 +14,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T UnaryPlus<T>(in T x)
+    public static T UnaryPlus<T>(T x)
         where T : unmanaged
     {
         if(typeof(T) == typeof(byte  )) return Reinterpret<sbyte , T>((sbyte )(+Reinterpret<T, sbyte >(x)));
@@ -39,7 +39,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T UnaryMinus<T>(in T x)
+    public static T UnaryMinus<T>(T x)
         where T : unmanaged
     {
         if(typeof(T) == typeof(byte  )) return Reinterpret<sbyte , T>((sbyte )(-Reinterpret<T, sbyte >(x)));
@@ -64,7 +64,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T Not<T>(in T x)
+    public static T Not<T>(T x)
         where T : unmanaged
     {
         if(typeof(T) == typeof(byte  )) throw new NotSupportedException();
@@ -89,7 +89,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T Complement<T>(in T x)
+    public static T Complement<T>(T x)
         where T : unmanaged
     {
         if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(~Reinterpret<T, byte  >(x)));

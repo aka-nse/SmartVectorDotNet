@@ -15,7 +15,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T Add<T>(in T x, in T y)
+    public static T Add<T>(T x, T y)
         where T : unmanaged
     {
         unchecked
@@ -44,7 +44,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T AddChecked<T>(in T x, in T y)
+    public static T AddChecked<T>(T x, T y)
         where T : unmanaged
     {
         checked
@@ -73,7 +73,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T Subtract<T>(in T x, in T y)
+    public static T Subtract<T>(T x, T y)
         where T : unmanaged
     {
         unchecked
@@ -102,7 +102,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SubtractChecked<T>(in T x, in T y)
+    public static T SubtractChecked<T>(T x, T y)
         where T : unmanaged
     {
         checked
@@ -131,7 +131,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T Multiply<T>(in T x, in T y)
+    public static T Multiply<T>(T x, T y)
         where T : unmanaged
     {
         unchecked
@@ -160,7 +160,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T MultiplyChecked<T>(in T x, in T y)
+    public static T MultiplyChecked<T>(T x, T y)
         where T : unmanaged
     {
         checked
@@ -189,7 +189,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T Divide<T>(in T x, in T y)
+    public static T Divide<T>(T x, T y)
         where T : unmanaged
     {
         unchecked
@@ -218,7 +218,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T Modulo<T>(in T x, in T y)
+    public static T Modulo<T>(T x, T y)
         where T : unmanaged
     {
         unchecked
@@ -248,7 +248,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T BitwiseOr<T>(in T x, in T y)
+    public static T BitwiseOr<T>(T x, T y)
         where T : unmanaged
     {
         unchecked
@@ -275,7 +275,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T BitwiseAnd<T>(in T x, in T y)
+    public static T BitwiseAnd<T>(T x, T y)
         where T : unmanaged
     {
         unchecked
@@ -302,7 +302,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T BitwiseXor<T>(in T x, in T y)
+    public static T BitwiseXor<T>(T x, T y)
         where T : unmanaged
     {
         unchecked

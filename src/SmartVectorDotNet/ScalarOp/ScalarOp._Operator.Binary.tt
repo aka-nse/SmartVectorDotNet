@@ -63,7 +63,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T <#=opname#><T>(in T x, in T y)
+    public static T <#=opname#><T>(T x, T y)
         where T : unmanaged
     {
         <#=isChecked ? "checked" : "unchecked"#>
@@ -86,7 +86,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T <#=opname#><T>(in T x, in T y)
+    public static T <#=opname#><T>(T x, T y)
         where T : unmanaged
     {
         <#=isChecked ? "checked" : "unchecked"#>

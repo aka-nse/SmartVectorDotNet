@@ -13,7 +13,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool Equals<T>(in T x, in T y)
+    public static bool Equals<T>(T x, T y)
         where T : unmanaged
     {
         if(typeof(T) == typeof(byte  )) return Reinterpret<T, byte  >(x) == Reinterpret<T, byte  >(y);
@@ -39,7 +39,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int Compare<T>(in T x, in T y)
+    public static int Compare<T>(T x, T y)
         where T : unmanaged
     {
         if(typeof(T) == typeof(byte  ))

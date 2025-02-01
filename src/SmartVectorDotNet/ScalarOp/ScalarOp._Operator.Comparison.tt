@@ -35,7 +35,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool Equals<T>(in T x, in T y)
+    public static bool Equals<T>(T x, T y)
         where T : unmanaged
     {
 <# foreach(var type in types) { #>
@@ -52,7 +52,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int Compare<T>(in T x, in T y)
+    public static int Compare<T>(T x, T y)
         where T : unmanaged
     {
 <# foreach(var type in types) { #>

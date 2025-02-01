@@ -14,7 +14,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T ShiftLeft<T>(in T x, int y)
+    public static T ShiftLeft<T>(T x, int y)
         where T : unmanaged
     {
         if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) << y));
@@ -40,7 +40,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T ShiftRight<T>(in T x, int y)
+    public static T ShiftRight<T>(T x, int y)
         where T : unmanaged
     {
         if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) >> y));

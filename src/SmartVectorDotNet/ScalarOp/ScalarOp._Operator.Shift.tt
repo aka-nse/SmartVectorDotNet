@@ -41,7 +41,7 @@ partial class ScalarOp
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T <#=opname#><T>(in T x, int y)
+    public static T <#=opname#><T>(T x, int y)
         where T : unmanaged
     {
 <# foreach(var type in types) { #>
