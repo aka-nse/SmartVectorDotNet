@@ -13,6 +13,9 @@ partial class ScalarOp
     /// <param name="x"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T UnaryPlus<T>(T x)
         where T : unmanaged
@@ -38,6 +41,9 @@ partial class ScalarOp
     /// <param name="x"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T UnaryMinus<T>(T x)
         where T : unmanaged
@@ -63,6 +69,9 @@ partial class ScalarOp
     /// <param name="x"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Not<T>(T x)
         where T : unmanaged
@@ -88,6 +97,9 @@ partial class ScalarOp
     /// <param name="x"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Complement<T>(T x)
         where T : unmanaged

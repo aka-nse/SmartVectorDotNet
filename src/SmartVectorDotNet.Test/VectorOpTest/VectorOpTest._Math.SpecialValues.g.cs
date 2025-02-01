@@ -51,7 +51,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Acos(operand);
                 var act = VectorOp.Acos<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -69,7 +69,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Acos(operand);
                 var act = VectorOp.Acos<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -121,7 +121,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Acosh(operand);
                 var act = VectorOp.Acosh<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -139,7 +139,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Acosh(operand);
                 var act = VectorOp.Acosh<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -191,7 +191,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Asin(operand);
                 var act = VectorOp.Asin<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -209,7 +209,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Asin(operand);
                 var act = VectorOp.Asin<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -261,7 +261,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Asinh(operand);
                 var act = VectorOp.Asinh<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -279,7 +279,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Asinh(operand);
                 var act = VectorOp.Asinh<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -331,7 +331,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Atan(operand);
                 var act = VectorOp.Atan<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -349,7 +349,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Atan(operand);
                 var act = VectorOp.Atan<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -397,7 +397,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Cos(operand);
                 var act = VectorOp.Cos<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -415,7 +415,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Cos(operand);
                 var act = VectorOp.Cos<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -467,7 +467,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Cosh(operand);
                 var act = VectorOp.Cosh<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -485,7 +485,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Cosh(operand);
                 var act = VectorOp.Cosh<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -537,7 +537,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Exp(operand);
                 var act = VectorOp.Exp<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -555,7 +555,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Exp(operand);
                 var act = VectorOp.Exp<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -607,7 +607,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Atanh(operand);
                 var act = VectorOp.Atanh<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -625,7 +625,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Atanh(operand);
                 var act = VectorOp.Atanh<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -677,7 +677,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Log(operand);
                 var act = VectorOp.Log<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -695,7 +695,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Log(operand);
                 var act = VectorOp.Log<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -747,7 +747,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Log10(operand);
                 var act = VectorOp.Log10<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -765,7 +765,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Log10(operand);
                 var act = VectorOp.Log10<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -817,7 +817,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Log2(operand);
                 var act = VectorOp.Log2<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -835,7 +835,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Log2(operand);
                 var act = VectorOp.Log2<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -883,7 +883,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Sin(operand);
                 var act = VectorOp.Sin<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -901,7 +901,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Sin(operand);
                 var act = VectorOp.Sin<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -953,7 +953,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Sinh(operand);
                 var act = VectorOp.Sinh<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -971,7 +971,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Sinh(operand);
                 var act = VectorOp.Sinh<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -1019,7 +1019,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Tan(operand);
                 var act = VectorOp.Tan<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -1037,7 +1037,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Tan(operand);
                 var act = VectorOp.Tan<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -1089,7 +1089,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Tanh(operand);
                 var act = VectorOp.Tanh<double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -1107,7 +1107,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.Tanh(operand);
                 var act = VectorOp.Tanh<float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {

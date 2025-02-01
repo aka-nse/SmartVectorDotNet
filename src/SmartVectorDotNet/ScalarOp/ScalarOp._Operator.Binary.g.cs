@@ -14,6 +14,9 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Add<T>(T x, T y)
         where T : unmanaged
@@ -43,6 +46,9 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T AddChecked<T>(T x, T y)
         where T : unmanaged
@@ -72,6 +78,9 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Subtract<T>(T x, T y)
         where T : unmanaged
@@ -101,6 +110,9 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T SubtractChecked<T>(T x, T y)
         where T : unmanaged
@@ -130,6 +142,9 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Multiply<T>(T x, T y)
         where T : unmanaged
@@ -159,6 +174,9 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T MultiplyChecked<T>(T x, T y)
         where T : unmanaged
@@ -188,11 +206,46 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Divide<T>(T x, T y)
         where T : unmanaged
     {
         unchecked
+        {
+            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) / Reinterpret<T, byte  >(y)));
+            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) / Reinterpret<T, ushort>(y)));
+            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) / Reinterpret<T, uint  >(y)));
+            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) / Reinterpret<T, ulong >(y)));
+            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) / Reinterpret<T, nuint >(y)));
+            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) / Reinterpret<T, sbyte >(y)));
+            if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) / Reinterpret<T, short >(y)));
+            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) / Reinterpret<T, int   >(y)));
+            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) / Reinterpret<T, long  >(y)));
+            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) / Reinterpret<T, nint  >(y)));
+            if(typeof(T) == typeof(float )) return Reinterpret<float , T>((float )(Reinterpret<T, float >(x) / Reinterpret<T, float >(y)));
+            if(typeof(T) == typeof(double)) return Reinterpret<double, T>((double)(Reinterpret<T, double>(x) / Reinterpret<T, double>(y)));
+        }
+        throw new NotSupportedException();
+    }
+
+
+    /// <summary> Operates <c>DivideChecked</c> unaly operation. </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T DivideChecked<T>(T x, T y)
+        where T : unmanaged
+    {
+        checked
         {
             if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) / Reinterpret<T, byte  >(y)));
             if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) / Reinterpret<T, ushort>(y)));
@@ -217,6 +270,9 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Modulo<T>(T x, T y)
         where T : unmanaged
@@ -247,6 +303,9 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T BitwiseOr<T>(T x, T y)
         where T : unmanaged
@@ -257,10 +316,12 @@ partial class ScalarOp
             if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) | Reinterpret<T, ushort>(y)));
             if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) | Reinterpret<T, uint  >(y)));
             if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) | Reinterpret<T, ulong >(y)));
+            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) | Reinterpret<T, nuint >(y)));
             if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) | Reinterpret<T, sbyte >(y)));
             if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) | Reinterpret<T, short >(y)));
             if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) | Reinterpret<T, int   >(y)));
             if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) | Reinterpret<T, long  >(y)));
+            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) | Reinterpret<T, nint  >(y)));
             if(typeof(T) == typeof(float )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) | Reinterpret<T, uint  >(y)));
             if(typeof(T) == typeof(double)) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) | Reinterpret<T, ulong >(y)));
         }
@@ -274,6 +335,9 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T BitwiseAnd<T>(T x, T y)
         where T : unmanaged
@@ -284,10 +348,12 @@ partial class ScalarOp
             if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) & Reinterpret<T, ushort>(y)));
             if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) & Reinterpret<T, uint  >(y)));
             if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) & Reinterpret<T, ulong >(y)));
+            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) & Reinterpret<T, nuint >(y)));
             if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) & Reinterpret<T, sbyte >(y)));
             if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) & Reinterpret<T, short >(y)));
             if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) & Reinterpret<T, int   >(y)));
             if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) & Reinterpret<T, long  >(y)));
+            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) & Reinterpret<T, nint  >(y)));
             if(typeof(T) == typeof(float )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) & Reinterpret<T, uint  >(y)));
             if(typeof(T) == typeof(double)) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) & Reinterpret<T, ulong >(y)));
         }
@@ -301,6 +367,9 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T BitwiseXor<T>(T x, T y)
         where T : unmanaged
@@ -311,10 +380,12 @@ partial class ScalarOp
             if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) ^ Reinterpret<T, ushort>(y)));
             if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) ^ Reinterpret<T, uint  >(y)));
             if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) ^ Reinterpret<T, ulong >(y)));
+            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) ^ Reinterpret<T, nuint >(y)));
             if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) ^ Reinterpret<T, sbyte >(y)));
             if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) ^ Reinterpret<T, short >(y)));
             if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) ^ Reinterpret<T, int   >(y)));
             if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) ^ Reinterpret<T, long  >(y)));
+            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) ^ Reinterpret<T, nint  >(y)));
             if(typeof(T) == typeof(float )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) ^ Reinterpret<T, uint  >(y)));
             if(typeof(T) == typeof(double)) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) ^ Reinterpret<T, ulong >(y)));
         }

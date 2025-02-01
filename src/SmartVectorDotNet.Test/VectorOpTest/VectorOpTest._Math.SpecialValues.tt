@@ -78,7 +78,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.<#=func#>(operand);
                 var act = VectorOp.<#=func#><double>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {
@@ -96,7 +96,7 @@ public partial class VectorOpTest
             {
                 var exp = ScalarOp.<#=func#>(operand);
                 var act = VectorOp.<#=func#><float>(new (operand))[0];
-                Assert.Equal(exp, act, SpecialValueComparer.Instance);
+                Assert.Equal(exp, act, FloatNumberComparer.Instance);
             }
             catch(NotSupportedException)
             {

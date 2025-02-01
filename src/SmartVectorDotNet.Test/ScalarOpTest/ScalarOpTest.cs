@@ -9,52 +9,121 @@ namespace SmartVectorDotNet;
 
 public partial class ScalarOpTest
 {
-    [Fact]
-    public void Constants()
+    private readonly struct StubType;
+
+    private static object?[] TestCase<T>(bool isSupported, T input, T expected = default)
+        where T : unmanaged
+        => [isSupported, input, expected,];
+
+    private static object?[] TestCase<T>(bool isSupported, (T, T) input, T expected = default)
+        where T : unmanaged
+        => [isSupported, input, expected,];
+
+    private static object?[] TestCase<T>(bool isSupported, (T, T, T) input, T expected = default)
+        where T : unmanaged
+        => [isSupported, input, expected,];
+
+    private static void CommonTest<T>(Func<T, T> func, bool isSupported, T arg1, T expected)
+        where T : unmanaged
     {
-        Assert.Equal(MathF.Pow(2.0f, -23), ScalarOp.Const<float>.MachineEpsilon);
-        Assert.Equal(Math.Pow(2.0, -52), ScalarOp.Const<double>.MachineEpsilon);
-
-        Assert.Equal(MathF.Pow(2.0f, -126), ScalarOp.Const<float>.PositiveMinimumNormalizedNumber);
-        Assert.Equal(Math.Pow(2.0, -1022), ScalarOp.Const<double>.PositiveMinimumNormalizedNumber);
-    }
-
-    public static IEnumerable<object[]> DecomposeTestCases()
-    {
-        static object[] core(double x)
-            => new object[] { x, };
-
-        foreach(var i in new[] {1.0, -1.0})
+        if (isSupported)
         {
-            for(var j = -10; j <= 10; ++j)
-            {
-                var e = Math.Pow(10, j);
-                for(var k = 1.0; k < 10; k += 0.9)
-                {
-                    yield return core(i * e * k);
-                }
-            }
+            Assert.Equal(expected, func(arg1));
+        }
+        else
+        {
+            Assert.Throws<NotSupportedException>(() => func(arg1));
         }
     }
 
-    [Theory]
-    [MemberData(nameof(DecomposeTestCases))]
-    public void DecomposeTest(double x)
+    private static void CommonTest<T>(Func<T, T, T> func, bool isSupported, (T, T) args, T expected)
+        where T : unmanaged
     {
+        if (isSupported)
         {
-            ScalarOp.Decompose<double>(x, out var n, out var a);
-            Assert.True(1 <= Math.Abs(a));
-            Assert.True(Math.Abs(a) < 2);
-            Assert.Equal(n, Math.Truncate(n), 10);
-            Assert.Equal(x, Math.Pow(2, n) * a, 5);
+            Assert.Equal(expected, func(args.Item1, args.Item2));
         }
+        else
         {
-            var y = (float)x;
-            ScalarOp.Decompose<float>(y, out var n, out var a);
-            Assert.True(1 <= MathF.Abs(a));
-            Assert.True(MathF.Abs(a) < 2);
-            Assert.Equal(n, MathF.Truncate(n), 10);
-            Assert.Equal(y, MathF.Pow(2, n) * a, 5);
+            Assert.Throws<NotSupportedException>(() => func(args.Item1, args.Item2));
+        }
+    }
+
+    private static void CommonTest<T>(Func<T, T, T, T> func, bool isSupported, (T, T, T) args, T expected)
+        where T : unmanaged
+    {
+        if (isSupported)
+        {
+            Assert.Equal(expected, func(args.Item1, args.Item2, args.Item3));
+        }
+        else
+        {
+            Assert.Throws<NotSupportedException>(() => func(args.Item1, args.Item2, args.Item3));
+        }
+    }
+
+
+
+    private static object?[] TestCaseEx<T1, TResult>(bool isSupported, T1 input, TResult expected = default)
+        where T1 : unmanaged
+        where TResult : unmanaged
+        => [isSupported, input, expected,];
+
+    private static object?[] TestCaseEx<T1, T2, TResult>(bool isSupported, (T1, T2) input, TResult expected = default)
+        where T1 : unmanaged
+        where T2 : unmanaged
+        where TResult : unmanaged
+        => [isSupported, input, expected,];
+
+    private static object?[] TestCaseEx<T1, T2, T3, TResult>(bool isSupported, (T1, T2, T3) input, TResult expected = default)
+        where T1 : unmanaged
+        where T2 : unmanaged
+        where T3 : unmanaged
+        where TResult : unmanaged
+        => [isSupported, input, expected,];
+
+    private static void CommonTestEx<T1, TResult>(Func<T1, TResult> func, bool isSupported, T1 arg1, TResult expected)
+        where T1 : unmanaged
+        where TResult : unmanaged
+    {
+        if (isSupported)
+        {
+            Assert.Equal(expected, func(arg1));
+        }
+        else
+        {
+            Assert.Throws<NotSupportedException>(() => func(arg1));
+        }
+    }
+
+    private static void CommonTestEx<T1, T2, TResult>(Func<T1, T2, TResult> func, bool isSupported, (T1, T2) args, TResult expected)
+        where T1 : unmanaged
+        where T2 : unmanaged
+        where TResult : unmanaged
+    {
+        if (isSupported)
+        {
+            Assert.Equal(expected, func(args.Item1, args.Item2));
+        }
+        else
+        {
+            Assert.Throws<NotSupportedException>(() => func(args.Item1, args.Item2));
+        }
+    }
+
+    private static void CommonTestEx<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> func, bool isSupported, (T1, T2, T3) args, TResult expected)
+        where T1 : unmanaged
+        where T2 : unmanaged
+        where T3 : unmanaged
+        where TResult : unmanaged
+    {
+        if (isSupported)
+        {
+            Assert.Equal(expected, func(args.Item1, args.Item2, args.Item3));
+        }
+        else
+        {
+            Assert.Throws<NotSupportedException>(() => func(args.Item1, args.Item2, args.Item3));
         }
     }
 }

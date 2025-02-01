@@ -48,14 +48,14 @@
     </ItemGroup>
 
     <ItemGroup Label="ScalarOpTest/ScalarOpTest._Saturate">
-        <Compile Update="ScalarOpTest/ScalarOpTest._Saturate.g.cs">
+        <Compile Update="ScalarOpTest\ScalarOpTest._OperatorEx.Saturate.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarOpTest._Saturate.tt</DependentUpon>
+            <DependentUpon>ScalarOpTest._OperatorEx.Saturate.tt</DependentUpon>
         </Compile>
-        <None Update="ScalarOpTest/ScalarOpTest._Saturate.tt">
+        <None Update="ScalarOpTest\ScalarOpTest._OperatorEx.Saturate.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarOpTest._Saturate.g.cs</LastGenOutput>
+            <LastGenOutput>ScalarOpTest._OperatorEx.Saturate.g.cs</LastGenOutput>
         </None>
     </ItemGroup>
 
@@ -83,39 +83,39 @@
         </None>
     </ItemGroup>
 
-    <ItemGroup Label="VectorOpTest/VectorOpTest._SpecialValue_Unary">
-        <Compile Update="VectorOpTest/VectorOpTest._SpecialValue_Unary.g.cs">
+    <ItemGroup Label="VectorOpTest/VectorOpTest._Math.SpecialValues">
+        <Compile Update="VectorOpTest/VectorOpTest._Math.SpecialValues.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>VectorOpTest._SpecialValue_Unary.tt</DependentUpon>
+            <DependentUpon>VectorOpTest._Math.SpecialValues.tt</DependentUpon>
         </Compile>
-        <None Update="VectorOpTest/VectorOpTest._SpecialValue_Unary.tt">
+        <None Update="VectorOpTest/VectorOpTest._Math.SpecialValues.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorOpTest._SpecialValue_Unary.g.cs</LastGenOutput>
+            <LastGenOutput>VectorOpTest._Math.SpecialValues.g.cs</LastGenOutput>
         </None>
     </ItemGroup>
 
-    <ItemGroup Label="VectorOpTest/VectorOpTest._Saturate">
-        <Compile Update="VectorOpTest/VectorOpTest._Saturate.g.cs">
+    <ItemGroup Label="VectorOpTest/VectorOpTest._OperatorEx.Saturate">
+        <Compile Update="VectorOpTest/VectorOpTest._OperatorEx.Saturate.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>VectorOpTest._Saturate.tt</DependentUpon>
+            <DependentUpon>VectorOpTest._OperatorEx.Saturate.tt</DependentUpon>
         </Compile>
-        <None Update="VectorOpTest/VectorOpTest._Saturate.tt">
+        <None Update="VectorOpTest/VectorOpTest._OperatorEx.Saturate.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorOpTest._Saturate.g.cs</LastGenOutput>
+            <LastGenOutput>VectorOpTest._OperatorEx.Saturate.g.cs</LastGenOutput>
         </None>
     </ItemGroup>
 
-    <ItemGroup Label="VectorOpTest/VectorOpTest._Shift">
-        <Compile Update="VectorOpTest/VectorOpTest._Shift.g.cs">
+    <ItemGroup Label="VectorOpTest/VectorOpTest._Operator.Shift">
+        <Compile Update="VectorOpTest/VectorOpTest._Operator.Shift.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>VectorOpTest._Shift.tt</DependentUpon>
+            <DependentUpon>VectorOpTest._Operator.Shift.tt</DependentUpon>
         </Compile>
-        <None Update="VectorOpTest/VectorOpTest._Shift.tt">
+        <None Update="VectorOpTest/VectorOpTest._Operator.Shift.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorOpTest._Shift.g.cs</LastGenOutput>
+            <LastGenOutput>VectorOpTest._Operator.Shift.g.cs</LastGenOutput>
         </None>
     </ItemGroup>
 
