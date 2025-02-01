@@ -21,7 +21,7 @@ partial class ScalarOp
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    public static bool LessThanOrEquals<T>(T x, T y)
+    public static bool LessThanOrEqual<T>(T x, T y)
         where T : unmanaged
         => Compare(x, y) <= 0;
 
@@ -45,7 +45,7 @@ partial class ScalarOp
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    public static bool GreaterThanOrEquals<T>(T x, T y)
+    public static bool GreaterThanOrEqual<T>(T x, T y)
         where T : unmanaged
         => Compare(x, y) >= 0;
 }

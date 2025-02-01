@@ -23,7 +23,7 @@ public static class ArrayNumericUtils
     public static T[] Linspace<T>(T minInclusive, T maxExclusive, int pointNum)
         where T : unmanaged
     {
-        Guard.ValidArgument(OP.LessThanOrEquals(minInclusive, maxExclusive), "`minInclusive` must be less than or equals `maxExclusive`.");
+        Guard.ValidArgument(OP.LessThanOrEqual(minInclusive, maxExclusive), "`minInclusive` must be less than or equals `maxExclusive`.");
         Guard.NotNegative(pointNum);
 
         var stepNumAsT = OP.Convert<int, T>(pointNum);
@@ -50,7 +50,7 @@ public static class ArrayNumericUtils
     public static T[] LinspaceMaxInclusive<T>(T minInclusive, T maxInclusive, int pointNum)
         where T : unmanaged
     {
-        Guard.ValidArgument(OP.LessThanOrEquals(minInclusive, maxInclusive), "`minInclusive` must be less than or equals `maxInclusive`.");
+        Guard.ValidArgument(OP.LessThanOrEqual(minInclusive, maxInclusive), "`minInclusive` must be less than or equals `maxInclusive`.");
         Guard.NotNegative(pointNum);
 
         var stepNumAsT = OP.Convert<int, T>(Math.Max(pointNum - 1, 0));

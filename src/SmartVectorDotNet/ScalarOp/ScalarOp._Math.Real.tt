@@ -52,7 +52,7 @@ partial class ScalarOp
     /// <param name="<#=a#>"></param>
 <#     } #>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T <#=realOp#><T>(<#=realOp.ParamDecl#>)
         where T : unmanaged
     {
@@ -85,7 +85,7 @@ partial class ScalarOp
     /// <param name="<#=a#>"></param>
 <#     } #>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T <#=realOp#><T>(<#=realOp.ParamDecl#>)
         where T : unmanaged
     {

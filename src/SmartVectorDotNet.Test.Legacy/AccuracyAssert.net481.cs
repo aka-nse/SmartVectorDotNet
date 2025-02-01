@@ -11,7 +11,7 @@ partial class AccuracyAssert
     partial class Core<T>
     {
         public static partial bool IsValidAccuracy(T accuracy)
-            => ScalarOp.GreaterThanOrEquals(accuracy, ScalarOp.Const<T>.Zero);
+            => ScalarOp.GreaterThanOrEqual(accuracy, ScalarOp.Const<T>.Zero);
 
         public static partial bool GetIsAccurate(T accuracy, T error)
         {

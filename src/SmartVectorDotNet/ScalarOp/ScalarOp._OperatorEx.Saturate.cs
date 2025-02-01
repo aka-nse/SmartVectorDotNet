@@ -20,7 +20,7 @@ partial class ScalarOp
             typeof(T) == typeof(ulong) ||
             typeof(T) == typeof(nuint))
         {
-            return LessThanOrEquals(rhs, Subtract(Const<T>.MaxValue, lhs))
+            return LessThanOrEqual(rhs, Subtract(Const<T>.MaxValue, lhs))
                 ? add
                 : Const<T>.MaxValue;
         }
@@ -30,15 +30,15 @@ partial class ScalarOp
             typeof(T) == typeof(long) ||
             typeof(T) == typeof(nint))
         {
-            if (GreaterThanOrEquals(lhs, Const<T>.Zero))
+            if (GreaterThanOrEqual(lhs, Const<T>.Zero))
             {
-                return LessThanOrEquals(rhs, Subtract(Const<T>.MaxValue, lhs))
+                return LessThanOrEqual(rhs, Subtract(Const<T>.MaxValue, lhs))
                     ? add
                     : Const<T>.MaxValue;
             }
             else
             {
-                return LessThanOrEquals(Subtract(Const<T>.MinValue, lhs), rhs)
+                return LessThanOrEqual(Subtract(Const<T>.MinValue, lhs), rhs)
                     ? add
                     : Const<T>.MinValue;
             }
@@ -64,7 +64,7 @@ partial class ScalarOp
             typeof(T) == typeof(ulong) ||
             typeof(T) == typeof(nuint))
         {
-            return GreaterThanOrEquals(lhs, rhs)
+            return GreaterThanOrEqual(lhs, rhs)
                 ? sub
                 : Const<T>.MinValue;
         }
@@ -74,15 +74,15 @@ partial class ScalarOp
             typeof(T) == typeof(long) ||
             typeof(T) == typeof(nint))
         {
-            if (GreaterThanOrEquals(rhs, Const<T>.Zero))
+            if (GreaterThanOrEqual(rhs, Const<T>.Zero))
             {
-                return LessThanOrEquals(Add(Const<T>.MinValue, rhs), lhs)
+                return LessThanOrEqual(Add(Const<T>.MinValue, rhs), lhs)
                     ? sub
                     : Const<T>.MinValue;
             }
             else
             {
-                return LessThanOrEquals(lhs, Add(Const<T>.MaxValue, rhs))
+                return LessThanOrEqual(lhs, Add(Const<T>.MaxValue, rhs))
                     ? sub
                     : Const<T>.MaxValue;
             }

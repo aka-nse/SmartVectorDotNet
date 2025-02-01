@@ -9,6 +9,7 @@ using H = InternalHelpers;
 partial class ScalarOp
 {
     /// <summary> Counts <c>1</c> bit. </summary>
+    /// <exception cref="NotSupportedException" />
     public static T CountPopulation<T>(T x)
         where T : unmanaged
     {

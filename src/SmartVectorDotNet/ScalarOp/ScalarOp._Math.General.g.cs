@@ -13,7 +13,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Abs<T>(T x) where T : unmanaged
     {
         if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(Math.Abs(Reinterpret<T, sbyte >(x)));
@@ -44,7 +44,7 @@ partial class ScalarOp
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Min<T>(T x, T y) where T : unmanaged
     {
         if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(Math.Min(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
@@ -87,7 +87,7 @@ partial class ScalarOp
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Max<T>(T x, T y) where T : unmanaged
     {
         if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(Math.Max(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
@@ -131,7 +131,7 @@ partial class ScalarOp
     /// <param name="min"></param>
     /// <param name="max"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Clamp<T>(T value, T min, T max) where T : unmanaged
     {
         #if NET6_0_OR_GREATER

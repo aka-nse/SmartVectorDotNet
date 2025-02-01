@@ -1771,12 +1771,12 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    public void LessThanOrEquals<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    public void LessThanOrEqual<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        LessThanOrEqualsCore(x, y, ans);
+        LessThanOrEqualCore(x, y, ans);
     }
     
     /// <summary>
@@ -1788,12 +1788,12 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    public void LessThanOrEquals<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    public void LessThanOrEqual<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        LessThanOrEqualsCore(x, y, ans);
+        LessThanOrEqualCore(x, y, ans);
     }
     
     /// <summary>
@@ -1805,18 +1805,18 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    public void LessThanOrEquals<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    public void LessThanOrEqual<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        LessThanOrEqualsCore(x, y, ans);
+        LessThanOrEqualCore(x, y, ans);
     }
     
     /// <summary>
-    /// Core implementation for <see cref="LessThanOrEquals{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// Core implementation for <see cref="LessThanOrEqual{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
@@ -1831,15 +1831,15 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    protected internal virtual void LessThanOrEqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal virtual void LessThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThanOrEquals(x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+            ans[i] = ScalarOp.LessThanOrEqual(x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
     
     /// <summary>
-    /// Core implementation for <see cref="LessThanOrEquals{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// Core implementation for <see cref="LessThanOrEqual{T}(ReadOnlySpan{T}, T, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
@@ -1854,15 +1854,15 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    protected internal virtual void LessThanOrEqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    protected internal virtual void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThanOrEquals(x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+            ans[i] = ScalarOp.LessThanOrEqual(x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
     
     /// <summary>
-    /// Core implementation for <see cref="LessThanOrEquals{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// Core implementation for <see cref="LessThanOrEqual{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
@@ -1877,18 +1877,18 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    protected internal virtual void LessThanOrEqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal virtual void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThanOrEquals(x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+            ans[i] = ScalarOp.LessThanOrEqual(x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
 }
 
 partial class SimdVectorization
 {
     /// <inheritdoc />
-    protected internal override sealed void LessThanOrEqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal override sealed void LessThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
@@ -1909,7 +1909,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
-    protected internal override sealed void LessThanOrEqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    protected internal override sealed void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
@@ -1930,7 +1930,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
-    protected internal override sealed void LessThanOrEqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal override sealed void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
@@ -2161,12 +2161,12 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    public void GreaterThanOrEquals<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    public void GreaterThanOrEqual<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        GreaterThanOrEqualsCore(x, y, ans);
+        GreaterThanOrEqualCore(x, y, ans);
     }
     
     /// <summary>
@@ -2178,12 +2178,12 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    public void GreaterThanOrEquals<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    public void GreaterThanOrEqual<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        GreaterThanOrEqualsCore(x, y, ans);
+        GreaterThanOrEqualCore(x, y, ans);
     }
     
     /// <summary>
@@ -2195,18 +2195,18 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    public void GreaterThanOrEquals<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    public void GreaterThanOrEqual<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        GreaterThanOrEqualsCore(x, y, ans);
+        GreaterThanOrEqualCore(x, y, ans);
     }
     
     /// <summary>
-    /// Core implementation for <see cref="GreaterThanOrEquals{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// Core implementation for <see cref="GreaterThanOrEqual{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
@@ -2221,15 +2221,15 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    protected internal virtual void GreaterThanOrEqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal virtual void GreaterThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThanOrEquals(x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+            ans[i] = ScalarOp.GreaterThanOrEqual(x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
     
     /// <summary>
-    /// Core implementation for <see cref="GreaterThanOrEquals{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// Core implementation for <see cref="GreaterThanOrEqual{T}(ReadOnlySpan{T}, T, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
@@ -2244,15 +2244,15 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    protected internal virtual void GreaterThanOrEqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    protected internal virtual void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThanOrEquals(x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+            ans[i] = ScalarOp.GreaterThanOrEqual(x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
     
     /// <summary>
-    /// Core implementation for <see cref="GreaterThanOrEquals{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// Core implementation for <see cref="GreaterThanOrEqual{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
@@ -2267,18 +2267,18 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    protected internal virtual void GreaterThanOrEqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal virtual void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThanOrEquals(x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+            ans[i] = ScalarOp.GreaterThanOrEqual(x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
     }
 }
 
 partial class SimdVectorization
 {
     /// <inheritdoc />
-    protected internal override sealed void GreaterThanOrEqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal override sealed void GreaterThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
@@ -2299,7 +2299,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
-    protected internal override sealed void GreaterThanOrEqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    protected internal override sealed void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
@@ -2320,7 +2320,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
-    protected internal override sealed void GreaterThanOrEqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal override sealed void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
         var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);

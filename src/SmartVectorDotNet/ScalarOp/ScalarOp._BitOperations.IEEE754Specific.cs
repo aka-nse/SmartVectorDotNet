@@ -58,6 +58,7 @@ partial class ScalarOp
     /// <param name="x"></param>
     /// <param name="n"></param>
     /// <param name="a"></param>
+    /// <exception cref="NotSupportedException" />
     public static void Decompose<T>(T x, out T n, out T a)
         where T : unmanaged
     {
@@ -136,7 +137,7 @@ partial class ScalarOp
     /// <param name="n"></param>
     /// <param name="x"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Scale<T>(T n, T x)
         where T : unmanaged
     {
