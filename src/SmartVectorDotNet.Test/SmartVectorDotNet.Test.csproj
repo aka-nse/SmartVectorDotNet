@@ -35,6 +35,18 @@
         <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
     </ItemGroup>
 
+    <ItemGroup Label="ScalarOpTest/ScalarOpTest._Convert">
+        <Compile Update="ScalarOpTest/ScalarOpTest._Convert.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarOpTest._Convert.tt</DependentUpon>
+        </Compile>
+        <None Update="ScalarOpTest/ScalarOpTest._Convert.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarOpTest._Convert.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
     <ItemGroup Label="ScalarOpTest/ScalarOpTest._Saturate">
         <Compile Update="ScalarOpTest/ScalarOpTest._Saturate.g.cs">
             <DesignTime>True</DesignTime>
