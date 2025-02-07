@@ -46,6 +46,17 @@ partial class VectorOp
     public static Vector<T> Emulate<T, TOperation>(<#=GetVectorArguments(n)#>)
         where T : unmanaged
         where TOperation : unmanaged, IVectorEmulationOp<#=n#><T>
+        => Emulate(default(TOperation), <#=string.Join(", ", Enumerable.Range(1, n).Select(i => $"x{i}"))#>);
+        
+    /// <summary> Emulates vector operation with the specified scalar operation as possible as high performance. </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TOperation"></typeparam>
+    /// <param name="op"/><#=GetArgumentDocumentation(n)#>
+    /// <returns></returns>
+    [GeneratedCode("T4", null)<#=n < maxArgs ? ", ExcludeFromCodeCoverage" : ""#>]
+    public static Vector<T> Emulate<T, TOperation>(TOperation op, <#=GetVectorArguments(n)#>)
+        where T : unmanaged
+        where TOperation : unmanaged, IVectorEmulationOp<#=n#><T>
     {
         switch (Vector<T>.Count)
         {
@@ -53,7 +64,7 @@ partial class VectorOp
         case <#=size#>:
             return H.CreateVector<T>(stackalloc[] {
 <#          for(var j = 0; j < size; ++j) { #>
-                default(TOperation).Calculate(<#=GetEmulationParameters(n, j)#>),
+                op.Calculate(<#=GetEmulationParameters(n, j)#>),
 <#          } #>
             });
 <#      } #>
@@ -62,7 +73,7 @@ partial class VectorOp
                 var buffer = (stackalloc T[Vector<T>.Count]);
                 for (var i = 0; i < buffer.Length; ++i)
                 {
-                    buffer[i] = default(TOperation).Calculate(<#=GetEmulationParameters(n, "i")#>);
+                    buffer[i] = op.Calculate(<#=GetEmulationParameters(n, "i")#>);
                 }
                 return H.CreateVector<T>(buffer);
             }

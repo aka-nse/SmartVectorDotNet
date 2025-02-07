@@ -20,20 +20,16 @@ namespace SmartVectorDotNet;
 
 public partial class VectorOpTest
 {
+#if true  // Byte
 
-    public static IEnumerable<object[]> ByteTestCases()
-    {
-        static object[] core(byte[] valueArray, byte[] shiftCountArray)
-            => new object[] { valueArray, shiftCountArray };
-
-        var valueArray = new [] {(byte)0}.Concat(Enumerable.Repeat((byte)1, 256)).ToArray();
-        var shiftCountArray = new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray();
-        yield return core(valueArray, shiftCountArray);
-    }
-
-    [Theory(
-)]
-    [MemberData(nameof(ByteTestCases))]
+    public static TheoryData<byte[], byte[]> ByteTestCases() => new(){
+            {
+                new [] {(byte)0}.Concat(Enumerable.Repeat((byte)1, 256)).ToArray(),
+                new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray()
+            },
+        };
+        
+    [Theory, MemberData(nameof(ByteTestCases))]
     public void ShiftLeft_Byte(byte[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -44,10 +40,8 @@ public partial class VectorOpTest
             AssertEx.Equal(VectorOp.ShiftLeftFallback(vvalue, vshiftCount)[0], VectorOp.ShiftLeft<byte>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
         }
     }
-
-    [Theory(
-)]
-    [MemberData(nameof(ByteTestCases))]
+    
+    [Theory, MemberData(nameof(ByteTestCases))]
     public void ShiftRightLogical_Byte(byte[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -59,21 +53,25 @@ public partial class VectorOpTest
         }
     }
 
-
-
-    public static IEnumerable<object[]> UInt16TestCases()
+    [Fact]
+    public void ShiftRightArithmetic_Byte()
     {
-        static object[] core(ushort[] valueArray, byte[] shiftCountArray)
-            => new object[] { valueArray, shiftCountArray };
-
-        var valueArray = new [] {(ushort)0}.Concat(Enumerable.Repeat((ushort)1, 256)).ToArray();
-        var shiftCountArray = new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray();
-        yield return core(valueArray, shiftCountArray);
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightArithmetic<byte>(VectorOp.Const<byte>.Zero, 0));
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightArithmetic<byte>(VectorOp.Const<byte>.Zero, VectorOp.Const<byte>.Zero));
     }
 
-    [Theory(
-)]
-    [MemberData(nameof(UInt16TestCases))]
+#endif
+
+#if true  // UInt16
+
+    public static TheoryData<ushort[], byte[]> UInt16TestCases() => new(){
+            {
+                new [] {(ushort)0}.Concat(Enumerable.Repeat((ushort)1, 256)).ToArray(),
+                new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray()
+            },
+        };
+        
+    [Theory, MemberData(nameof(UInt16TestCases))]
     public void ShiftLeft_UInt16(ushort[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -84,10 +82,8 @@ public partial class VectorOpTest
             AssertEx.Equal(VectorOp.ShiftLeftFallback(vvalue, vshiftCount)[0], VectorOp.ShiftLeft<ushort>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
         }
     }
-
-    [Theory(
-)]
-    [MemberData(nameof(UInt16TestCases))]
+    
+    [Theory, MemberData(nameof(UInt16TestCases))]
     public void ShiftRightLogical_UInt16(ushort[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -99,21 +95,25 @@ public partial class VectorOpTest
         }
     }
 
-
-
-    public static IEnumerable<object[]> UInt32TestCases()
+    [Fact]
+    public void ShiftRightArithmetic_UInt16()
     {
-        static object[] core(uint[] valueArray, byte[] shiftCountArray)
-            => new object[] { valueArray, shiftCountArray };
-
-        var valueArray = new [] {(uint)0}.Concat(Enumerable.Repeat((uint)1, 256)).ToArray();
-        var shiftCountArray = new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray();
-        yield return core(valueArray, shiftCountArray);
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightArithmetic<ushort>(VectorOp.Const<ushort>.Zero, 0));
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightArithmetic<ushort>(VectorOp.Const<ushort>.Zero, VectorOp.Const<ushort>.Zero));
     }
 
-    [Theory(
-)]
-    [MemberData(nameof(UInt32TestCases))]
+#endif
+
+#if true  // UInt32
+
+    public static TheoryData<uint[], byte[]> UInt32TestCases() => new(){
+            {
+                new [] {(uint)0}.Concat(Enumerable.Repeat((uint)1, 256)).ToArray(),
+                new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray()
+            },
+        };
+        
+    [Theory, MemberData(nameof(UInt32TestCases))]
     public void ShiftLeft_UInt32(uint[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -124,10 +124,8 @@ public partial class VectorOpTest
             AssertEx.Equal(VectorOp.ShiftLeftFallback(vvalue, vshiftCount)[0], VectorOp.ShiftLeft<uint>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
         }
     }
-
-    [Theory(
-)]
-    [MemberData(nameof(UInt32TestCases))]
+    
+    [Theory, MemberData(nameof(UInt32TestCases))]
     public void ShiftRightLogical_UInt32(uint[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -139,21 +137,25 @@ public partial class VectorOpTest
         }
     }
 
-
-
-    public static IEnumerable<object[]> UInt64TestCases()
+    [Fact]
+    public void ShiftRightArithmetic_UInt32()
     {
-        static object[] core(ulong[] valueArray, byte[] shiftCountArray)
-            => new object[] { valueArray, shiftCountArray };
-
-        var valueArray = new [] {(ulong)0}.Concat(Enumerable.Repeat((ulong)1, 256)).ToArray();
-        var shiftCountArray = new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray();
-        yield return core(valueArray, shiftCountArray);
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightArithmetic<uint>(VectorOp.Const<uint>.Zero, 0));
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightArithmetic<uint>(VectorOp.Const<uint>.Zero, VectorOp.Const<uint>.Zero));
     }
 
-    [Theory(
-)]
-    [MemberData(nameof(UInt64TestCases))]
+#endif
+
+#if true  // UInt64
+
+    public static TheoryData<ulong[], byte[]> UInt64TestCases() => new(){
+            {
+                new [] {(ulong)0}.Concat(Enumerable.Repeat((ulong)1, 256)).ToArray(),
+                new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray()
+            },
+        };
+        
+    [Theory, MemberData(nameof(UInt64TestCases))]
     public void ShiftLeft_UInt64(ulong[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -164,10 +166,8 @@ public partial class VectorOpTest
             AssertEx.Equal(VectorOp.ShiftLeftFallback(vvalue, vshiftCount)[0], VectorOp.ShiftLeft<ulong>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
         }
     }
-
-    [Theory(
-)]
-    [MemberData(nameof(UInt64TestCases))]
+    
+    [Theory, MemberData(nameof(UInt64TestCases))]
     public void ShiftRightLogical_UInt64(ulong[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -179,24 +179,25 @@ public partial class VectorOpTest
         }
     }
 
-
-
-    public static IEnumerable<object[]> UIntPtrTestCases()
+    [Fact]
+    public void ShiftRightArithmetic_UInt64()
     {
-        static object[] core(nuint[] valueArray, byte[] shiftCountArray)
-            => new object[] { valueArray, shiftCountArray };
-
-        var valueArray = new [] {(nuint)0}.Concat(Enumerable.Repeat((nuint)1, 256)).ToArray();
-        var shiftCountArray = new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray();
-        yield return core(valueArray, shiftCountArray);
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightArithmetic<ulong>(VectorOp.Const<ulong>.Zero, 0));
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightArithmetic<ulong>(VectorOp.Const<ulong>.Zero, VectorOp.Const<ulong>.Zero));
     }
 
-    [Theory(
-#if !NET6_0_OR_GREATER
-        Skip = "Not supported framework"
 #endif
-)]
-    [MemberData(nameof(UIntPtrTestCases))]
+
+#if NET6_0_OR_GREATER  // UIntPtr
+
+    public static TheoryData<nuint[], byte[]> UIntPtrTestCases() => new(){
+            {
+                new [] {(nuint)0}.Concat(Enumerable.Repeat((nuint)1, 256)).ToArray(),
+                new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray()
+            },
+        };
+        
+    [Theory, MemberData(nameof(UIntPtrTestCases))]
     public void ShiftLeft_UIntPtr(nuint[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -207,13 +208,8 @@ public partial class VectorOpTest
             AssertEx.Equal(VectorOp.ShiftLeftFallback(vvalue, vshiftCount)[0], VectorOp.ShiftLeft<nuint>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
         }
     }
-
-    [Theory(
-#if !NET6_0_OR_GREATER
-        Skip = "Not supported framework"
-#endif
-)]
-    [MemberData(nameof(UIntPtrTestCases))]
+    
+    [Theory, MemberData(nameof(UIntPtrTestCases))]
     public void ShiftRightLogical_UIntPtr(nuint[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -225,21 +221,25 @@ public partial class VectorOpTest
         }
     }
 
-
-
-    public static IEnumerable<object[]> SByteTestCases()
+    [Fact]
+    public void ShiftRightArithmetic_UIntPtr()
     {
-        static object[] core(sbyte[] valueArray, byte[] shiftCountArray)
-            => new object[] { valueArray, shiftCountArray };
-
-        var valueArray = new [] {(sbyte)0}.Concat(Enumerable.Repeat((sbyte)1, 256)).ToArray();
-        var shiftCountArray = new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray();
-        yield return core(valueArray, shiftCountArray);
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightArithmetic<nuint>(VectorOp.Const<nuint>.Zero, 0));
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightArithmetic<nuint>(VectorOp.Const<nuint>.Zero, VectorOp.Const<nuint>.Zero));
     }
 
-    [Theory(
-)]
-    [MemberData(nameof(SByteTestCases))]
+#endif
+
+#if true  // SByte
+
+    public static TheoryData<sbyte[], byte[]> SByteTestCases() => new(){
+            {
+                new [] {(sbyte)0}.Concat(Enumerable.Repeat((sbyte)1, 256)).ToArray(),
+                new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray()
+            },
+        };
+        
+    [Theory, MemberData(nameof(SByteTestCases))]
     public void ShiftLeft_SByte(sbyte[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -250,10 +250,8 @@ public partial class VectorOpTest
             AssertEx.Equal(VectorOp.ShiftLeftFallback(vvalue, vshiftCount)[0], VectorOp.ShiftLeft<sbyte>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
         }
     }
-
-    [Theory(
-)]
-    [MemberData(nameof(SByteTestCases))]
+    
+    [Theory, MemberData(nameof(SByteTestCases))]
     public void ShiftRightLogical_SByte(sbyte[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -265,8 +263,7 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory(
-)]
+    [Theory]
     [MemberData(nameof(SByteTestCases))]
     public void ShiftRightArithmetic_SByte(sbyte[] valueArray, byte[] shiftCountArray)
     {
@@ -274,25 +271,23 @@ public partial class VectorOpTest
         {
             var vvalue = new Vector<sbyte>(value);
             var vshiftCount = new Vector<sbyte>((sbyte)shiftCount);
-            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, shiftCount )[0], VectorOp.ShiftRightLogical<sbyte>(vvalue, shiftCount )[0], $"shiftCount = {shiftCount}");
-            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, vshiftCount)[0], VectorOp.ShiftRightLogical<sbyte>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
+            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, shiftCount )[0], VectorOp.ShiftRightArithmetic<sbyte>(vvalue, shiftCount )[0], $"shiftCount = {shiftCount}");
+            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, vshiftCount)[0], VectorOp.ShiftRightArithmetic<sbyte>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
         }
     }
 
+#endif
 
-    public static IEnumerable<object[]> Int16TestCases()
-    {
-        static object[] core(short[] valueArray, byte[] shiftCountArray)
-            => new object[] { valueArray, shiftCountArray };
+#if true  // Int16
 
-        var valueArray = new [] {(short)0}.Concat(Enumerable.Repeat((short)1, 256)).ToArray();
-        var shiftCountArray = new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray();
-        yield return core(valueArray, shiftCountArray);
-    }
-
-    [Theory(
-)]
-    [MemberData(nameof(Int16TestCases))]
+    public static TheoryData<short[], byte[]> Int16TestCases() => new(){
+            {
+                new [] {(short)0}.Concat(Enumerable.Repeat((short)1, 256)).ToArray(),
+                new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray()
+            },
+        };
+        
+    [Theory, MemberData(nameof(Int16TestCases))]
     public void ShiftLeft_Int16(short[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -303,10 +298,8 @@ public partial class VectorOpTest
             AssertEx.Equal(VectorOp.ShiftLeftFallback(vvalue, vshiftCount)[0], VectorOp.ShiftLeft<short>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
         }
     }
-
-    [Theory(
-)]
-    [MemberData(nameof(Int16TestCases))]
+    
+    [Theory, MemberData(nameof(Int16TestCases))]
     public void ShiftRightLogical_Int16(short[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -318,8 +311,7 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory(
-)]
+    [Theory]
     [MemberData(nameof(Int16TestCases))]
     public void ShiftRightArithmetic_Int16(short[] valueArray, byte[] shiftCountArray)
     {
@@ -327,25 +319,23 @@ public partial class VectorOpTest
         {
             var vvalue = new Vector<short>(value);
             var vshiftCount = new Vector<short>((short)shiftCount);
-            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, shiftCount )[0], VectorOp.ShiftRightLogical<short>(vvalue, shiftCount )[0], $"shiftCount = {shiftCount}");
-            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, vshiftCount)[0], VectorOp.ShiftRightLogical<short>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
+            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, shiftCount )[0], VectorOp.ShiftRightArithmetic<short>(vvalue, shiftCount )[0], $"shiftCount = {shiftCount}");
+            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, vshiftCount)[0], VectorOp.ShiftRightArithmetic<short>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
         }
     }
 
+#endif
 
-    public static IEnumerable<object[]> Int32TestCases()
-    {
-        static object[] core(int[] valueArray, byte[] shiftCountArray)
-            => new object[] { valueArray, shiftCountArray };
+#if true  // Int32
 
-        var valueArray = new [] {(int)0}.Concat(Enumerable.Repeat((int)1, 256)).ToArray();
-        var shiftCountArray = new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray();
-        yield return core(valueArray, shiftCountArray);
-    }
-
-    [Theory(
-)]
-    [MemberData(nameof(Int32TestCases))]
+    public static TheoryData<int[], byte[]> Int32TestCases() => new(){
+            {
+                new [] {(int)0}.Concat(Enumerable.Repeat((int)1, 256)).ToArray(),
+                new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray()
+            },
+        };
+        
+    [Theory, MemberData(nameof(Int32TestCases))]
     public void ShiftLeft_Int32(int[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -356,10 +346,8 @@ public partial class VectorOpTest
             AssertEx.Equal(VectorOp.ShiftLeftFallback(vvalue, vshiftCount)[0], VectorOp.ShiftLeft<int>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
         }
     }
-
-    [Theory(
-)]
-    [MemberData(nameof(Int32TestCases))]
+    
+    [Theory, MemberData(nameof(Int32TestCases))]
     public void ShiftRightLogical_Int32(int[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -371,8 +359,7 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory(
-)]
+    [Theory]
     [MemberData(nameof(Int32TestCases))]
     public void ShiftRightArithmetic_Int32(int[] valueArray, byte[] shiftCountArray)
     {
@@ -380,25 +367,23 @@ public partial class VectorOpTest
         {
             var vvalue = new Vector<int>(value);
             var vshiftCount = new Vector<int>((int)shiftCount);
-            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, shiftCount )[0], VectorOp.ShiftRightLogical<int>(vvalue, shiftCount )[0], $"shiftCount = {shiftCount}");
-            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, vshiftCount)[0], VectorOp.ShiftRightLogical<int>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
+            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, shiftCount )[0], VectorOp.ShiftRightArithmetic<int>(vvalue, shiftCount )[0], $"shiftCount = {shiftCount}");
+            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, vshiftCount)[0], VectorOp.ShiftRightArithmetic<int>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
         }
     }
 
+#endif
 
-    public static IEnumerable<object[]> Int64TestCases()
-    {
-        static object[] core(long[] valueArray, byte[] shiftCountArray)
-            => new object[] { valueArray, shiftCountArray };
+#if true  // Int64
 
-        var valueArray = new [] {(long)0}.Concat(Enumerable.Repeat((long)1, 256)).ToArray();
-        var shiftCountArray = new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray();
-        yield return core(valueArray, shiftCountArray);
-    }
-
-    [Theory(
-)]
-    [MemberData(nameof(Int64TestCases))]
+    public static TheoryData<long[], byte[]> Int64TestCases() => new(){
+            {
+                new [] {(long)0}.Concat(Enumerable.Repeat((long)1, 256)).ToArray(),
+                new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray()
+            },
+        };
+        
+    [Theory, MemberData(nameof(Int64TestCases))]
     public void ShiftLeft_Int64(long[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -409,10 +394,8 @@ public partial class VectorOpTest
             AssertEx.Equal(VectorOp.ShiftLeftFallback(vvalue, vshiftCount)[0], VectorOp.ShiftLeft<long>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
         }
     }
-
-    [Theory(
-)]
-    [MemberData(nameof(Int64TestCases))]
+    
+    [Theory, MemberData(nameof(Int64TestCases))]
     public void ShiftRightLogical_Int64(long[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -424,8 +407,7 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory(
-)]
+    [Theory]
     [MemberData(nameof(Int64TestCases))]
     public void ShiftRightArithmetic_Int64(long[] valueArray, byte[] shiftCountArray)
     {
@@ -433,28 +415,23 @@ public partial class VectorOpTest
         {
             var vvalue = new Vector<long>(value);
             var vshiftCount = new Vector<long>((long)shiftCount);
-            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, shiftCount )[0], VectorOp.ShiftRightLogical<long>(vvalue, shiftCount )[0], $"shiftCount = {shiftCount}");
-            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, vshiftCount)[0], VectorOp.ShiftRightLogical<long>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
+            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, shiftCount )[0], VectorOp.ShiftRightArithmetic<long>(vvalue, shiftCount )[0], $"shiftCount = {shiftCount}");
+            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, vshiftCount)[0], VectorOp.ShiftRightArithmetic<long>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
         }
     }
 
-
-    public static IEnumerable<object[]> IntPtrTestCases()
-    {
-        static object[] core(nint[] valueArray, byte[] shiftCountArray)
-            => new object[] { valueArray, shiftCountArray };
-
-        var valueArray = new [] {(nint)0}.Concat(Enumerable.Repeat((nint)1, 256)).ToArray();
-        var shiftCountArray = new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray();
-        yield return core(valueArray, shiftCountArray);
-    }
-
-    [Theory(
-#if !NET6_0_OR_GREATER
-        Skip = "Not supported framework"
 #endif
-)]
-    [MemberData(nameof(IntPtrTestCases))]
+
+#if NET6_0_OR_GREATER  // IntPtr
+
+    public static TheoryData<nint[], byte[]> IntPtrTestCases() => new(){
+            {
+                new [] {(nint)0}.Concat(Enumerable.Repeat((nint)1, 256)).ToArray(),
+                new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray()
+            },
+        };
+        
+    [Theory, MemberData(nameof(IntPtrTestCases))]
     public void ShiftLeft_IntPtr(nint[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -465,13 +442,8 @@ public partial class VectorOpTest
             AssertEx.Equal(VectorOp.ShiftLeftFallback(vvalue, vshiftCount)[0], VectorOp.ShiftLeft<nint>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
         }
     }
-
-    [Theory(
-#if !NET6_0_OR_GREATER
-        Skip = "Not supported framework"
-#endif
-)]
-    [MemberData(nameof(IntPtrTestCases))]
+    
+    [Theory, MemberData(nameof(IntPtrTestCases))]
     public void ShiftRightLogical_IntPtr(nint[] valueArray, byte[] shiftCountArray)
     {
         foreach(var (value, shiftCount) in valueArray.Zip(shiftCountArray))
@@ -483,11 +455,7 @@ public partial class VectorOpTest
         }
     }
 
-    [Theory(
-#if !NET6_0_OR_GREATER
-        Skip = "Not supported framework"
-#endif
-)]
+    [Theory]
     [MemberData(nameof(IntPtrTestCases))]
     public void ShiftRightArithmetic_IntPtr(nint[] valueArray, byte[] shiftCountArray)
     {
@@ -495,10 +463,76 @@ public partial class VectorOpTest
         {
             var vvalue = new Vector<nint>(value);
             var vshiftCount = new Vector<nint>((nint)shiftCount);
-            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, shiftCount )[0], VectorOp.ShiftRightLogical<nint>(vvalue, shiftCount )[0], $"shiftCount = {shiftCount}");
-            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, vshiftCount)[0], VectorOp.ShiftRightLogical<nint>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
+            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, shiftCount )[0], VectorOp.ShiftRightArithmetic<nint>(vvalue, shiftCount )[0], $"shiftCount = {shiftCount}");
+            AssertEx.Equal(VectorOp.ShiftRightArithmeticFallback(vvalue, vshiftCount)[0], VectorOp.ShiftRightArithmetic<nint>(vvalue, vshiftCount)[0], $"shiftCount = {shiftCount}");
         }
     }
+
+#endif
+
+#if true  // Single
+
+    public static TheoryData<float[], byte[]> SingleTestCases() => new(){
+            {
+                new [] {(float)0}.Concat(Enumerable.Repeat((float)1, 256)).ToArray(),
+                new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray()
+            },
+        };
+        
+    [Fact]
+    public void ShiftLeft_Single()
+    {
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftLeft<float>(VectorOp.Const<float>.Zero, 0));
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftLeft<float>(VectorOp.Const<float>.Zero, VectorOp.Const<float>.Zero));
+    }
+    
+    [Fact]
+    public void ShiftRightLogical_Single()
+    {
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightLogical<float>(VectorOp.Const<float>.Zero, 0));
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightLogical<float>(VectorOp.Const<float>.Zero, VectorOp.Const<float>.Zero));
+    }
+
+    [Fact]
+    public void ShiftRightArithmetic_Single()
+    {
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightArithmetic<float>(VectorOp.Const<float>.Zero, 0));
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightArithmetic<float>(VectorOp.Const<float>.Zero, VectorOp.Const<float>.Zero));
+    }
+
+#endif
+
+#if true  // Double
+
+    public static TheoryData<double[], byte[]> DoubleTestCases() => new(){
+            {
+                new [] {(double)0}.Concat(Enumerable.Repeat((double)1, 256)).ToArray(),
+                new [] {(byte)0}.Concat(Enumerable.Range(0, 256).Select(x => (byte)x)).ToArray()
+            },
+        };
+        
+    [Fact]
+    public void ShiftLeft_Double()
+    {
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftLeft<double>(VectorOp.Const<double>.Zero, 0));
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftLeft<double>(VectorOp.Const<double>.Zero, VectorOp.Const<double>.Zero));
+    }
+    
+    [Fact]
+    public void ShiftRightLogical_Double()
+    {
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightLogical<double>(VectorOp.Const<double>.Zero, 0));
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightLogical<double>(VectorOp.Const<double>.Zero, VectorOp.Const<double>.Zero));
+    }
+
+    [Fact]
+    public void ShiftRightArithmetic_Double()
+    {
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightArithmetic<double>(VectorOp.Const<double>.Zero, 0));
+        Assert.Throws<NotSupportedException>(() => VectorOp.ShiftRightArithmetic<double>(VectorOp.Const<double>.Zero, VectorOp.Const<double>.Zero));
+    }
+
+#endif
 
 }
 
