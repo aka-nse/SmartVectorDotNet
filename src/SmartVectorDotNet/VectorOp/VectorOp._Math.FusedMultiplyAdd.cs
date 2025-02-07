@@ -80,7 +80,7 @@ partial class VectorOp
         return Emulate<T, FusedMultiplyAdd_<T>>(x, y, z);
     }
 
-    private struct FusedMultiplyAdd_<T> : IOperation3<T>
+    private struct FusedMultiplyAdd_<T> : IVectorEmulationOp3<T>
         where T : unmanaged
     {
         public readonly T Calculate(T x, T y, T z)
