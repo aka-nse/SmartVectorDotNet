@@ -9,6 +9,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
+    /// <exception cref="NotSupportedException" />
     public static T Sign<T>(T value)
         where T : unmanaged
     {
@@ -41,6 +42,7 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <param name="z"></param>
     /// <returns></returns>
+    /// <exception cref="NotSupportedException" />
     public static T FusedMultiplyAdd<T>(T x, T y, T z)
         where T : unmanaged
     {

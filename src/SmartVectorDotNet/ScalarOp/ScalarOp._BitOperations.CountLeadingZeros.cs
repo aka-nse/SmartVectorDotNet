@@ -10,6 +10,7 @@ using H = InternalHelpers;
 partial class ScalarOp
 {
     /// <summary> Count the number of leading zero bits in a mask. </summary>
+    /// <exception cref="NotSupportedException" />
     public static T CountLeadingZeros<T>(T x)
         where T : unmanaged
     {

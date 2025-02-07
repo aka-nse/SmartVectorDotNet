@@ -14,7 +14,7 @@ partial class ScalarOp
     /// <typeparam name="TTo"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static TTo Convert<TFrom, TTo>(TFrom x)
         where TFrom : unmanaged
         where TTo : unmanaged

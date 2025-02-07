@@ -40,9 +40,9 @@ public partial class VectorizationTest
             new Binary_BitwiseXor(),
             new Binary_Equals(),
             new Binary_LessThan(),
-            new Binary_LessThanOrEquals(),
+            new Binary_LessThanOrEqual(),
             new Binary_GreaterThan(),
-            new Binary_GreaterThanOrEquals(),
+            new Binary_GreaterThanOrEqual(),
             new Binary_AddSaturate(),
             new Binary_SubtractSaturate(),
             new Binary_Atan2(),
@@ -230,11 +230,11 @@ public partial class VectorizationTest
         protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) => vectorization.LessThan<T>(x, y, result);
     }
 
-    private class Binary_LessThanOrEquals : BinaryOperatorTestSuite
+    private class Binary_LessThanOrEqual : BinaryOperatorTestSuite
     {
-        protected override void Operate<T>(Vectorization vectorization, T x, ReadOnlySpan<T> y, Span<T> result) => vectorization.LessThanOrEquals<T>(x, y, result);
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, T y, Span<T> result) => vectorization.LessThanOrEquals<T>(x, y, result);
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) => vectorization.LessThanOrEquals<T>(x, y, result);
+        protected override void Operate<T>(Vectorization vectorization, T x, ReadOnlySpan<T> y, Span<T> result) => vectorization.LessThanOrEqual<T>(x, y, result);
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, T y, Span<T> result) => vectorization.LessThanOrEqual<T>(x, y, result);
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) => vectorization.LessThanOrEqual<T>(x, y, result);
     }
 
     private class Binary_GreaterThan : BinaryOperatorTestSuite
@@ -244,11 +244,11 @@ public partial class VectorizationTest
         protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) => vectorization.GreaterThan<T>(x, y, result);
     }
 
-    private class Binary_GreaterThanOrEquals : BinaryOperatorTestSuite
+    private class Binary_GreaterThanOrEqual : BinaryOperatorTestSuite
     {
-        protected override void Operate<T>(Vectorization vectorization, T x, ReadOnlySpan<T> y, Span<T> result) => vectorization.GreaterThanOrEquals<T>(x, y, result);
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, T y, Span<T> result) => vectorization.GreaterThanOrEquals<T>(x, y, result);
-        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) => vectorization.GreaterThanOrEquals<T>(x, y, result);
+        protected override void Operate<T>(Vectorization vectorization, T x, ReadOnlySpan<T> y, Span<T> result) => vectorization.GreaterThanOrEqual<T>(x, y, result);
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, T y, Span<T> result) => vectorization.GreaterThanOrEqual<T>(x, y, result);
+        protected override void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) => vectorization.GreaterThanOrEqual<T>(x, y, result);
     }
 
     private class Binary_AddSaturate : BinaryOperatorTestSuite

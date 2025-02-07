@@ -34,7 +34,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Abs<T>(T x) where T : unmanaged
     {
 <# foreach(var type in types.Where(type => type.IsAbsSupported)) { #>
@@ -62,7 +62,7 @@ partial class ScalarOp
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Min<T>(T x, T y) where T : unmanaged
     {
 <# foreach(var type in types.Where(type => type.IsMinMaxSupported)) { #>
@@ -98,7 +98,7 @@ partial class ScalarOp
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Max<T>(T x, T y) where T : unmanaged
     {
 <# foreach(var type in types.Where(type => type.IsMinMaxSupported)) { #>
@@ -135,7 +135,7 @@ partial class ScalarOp
     /// <param name="min"></param>
     /// <param name="max"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Clamp<T>(T value, T min, T max) where T : unmanaged
     {
         #if NET6_0_OR_GREATER

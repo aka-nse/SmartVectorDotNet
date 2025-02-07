@@ -57,10 +57,20 @@ internal static class InternalHelpers
         => ref Unsafe.As<TFrom, TTo>(ref Unsafe.AsRef(in x));
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref TTo ReinterpretMutable<TFrom, TTo>(ref TFrom x)
+        => ref Unsafe.As<TFrom, TTo>(ref x);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Vector<TTo> Reinterpret<TFrom, TTo>(in Vector<TFrom> x)
         where TFrom : unmanaged
         where TTo : unmanaged
         => ref Unsafe.As<Vector<TFrom>, Vector<TTo>>(ref Unsafe.AsRef(in x));
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ref Vector<TTo> ReinterpretMutable<TFrom, TTo>(ref Vector<TFrom> x)
+        where TFrom : unmanaged
+        where TTo : unmanaged
+        => ref Unsafe.As<Vector<TFrom>, Vector<TTo>>(ref x);
 
 #if NET6_0_OR_GREATER
 

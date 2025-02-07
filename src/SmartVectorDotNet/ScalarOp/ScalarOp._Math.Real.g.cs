@@ -13,7 +13,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Sqrt<T>(T d)
         where T : unmanaged
     {
@@ -37,7 +37,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Cos<T>(T d)
         where T : unmanaged
     {
@@ -61,7 +61,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Sin<T>(T d)
         where T : unmanaged
     {
@@ -85,7 +85,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Tan<T>(T d)
         where T : unmanaged
     {
@@ -109,7 +109,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Cosh<T>(T d)
         where T : unmanaged
     {
@@ -133,7 +133,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Sinh<T>(T d)
         where T : unmanaged
     {
@@ -157,7 +157,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Tanh<T>(T d)
         where T : unmanaged
     {
@@ -181,7 +181,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Acos<T>(T d)
         where T : unmanaged
     {
@@ -205,7 +205,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Asin<T>(T d)
         where T : unmanaged
     {
@@ -229,7 +229,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Atan<T>(T d)
         where T : unmanaged
     {
@@ -254,7 +254,7 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <param name="x"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Atan2<T>(T y, T x)
         where T : unmanaged
     {
@@ -280,7 +280,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Ceiling<T>(T d)
         where T : unmanaged
     {
@@ -304,7 +304,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Floor<T>(T d)
         where T : unmanaged
     {
@@ -328,7 +328,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Exp<T>(T d)
         where T : unmanaged
     {
@@ -353,7 +353,7 @@ partial class ScalarOp
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Pow<T>(T x, T y)
         where T : unmanaged
     {
@@ -379,7 +379,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Log<T>(T d)
         where T : unmanaged
     {
@@ -404,7 +404,7 @@ partial class ScalarOp
     /// <param name="d"></param>
     /// <param name="newBase"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Log<T>(T d, T newBase)
         where T : unmanaged
     {
@@ -430,7 +430,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Log10<T>(T d)
         where T : unmanaged
     {
@@ -454,7 +454,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Round<T>(T d)
         where T : unmanaged
     {
@@ -478,7 +478,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Truncate<T>(T d)
         where T : unmanaged
     {
@@ -503,7 +503,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Acosh<T>(T d)
         where T : unmanaged
     {
@@ -531,7 +531,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Asinh<T>(T d)
         where T : unmanaged
     {
@@ -559,7 +559,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Atanh<T>(T d)
         where T : unmanaged
     {
@@ -587,7 +587,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Cbrt<T>(T d)
         where T : unmanaged
     {
@@ -615,7 +615,7 @@ partial class ScalarOp
     /// <typeparam name="T"></typeparam>
     /// <param name="d"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
+    /// <exception cref="NotSupportedException" />
     public static T Log2<T>(T d)
         where T : unmanaged
     {
