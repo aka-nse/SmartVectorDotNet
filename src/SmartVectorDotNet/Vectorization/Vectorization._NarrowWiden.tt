@@ -26,6 +26,7 @@ var widens = new MethodDefinition[]
 #>
 #nullable enable
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -45,6 +46,7 @@ partial class Vectorization
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Narrow(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
@@ -65,6 +67,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void NarrowCore(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -75,6 +78,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void NarrowCore(ReadOnlySpan<<#=method.TFrom#>> x, Span<<#=method.TTo#>> ans)
     {
         var vectorX = MemoryMarshal.Cast<<#=method.TFrom#>, Vector<<#=method.TFrom#>>>(x);

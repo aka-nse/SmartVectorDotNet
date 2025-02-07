@@ -6,6 +6,7 @@
 <#@ output extension=".g.cs" #>
 #nullable enable
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -21,6 +22,7 @@ namespace SmartVectorDotNet;
 /// This interface shall be implemented on struct type.
 /// </summary>
 /// <typeparam name="T"></typeparam>
+[GeneratedCode("T4", null)]
 public interface IVectorFormula<#=i#><T>
     where T : unmanaged
 {
@@ -55,7 +57,7 @@ partial class Vectorization
 <#   } #>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
-    
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(<#=CommaSeparated(1, i, j => $"ReadOnlySpan<T> x{j}")#>, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula<#=i#><T>
@@ -81,6 +83,7 @@ partial class Vectorization
 <#   } #>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ref TFormula formula, <#=CommaSeparated(1, i, j => $"ReadOnlySpan<T> x{j}")#>, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula<#=i#><T>
@@ -114,6 +117,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, <#=CommaSeparated(1, i, j => $"ReadOnlySpan<T> x{j}")#>, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula<#=i#><T>
@@ -127,6 +131,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, <#=CommaSeparated(1, i, j => $"ReadOnlySpan<T> x{j}")#>, Span<T> ans)
     {
 <# for(var j = 1; j <= i; ++j) { #>

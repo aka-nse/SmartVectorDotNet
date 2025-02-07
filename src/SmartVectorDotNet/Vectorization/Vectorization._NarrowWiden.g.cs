@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -18,6 +19,7 @@ partial class Vectorization
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Narrow(ReadOnlySpan<ushort> x, Span<byte> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
@@ -38,6 +40,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void NarrowCore(ReadOnlySpan<ushort> x, Span<byte> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -48,6 +51,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void NarrowCore(ReadOnlySpan<ushort> x, Span<byte> ans)
     {
         var vectorX = MemoryMarshal.Cast<ushort, Vector<ushort>>(x);
@@ -80,6 +84,7 @@ partial class Vectorization
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Narrow(ReadOnlySpan<uint> x, Span<ushort> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
@@ -100,6 +105,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void NarrowCore(ReadOnlySpan<uint> x, Span<ushort> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -110,6 +116,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void NarrowCore(ReadOnlySpan<uint> x, Span<ushort> ans)
     {
         var vectorX = MemoryMarshal.Cast<uint, Vector<uint>>(x);
@@ -142,6 +149,7 @@ partial class Vectorization
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Narrow(ReadOnlySpan<ulong> x, Span<uint> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
@@ -162,6 +170,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void NarrowCore(ReadOnlySpan<ulong> x, Span<uint> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -172,6 +181,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void NarrowCore(ReadOnlySpan<ulong> x, Span<uint> ans)
     {
         var vectorX = MemoryMarshal.Cast<ulong, Vector<ulong>>(x);
@@ -204,6 +214,7 @@ partial class Vectorization
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Narrow(ReadOnlySpan<short> x, Span<sbyte> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
@@ -224,6 +235,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void NarrowCore(ReadOnlySpan<short> x, Span<sbyte> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -234,6 +246,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void NarrowCore(ReadOnlySpan<short> x, Span<sbyte> ans)
     {
         var vectorX = MemoryMarshal.Cast<short, Vector<short>>(x);
@@ -266,6 +279,7 @@ partial class Vectorization
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Narrow(ReadOnlySpan<int> x, Span<short> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
@@ -286,6 +300,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void NarrowCore(ReadOnlySpan<int> x, Span<short> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -296,6 +311,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void NarrowCore(ReadOnlySpan<int> x, Span<short> ans)
     {
         var vectorX = MemoryMarshal.Cast<int, Vector<int>>(x);
@@ -328,6 +344,7 @@ partial class Vectorization
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Narrow(ReadOnlySpan<long> x, Span<int> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
@@ -348,6 +365,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void NarrowCore(ReadOnlySpan<long> x, Span<int> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
@@ -358,6 +376,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void NarrowCore(ReadOnlySpan<long> x, Span<int> ans)
     {
         var vectorX = MemoryMarshal.Cast<long, Vector<long>>(x);

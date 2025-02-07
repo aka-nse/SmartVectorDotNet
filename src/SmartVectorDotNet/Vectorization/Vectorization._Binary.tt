@@ -33,6 +33,7 @@ var operations = new MethodDef[]
 };
 #>
 #nullable enable
+using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -46,6 +47,7 @@ namespace SmartVectorDotNet;
 partial class Vectorization
 {
     <# DocumentPublic(methodName, arg1, arg2); #>
+    [GeneratedCode("T4", null)]
     public void <#=methodName#><T>(T <#=arg1#>, ReadOnlySpan<T> <#=arg2#>, Span<T> ans)
         where T : unmanaged
     {
@@ -55,6 +57,7 @@ partial class Vectorization
     }
     
     <# DocumentPublic(methodName, arg1, arg2); #>
+    [GeneratedCode("T4", null)]
     public void <#=methodName#><T>(ReadOnlySpan<T> <#=arg1#>, T <#=arg2#>, Span<T> ans)
         where T : unmanaged
     {
@@ -64,6 +67,7 @@ partial class Vectorization
     }
     
     <# DocumentPublic(methodName, arg1, arg2); #>
+    [GeneratedCode("T4", null)]
     public void <#=methodName#><T>(ReadOnlySpan<T> <#=arg1#>, ReadOnlySpan<T> <#=arg2#>, Span<T> ans)
         where T : unmanaged
     {
@@ -75,6 +79,7 @@ partial class Vectorization
     }
     
     <# DocumentCore(methodName, $"{methodName}{{T}}(T, ReadOnlySpan{{T}}, Span{{T}})", arg1, arg2); #>
+    [GeneratedCode("T4", null)]
     protected internal virtual void <#=methodName#>Core<T>(T <#=arg1#>, ReadOnlySpan<T> <#=arg2#>, Span<T> ans)
         where T : unmanaged
     {
@@ -83,6 +88,7 @@ partial class Vectorization
     }
     
     <# DocumentCore(methodName, $"{methodName}{{T}}(ReadOnlySpan{{T}}, T, Span{{T}})", arg1, arg2); #>
+    [GeneratedCode("T4", null)]
     protected internal virtual void <#=methodName#>Core<T>(ReadOnlySpan<T> <#=arg1#>, T <#=arg2#>, Span<T> ans)
         where T : unmanaged
     {
@@ -91,6 +97,7 @@ partial class Vectorization
     }
     
     <# DocumentCore(methodName, $"{methodName}{{T}}(ReadOnlySpan{{T}}, ReadOnlySpan{{T}}, Span{{T}})", arg1, arg2); #>
+    [GeneratedCode("T4", null)]
     protected internal virtual void <#=methodName#>Core<T>(ReadOnlySpan<T> <#=arg1#>, ReadOnlySpan<T> <#=arg2#>, Span<T> ans)
         where T : unmanaged
     {
@@ -102,6 +109,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void <#=methodName#>Core<T>(T <#=arg1#>, ReadOnlySpan<T> <#=arg2#>, Span<T> ans)
     {
         var vectorX = new Vector<T>(<#=arg1#>);
@@ -123,6 +131,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void <#=methodName#>Core<T>(ReadOnlySpan<T> <#=arg1#>, T <#=arg2#>, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(<#=arg1#>);
@@ -144,6 +153,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void <#=methodName#>Core<T>(ReadOnlySpan<T> <#=arg1#>, ReadOnlySpan<T> <#=arg2#>, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(<#=arg1#>);
