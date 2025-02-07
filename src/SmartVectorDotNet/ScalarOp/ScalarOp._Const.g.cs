@@ -37,6 +37,8 @@ partial class ScalarOp
         [GeneratedCode("T4", null)]
         static Const()
         {
+            TrueValue = Vector.Equals(Vector<T>.Zero, Vector<T>.Zero)[0];
+            FalseValue = Vector.Equals(Vector<T>.Zero, Vector<T>.One)[0];
             if(typeof(T) == typeof(nuint))
             {
                 Zero = Reinterpret<nuint, T>(0);
@@ -171,8 +173,6 @@ partial class ScalarOp
                 Msb = Reinterpret<ulong, T>((ulong)(1uL << (sizeof(ulong) * 8 - 1)));
                 Lsb = Reinterpret<ulong, T>((ulong)1);
             }
-            TrueValue = VectorOp.Const<T>.TrueValue[0];
-            FalseValue = VectorOp.Const<T>.FalseValue[0];
         }
     }
 }
