@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -14,6 +15,7 @@ namespace SmartVectorDotNet;
 /// This interface shall be implemented on struct type.
 /// </summary>
 /// <typeparam name="T"></typeparam>
+[GeneratedCode("T4", null)]
 public interface IVectorFormula1<T>
     where T : unmanaged
 {
@@ -42,7 +44,7 @@ partial class Vectorization
     /// <param name="x1"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
-    
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula1<T>
@@ -62,6 +64,7 @@ partial class Vectorization
     /// <param name="x1"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula1<T>
@@ -89,6 +92,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula1<T>
@@ -102,6 +106,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
@@ -133,6 +138,7 @@ partial class SimdVectorization
 /// This interface shall be implemented on struct type.
 /// </summary>
 /// <typeparam name="T"></typeparam>
+[GeneratedCode("T4", null)]
 public interface IVectorFormula2<T>
     where T : unmanaged
 {
@@ -164,7 +170,7 @@ partial class Vectorization
     /// <param name="x2"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
-    
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula2<T>
@@ -187,6 +193,7 @@ partial class Vectorization
     /// <param name="x2"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula2<T>
@@ -217,6 +224,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula2<T>
@@ -230,6 +238,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
@@ -263,6 +272,7 @@ partial class SimdVectorization
 /// This interface shall be implemented on struct type.
 /// </summary>
 /// <typeparam name="T"></typeparam>
+[GeneratedCode("T4", null)]
 public interface IVectorFormula3<T>
     where T : unmanaged
 {
@@ -297,7 +307,7 @@ partial class Vectorization
     /// <param name="x3"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
-    
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula3<T>
@@ -323,6 +333,7 @@ partial class Vectorization
     /// <param name="x3"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula3<T>
@@ -356,6 +367,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula3<T>
@@ -369,6 +381,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
@@ -404,6 +417,7 @@ partial class SimdVectorization
 /// This interface shall be implemented on struct type.
 /// </summary>
 /// <typeparam name="T"></typeparam>
+[GeneratedCode("T4", null)]
 public interface IVectorFormula4<T>
     where T : unmanaged
 {
@@ -441,7 +455,7 @@ partial class Vectorization
     /// <param name="x4"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
-    
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula4<T>
@@ -470,6 +484,7 @@ partial class Vectorization
     /// <param name="x4"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula4<T>
@@ -506,6 +521,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula4<T>
@@ -519,6 +535,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
@@ -556,6 +573,7 @@ partial class SimdVectorization
 /// This interface shall be implemented on struct type.
 /// </summary>
 /// <typeparam name="T"></typeparam>
+[GeneratedCode("T4", null)]
 public interface IVectorFormula5<T>
     where T : unmanaged
 {
@@ -596,7 +614,7 @@ partial class Vectorization
     /// <param name="x5"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
-    
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula5<T>
@@ -628,6 +646,7 @@ partial class Vectorization
     /// <param name="x5"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula5<T>
@@ -667,6 +686,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula5<T>
@@ -680,6 +700,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
@@ -719,6 +740,7 @@ partial class SimdVectorization
 /// This interface shall be implemented on struct type.
 /// </summary>
 /// <typeparam name="T"></typeparam>
+[GeneratedCode("T4", null)]
 public interface IVectorFormula6<T>
     where T : unmanaged
 {
@@ -762,7 +784,7 @@ partial class Vectorization
     /// <param name="x6"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
-    
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula6<T>
@@ -797,6 +819,7 @@ partial class Vectorization
     /// <param name="x6"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula6<T>
@@ -839,6 +862,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula6<T>
@@ -852,6 +876,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
@@ -893,6 +918,7 @@ partial class SimdVectorization
 /// This interface shall be implemented on struct type.
 /// </summary>
 /// <typeparam name="T"></typeparam>
+[GeneratedCode("T4", null)]
 public interface IVectorFormula7<T>
     where T : unmanaged
 {
@@ -939,7 +965,7 @@ partial class Vectorization
     /// <param name="x7"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
-    
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula7<T>
@@ -977,6 +1003,7 @@ partial class Vectorization
     /// <param name="x7"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula7<T>
@@ -1022,6 +1049,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula7<T>
@@ -1035,6 +1063,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
@@ -1078,6 +1107,7 @@ partial class SimdVectorization
 /// This interface shall be implemented on struct type.
 /// </summary>
 /// <typeparam name="T"></typeparam>
+[GeneratedCode("T4", null)]
 public interface IVectorFormula8<T>
     where T : unmanaged
 {
@@ -1127,7 +1157,7 @@ partial class Vectorization
     /// <param name="x8"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
-    
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula8<T>
@@ -1168,6 +1198,7 @@ partial class Vectorization
     /// <param name="x8"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula8<T>
@@ -1216,6 +1247,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula8<T>
@@ -1229,6 +1261,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
@@ -1274,6 +1307,7 @@ partial class SimdVectorization
 /// This interface shall be implemented on struct type.
 /// </summary>
 /// <typeparam name="T"></typeparam>
+[GeneratedCode("T4", null)]
 public interface IVectorFormula9<T>
     where T : unmanaged
 {
@@ -1326,7 +1360,7 @@ partial class Vectorization
     /// <param name="x9"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
-    
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula9<T>
@@ -1370,6 +1404,7 @@ partial class Vectorization
     /// <param name="x9"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula9<T>
@@ -1421,6 +1456,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula9<T>
@@ -1434,6 +1470,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
@@ -1481,6 +1518,7 @@ partial class SimdVectorization
 /// This interface shall be implemented on struct type.
 /// </summary>
 /// <typeparam name="T"></typeparam>
+[GeneratedCode("T4", null)]
 public interface IVectorFormula10<T>
     where T : unmanaged
 {
@@ -1536,7 +1574,7 @@ partial class Vectorization
     /// <param name="x10"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
-    
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, ReadOnlySpan<T> x10, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula10<T>
@@ -1583,6 +1621,7 @@ partial class Vectorization
     /// <param name="x10"></param>
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, ReadOnlySpan<T> x10, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula10<T>
@@ -1637,6 +1676,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, ReadOnlySpan<T> x10, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula10<T>
@@ -1650,6 +1690,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, ReadOnlySpan<T> x10, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);

@@ -1,4 +1,5 @@
 #nullable enable
+using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -16,6 +17,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Add<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -33,6 +35,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Add<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -50,6 +53,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Add<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -76,6 +80,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void AddCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -99,6 +104,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void AddCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -122,6 +128,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void AddCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -133,6 +140,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void AddCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
@@ -154,6 +162,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void AddCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -175,6 +184,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void AddCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -211,6 +221,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Subtract<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -228,6 +239,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Subtract<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -245,6 +257,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Subtract<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -271,6 +284,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void SubtractCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -294,6 +308,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void SubtractCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -317,6 +332,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void SubtractCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -328,6 +344,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void SubtractCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
@@ -349,6 +366,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void SubtractCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -370,6 +388,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void SubtractCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -406,6 +425,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Multiply<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -423,6 +443,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Multiply<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -440,6 +461,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Multiply<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -466,6 +488,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void MultiplyCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -489,6 +512,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void MultiplyCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -512,6 +536,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void MultiplyCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -523,6 +548,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void MultiplyCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
@@ -544,6 +570,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void MultiplyCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -565,6 +592,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void MultiplyCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -601,6 +629,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Divide<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -618,6 +647,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Divide<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -635,6 +665,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Divide<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -661,6 +692,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void DivideCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -684,6 +716,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void DivideCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -707,6 +740,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void DivideCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -718,6 +752,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void DivideCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
@@ -739,6 +774,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void DivideCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -760,6 +796,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void DivideCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -796,6 +833,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void BitwiseAnd<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -813,6 +851,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void BitwiseAnd<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -830,6 +869,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void BitwiseAnd<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -856,6 +896,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void BitwiseAndCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -879,6 +920,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void BitwiseAndCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -902,6 +944,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void BitwiseAndCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -913,6 +956,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void BitwiseAndCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
@@ -934,6 +978,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void BitwiseAndCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -955,6 +1000,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void BitwiseAndCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -991,6 +1037,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void BitwiseOr<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1008,6 +1055,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void BitwiseOr<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1025,6 +1073,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void BitwiseOr<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1051,6 +1100,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void BitwiseOrCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1074,6 +1124,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void BitwiseOrCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1097,6 +1148,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void BitwiseOrCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1108,6 +1160,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void BitwiseOrCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
@@ -1129,6 +1182,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void BitwiseOrCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -1150,6 +1204,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void BitwiseOrCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -1186,6 +1241,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void BitwiseXor<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1203,6 +1259,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void BitwiseXor<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1220,6 +1277,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void BitwiseXor<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1246,6 +1304,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void BitwiseXorCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1269,6 +1328,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void BitwiseXorCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1292,6 +1352,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void BitwiseXorCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1303,6 +1364,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void BitwiseXorCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
@@ -1324,6 +1386,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void BitwiseXorCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -1345,6 +1408,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void BitwiseXorCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -1381,6 +1445,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Equals<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1398,6 +1463,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Equals<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1415,6 +1481,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Equals<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1441,6 +1508,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void EqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1464,6 +1532,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void EqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1487,6 +1556,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void EqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1498,6 +1568,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void EqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
@@ -1519,6 +1590,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void EqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -1540,6 +1612,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void EqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -1576,6 +1649,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void LessThan<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1593,6 +1667,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void LessThan<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1610,6 +1685,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void LessThan<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1636,6 +1712,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void LessThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1659,6 +1736,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void LessThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1682,6 +1760,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void LessThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1693,6 +1772,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void LessThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
@@ -1714,6 +1794,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void LessThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -1735,6 +1816,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void LessThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -1759,11 +1841,11 @@ partial class SimdVectorization
 }
 #endregion
 
-#region lessthanorequals
+#region lessthanorequal
 partial class Vectorization
 {
     /// <summary>
-    /// Operates lessthanorequals for each corresponding elements of operands.
+    /// Operates lessthanorequal for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The 1st operand elements. </param>
@@ -1771,6 +1853,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void LessThanOrEqual<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1780,7 +1863,7 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Operates lessthanorequals for each corresponding elements of operands.
+    /// Operates lessthanorequal for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The 1st operand elements. </param>
@@ -1788,6 +1871,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void LessThanOrEqual<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1797,7 +1881,7 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Operates lessthanorequals for each corresponding elements of operands.
+    /// Operates lessthanorequal for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The 1st operand elements. </param>
@@ -1805,6 +1889,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void LessThanOrEqual<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1831,6 +1916,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void LessThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1854,6 +1940,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1877,6 +1964,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1888,6 +1976,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void LessThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
@@ -1909,6 +1998,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -1930,6 +2020,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -1966,6 +2057,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void GreaterThan<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1983,6 +2075,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void GreaterThan<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -2000,6 +2093,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void GreaterThan<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2026,6 +2120,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void GreaterThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2049,6 +2144,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void GreaterThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -2072,6 +2168,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void GreaterThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2083,6 +2180,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void GreaterThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
@@ -2104,6 +2202,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void GreaterThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -2125,6 +2224,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void GreaterThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -2149,11 +2249,11 @@ partial class SimdVectorization
 }
 #endregion
 
-#region greaterthanorequals
+#region greaterthanorequal
 partial class Vectorization
 {
     /// <summary>
-    /// Operates greaterthanorequals for each corresponding elements of operands.
+    /// Operates greaterthanorequal for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The 1st operand elements. </param>
@@ -2161,6 +2261,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void GreaterThanOrEqual<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2170,7 +2271,7 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Operates greaterthanorequals for each corresponding elements of operands.
+    /// Operates greaterthanorequal for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The 1st operand elements. </param>
@@ -2178,6 +2279,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void GreaterThanOrEqual<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -2187,7 +2289,7 @@ partial class Vectorization
     }
     
     /// <summary>
-    /// Operates greaterthanorequals for each corresponding elements of operands.
+    /// Operates greaterthanorequal for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The 1st operand elements. </param>
@@ -2195,6 +2297,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void GreaterThanOrEqual<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2221,6 +2324,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void GreaterThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2244,6 +2348,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -2267,6 +2372,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2278,6 +2384,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void GreaterThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
@@ -2299,6 +2406,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -2320,6 +2428,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -2356,6 +2465,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void AddSaturate<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2373,6 +2483,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void AddSaturate<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -2390,6 +2501,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void AddSaturate<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2416,6 +2528,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void AddSaturateCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2439,6 +2552,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void AddSaturateCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -2462,6 +2576,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void AddSaturateCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2473,6 +2588,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void AddSaturateCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
@@ -2494,6 +2610,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void AddSaturateCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -2515,6 +2632,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void AddSaturateCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -2551,6 +2669,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void SubtractSaturate<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2568,6 +2687,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void SubtractSaturate<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -2585,6 +2705,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void SubtractSaturate<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2611,6 +2732,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void SubtractSaturateCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2634,6 +2756,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void SubtractSaturateCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -2657,6 +2780,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void SubtractSaturateCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2668,6 +2792,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void SubtractSaturateCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
@@ -2689,6 +2814,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void SubtractSaturateCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -2710,6 +2836,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void SubtractSaturateCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -2746,6 +2873,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Atan2<T>(T y, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
@@ -2763,6 +2891,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Atan2<T>(ReadOnlySpan<T> y, T x, Span<T> ans)
         where T : unmanaged
     {
@@ -2780,6 +2909,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Atan2<T>(ReadOnlySpan<T> y, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
@@ -2806,6 +2936,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void Atan2Core<T>(T y, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
@@ -2829,6 +2960,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void Atan2Core<T>(ReadOnlySpan<T> y, T x, Span<T> ans)
         where T : unmanaged
     {
@@ -2852,6 +2984,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void Atan2Core<T>(ReadOnlySpan<T> y, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
@@ -2863,6 +2996,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void Atan2Core<T>(T y, ReadOnlySpan<T> x, Span<T> ans)
     {
         var vectorX = new Vector<T>(y);
@@ -2884,6 +3018,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void Atan2Core<T>(ReadOnlySpan<T> y, T x, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(y);
@@ -2905,6 +3040,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void Atan2Core<T>(ReadOnlySpan<T> y, ReadOnlySpan<T> x, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(y);
@@ -2941,6 +3077,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Log<T>(T x, ReadOnlySpan<T> newBase, Span<T> ans)
         where T : unmanaged
     {
@@ -2958,6 +3095,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Log<T>(ReadOnlySpan<T> x, T newBase, Span<T> ans)
         where T : unmanaged
     {
@@ -2975,6 +3113,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Log<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> newBase, Span<T> ans)
         where T : unmanaged
     {
@@ -3001,6 +3140,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void LogCore<T>(T x, ReadOnlySpan<T> newBase, Span<T> ans)
         where T : unmanaged
     {
@@ -3024,6 +3164,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void LogCore<T>(ReadOnlySpan<T> x, T newBase, Span<T> ans)
         where T : unmanaged
     {
@@ -3047,6 +3188,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void LogCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> newBase, Span<T> ans)
         where T : unmanaged
     {
@@ -3058,6 +3200,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void LogCore<T>(T x, ReadOnlySpan<T> newBase, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
@@ -3079,6 +3222,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void LogCore<T>(ReadOnlySpan<T> x, T newBase, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -3100,6 +3244,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void LogCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> newBase, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -3136,6 +3281,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Pow<T>(T a, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
@@ -3153,6 +3299,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Pow<T>(ReadOnlySpan<T> a, T x, Span<T> ans)
         where T : unmanaged
     {
@@ -3170,6 +3317,7 @@ partial class Vectorization
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
     public void Pow<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
@@ -3196,6 +3344,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void PowCore<T>(T a, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
@@ -3219,6 +3368,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void PowCore<T>(ReadOnlySpan<T> a, T x, Span<T> ans)
         where T : unmanaged
     {
@@ -3242,6 +3392,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
+    [GeneratedCode("T4", null)]
     protected internal virtual void PowCore<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
@@ -3253,6 +3404,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void PowCore<T>(T a, ReadOnlySpan<T> x, Span<T> ans)
     {
         var vectorX = new Vector<T>(a);
@@ -3274,6 +3426,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void PowCore<T>(ReadOnlySpan<T> a, T x, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(a);
@@ -3295,6 +3448,7 @@ partial class SimdVectorization
     }
 
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void PowCore<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> x, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(a);

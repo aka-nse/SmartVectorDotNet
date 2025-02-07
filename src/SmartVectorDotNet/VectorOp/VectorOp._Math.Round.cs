@@ -19,7 +19,7 @@ partial class VectorOp
     public static partial Vector<T> Round<T>(Vector<T> x)
         where T : unmanaged;
 
-    private struct Round_<T> : IOperation1<T>
+    private struct Round_<T> : IVectorEmulationOp1<T>
         where T : unmanaged
     {
         public T Calculate(T x) => ScalarOp.Round(x);

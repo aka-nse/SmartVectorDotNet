@@ -40,6 +40,11 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>ScalarOp._Convert.tt</DependentUpon>
         </Compile>
+        <Compile Update="VectorOp\VectorOp._Emulate.g.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>VectorOp._Emulate.tt</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup Label="ScalarOp\ScalarOp._Constant">
@@ -128,6 +133,18 @@
     <!-- #endregion ScalarOp -->
 
     <!-- #region VectorOp -->
+
+    <ItemGroup Label="VectorOp\VectorOp._Emulate">
+        <Compile Update="VectorOp\VectorOp._Emulate.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorOp._Emulate.tt</DependentUpon>
+        </Compile>
+        <None Update="VectorOp\VectorOp._Emulate.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorOp._Emulate.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
     
     <ItemGroup Label="VectorOp\VectorOp._Shift">
         <Compile Update="VectorOp\VectorOp._Operator.Shift.g.cs">
@@ -232,14 +249,6 @@
 
     <ItemGroup>
         <Compile Remove="DynamicServices/*.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Include="DynamicServices\DynamicVectorizer._Impl.g.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>DynamicVectorizer._Impl.tt</DependentUpon>
-      </Compile>
     </ItemGroup>
 
     <ItemGroup>

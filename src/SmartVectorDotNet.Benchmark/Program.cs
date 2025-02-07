@@ -4,4 +4,4 @@ using SmartVectorDotNet;
 using SmartVectorDotNet.Benchmark;
 using SmartVectorDotNet.Benchmark.Vectorization;
 
-BenchmarkFacade.Run<LogBenchmark>();
+BenchmarkFacade.Run<VectorCallByBenchmark>();

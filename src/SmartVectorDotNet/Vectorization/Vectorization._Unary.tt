@@ -40,6 +40,7 @@ var operations = new MethodDef[]
 #>
 #nullable enable
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -55,6 +56,7 @@ namespace SmartVectorDotNet;
 partial class Vectorization
 {
     <# DocumentPublic(methodName, arg1); #>
+    [GeneratedCode("T4", null)]
     public void <#=methodName#><T>(ReadOnlySpan<T> <#=arg1#>, Span<T> ans)
         where T : unmanaged
     {
@@ -64,6 +66,7 @@ partial class Vectorization
     }
 
     <# DocumentCore(methodName, $"{methodName}{{T}}(ReadOnlySpan{{T}}, Span{{T}})", arg1); #>
+    [GeneratedCode("T4", null)]
     protected internal virtual void <#=methodName#>Core<T>(ReadOnlySpan<T> <#=arg1#>, Span<T> ans)
         where T : unmanaged
     {
@@ -75,6 +78,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void <#=methodName#>Core<T>(ReadOnlySpan<T> <#=arg1#>, Span<T> ans)
     {
         var vectorX = MemoryMarshal.Cast<T, Vector<T>>(<#=arg1#>);
