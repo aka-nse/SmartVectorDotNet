@@ -2,17 +2,8 @@
 using H = InternalHelpers;
 
 
-/// <summary>
-/// Provides vectorized mathematical and computational functions.
-/// </summary>
-public static partial class VectorOp
+partial class VectorOp
 {
-    #region utilities
-
-    [AttributeUsage(AttributeTargets.Method)]
-    private class VectorOpAttribute : Attribute { }
-
-
     private interface IOperation1<T> { public T Calculate(T x); }
     private static Vector<T> Emulate<T, TOperation>(Vector<T> x)
         where T : unmanaged
@@ -399,6 +390,4 @@ public static partial class VectorOp
             }
         }
     }
-
-    #endregion
 }
