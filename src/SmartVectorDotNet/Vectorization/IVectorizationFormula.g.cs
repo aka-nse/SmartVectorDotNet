@@ -52,7 +52,7 @@ partial class Vectorization
         Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
         using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
         var formula = default(TFormula);
-        CalculateCore<T, TFormula>(ref formula, x1, ans);
+        CalculateCore<T, TFormula>(formula, x1, ans);
     }
     
     /// <summary>
@@ -65,20 +65,20 @@ partial class Vectorization
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     [GeneratedCode("T4", null)]
-    public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, Span<T> ans)
+    public void Calculate<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula1<T>
     {
         Guard.ValidArgument(x1.Length == ans.Length, "`x1` and `ans` must have same length.");
         using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
-        CalculateCore<T, TFormula>(ref formula, x1, ans);
+        CalculateCore<T, TFormula>(formula, x1, ans);
     }
     
     /// <summary>
     /// Core implementation for
     /// <see cref="Calculate{T, TFormula}(ReadOnlySpan{T}, Span{T})" />
     /// and
-    /// <see cref="Calculate{T, TFormula}(ref TFormula, ReadOnlySpan{T}, Span{T})" />.
+    /// <see cref="Calculate{T, TFormula}(TFormula, ReadOnlySpan{T}, Span{T})" />.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TFormula"></typeparam>
@@ -93,7 +93,7 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, Span<T> ans)
+    protected internal virtual void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula1<T>
     {
@@ -107,7 +107,7 @@ partial class SimdVectorization
 {
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, Span<T> ans)
+    protected internal override void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
         var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
@@ -180,7 +180,7 @@ partial class Vectorization
         using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
         using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
         var formula = default(TFormula);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, ans);
     }
     
     /// <summary>
@@ -194,7 +194,7 @@ partial class Vectorization
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     [GeneratedCode("T4", null)]
-    public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, Span<T> ans)
+    public void Calculate<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula2<T>
     {
@@ -202,14 +202,14 @@ partial class Vectorization
         Guard.ValidArgument(x2.Length == ans.Length, "`x2` and `ans` must have same length.");
         using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
         using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, ans);
     }
     
     /// <summary>
     /// Core implementation for
     /// <see cref="Calculate{T, TFormula}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />
     /// and
-    /// <see cref="Calculate{T, TFormula}(ref TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// <see cref="Calculate{T, TFormula}(TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TFormula"></typeparam>
@@ -225,7 +225,7 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, Span<T> ans)
+    protected internal virtual void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula2<T>
     {
@@ -239,7 +239,7 @@ partial class SimdVectorization
 {
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, Span<T> ans)
+    protected internal override void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
         var vectorX2 = MemoryMarshal.Cast<T, Vector<T>>(x2);
@@ -319,7 +319,7 @@ partial class Vectorization
         using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
         using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
         var formula = default(TFormula);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, ans);
     }
     
     /// <summary>
@@ -334,7 +334,7 @@ partial class Vectorization
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     [GeneratedCode("T4", null)]
-    public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, Span<T> ans)
+    public void Calculate<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula3<T>
     {
@@ -344,14 +344,14 @@ partial class Vectorization
         using var safeX1Buffer = EnsureSourceSafe(ref x1, ans);
         using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
         using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, ans);
     }
     
     /// <summary>
     /// Core implementation for
     /// <see cref="Calculate{T, TFormula}(ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />
     /// and
-    /// <see cref="Calculate{T, TFormula}(ref TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// <see cref="Calculate{T, TFormula}(TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TFormula"></typeparam>
@@ -368,7 +368,7 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, Span<T> ans)
+    protected internal virtual void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula3<T>
     {
@@ -382,7 +382,7 @@ partial class SimdVectorization
 {
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, Span<T> ans)
+    protected internal override void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
         var vectorX2 = MemoryMarshal.Cast<T, Vector<T>>(x2);
@@ -469,7 +469,7 @@ partial class Vectorization
         using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
         using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
         var formula = default(TFormula);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, x4, ans);
     }
     
     /// <summary>
@@ -485,7 +485,7 @@ partial class Vectorization
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     [GeneratedCode("T4", null)]
-    public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, Span<T> ans)
+    public void Calculate<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula4<T>
     {
@@ -497,14 +497,14 @@ partial class Vectorization
         using var safeX2Buffer = EnsureSourceSafe(ref x2, ans);
         using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
         using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, x4, ans);
     }
     
     /// <summary>
     /// Core implementation for
     /// <see cref="Calculate{T, TFormula}(ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />
     /// and
-    /// <see cref="Calculate{T, TFormula}(ref TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// <see cref="Calculate{T, TFormula}(TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TFormula"></typeparam>
@@ -522,7 +522,7 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, Span<T> ans)
+    protected internal virtual void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula4<T>
     {
@@ -536,7 +536,7 @@ partial class SimdVectorization
 {
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, Span<T> ans)
+    protected internal override void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
         var vectorX2 = MemoryMarshal.Cast<T, Vector<T>>(x2);
@@ -630,7 +630,7 @@ partial class Vectorization
         using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
         using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
         var formula = default(TFormula);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, x4, x5, ans);
     }
     
     /// <summary>
@@ -647,7 +647,7 @@ partial class Vectorization
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     [GeneratedCode("T4", null)]
-    public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, Span<T> ans)
+    public void Calculate<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula5<T>
     {
@@ -661,14 +661,14 @@ partial class Vectorization
         using var safeX3Buffer = EnsureSourceSafe(ref x3, ans);
         using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
         using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, x4, x5, ans);
     }
     
     /// <summary>
     /// Core implementation for
     /// <see cref="Calculate{T, TFormula}(ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />
     /// and
-    /// <see cref="Calculate{T, TFormula}(ref TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// <see cref="Calculate{T, TFormula}(TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TFormula"></typeparam>
@@ -687,7 +687,7 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, Span<T> ans)
+    protected internal virtual void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula5<T>
     {
@@ -701,7 +701,7 @@ partial class SimdVectorization
 {
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, Span<T> ans)
+    protected internal override void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
         var vectorX2 = MemoryMarshal.Cast<T, Vector<T>>(x2);
@@ -802,7 +802,7 @@ partial class Vectorization
         using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
         using var safeX6Buffer = EnsureSourceSafe(ref x6, ans);
         var formula = default(TFormula);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, x4, x5, x6, ans);
     }
     
     /// <summary>
@@ -820,7 +820,7 @@ partial class Vectorization
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     [GeneratedCode("T4", null)]
-    public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, Span<T> ans)
+    public void Calculate<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula6<T>
     {
@@ -836,14 +836,14 @@ partial class Vectorization
         using var safeX4Buffer = EnsureSourceSafe(ref x4, ans);
         using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
         using var safeX6Buffer = EnsureSourceSafe(ref x6, ans);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, x4, x5, x6, ans);
     }
     
     /// <summary>
     /// Core implementation for
     /// <see cref="Calculate{T, TFormula}(ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />
     /// and
-    /// <see cref="Calculate{T, TFormula}(ref TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// <see cref="Calculate{T, TFormula}(TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TFormula"></typeparam>
@@ -863,7 +863,7 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, Span<T> ans)
+    protected internal virtual void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula6<T>
     {
@@ -877,7 +877,7 @@ partial class SimdVectorization
 {
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, Span<T> ans)
+    protected internal override void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
         var vectorX2 = MemoryMarshal.Cast<T, Vector<T>>(x2);
@@ -985,7 +985,7 @@ partial class Vectorization
         using var safeX6Buffer = EnsureSourceSafe(ref x6, ans);
         using var safeX7Buffer = EnsureSourceSafe(ref x7, ans);
         var formula = default(TFormula);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, x4, x5, x6, x7, ans);
     }
     
     /// <summary>
@@ -1004,7 +1004,7 @@ partial class Vectorization
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     [GeneratedCode("T4", null)]
-    public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, Span<T> ans)
+    public void Calculate<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula7<T>
     {
@@ -1022,14 +1022,14 @@ partial class Vectorization
         using var safeX5Buffer = EnsureSourceSafe(ref x5, ans);
         using var safeX6Buffer = EnsureSourceSafe(ref x6, ans);
         using var safeX7Buffer = EnsureSourceSafe(ref x7, ans);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, x4, x5, x6, x7, ans);
     }
     
     /// <summary>
     /// Core implementation for
     /// <see cref="Calculate{T, TFormula}(ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />
     /// and
-    /// <see cref="Calculate{T, TFormula}(ref TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// <see cref="Calculate{T, TFormula}(TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TFormula"></typeparam>
@@ -1050,7 +1050,7 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, Span<T> ans)
+    protected internal virtual void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula7<T>
     {
@@ -1064,7 +1064,7 @@ partial class SimdVectorization
 {
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, Span<T> ans)
+    protected internal override void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
         var vectorX2 = MemoryMarshal.Cast<T, Vector<T>>(x2);
@@ -1179,7 +1179,7 @@ partial class Vectorization
         using var safeX7Buffer = EnsureSourceSafe(ref x7, ans);
         using var safeX8Buffer = EnsureSourceSafe(ref x8, ans);
         var formula = default(TFormula);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, x4, x5, x6, x7, x8, ans);
     }
     
     /// <summary>
@@ -1199,7 +1199,7 @@ partial class Vectorization
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     [GeneratedCode("T4", null)]
-    public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, Span<T> ans)
+    public void Calculate<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula8<T>
     {
@@ -1219,14 +1219,14 @@ partial class Vectorization
         using var safeX6Buffer = EnsureSourceSafe(ref x6, ans);
         using var safeX7Buffer = EnsureSourceSafe(ref x7, ans);
         using var safeX8Buffer = EnsureSourceSafe(ref x8, ans);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, x4, x5, x6, x7, x8, ans);
     }
     
     /// <summary>
     /// Core implementation for
     /// <see cref="Calculate{T, TFormula}(ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />
     /// and
-    /// <see cref="Calculate{T, TFormula}(ref TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// <see cref="Calculate{T, TFormula}(TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TFormula"></typeparam>
@@ -1248,7 +1248,7 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, Span<T> ans)
+    protected internal virtual void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula8<T>
     {
@@ -1262,7 +1262,7 @@ partial class SimdVectorization
 {
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, Span<T> ans)
+    protected internal override void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
         var vectorX2 = MemoryMarshal.Cast<T, Vector<T>>(x2);
@@ -1384,7 +1384,7 @@ partial class Vectorization
         using var safeX8Buffer = EnsureSourceSafe(ref x8, ans);
         using var safeX9Buffer = EnsureSourceSafe(ref x9, ans);
         var formula = default(TFormula);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, ans);
     }
     
     /// <summary>
@@ -1405,7 +1405,7 @@ partial class Vectorization
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     [GeneratedCode("T4", null)]
-    public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, Span<T> ans)
+    public void Calculate<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula9<T>
     {
@@ -1427,14 +1427,14 @@ partial class Vectorization
         using var safeX7Buffer = EnsureSourceSafe(ref x7, ans);
         using var safeX8Buffer = EnsureSourceSafe(ref x8, ans);
         using var safeX9Buffer = EnsureSourceSafe(ref x9, ans);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, ans);
     }
     
     /// <summary>
     /// Core implementation for
     /// <see cref="Calculate{T, TFormula}(ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />
     /// and
-    /// <see cref="Calculate{T, TFormula}(ref TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// <see cref="Calculate{T, TFormula}(TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TFormula"></typeparam>
@@ -1457,7 +1457,7 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, Span<T> ans)
+    protected internal virtual void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula9<T>
     {
@@ -1471,7 +1471,7 @@ partial class SimdVectorization
 {
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, Span<T> ans)
+    protected internal override void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
         var vectorX2 = MemoryMarshal.Cast<T, Vector<T>>(x2);
@@ -1600,7 +1600,7 @@ partial class Vectorization
         using var safeX9Buffer = EnsureSourceSafe(ref x9, ans);
         using var safeX10Buffer = EnsureSourceSafe(ref x10, ans);
         var formula = default(TFormula);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, ans);
     }
     
     /// <summary>
@@ -1622,7 +1622,7 @@ partial class Vectorization
     /// <param name="ans"></param>
     /// <exception cref="ArgumentException"> All inputs and <paramref name="ans"/> must have same length. </exception>
     [GeneratedCode("T4", null)]
-    public void Calculate<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, ReadOnlySpan<T> x10, Span<T> ans)
+    public void Calculate<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, ReadOnlySpan<T> x10, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula10<T>
     {
@@ -1646,14 +1646,14 @@ partial class Vectorization
         using var safeX8Buffer = EnsureSourceSafe(ref x8, ans);
         using var safeX9Buffer = EnsureSourceSafe(ref x9, ans);
         using var safeX10Buffer = EnsureSourceSafe(ref x10, ans);
-        CalculateCore<T, TFormula>(ref formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, ans);
+        CalculateCore<T, TFormula>(formula, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, ans);
     }
     
     /// <summary>
     /// Core implementation for
     /// <see cref="Calculate{T, TFormula}(ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />
     /// and
-    /// <see cref="Calculate{T, TFormula}(ref TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// <see cref="Calculate{T, TFormula}(TFormula, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TFormula"></typeparam>
@@ -1677,7 +1677,7 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, ReadOnlySpan<T> x10, Span<T> ans)
+    protected internal virtual void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, ReadOnlySpan<T> x10, Span<T> ans)
         where T : unmanaged
         where TFormula : struct, IVectorFormula10<T>
     {
@@ -1691,7 +1691,7 @@ partial class SimdVectorization
 {
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override void CalculateCore<T, TFormula>(ref TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, ReadOnlySpan<T> x10, Span<T> ans)
+    protected internal override void CalculateCore<T, TFormula>(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, ReadOnlySpan<T> x10, Span<T> ans)
     {
         var vectorX1 = MemoryMarshal.Cast<T, Vector<T>>(x1);
         var vectorX2 = MemoryMarshal.Cast<T, Vector<T>>(x2);
