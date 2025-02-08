@@ -134,7 +134,7 @@ public static class IterationStrategy
         public void For<TBody>(int fromInclusive, int toExclusive, TBody body)
             where TBody : struct, IIterationBody
         {
-            Parallel.For(fromInclusive, toExclusive, options, (i, state) =>
+            System.Threading.Tasks.Parallel.For(fromInclusive, toExclusive, options, (i, state) =>
             {
                 if (!body.Invoke(i))
                 {
@@ -146,7 +146,7 @@ public static class IterationStrategy
         public void ForEach<T, TBody>(IEnumerable<T> source, TBody body)
             where TBody : struct, IIterationBody<T>
         {
-            Parallel.ForEach(source, options, (item, state) =>
+            System.Threading.Tasks.Parallel.ForEach(source, options, (item, state) =>
             {
                 if (!body.Invoke(item))
                 {
@@ -161,6 +161,15 @@ public static class IterationStrategy
     /// Gets a default iteration strategy instance which uses sequential loop.
     /// </summary>
     public static IIterationStrategy Default { get; } = new DefaultIterationStrategy();
+
+
+    /// <summary>
+    /// Get an iteration strategy instance which has the specified parallel options.
+    /// </summary>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    public static IIterationStrategy Parallel(ParallelOptions options)
+        => new ParallelIterationStrategy(options);
 
     /// <summary>
     /// Does for loop.
@@ -199,4 +208,5 @@ public static class IterationStrategy
     /// <param name="body"></param>
     public static void ForEach<T>(this IIterationStrategy strategy, IEnumerable<T> source, Func<T, bool> body)
         => strategy.ForEach(source, new FuncBody<T>(body));
+
 }

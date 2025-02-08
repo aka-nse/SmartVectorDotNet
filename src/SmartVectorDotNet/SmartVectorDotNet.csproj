@@ -231,6 +231,18 @@
             <DependentUpon>Vectorization._Unary.tt</DependentUpon>
         </Compile>
     </ItemGroup>
+    
+    <ItemGroup Label="Vectorization\VectorizedFunc">
+        <None Update="Vectorization\VectorizedFunc.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorizedFunc.g.cs</LastGenOutput>
+        </None>
+        <Compile Update="Vectorization\VectorizedFunc.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorizedFunc.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
     <!-- #endregion Vectorization -->
 
     <!-- #region DynamicServices -->
