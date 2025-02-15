@@ -172,6 +172,10 @@ partial class ScalarOp
     
     /// <inheritdoc cref="DivideCeiling(byte, byte)" />
     [MethodImpl(_inlining)]
+    public static nuint DivideCeiling(nuint a, nuint b) => a > 0 ? ((a - 1) / b + 1) : 0;
+    
+    /// <inheritdoc cref="DivideCeiling(byte, byte)" />
+    [MethodImpl(_inlining)]
     public static sbyte DivideCeiling(sbyte a, sbyte b)
     {
         a = (sbyte)(Sign(b) * a);
@@ -453,6 +457,7 @@ partial class ScalarOp
     /** <inheritdoc cref="ModuloByFloor(byte, byte)" /> */ [MethodImpl(_inlining)] public static sbyte  ModuloByFloor(sbyte  a, sbyte  b) { DivRemByFloor(a, b, out var remainder); return remainder; }
     /** <inheritdoc cref="ModuloByFloor(byte, byte)" /> */ [MethodImpl(_inlining)] public static short  ModuloByFloor(short  a, short  b) { DivRemByFloor(a, b, out var remainder); return remainder; }
     /** <inheritdoc cref="ModuloByFloor(byte, byte)" /> */ [MethodImpl(_inlining)] public static int    ModuloByFloor(int    a, int    b) { DivRemByFloor(a, b, out var remainder); return remainder; }
+    /** <inheritdoc cref="ModuloByFloor(byte, byte)" /> */ [MethodImpl(_inlining)] public static long   ModuloByFloor(long   a, long   b) { DivRemByFloor(a, b, out var remainder); return remainder; }
     /** <inheritdoc cref="ModuloByFloor(byte, byte)" /> */ [MethodImpl(_inlining)] public static nint   ModuloByFloor(nint   a, nint   b) { DivRemByFloor(a, b, out var remainder); return remainder; }
     /** <inheritdoc cref="ModuloByFloor(byte, byte)" /> */ [MethodImpl(_inlining)] public static float  ModuloByFloor(float  a, float  b) { DivRemByFloor(a, b, out var remainder); return remainder; }
     /** <inheritdoc cref="ModuloByFloor(byte, byte)" /> */ [MethodImpl(_inlining)] public static double ModuloByFloor(double a, double b) { DivRemByFloor(a, b, out var remainder); return remainder; }

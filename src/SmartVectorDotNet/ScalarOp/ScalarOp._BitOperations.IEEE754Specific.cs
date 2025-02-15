@@ -51,8 +51,8 @@ partial class ScalarOp
 
     /// <summary>
     /// Calculates the pair of <c>n</c> and <c>a</c>
-    /// which satisfies <c>x = pow(2, n) * a</c>
-    /// (<c>n</c> is non-negative integer, and <c>1 &lt;= abs(a) &lt; 2 or a == 0</c>).
+    /// which satisfies <c>x = a * pow(2, n)</c>
+    /// (<c>n</c> is an integer, and <c>1 &lt;= abs(a) &lt; 2 or a == 0</c>).
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
@@ -64,14 +64,14 @@ partial class ScalarOp
     {
         if (typeof(T) == typeof(double))
         {
-            Decompose(Reinterpret<T, double>(x), out long nn, out double aa);
+            Decompose(Reinterpret<T, double>(x), out double nn, out double aa);
             n = Reinterpret<double, T>(nn);
             a = Reinterpret<double, T>(aa);
             return;
         }
         if (typeof(T) == typeof(float))
         {
-            Decompose(Reinterpret<T, float>(x), out int nn, out float aa);
+            Decompose(Reinterpret<T, float>(x), out float nn, out float aa);
             n = Reinterpret<float, T>(nn);
             a = Reinterpret<float, T>(aa);
             return;
@@ -79,6 +79,23 @@ partial class ScalarOp
         throw new NotSupportedException();
     }
 
+    /// <see cref="Decompose{T}" />
+    public static void Decompose(double x, out double n, out double a)
+    {
+        Decompose(x, out var sign, out var expo, out var frac);
+        var s = sign == 0 ? 1.0 : -1.0;
+        n = Max(expo, 1L) - DoubleExpPartBias;
+        a = s * ((expo > 0 ? 1.0 : 0.0) + frac * DoubleFracPartOffsetDenom);
+    }
+
+    /// <see cref="Decompose{T}" />
+    public static void Decompose(float x, out float n, out float a)
+    {
+        Decompose(x, out var sign, out var expo, out var frac);
+        var s = (sign == 0 ? 1.0f : -1.0f);
+        n = Max(expo, 1) - SingleExpPartBias;
+        a = s * ((expo > 0 ? 1.0f : 0.0f) + frac * SingleFracPartOffsetDenom);
+    }
 
     /// <summary>
     /// Splits real number into IEEE754 part.
@@ -94,16 +111,6 @@ partial class ScalarOp
         expo = (bin & DoubleExpPartMask) >> DoubleExpBitOffset;
         frac = bin & DoubleFracPartMask;
     }
-
-
-    internal static void Decompose(double x, out long n, out double a)
-    {
-        Decompose(x, out var sign, out var expo, out var frac);
-        var s = sign == 0 ? 1.0 : -1.0;
-        n = Max(expo, 1L) - DoubleExpPartBias;
-        a = s * ((expo > 0 ? 1.0 : 0.0) + frac * DoubleFracPartOffsetDenom);
-    }
-
 
     /// <summary>
     /// Splits real number into IEEE754 part.
@@ -121,17 +128,10 @@ partial class ScalarOp
     }
 
 
-    internal static void Decompose(float x, out int n, out float a)
-    {
-        Decompose(x, out var sign, out var expo, out var frac);
-        var s = (sign == 0 ? 1.0f : -1.0f);
-        n = Max(expo, 1) - SingleExpPartBias;
-        a = s * ((expo > 0 ? 1.0f : 0.0f) + frac * SingleFracPartOffsetDenom);
-    }
 
 
     /// <summary>
-    /// Calculates <c>pow(2, n) * x</c>.
+    /// Calculates <c>x * pow(2, n)</c>.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="n"></param>
@@ -145,16 +145,24 @@ partial class ScalarOp
         {
             var nn = Reinterpret<T, double>(n);
             var xx = Reinterpret<T, double>(x);
-            return Reinterpret<double, T>(Reinterpret<long, double>(((long)nn + DoubleExpPartBias) << DoubleExpBitOffset) * xx);
+            return Reinterpret<double, T>(Scale(nn, xx));
         }
         if (typeof(T) == typeof(float))
         {
             var nn = Reinterpret<T, float>(n);
             var xx = Reinterpret<T, float>(x);
-            return Reinterpret<float, T>(Reinterpret<int, float>(((int)nn + SingleExpPartBias) << SingleExpBitOffset) * xx);
+            return Reinterpret<float, T>(Scale(nn, xx));
         }
         throw new NotSupportedException();
     }
+
+    /// <see cref="Scale{T}" />
+    public static double Scale(double n, double x)
+        => x * Reinterpret<long, double>(((long)n + DoubleExpPartBias) << DoubleExpBitOffset);
+
+    /// <see cref="Scale{T}" />
+    public static float Scale(float n, float x)
+        => x * Reinterpret<int, float>(((int)n + SingleExpPartBias) << SingleExpBitOffset);
 
 
     /// <summary>

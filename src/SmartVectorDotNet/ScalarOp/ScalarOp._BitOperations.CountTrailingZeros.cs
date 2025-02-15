@@ -30,28 +30,27 @@ partial class ScalarOp
 #pragma warning restore format
         throw new NotSupportedException();
     }
+    
+    /** <see cref="CountTrailingZeros{T}" /> */ public static partial int CountTrailingZeros(byte   x);
+    /** <see cref="CountTrailingZeros{T}" /> */ public static partial int CountTrailingZeros(ushort x);
+    /** <see cref="CountTrailingZeros{T}" /> */ public static partial int CountTrailingZeros(uint   x);
+    /** <see cref="CountTrailingZeros{T}" /> */ public static partial int CountTrailingZeros(ulong  x);
+    /** <see cref="CountTrailingZeros{T}" /> */ public static partial int CountTrailingZeros(nuint  x);
+    /** <see cref="CountTrailingZeros{T}" /> */ public static int CountTrailingZeros(sbyte  x) => CountTrailingZeros((byte  )x);
+    /** <see cref="CountTrailingZeros{T}" /> */ public static int CountTrailingZeros(short  x) => CountTrailingZeros((ushort)x);
+    /** <see cref="CountTrailingZeros{T}" /> */ public static int CountTrailingZeros(int    x) => CountTrailingZeros((uint  )x);
+    /** <see cref="CountTrailingZeros{T}" /> */ public static int CountTrailingZeros(long   x) => CountTrailingZeros((ulong )x);
+    /** <see cref="CountTrailingZeros{T}" /> */ public static int CountTrailingZeros(nint   x) => CountTrailingZeros((nuint )x);
+    /** <see cref="CountTrailingZeros{T}" /> */ public static int CountTrailingZeros(float  x) => CountTrailingZeros(H.Reinterpret<float , uint >(x));
+    /** <see cref="CountTrailingZeros{T}" /> */ public static int CountTrailingZeros(double x) => CountTrailingZeros(H.Reinterpret<double, ulong>(x));
+
 
 #if NETCOREAPP3_0_OR_GREATER
-    /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static int CountTrailingZeros(byte x)
-        => Math.Min(8, BitOperations.TrailingZeroCount(x));
-
-    /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static int CountTrailingZeros(ushort x)
-        => Math.Min(16, BitOperations.TrailingZeroCount(x));
-
-    /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static int CountTrailingZeros(uint x)
-        => BitOperations.TrailingZeroCount(x);
-
-    /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static int CountTrailingZeros(ulong x)
-        => BitOperations.TrailingZeroCount(x);
-
-    /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static int CountTrailingZeros(nuint x)
-        => BitOperations.TrailingZeroCount(x);
-
+    public static partial int CountTrailingZeros(byte   x) => Math.Min(8, BitOperations.TrailingZeroCount(x));
+    public static partial int CountTrailingZeros(ushort x) => Math.Min(16, BitOperations.TrailingZeroCount(x));
+    public static partial int CountTrailingZeros(uint   x) => BitOperations.TrailingZeroCount(x);
+    public static partial int CountTrailingZeros(ulong  x) => BitOperations.TrailingZeroCount(x);
+    public static partial int CountTrailingZeros(nuint  x) => BitOperations.TrailingZeroCount(x);
 #else
 
     private class CTZ : Const
@@ -78,15 +77,15 @@ partial class ScalarOp
     }
 
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static int CountTrailingZeros(byte x)
+    public static partial int CountTrailingZeros(byte x)
         => Math.Min(8, CountTrailingZeros((uint)x));
 
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static int CountTrailingZeros(ushort x)
+    public static partial int CountTrailingZeros(ushort x)
         => Math.Min(16, CountTrailingZeros((uint)x));
 
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static int CountTrailingZeros(uint x)
+    public static partial int CountTrailingZeros(uint x)
     {
         if(x == 0)
         {
@@ -98,7 +97,7 @@ partial class ScalarOp
     }
 
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static int CountTrailingZeros(ulong x)
+    public static partial int CountTrailingZeros(ulong x)
     {
         if (x == 0)
         {
@@ -110,7 +109,7 @@ partial class ScalarOp
     }
 
     /// <summary> Count the number of trailing zero bits in a mask. </summary>
-    public static int CountTrailingZeros(nuint x)
+    public static partial int CountTrailingZeros(nuint x)
     {
         if (Unsafe.SizeOf<nuint>() == sizeof(uint))
         {

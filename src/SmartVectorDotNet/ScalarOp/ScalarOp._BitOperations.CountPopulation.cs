@@ -6,6 +6,7 @@ namespace SmartVectorDotNet;
 using H = InternalHelpers;
 
 
+#pragma warning disable format
 partial class ScalarOp
 {
     /// <summary> Counts <c>1</c> bit. </summary>
@@ -13,47 +14,46 @@ partial class ScalarOp
     public static T CountPopulation<T>(T x)
         where T : unmanaged
     {
-#pragma warning disable format
-        if (typeof(T) == typeof(byte  )) { return H.Reinterpret<byte  , T>((byte  )CountPopulation(H.Reinterpret<T, byte  >(x))); }
-        if (typeof(T) == typeof(ushort)) { return H.Reinterpret<ushort, T>((ushort)CountPopulation(H.Reinterpret<T, ushort>(x))); }
-        if (typeof(T) == typeof(uint  )) { return H.Reinterpret<uint  , T>((uint  )CountPopulation(H.Reinterpret<T, uint  >(x))); }
-        if (typeof(T) == typeof(ulong )) { return H.Reinterpret<ulong , T>((ulong )CountPopulation(H.Reinterpret<T, ulong >(x))); }
-        if (typeof(T) == typeof(nuint )) { return H.Reinterpret<nuint , T>((nuint )CountPopulation(H.Reinterpret<T, nuint >(x))); }
-        if (typeof(T) == typeof(sbyte )) { return H.Reinterpret<sbyte , T>((sbyte )CountPopulation(H.Reinterpret<T, byte  >(x))); }
-        if (typeof(T) == typeof(short )) { return H.Reinterpret<short , T>((short )CountPopulation(H.Reinterpret<T, ushort>(x))); }
-        if (typeof(T) == typeof(int   )) { return H.Reinterpret<int   , T>((int   )CountPopulation(H.Reinterpret<T, uint  >(x))); }
-        if (typeof(T) == typeof(long  )) { return H.Reinterpret<long  , T>((long  )CountPopulation(H.Reinterpret<T, ulong >(x))); }
-        if (typeof(T) == typeof(nint  )) { return H.Reinterpret<nint  , T>((nint  )CountPopulation(H.Reinterpret<T, nuint >(x))); }
-        if (typeof(T) == typeof(float )) { return H.Reinterpret<float , T>((float )CountPopulation(H.Reinterpret<T, uint  >(x))); }
-        if (typeof(T) == typeof(double)) { return H.Reinterpret<double, T>((double)CountPopulation(H.Reinterpret<T, ulong >(x))); }
-#pragma warning restore format
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
+        if (typeof(T) == typeof(byte  )) return from((byte  )CountPopulation(to<byte  >(x)));
+        if (typeof(T) == typeof(ushort)) return from((ushort)CountPopulation(to<ushort>(x)));
+        if (typeof(T) == typeof(uint  )) return from((uint  )CountPopulation(to<uint  >(x)));
+        if (typeof(T) == typeof(ulong )) return from((ulong )CountPopulation(to<ulong >(x)));
+        if (typeof(T) == typeof(nuint )) return from((nuint )CountPopulation(to<nuint >(x)));
+        if (typeof(T) == typeof(sbyte )) return from((sbyte )CountPopulation(to<sbyte >(x)));
+        if (typeof(T) == typeof(short )) return from((short )CountPopulation(to<short >(x)));
+        if (typeof(T) == typeof(int   )) return from((int   )CountPopulation(to<int   >(x)));
+        if (typeof(T) == typeof(long  )) return from((long  )CountPopulation(to<long  >(x)));
+        if (typeof(T) == typeof(nint  )) return from((nint  )CountPopulation(to<nint  >(x)));
+        if (typeof(T) == typeof(float )) return from((float )CountPopulation(to<float >(x)));
+        if (typeof(T) == typeof(double)) return from((double)CountPopulation(to<double>(x)));
         throw new NotSupportedException();
     }
 
+    /** <see cref="CountPopulation{T}" /> */ public static partial int CountPopulation(byte   x);
+    /** <see cref="CountPopulation{T}" /> */ public static partial int CountPopulation(ushort x);
+    /** <see cref="CountPopulation{T}" /> */ public static partial int CountPopulation(uint   x);
+    /** <see cref="CountPopulation{T}" /> */ public static partial int CountPopulation(ulong  x);
+    /** <see cref="CountPopulation{T}" /> */ public static partial int CountPopulation(nuint  x);
+    /** <see cref="CountPopulation{T}" /> */ public static int CountPopulation(sbyte  x) => CountPopulation((byte  )x);
+    /** <see cref="CountPopulation{T}" /> */ public static int CountPopulation(short  x) => CountPopulation((ushort)x);
+    /** <see cref="CountPopulation{T}" /> */ public static int CountPopulation(int    x) => CountPopulation((uint  )x);
+    /** <see cref="CountPopulation{T}" /> */ public static int CountPopulation(long   x) => CountPopulation((ulong )x);
+    /** <see cref="CountPopulation{T}" /> */ public static int CountPopulation(nint   x) => CountPopulation((nuint )x);
+    /** <see cref="CountPopulation{T}" /> */ public static int CountPopulation(float  x) => CountPopulation(H.Reinterpret<float , uint >(x));
+    /** <see cref="CountPopulation{T}" /> */ public static int CountPopulation(double x) => CountPopulation(H.Reinterpret<double, ulong>(x));
+
 #if NETCOREAPP3_0_OR_GREATER
-    /// <summary> Counts <c>1</c> bit. </summary>
-    public static int CountPopulation(byte x)
-        => BitOperations.PopCount(x);
-
-    /// <summary> Counts <c>1</c> bit. </summary>
-    public static int CountPopulation(ushort x)
-        => BitOperations.PopCount(x);
-
-    /// <summary> Counts <c>1</c> bit. </summary>
-    public static int CountPopulation(uint x)
-        => BitOperations.PopCount(x);
-
-    /// <summary> Counts <c>1</c> bit. </summary>
-    public static int CountPopulation(ulong x)
-        => BitOperations.PopCount(x);
-
-    /// <summary> Counts <c>1</c> bit. </summary>
-    public static int CountPopulation(nuint x)
-        => BitOperations.PopCount(x);
+    public static partial int CountPopulation(byte   x) => BitOperations.PopCount(x);
+    public static partial int CountPopulation(ushort x) => BitOperations.PopCount(x);
+    public static partial int CountPopulation(uint   x) => BitOperations.PopCount(x);
+    public static partial int CountPopulation(ulong  x) => BitOperations.PopCount(x);
+    public static partial int CountPopulation(nuint  x) => BitOperations.PopCount(x);
 
 #else
-    /// <summary> Counts <c>1</c> bit. </summary>
-    public static int CountPopulation(byte x)
+    public static partial int CountPopulation(byte x)
     {
         uint z = x;
         z = (z & 0x55) + ((z >> 1) & 0x55);
@@ -61,9 +61,8 @@ partial class ScalarOp
         z = (z & 0x0F) + ((z >> 4) & 0x0F);
         return (int)(z & 15);
     }
-
-    /// <summary> Counts <c>1</c> bit. </summary>
-    public static int CountPopulation(ushort x)
+    
+    public static partial int CountPopulation(ushort x)
     {
         uint z = x;
         z = (z & 0x5555) + ((z >> 1) & 0x5555);
@@ -72,9 +71,8 @@ partial class ScalarOp
         z = (z & 0x00FF) + ((z >> 8) & 0x00FF);
         return (int)(z & 31);
     }
-
-    /// <summary> Counts <c>1</c> bit. </summary>
-    public static int CountPopulation(uint x)
+    
+    public static partial int CountPopulation(uint x)
     {
         x = (x & 0x55555555) + ((x >> 1) & 0x55555555);
         x = (x & 0x33333333) + ((x >> 2) & 0x33333333);
@@ -83,9 +81,8 @@ partial class ScalarOp
         x = (x & 0x0000FFFF) + (x >> 16);
         return (int)(x & 63);
     }
-
-    /// <summary> Counts <c>1</c> bit. </summary>
-    public static int CountPopulation(ulong x)
+    
+    public static partial int CountPopulation(ulong x)
     {
         x = (x & 0x5555555555555555) + ((x >> 1) & 0x5555555555555555);
         x = (x & 0x3333333333333333) + ((x >> 2) & 0x3333333333333333);
@@ -95,9 +92,9 @@ partial class ScalarOp
         x = (x & 0x00000000FFFFFFFF) + (x >> 32);
         return (int)(x & 127);
     }
-
-    /// <summary> Counts <c>1</c> bit. </summary>
-    public static int CountPopulation(nuint x)
+    
+    public static partial int CountPopulation(nuint x)
         => CountPopulation((ulong)x);
 #endif
 }
+#pragma warning restore format

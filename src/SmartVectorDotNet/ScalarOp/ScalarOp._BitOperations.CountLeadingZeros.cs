@@ -7,6 +7,7 @@ namespace SmartVectorDotNet;
 using H = InternalHelpers;
 
 
+#pragma warning disable format
 partial class ScalarOp
 {
     /// <summary> Count the number of leading zero bits in a mask. </summary>
@@ -14,19 +15,25 @@ partial class ScalarOp
     public static T CountLeadingZeros<T>(T x)
         where T : unmanaged
     {
-#pragma warning disable format
-        if (typeof(T) == typeof(byte  ) || typeof(T) == typeof(sbyte )) { return H.Reinterpret<byte  , T>((byte  )CountLeadingZeros(H.Reinterpret<T, byte  >(x))); }
-        if (typeof(T) == typeof(ushort) || typeof(T) == typeof(short )) { return H.Reinterpret<ushort, T>((ushort)CountLeadingZeros(H.Reinterpret<T, ushort>(x))); }
-        if (typeof(T) == typeof(uint  ) || typeof(T) == typeof(int   )) { return H.Reinterpret<uint  , T>((uint  )CountLeadingZeros(H.Reinterpret<T, uint  >(x))); }
-        if (typeof(T) == typeof(ulong ) || typeof(T) == typeof(long  )) { return H.Reinterpret<ulong , T>((ulong )CountLeadingZeros(H.Reinterpret<T, ulong >(x))); }
-        if (typeof(T) == typeof(nuint ) || typeof(T) == typeof(nint  )) { return H.Reinterpret<nuint , T>((nuint )CountLeadingZeros(H.Reinterpret<T, nuint >(x))); }
-        if (typeof(T) == typeof(float )) { return H.Reinterpret<float , T>((float )CountLeadingZeros(H.Reinterpret<T, uint  >(x))); }
-        if (typeof(T) == typeof(double)) { return H.Reinterpret<double, T>((double)CountLeadingZeros(H.Reinterpret<T, ulong >(x))); }
-#pragma warning restore format
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
+        if (typeof(T) == typeof(byte  )) return from((byte  )CountLeadingZeros(to<byte  >(x)));
+        if (typeof(T) == typeof(ushort)) return from((ushort)CountLeadingZeros(to<ushort>(x)));
+        if (typeof(T) == typeof(uint  )) return from((uint  )CountLeadingZeros(to<uint  >(x)));
+        if (typeof(T) == typeof(ulong )) return from((ulong )CountLeadingZeros(to<ulong >(x)));
+        if (typeof(T) == typeof(nuint )) return from((nuint )CountLeadingZeros(to<nuint >(x)));
+        if (typeof(T) == typeof(sbyte )) return from((sbyte )CountLeadingZeros(to<sbyte >(x)));
+        if (typeof(T) == typeof(short )) return from((short )CountLeadingZeros(to<short >(x)));
+        if (typeof(T) == typeof(int   )) return from((int   )CountLeadingZeros(to<int   >(x)));
+        if (typeof(T) == typeof(long  )) return from((long  )CountLeadingZeros(to<long  >(x)));
+        if (typeof(T) == typeof(nint  )) return from((nint  )CountLeadingZeros(to<nint  >(x)));
+        if (typeof(T) == typeof(float )) return from((float )CountLeadingZeros(to<float >(x)));
+        if (typeof(T) == typeof(double)) return from((double)CountLeadingZeros(to<double>(x)));
         throw new NotSupportedException();
     }
 
-    /// <summary> Count the number of leading zero bits in a mask. </summary>
+    /** <see cref="CountLeadingZeros{T}" /> */
     public static int CountLeadingZeros(byte x)
     {
         uint y = x;
@@ -36,7 +43,7 @@ partial class ScalarOp
         return CountPopulation((byte)~y);
     }
 
-    /// <summary> Count the number of leading zero bits in a mask. </summary>
+    /** <see cref="CountLeadingZeros{T}" /> */
     public static int CountLeadingZeros(ushort x)
     {
         uint y = x;
@@ -47,24 +54,27 @@ partial class ScalarOp
         return CountPopulation((ushort)~y);
     }
 
+    /** <see cref="CountLeadingZeros{T}" /> */ public static partial int CountLeadingZeros(uint  x);
+    /** <see cref="CountLeadingZeros{T}" /> */ public static partial int CountLeadingZeros(ulong x);
+    /** <see cref="CountLeadingZeros{T}" /> */ public static partial int CountLeadingZeros(nuint x);
+    /** <see cref="CountLeadingZeros{T}" /> */ public static int CountLeadingZeros(sbyte  x) => CountLeadingZeros((byte  )x);
+    /** <see cref="CountLeadingZeros{T}" /> */ public static int CountLeadingZeros(short  x) => CountLeadingZeros((ushort)x);
+    /** <see cref="CountLeadingZeros{T}" /> */ public static int CountLeadingZeros(int    x) => CountLeadingZeros((uint  )x);
+    /** <see cref="CountLeadingZeros{T}" /> */ public static int CountLeadingZeros(long   x) => CountLeadingZeros((ulong )x);
+    /** <see cref="CountLeadingZeros{T}" /> */ public static int CountLeadingZeros(nint   x) => CountLeadingZeros((nuint )x);
+    /** <see cref="CountLeadingZeros{T}" /> */ public static int CountLeadingZeros(float  x) => CountLeadingZeros(H.Reinterpret<float, uint>(x));
+    /** <see cref="CountLeadingZeros{T}" /> */ public static int CountLeadingZeros(double x) => CountLeadingZeros(H.Reinterpret<double, ulong>(x));
+
+
 #if NETCOREAPP3_0_OR_GREATER
 
-    /// <summary> Count the number of leading zero bits in a mask. </summary>
-    public static int CountLeadingZeros(uint x)
-        => BitOperations.LeadingZeroCount(x);
-
-    /// <summary> Count the number of leading zero bits in a mask. </summary>
-    public static int CountLeadingZeros(ulong x)
-        => BitOperations.LeadingZeroCount(x);
-
-    /// <summary> Count the number of leading zero bits in a mask. </summary>
-    public static int CountLeadingZeros(nuint x)
-        => BitOperations.LeadingZeroCount(x);
+    public static partial int CountLeadingZeros(uint  x) => BitOperations.LeadingZeroCount(x);
+    public static partial int CountLeadingZeros(ulong x) => BitOperations.LeadingZeroCount(x);
+    public static partial int CountLeadingZeros(nuint x) => BitOperations.LeadingZeroCount(x);
 
 #else
 
-    /// <summary> Count the number of leading zero bits in a mask. </summary>
-    public static int CountLeadingZeros(uint x)
+    public static partial int CountLeadingZeros(uint x)
     {
         uint y = x;
         y |= y >> 1;
@@ -75,8 +85,7 @@ partial class ScalarOp
         return CountPopulation(~y);
     }
 
-    /// <summary> Count the number of leading zero bits in a mask. </summary>
-    public static int CountLeadingZeros(ulong x)
+    public static partial int CountLeadingZeros(ulong x)
     {
         var y = x;
         y |= y >> 1;
@@ -88,8 +97,7 @@ partial class ScalarOp
         return CountPopulation(~y);
     }
 
-    /// <summary> Count the number of leading zero bits in a mask. </summary>
-    public static int CountLeadingZeros(nuint x)
+    public static partial int CountLeadingZeros(nuint x)
     {
         if (Unsafe.SizeOf<nuint>() == sizeof(uint))
         {
@@ -103,3 +111,4 @@ partial class ScalarOp
     }
 #endif
 }
+#pragma warning restore format
