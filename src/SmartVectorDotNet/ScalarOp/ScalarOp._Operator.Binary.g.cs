@@ -17,28 +17,37 @@ partial class ScalarOp
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
     public static T Add<T>(T x, T y)
         where T : unmanaged
     {
-        unchecked
-        {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) + Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) + Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) + Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) + Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) + Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) + Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) + Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) + Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) + Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) + Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>((float )(Reinterpret<T, float >(x) + Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>((double)(Reinterpret<T, double>(x) + Reinterpret<T, double>(y)));
-        }
+            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(Add(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
+            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(Add(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
+            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(Add(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
+            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(Add(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
+            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(Add(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
+            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(Add(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
+            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(Add(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
+            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(Add(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
+            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(Add(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
+            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(Add(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
+            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(Add(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
+            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(Add(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
         throw new NotSupportedException();
     }
+    
+    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   Add(byte   x, byte   y) => unchecked((byte  )(x + y));
+    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort Add(ushort x, ushort y) => unchecked((ushort)(x + y));
+    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   Add(uint   x, uint   y) => unchecked((uint  )(x + y));
+    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  Add(ulong  x, ulong  y) => unchecked((ulong )(x + y));
+    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  Add(nuint  x, nuint  y) => unchecked((nuint )(x + y));
+    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  Add(sbyte  x, sbyte  y) => unchecked((sbyte )(x + y));
+    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  Add(short  x, short  y) => unchecked((short )(x + y));
+    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    Add(int    x, int    y) => unchecked((int   )(x + y));
+    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   Add(long   x, long   y) => unchecked((long  )(x + y));
+    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   Add(nint   x, nint   y) => unchecked((nint  )(x + y));
+    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  Add(float  x, float  y) => unchecked((float )(x + y));
+    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double Add(double x, double y) => unchecked((double)(x + y));
 
 
     /// <summary> Operates <c>AddChecked</c> unaly operation. </summary>
@@ -50,28 +59,37 @@ partial class ScalarOp
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
     public static T AddChecked<T>(T x, T y)
         where T : unmanaged
     {
-        checked
-        {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) + Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) + Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) + Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) + Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) + Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) + Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) + Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) + Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) + Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) + Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>((float )(Reinterpret<T, float >(x) + Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>((double)(Reinterpret<T, double>(x) + Reinterpret<T, double>(y)));
-        }
+            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(AddChecked(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
+            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(AddChecked(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
+            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(AddChecked(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
+            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(AddChecked(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
+            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(AddChecked(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
+            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(AddChecked(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
+            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(AddChecked(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
+            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(AddChecked(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
+            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(AddChecked(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
+            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(AddChecked(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
+            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(AddChecked(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
+            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(AddChecked(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
         throw new NotSupportedException();
     }
+    
+    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   AddChecked(byte   x, byte   y) => checked((byte  )(x + y));
+    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort AddChecked(ushort x, ushort y) => checked((ushort)(x + y));
+    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   AddChecked(uint   x, uint   y) => checked((uint  )(x + y));
+    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  AddChecked(ulong  x, ulong  y) => checked((ulong )(x + y));
+    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  AddChecked(nuint  x, nuint  y) => checked((nuint )(x + y));
+    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  AddChecked(sbyte  x, sbyte  y) => checked((sbyte )(x + y));
+    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  AddChecked(short  x, short  y) => checked((short )(x + y));
+    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    AddChecked(int    x, int    y) => checked((int   )(x + y));
+    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   AddChecked(long   x, long   y) => checked((long  )(x + y));
+    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   AddChecked(nint   x, nint   y) => checked((nint  )(x + y));
+    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  AddChecked(float  x, float  y) => checked((float )(x + y));
+    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double AddChecked(double x, double y) => checked((double)(x + y));
 
 
     /// <summary> Operates <c>Subtract</c> unaly operation. </summary>
@@ -83,28 +101,37 @@ partial class ScalarOp
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
     public static T Subtract<T>(T x, T y)
         where T : unmanaged
     {
-        unchecked
-        {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) - Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) - Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) - Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) - Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) - Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) - Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) - Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) - Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) - Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) - Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>((float )(Reinterpret<T, float >(x) - Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>((double)(Reinterpret<T, double>(x) - Reinterpret<T, double>(y)));
-        }
+            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(Subtract(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
+            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(Subtract(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
+            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(Subtract(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
+            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(Subtract(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
+            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(Subtract(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
+            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(Subtract(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
+            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(Subtract(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
+            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(Subtract(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
+            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(Subtract(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
+            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(Subtract(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
+            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(Subtract(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
+            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(Subtract(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
         throw new NotSupportedException();
     }
+    
+    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   Subtract(byte   x, byte   y) => unchecked((byte  )(x - y));
+    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort Subtract(ushort x, ushort y) => unchecked((ushort)(x - y));
+    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   Subtract(uint   x, uint   y) => unchecked((uint  )(x - y));
+    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  Subtract(ulong  x, ulong  y) => unchecked((ulong )(x - y));
+    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  Subtract(nuint  x, nuint  y) => unchecked((nuint )(x - y));
+    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  Subtract(sbyte  x, sbyte  y) => unchecked((sbyte )(x - y));
+    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  Subtract(short  x, short  y) => unchecked((short )(x - y));
+    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    Subtract(int    x, int    y) => unchecked((int   )(x - y));
+    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   Subtract(long   x, long   y) => unchecked((long  )(x - y));
+    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   Subtract(nint   x, nint   y) => unchecked((nint  )(x - y));
+    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  Subtract(float  x, float  y) => unchecked((float )(x - y));
+    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double Subtract(double x, double y) => unchecked((double)(x - y));
 
 
     /// <summary> Operates <c>SubtractChecked</c> unaly operation. </summary>
@@ -116,28 +143,37 @@ partial class ScalarOp
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
     public static T SubtractChecked<T>(T x, T y)
         where T : unmanaged
     {
-        checked
-        {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) - Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) - Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) - Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) - Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) - Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) - Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) - Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) - Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) - Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) - Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>((float )(Reinterpret<T, float >(x) - Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>((double)(Reinterpret<T, double>(x) - Reinterpret<T, double>(y)));
-        }
+            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(SubtractChecked(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
+            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(SubtractChecked(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
+            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(SubtractChecked(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
+            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(SubtractChecked(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
+            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(SubtractChecked(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
+            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(SubtractChecked(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
+            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(SubtractChecked(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
+            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(SubtractChecked(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
+            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(SubtractChecked(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
+            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(SubtractChecked(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
+            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(SubtractChecked(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
+            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(SubtractChecked(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
         throw new NotSupportedException();
     }
+    
+    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   SubtractChecked(byte   x, byte   y) => checked((byte  )(x - y));
+    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort SubtractChecked(ushort x, ushort y) => checked((ushort)(x - y));
+    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   SubtractChecked(uint   x, uint   y) => checked((uint  )(x - y));
+    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  SubtractChecked(ulong  x, ulong  y) => checked((ulong )(x - y));
+    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  SubtractChecked(nuint  x, nuint  y) => checked((nuint )(x - y));
+    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  SubtractChecked(sbyte  x, sbyte  y) => checked((sbyte )(x - y));
+    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  SubtractChecked(short  x, short  y) => checked((short )(x - y));
+    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    SubtractChecked(int    x, int    y) => checked((int   )(x - y));
+    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   SubtractChecked(long   x, long   y) => checked((long  )(x - y));
+    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   SubtractChecked(nint   x, nint   y) => checked((nint  )(x - y));
+    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  SubtractChecked(float  x, float  y) => checked((float )(x - y));
+    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double SubtractChecked(double x, double y) => checked((double)(x - y));
 
 
     /// <summary> Operates <c>Multiply</c> unaly operation. </summary>
@@ -149,28 +185,37 @@ partial class ScalarOp
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
     public static T Multiply<T>(T x, T y)
         where T : unmanaged
     {
-        unchecked
-        {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) * Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) * Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) * Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) * Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) * Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) * Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) * Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) * Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) * Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) * Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>((float )(Reinterpret<T, float >(x) * Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>((double)(Reinterpret<T, double>(x) * Reinterpret<T, double>(y)));
-        }
+            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(Multiply(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
+            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(Multiply(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
+            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(Multiply(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
+            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(Multiply(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
+            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(Multiply(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
+            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(Multiply(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
+            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(Multiply(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
+            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(Multiply(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
+            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(Multiply(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
+            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(Multiply(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
+            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(Multiply(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
+            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(Multiply(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
         throw new NotSupportedException();
     }
+    
+    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   Multiply(byte   x, byte   y) => unchecked((byte  )(x * y));
+    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort Multiply(ushort x, ushort y) => unchecked((ushort)(x * y));
+    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   Multiply(uint   x, uint   y) => unchecked((uint  )(x * y));
+    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  Multiply(ulong  x, ulong  y) => unchecked((ulong )(x * y));
+    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  Multiply(nuint  x, nuint  y) => unchecked((nuint )(x * y));
+    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  Multiply(sbyte  x, sbyte  y) => unchecked((sbyte )(x * y));
+    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  Multiply(short  x, short  y) => unchecked((short )(x * y));
+    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    Multiply(int    x, int    y) => unchecked((int   )(x * y));
+    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   Multiply(long   x, long   y) => unchecked((long  )(x * y));
+    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   Multiply(nint   x, nint   y) => unchecked((nint  )(x * y));
+    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  Multiply(float  x, float  y) => unchecked((float )(x * y));
+    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double Multiply(double x, double y) => unchecked((double)(x * y));
 
 
     /// <summary> Operates <c>MultiplyChecked</c> unaly operation. </summary>
@@ -182,28 +227,37 @@ partial class ScalarOp
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
     public static T MultiplyChecked<T>(T x, T y)
         where T : unmanaged
     {
-        checked
-        {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) * Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) * Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) * Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) * Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) * Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) * Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) * Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) * Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) * Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) * Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>((float )(Reinterpret<T, float >(x) * Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>((double)(Reinterpret<T, double>(x) * Reinterpret<T, double>(y)));
-        }
+            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(MultiplyChecked(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
+            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(MultiplyChecked(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
+            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(MultiplyChecked(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
+            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(MultiplyChecked(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
+            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(MultiplyChecked(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
+            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(MultiplyChecked(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
+            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(MultiplyChecked(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
+            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(MultiplyChecked(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
+            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(MultiplyChecked(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
+            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(MultiplyChecked(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
+            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(MultiplyChecked(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
+            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(MultiplyChecked(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
         throw new NotSupportedException();
     }
+    
+    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   MultiplyChecked(byte   x, byte   y) => checked((byte  )(x * y));
+    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort MultiplyChecked(ushort x, ushort y) => checked((ushort)(x * y));
+    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   MultiplyChecked(uint   x, uint   y) => checked((uint  )(x * y));
+    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  MultiplyChecked(ulong  x, ulong  y) => checked((ulong )(x * y));
+    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  MultiplyChecked(nuint  x, nuint  y) => checked((nuint )(x * y));
+    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  MultiplyChecked(sbyte  x, sbyte  y) => checked((sbyte )(x * y));
+    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  MultiplyChecked(short  x, short  y) => checked((short )(x * y));
+    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    MultiplyChecked(int    x, int    y) => checked((int   )(x * y));
+    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   MultiplyChecked(long   x, long   y) => checked((long  )(x * y));
+    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   MultiplyChecked(nint   x, nint   y) => checked((nint  )(x * y));
+    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  MultiplyChecked(float  x, float  y) => checked((float )(x * y));
+    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double MultiplyChecked(double x, double y) => checked((double)(x * y));
 
 
     /// <summary> Operates <c>Divide</c> unaly operation. </summary>
@@ -215,28 +269,37 @@ partial class ScalarOp
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
     public static T Divide<T>(T x, T y)
         where T : unmanaged
     {
-        unchecked
-        {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) / Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) / Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) / Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) / Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) / Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) / Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) / Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) / Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) / Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) / Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>((float )(Reinterpret<T, float >(x) / Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>((double)(Reinterpret<T, double>(x) / Reinterpret<T, double>(y)));
-        }
+            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(Divide(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
+            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(Divide(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
+            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(Divide(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
+            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(Divide(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
+            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(Divide(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
+            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(Divide(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
+            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(Divide(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
+            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(Divide(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
+            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(Divide(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
+            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(Divide(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
+            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(Divide(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
+            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(Divide(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
         throw new NotSupportedException();
     }
+    
+    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   Divide(byte   x, byte   y) => unchecked((byte  )(x / y));
+    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort Divide(ushort x, ushort y) => unchecked((ushort)(x / y));
+    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   Divide(uint   x, uint   y) => unchecked((uint  )(x / y));
+    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  Divide(ulong  x, ulong  y) => unchecked((ulong )(x / y));
+    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  Divide(nuint  x, nuint  y) => unchecked((nuint )(x / y));
+    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  Divide(sbyte  x, sbyte  y) => unchecked((sbyte )(x / y));
+    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  Divide(short  x, short  y) => unchecked((short )(x / y));
+    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    Divide(int    x, int    y) => unchecked((int   )(x / y));
+    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   Divide(long   x, long   y) => unchecked((long  )(x / y));
+    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   Divide(nint   x, nint   y) => unchecked((nint  )(x / y));
+    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  Divide(float  x, float  y) => unchecked((float )(x / y));
+    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double Divide(double x, double y) => unchecked((double)(x / y));
 
 
     /// <summary> Operates <c>DivideChecked</c> unaly operation. </summary>
@@ -248,28 +311,37 @@ partial class ScalarOp
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
     public static T DivideChecked<T>(T x, T y)
         where T : unmanaged
     {
-        checked
-        {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) / Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) / Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) / Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) / Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) / Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) / Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) / Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) / Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) / Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) / Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>((float )(Reinterpret<T, float >(x) / Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>((double)(Reinterpret<T, double>(x) / Reinterpret<T, double>(y)));
-        }
+            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(DivideChecked(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
+            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(DivideChecked(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
+            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(DivideChecked(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
+            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(DivideChecked(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
+            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(DivideChecked(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
+            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(DivideChecked(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
+            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(DivideChecked(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
+            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(DivideChecked(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
+            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(DivideChecked(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
+            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(DivideChecked(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
+            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(DivideChecked(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
+            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(DivideChecked(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
         throw new NotSupportedException();
     }
+    
+    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   DivideChecked(byte   x, byte   y) => checked((byte  )(x / y));
+    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort DivideChecked(ushort x, ushort y) => checked((ushort)(x / y));
+    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   DivideChecked(uint   x, uint   y) => checked((uint  )(x / y));
+    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  DivideChecked(ulong  x, ulong  y) => checked((ulong )(x / y));
+    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  DivideChecked(nuint  x, nuint  y) => checked((nuint )(x / y));
+    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  DivideChecked(sbyte  x, sbyte  y) => checked((sbyte )(x / y));
+    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  DivideChecked(short  x, short  y) => checked((short )(x / y));
+    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    DivideChecked(int    x, int    y) => checked((int   )(x / y));
+    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   DivideChecked(long   x, long   y) => checked((long  )(x / y));
+    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   DivideChecked(nint   x, nint   y) => checked((nint  )(x / y));
+    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  DivideChecked(float  x, float  y) => checked((float )(x / y));
+    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double DivideChecked(double x, double y) => checked((double)(x / y));
 
 
     /// <summary> Operates <c>Modulo</c> unaly operation. </summary>
@@ -281,28 +353,37 @@ partial class ScalarOp
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
     public static T Modulo<T>(T x, T y)
         where T : unmanaged
     {
-        unchecked
-        {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) % Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) % Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) % Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) % Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) % Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) % Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) % Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) % Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) % Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) % Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>((float )(Reinterpret<T, float >(x) % Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>((double)(Reinterpret<T, double>(x) % Reinterpret<T, double>(y)));
-        }
+            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(Modulo(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
+            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(Modulo(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
+            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(Modulo(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
+            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(Modulo(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
+            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(Modulo(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
+            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(Modulo(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
+            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(Modulo(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
+            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(Modulo(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
+            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(Modulo(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
+            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(Modulo(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
+            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(Modulo(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
+            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(Modulo(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
         throw new NotSupportedException();
     }
+    
+    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   Modulo(byte   x, byte   y) => unchecked((byte  )(x % y));
+    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort Modulo(ushort x, ushort y) => unchecked((ushort)(x % y));
+    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   Modulo(uint   x, uint   y) => unchecked((uint  )(x % y));
+    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  Modulo(ulong  x, ulong  y) => unchecked((ulong )(x % y));
+    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  Modulo(nuint  x, nuint  y) => unchecked((nuint )(x % y));
+    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  Modulo(sbyte  x, sbyte  y) => unchecked((sbyte )(x % y));
+    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  Modulo(short  x, short  y) => unchecked((short )(x % y));
+    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    Modulo(int    x, int    y) => unchecked((int   )(x % y));
+    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   Modulo(long   x, long   y) => unchecked((long  )(x % y));
+    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   Modulo(nint   x, nint   y) => unchecked((nint  )(x % y));
+    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  Modulo(float  x, float  y) => unchecked((float )(x % y));
+    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double Modulo(double x, double y) => unchecked((double)(x % y));
 
 
 
@@ -320,23 +401,41 @@ partial class ScalarOp
     public static T BitwiseOr<T>(T x, T y)
         where T : unmanaged
     {
-        unchecked
-        {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) | Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) | Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) | Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) | Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) | Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) | Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) | Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) | Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) | Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) | Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) | Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) | Reinterpret<T, ulong >(y)));
-        }
+        if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(BitwiseOr(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
+        if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(BitwiseOr(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
+        if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(BitwiseOr(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
+        if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(BitwiseOr(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
+        if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(BitwiseOr(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
+        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(BitwiseOr(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
+        if(typeof(T) == typeof(short )) return Reinterpret<short , T>(BitwiseOr(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
+        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(BitwiseOr(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
+        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(BitwiseOr(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
+        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(BitwiseOr(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
+        if(typeof(T) == typeof(float )) return Reinterpret<float , T>(BitwiseOr(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
+        if(typeof(T) == typeof(double)) return Reinterpret<double, T>(BitwiseOr(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
         throw new NotSupportedException();
     }
+
+    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   BitwiseOr(byte   x, byte   y) => unchecked((byte  )(x | y));
+    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort BitwiseOr(ushort x, ushort y) => unchecked((ushort)(x | y));
+    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   BitwiseOr(uint   x, uint   y) => unchecked((uint  )(x | y));
+    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  BitwiseOr(ulong  x, ulong  y) => unchecked((ulong )(x | y));
+    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  BitwiseOr(nuint  x, nuint  y) => unchecked((nuint )(x | y));
+    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  BitwiseOr(sbyte  x, sbyte  y) => unchecked((sbyte )(x | y));
+    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  BitwiseOr(short  x, short  y) => unchecked((short )(x | y));
+    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    BitwiseOr(int    x, int    y) => unchecked((int   )(x | y));
+    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   BitwiseOr(long   x, long   y) => unchecked((long  )(x | y));
+    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   BitwiseOr(nint   x, nint   y) => unchecked((nint  )(x | y));
+
+    /** <see cref="BitwiseOr{T}" /> */
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
+    public static float  BitwiseOr(float  x, float  y)
+        => unchecked(Reinterpret<uint, float>(Reinterpret<float, uint>(x) | Reinterpret<float, uint>(y)));
+
+    /** <see cref="BitwiseOr{T}" /> */
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
+    public static double BitwiseOr(double x, double y)
+        => unchecked(Reinterpret<ulong, double>(Reinterpret<double, ulong>(x) | Reinterpret<double, ulong>(y)));
 
 
     /// <summary> Operates <c>BitwiseAnd</c> unaly operation. </summary>
@@ -353,23 +452,41 @@ partial class ScalarOp
     public static T BitwiseAnd<T>(T x, T y)
         where T : unmanaged
     {
-        unchecked
-        {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) & Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) & Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) & Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) & Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) & Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) & Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) & Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) & Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) & Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) & Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) & Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) & Reinterpret<T, ulong >(y)));
-        }
+        if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(BitwiseAnd(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
+        if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(BitwiseAnd(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
+        if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(BitwiseAnd(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
+        if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(BitwiseAnd(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
+        if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(BitwiseAnd(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
+        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(BitwiseAnd(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
+        if(typeof(T) == typeof(short )) return Reinterpret<short , T>(BitwiseAnd(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
+        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(BitwiseAnd(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
+        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(BitwiseAnd(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
+        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(BitwiseAnd(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
+        if(typeof(T) == typeof(float )) return Reinterpret<float , T>(BitwiseAnd(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
+        if(typeof(T) == typeof(double)) return Reinterpret<double, T>(BitwiseAnd(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
         throw new NotSupportedException();
     }
+
+    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   BitwiseAnd(byte   x, byte   y) => unchecked((byte  )(x & y));
+    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort BitwiseAnd(ushort x, ushort y) => unchecked((ushort)(x & y));
+    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   BitwiseAnd(uint   x, uint   y) => unchecked((uint  )(x & y));
+    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  BitwiseAnd(ulong  x, ulong  y) => unchecked((ulong )(x & y));
+    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  BitwiseAnd(nuint  x, nuint  y) => unchecked((nuint )(x & y));
+    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  BitwiseAnd(sbyte  x, sbyte  y) => unchecked((sbyte )(x & y));
+    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  BitwiseAnd(short  x, short  y) => unchecked((short )(x & y));
+    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    BitwiseAnd(int    x, int    y) => unchecked((int   )(x & y));
+    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   BitwiseAnd(long   x, long   y) => unchecked((long  )(x & y));
+    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   BitwiseAnd(nint   x, nint   y) => unchecked((nint  )(x & y));
+
+    /** <see cref="BitwiseAnd{T}" /> */
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
+    public static float  BitwiseAnd(float  x, float  y)
+        => unchecked(Reinterpret<uint, float>(Reinterpret<float, uint>(x) & Reinterpret<float, uint>(y)));
+
+    /** <see cref="BitwiseAnd{T}" /> */
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
+    public static double BitwiseAnd(double x, double y)
+        => unchecked(Reinterpret<ulong, double>(Reinterpret<double, ulong>(x) & Reinterpret<double, ulong>(y)));
 
 
     /// <summary> Operates <c>BitwiseXor</c> unaly operation. </summary>
@@ -386,22 +503,40 @@ partial class ScalarOp
     public static T BitwiseXor<T>(T x, T y)
         where T : unmanaged
     {
-        unchecked
-        {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(Reinterpret<T, byte  >(x) ^ Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(Reinterpret<T, ushort>(x) ^ Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) ^ Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) ^ Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(Reinterpret<T, nuint >(x) ^ Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(Reinterpret<T, sbyte >(x) ^ Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(Reinterpret<T, short >(x) ^ Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(Reinterpret<T, int   >(x) ^ Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(Reinterpret<T, long  >(x) ^ Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(Reinterpret<T, nint  >(x) ^ Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<uint  , T>((uint  )(Reinterpret<T, uint  >(x) ^ Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<ulong , T>((ulong )(Reinterpret<T, ulong >(x) ^ Reinterpret<T, ulong >(y)));
-        }
+        if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(BitwiseXor(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
+        if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(BitwiseXor(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
+        if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(BitwiseXor(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
+        if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(BitwiseXor(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
+        if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(BitwiseXor(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
+        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(BitwiseXor(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
+        if(typeof(T) == typeof(short )) return Reinterpret<short , T>(BitwiseXor(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
+        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(BitwiseXor(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
+        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(BitwiseXor(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
+        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(BitwiseXor(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
+        if(typeof(T) == typeof(float )) return Reinterpret<float , T>(BitwiseXor(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
+        if(typeof(T) == typeof(double)) return Reinterpret<double, T>(BitwiseXor(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
         throw new NotSupportedException();
     }
+
+    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   BitwiseXor(byte   x, byte   y) => unchecked((byte  )(x ^ y));
+    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort BitwiseXor(ushort x, ushort y) => unchecked((ushort)(x ^ y));
+    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   BitwiseXor(uint   x, uint   y) => unchecked((uint  )(x ^ y));
+    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  BitwiseXor(ulong  x, ulong  y) => unchecked((ulong )(x ^ y));
+    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  BitwiseXor(nuint  x, nuint  y) => unchecked((nuint )(x ^ y));
+    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  BitwiseXor(sbyte  x, sbyte  y) => unchecked((sbyte )(x ^ y));
+    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  BitwiseXor(short  x, short  y) => unchecked((short )(x ^ y));
+    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    BitwiseXor(int    x, int    y) => unchecked((int   )(x ^ y));
+    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   BitwiseXor(long   x, long   y) => unchecked((long  )(x ^ y));
+    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   BitwiseXor(nint   x, nint   y) => unchecked((nint  )(x ^ y));
+
+    /** <see cref="BitwiseXor{T}" /> */
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
+    public static float  BitwiseXor(float  x, float  y)
+        => unchecked(Reinterpret<uint, float>(Reinterpret<float, uint>(x) ^ Reinterpret<float, uint>(y)));
+
+    /** <see cref="BitwiseXor{T}" /> */
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
+    public static double BitwiseXor(double x, double y)
+        => unchecked(Reinterpret<ulong, double>(Reinterpret<double, ulong>(x) ^ Reinterpret<double, ulong>(y)));
 
 }
