@@ -10,6 +10,8 @@ namespace SmartVectorDotNet;
 /// </summary>
 public static partial class ScalarOp
 {
+    private const MethodImplOptions _inlining = MethodImplOptions.AggressiveInlining;
+
     internal static TTo Reinterpret<TFrom, TTo>(in TFrom x)
         where TFrom : unmanaged
         where TTo : unmanaged
