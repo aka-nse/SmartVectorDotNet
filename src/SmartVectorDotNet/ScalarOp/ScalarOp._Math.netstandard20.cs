@@ -37,10 +37,14 @@ namespace System
 
     internal static class MathEx
     {
-        public static T Cbrt<T>(T d)  => throw new NotSupportedException();
-        public static T Acosh<T>(T d) => throw new NotSupportedException();
-        public static T Asinh<T>(T d) => throw new NotSupportedException();
-        public static T Atanh<T>(T d) => throw new NotSupportedException();
+        public static float Cbrt (float d) => throw new NotSupportedException();
+        public static float Acosh(float d) => throw new NotSupportedException();
+        public static float Asinh(float d) => throw new NotSupportedException();
+        public static float Atanh(float d) => throw new NotSupportedException();
+        public static double Cbrt (double d) => throw new NotSupportedException();
+        public static double Acosh(double d) => throw new NotSupportedException();
+        public static double Asinh(double d) => throw new NotSupportedException();
+        public static double Atanh(double d) => throw new NotSupportedException();
     }
 }
 #endif
