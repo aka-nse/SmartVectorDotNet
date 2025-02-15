@@ -1,4 +1,4 @@
-﻿#if NETCOREAPP3_0_OR_GREATER
+#if NETCOREAPP3_0_OR_GREATER
 #else
 namespace System.Runtime.CompilerServices
 {

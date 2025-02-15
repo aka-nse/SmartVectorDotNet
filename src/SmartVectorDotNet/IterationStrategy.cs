@@ -15,7 +15,7 @@ public interface IIterationBody
     /// <c>true</c> if should be continued; otherwise <c>false</c>.
     /// </returns>
     /// <remarks>
-    /// Even if returns <c>false</c>, the operation may not be aborted according to iteration strategy.
+    /// Even if returns <c>false</c>, the operation may not be breaked according to iteration strategy.
     /// </remarks>
     public bool Invoke(int i);
 }
@@ -34,7 +34,7 @@ public interface IIterationBody<T>
     /// <c>true</c> if should be continued; otherwise <c>false</c>.
     /// </returns>
     /// <remarks>
-    /// Even if returns <c>false</c>, the operation may not be aborted according to iteration strategy.
+    /// Even if returns <c>false</c>, the operation may not be breaked according to iteration strategy.
     /// </remarks>
     public bool Invoke(T item);
 }
@@ -72,37 +72,114 @@ public interface IIterationStrategy
 /// </summary>
 public static class IterationStrategy
 {
-    private readonly struct DelegateBody : IIterationBody
+    private readonly struct ActionBody(Action<int> invoke) : IIterationBody
     {
-        private readonly Func<int, bool> _Invoke;
-
-        public DelegateBody(Func<int, bool> invoke) => _Invoke = invoke;
-
-        public bool Invoke(int i) => _Invoke(i);
+        public bool Invoke(int i)
+        {
+            invoke(i);
+            return true;
+        }
     }
 
-    private readonly struct DelegateBody<T> : IIterationBody<T>
+    private readonly struct ActionBody<T>(Action<T> invoke) : IIterationBody<T>
     {
-        private readonly Func<T, bool> _Invoke;
-
-        public DelegateBody(Func<T, bool> invoke) => _Invoke = invoke;
-
-        public bool Invoke(T i) => _Invoke(i);
+        public bool Invoke(T item)
+        {
+            invoke(item);
+            return true;
+        }
     }
 
-    /// <summary>
-    /// Gets a default iteration strategy instance.
-    /// </summary>
-    public static SimpleIterationStrategy Default { get; } = new SimpleIterationStrategy();
+    private readonly struct FuncBody(Func<int, bool> invoke) : IIterationBody
+    {
+        public bool Invoke(int i) => invoke(i);
+    }
+
+    private readonly struct FuncBody<T>(Func<T, bool> invoke) : IIterationBody<T>
+    {
+        public bool Invoke(T item) => invoke(item);
+    }
+
+    private class DefaultIterationStrategy : IIterationStrategy
+    {
+        /// <inheritdoc />
+        public void For<TBody>(int fromInclusive, int toExclusive, TBody body)
+            where TBody : struct, IIterationBody
+        {
+            for (var i = fromInclusive; i < toExclusive; ++i)
+            {
+                if (!body.Invoke(i))
+                {
+                    break;
+                }
+            }
+        }
+
+        /// <inheritdoc />
+        public void ForEach<T, TBody>(IEnumerable<T> source, TBody body)
+            where TBody : struct, IIterationBody<T>
+        {
+            foreach (var item in source)
+            {
+                if (body.Invoke(item))
+                {
+                    break;
+                }
+            }
+        }
+    }
+
+    private class ParallelIterationStrategy(ParallelOptions options) : IIterationStrategy
+    {
+        public void For<TBody>(int fromInclusive, int toExclusive, TBody body)
+            where TBody : struct, IIterationBody
+        {
+            System.Threading.Tasks.Parallel.For(fromInclusive, toExclusive, options, (i, state) =>
+            {
+                if (!body.Invoke(i))
+                {
+                    state.Break();
+                }
+            });
+        }
+
+        public void ForEach<T, TBody>(IEnumerable<T> source, TBody body)
+            where TBody : struct, IIterationBody<T>
+        {
+            System.Threading.Tasks.Parallel.ForEach(source, options, (item, state) =>
+            {
+                if (!body.Invoke(item))
+                {
+                    state.Break();
+                }
+            });
+        }
+    }
+
 
     /// <summary>
-    /// Determines the specified strategy is a default or not.
+    /// Gets a default iteration strategy instance which uses sequential loop.
     /// </summary>
-    /// <typeparam name="TStrategy"></typeparam>
+    public static IIterationStrategy Default { get; } = new DefaultIterationStrategy();
+
+
+    /// <summary>
+    /// Get an iteration strategy instance which has the specified parallel options.
+    /// </summary>
+    /// <param name="options"></param>
     /// <returns></returns>
-    public static bool IsDefault<TStrategy>()
-        where TStrategy : struct, IIterationStrategy
-        => typeof(TStrategy) == typeof(SimpleIterationStrategy);
+    public static IIterationStrategy Parallel(ParallelOptions options)
+        => new ParallelIterationStrategy(options);
+
+    /// <summary>
+    /// Does for loop.
+    /// </summary>
+    /// <param name="strategy"></param>
+    /// <param name="fromInclusive"></param>
+    /// <param name="toExclusive"></param>
+    /// <param name="body"></param>
+    public static void For(this IIterationStrategy strategy, int fromInclusive, int toExclusive, Action<int> body)
+        => strategy.For(fromInclusive, toExclusive, new ActionBody(body));
 
     /// <summary>
     /// Does for loop.
@@ -112,7 +189,16 @@ public static class IterationStrategy
     /// <param name="toExclusive"></param>
     /// <param name="body"></param>
     public static void For(this IIterationStrategy strategy, int fromInclusive, int toExclusive, Func<int, bool> body)
-        => strategy.For(fromInclusive, toExclusive, new DelegateBody(body));
+        => strategy.For(fromInclusive, toExclusive, new FuncBody(body));
+
+    /// <summary>
+    /// Does foreach loop.
+    /// </summary>
+    /// <param name="strategy"></param>
+    /// <param name="source"></param>
+    /// <param name="body"></param>
+    public static void ForEach<T>(this IIterationStrategy strategy, IEnumerable<T> source, Action<T> body)
+        => strategy.ForEach(source, new ActionBody<T>(body));
 
     /// <summary>
     /// Does foreach loop.
@@ -121,64 +207,6 @@ public static class IterationStrategy
     /// <param name="source"></param>
     /// <param name="body"></param>
     public static void ForEach<T>(this IIterationStrategy strategy, IEnumerable<T> source, Func<T, bool> body)
-        => strategy.ForEach(source, new DelegateBody<T>(body));
-}
+        => strategy.ForEach(source, new FuncBody<T>(body));
 
-/// <summary>
-/// The implementation of <see cref="IIterationStrategy"/> which uses sequential loop.
-/// </summary>
-public readonly struct SimpleIterationStrategy : IIterationStrategy
-{
-    /// <inheritdoc />
-    public void For<TBody>(int fromInclusive, int toExclusive, TBody body)
-        where TBody : struct, IIterationBody
-    {
-        for (var i = fromInclusive; i < toExclusive; ++i)
-        {
-            body.Invoke(i);
-        }
-    }
-
-    /// <inheritdoc />
-    public void ForEach<T, TBody>(IEnumerable<T> source, TBody body)
-        where TBody : struct, IIterationBody<T>
-    {
-        foreach (var item in source)
-        {
-            body.Invoke(item);
-        }
-    }
-}
-
-
-/// <summary>
-/// The implementation of <see cref="IIterationStrategy"/> which uses sequential loop which can be aborted.
-/// </summary>
-public readonly struct AbortableIterationStrategy : IIterationStrategy
-{
-    /// <inheritdoc />
-    public void For<TBody>(int fromInclusive, int toExclusive, TBody body)
-        where TBody : struct, IIterationBody
-    {
-        for (var i = fromInclusive; i < toExclusive; ++i)
-        {
-            if(!body.Invoke(i))
-            {
-                break;
-            }
-        }
-    }
-
-    /// <inheritdoc />
-    public void ForEach<T, TBody>(IEnumerable<T> source, TBody body)
-        where TBody : struct, IIterationBody<T>
-    {
-        foreach (var item in source)
-        {
-            if(body.Invoke(item))
-            {
-                break;
-            }
-        }
-    }
 }
