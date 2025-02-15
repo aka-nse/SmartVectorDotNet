@@ -1,4 +1,4 @@
-﻿namespace SmartVectorDotNet;
+namespace SmartVectorDotNet;
 
 #if NETCOREAPP3_0_OR_GREATER
 using System.Runtime.Intrinsics;

@@ -1,4 +1,4 @@
-﻿namespace SmartVectorDotNet;
+namespace SmartVectorDotNet;
 using TestCases = IEnumerable<object?[]>;
 
 public partial class ScalarOpTest

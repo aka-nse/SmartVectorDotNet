@@ -1,4 +1,4 @@
-﻿#pragma warning disable xUnit1042
+#pragma warning disable xUnit1042
 namespace SmartVectorDotNet;
 
 public partial class ScalarOpTest
