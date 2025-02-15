@@ -7,42 +7,46 @@ using System.Threading.Tasks;
 namespace SmartVectorDotNet;
 using TestCases = IEnumerable<object?[]>;
 
+#pragma warning disable IDE0079
+#pragma warning disable xUnit1042
 public partial class ScalarOpTest
 {
     public static TestCases DivideRoundingTestCases()
     {
+#pragma warning disable format
         static object[] core<T>(T x, T y) where T : unmanaged => [x, y];
 
         yield return core(5, -3);
 
         for (var i = 0u; i <= 3u; ++i)
         {
-            yield return core((byte)i, 3u);
-            yield return core((ushort)i, 3u);
-            yield return core((uint)i, 3u);
-            yield return core((ulong)i, 3u);
+            yield return core<byte  >((byte  )i, 3);
+            yield return core<ushort>((ushort)i, 3);
+            yield return core<uint  >((uint  )i, 3);
+            yield return core<ulong >((ulong )i, 3);
 #if NET6_0_OR_GREATER
-            yield return core((nuint)i, 3u);
+            yield return core<nuint>((nuint)i, 3);
 #endif
         }
         for (var i = -3; i <= 3; ++i)
         {
-            yield return core((sbyte)i, 3);
-            yield return core((short)i, 3);
-            yield return core((int)i, 3);
-            yield return core((long)i, 3);
-            yield return core((float)i, 3);
-            yield return core((double)i, 3);
-            yield return core((sbyte)i, -3);
-            yield return core((short)i, -3);
-            yield return core((int)i, -3);
-            yield return core((long)i, -3);
-            yield return core((float)i, -3);
-            yield return core((double)i, -3);
+            yield return core<sbyte >((sbyte )i, +3);
+            yield return core<short >((short )i, +3);
+            yield return core<int   >((int   )i, +3);
+            yield return core<long  >((long  )i, +3);
+            yield return core<float >((float )i, +3);
+            yield return core<double>((double)i, +3);
+            yield return core<sbyte >((sbyte )i, -3);
+            yield return core<short >((short )i, -3);
+            yield return core<int   >((int   )i, -3);
+            yield return core<long  >((long  )i, -3);
+            yield return core<float >((float )i, -3);
+            yield return core<double>((double)i, -3);
 #if NET6_0_OR_GREATER
-            yield return core((nint)i, 3);
-            yield return core((nint)i, -3);
+            yield return core<nint>((nint)i, 3);
+            yield return core<nint>((nint)i, -3);
 #endif
+#pragma warning restore format
         }
     }
     [Theory, MemberData(nameof(DivideRoundingTestCases))]
@@ -227,3 +231,5 @@ public partial class ScalarOpTest
         Assert.Equal(expRem, actRem);
     }
 }
+#pragma warning restore xUnit1042
+#pragma warning restore IDE0079
