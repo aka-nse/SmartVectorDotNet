@@ -30,6 +30,7 @@ var types = new TypeDef [] {
 using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 partial class ScalarOp
 {
@@ -41,16 +42,25 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
-    [GeneratedCode("T4", null)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
     public static T <#=opname#><T>(T x, int y)
         where T : unmanaged
     {
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
 <# foreach(var type in types) { #>
-        if(typeof(T) == typeof(<#=type#>)) return Reinterpret<<#=type.OperationType#>, T>((<#=type.OperationType#>)(<#=op($"Reinterpret<T, {type.OperationType}>(x)", $"y")#>));
+        if(typeof(T) == typeof(<#=type#>)) return from(<#=opname#>(to<<#=type#>>(x), y));
 <# } #>
         throw new NotSupportedException();
     }
+    
+<# foreach(var type in types.Where(type => type.OperationType == type.Name)) { #>
+    /**<see cref="<#=opname#>{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static <#=type#> <#=opname#>(<#=type#> x, int y) => (<#=type#>)(<#=op("x", "y")#>);
+<# } #>
+<# foreach(var type in types.Where(type => type.OperationType != type.Name)) { #>
+    /**<see cref="<#=opname#>{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static <#=type#> <#=opname#>(<#=type#> x, int y) => H.Reinterpret<<#=type.OperationType#>, <#=type#>>(<#=op($"H.Reinterpret<{type}, {type.OperationType}>(x)", $"y")#>);
+<# } #>
 
 <# } #>
 }
@@ -63,10 +73,10 @@ public class TypeDef
 
     public TypeDef(string name, string operationType = default)
     {
-        Name       = name;
-        OperationType = $"{operationType ?? name, -6}";
+        Name       = $"{name, -6}";
+        OperationType = $"{operationType ?? Name, -6}";
     }
 
-    public override string ToString() => $"{Name,-6}";
+    public override string ToString() => Name;
 }
 #>

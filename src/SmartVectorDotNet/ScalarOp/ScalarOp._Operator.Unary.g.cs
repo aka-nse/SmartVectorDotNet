@@ -22,20 +22,38 @@ partial class ScalarOp
     public static T UnaryPlus<T>(T x)
         where T : unmanaged
     {
-        if(typeof(T) == typeof(byte  )) return Reinterpret<sbyte , T>((sbyte )(+Reinterpret<T, sbyte >(x)));
-        if(typeof(T) == typeof(ushort)) return Reinterpret<short , T>((short )(+Reinterpret<T, short >(x)));
-        if(typeof(T) == typeof(uint  )) return Reinterpret<int   , T>((int   )(+Reinterpret<T, int   >(x)));
-        if(typeof(T) == typeof(ulong )) return Reinterpret<long  , T>((long  )(+Reinterpret<T, long  >(x)));
-        if(typeof(T) == typeof(nuint )) return Reinterpret<nint  , T>((nint  )(+Reinterpret<T, nint  >(x)));
-        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(+Reinterpret<T, sbyte >(x)));
-        if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(+Reinterpret<T, short >(x)));
-        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(+Reinterpret<T, int   >(x)));
-        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(+Reinterpret<T, long  >(x)));
-        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(+Reinterpret<T, nint  >(x)));
-        if(typeof(T) == typeof(float )) return Reinterpret<float , T>((float )(+Reinterpret<T, float >(x)));
-        if(typeof(T) == typeof(double)) return Reinterpret<double, T>((double)(+Reinterpret<T, double>(x)));
+        #pragma warning disable CS8321
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+        #pragma warning restore CS8321
+
+        if(typeof(T) == typeof(byte  )) return from((sbyte )(+to<sbyte >(x)));
+        if(typeof(T) == typeof(ushort)) return from((short )(+to<short >(x)));
+        if(typeof(T) == typeof(uint  )) return from((int   )(+to<int   >(x)));
+        if(typeof(T) == typeof(ulong )) return from((long  )(+to<long  >(x)));
+        if(typeof(T) == typeof(nuint )) return from((nint  )(+to<nint  >(x)));
+        if(typeof(T) == typeof(sbyte )) return from((sbyte )(+to<sbyte >(x)));
+        if(typeof(T) == typeof(short )) return from((short )(+to<short >(x)));
+        if(typeof(T) == typeof(int   )) return from((int   )(+to<int   >(x)));
+        if(typeof(T) == typeof(long  )) return from((long  )(+to<long  >(x)));
+        if(typeof(T) == typeof(nint  )) return from((nint  )(+to<nint  >(x)));
+        if(typeof(T) == typeof(float )) return from((float )(+to<float >(x)));
+        if(typeof(T) == typeof(double)) return from((double)(+to<double>(x)));
         throw new NotSupportedException();
     }
+    
+    /**<see cref="UnaryPlus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static sbyte  UnaryPlus(sbyte  x) => (sbyte )(+x);
+    /**<see cref="UnaryPlus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static short  UnaryPlus(short  x) => (short )(+x);
+    /**<see cref="UnaryPlus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static int    UnaryPlus(int    x) => (int   )(+x);
+    /**<see cref="UnaryPlus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static long   UnaryPlus(long   x) => (long  )(+x);
+    /**<see cref="UnaryPlus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nint   UnaryPlus(nint   x) => (nint  )(+x);
+    /**<see cref="UnaryPlus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static float  UnaryPlus(float  x) => (float )(+x);
+    /**<see cref="UnaryPlus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static double UnaryPlus(double x) => (double)(+x);
+    /**<see cref="UnaryPlus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte   UnaryPlus(byte   x) => H.Reinterpret<sbyte , byte  >(UnaryPlus(H.Reinterpret<byte  , sbyte >(x)));
+    /**<see cref="UnaryPlus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ushort UnaryPlus(ushort x) => H.Reinterpret<short , ushort>(UnaryPlus(H.Reinterpret<ushort, short >(x)));
+    /**<see cref="UnaryPlus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static uint   UnaryPlus(uint   x) => H.Reinterpret<int   , uint  >(UnaryPlus(H.Reinterpret<uint  , int   >(x)));
+    /**<see cref="UnaryPlus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ulong  UnaryPlus(ulong  x) => H.Reinterpret<long  , ulong >(UnaryPlus(H.Reinterpret<ulong , long  >(x)));
+    /**<see cref="UnaryPlus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nuint  UnaryPlus(nuint  x) => H.Reinterpret<nint  , nuint >(UnaryPlus(H.Reinterpret<nuint , nint  >(x)));
 
 
     /// <summary> Operates <c>UnaryMinus</c> unaly operation. </summary>
@@ -51,20 +69,38 @@ partial class ScalarOp
     public static T UnaryMinus<T>(T x)
         where T : unmanaged
     {
-        if(typeof(T) == typeof(byte  )) return Reinterpret<sbyte , T>((sbyte )(-Reinterpret<T, sbyte >(x)));
-        if(typeof(T) == typeof(ushort)) return Reinterpret<short , T>((short )(-Reinterpret<T, short >(x)));
-        if(typeof(T) == typeof(uint  )) return Reinterpret<int   , T>((int   )(-Reinterpret<T, int   >(x)));
-        if(typeof(T) == typeof(ulong )) return Reinterpret<long  , T>((long  )(-Reinterpret<T, long  >(x)));
-        if(typeof(T) == typeof(nuint )) return Reinterpret<nint  , T>((nint  )(-Reinterpret<T, nint  >(x)));
-        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(-Reinterpret<T, sbyte >(x)));
-        if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(-Reinterpret<T, short >(x)));
-        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(-Reinterpret<T, int   >(x)));
-        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(-Reinterpret<T, long  >(x)));
-        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(-Reinterpret<T, nint  >(x)));
-        if(typeof(T) == typeof(float )) return Reinterpret<float , T>((float )(-Reinterpret<T, float >(x)));
-        if(typeof(T) == typeof(double)) return Reinterpret<double, T>((double)(-Reinterpret<T, double>(x)));
+        #pragma warning disable CS8321
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+        #pragma warning restore CS8321
+
+        if(typeof(T) == typeof(byte  )) return from((sbyte )(-to<sbyte >(x)));
+        if(typeof(T) == typeof(ushort)) return from((short )(-to<short >(x)));
+        if(typeof(T) == typeof(uint  )) return from((int   )(-to<int   >(x)));
+        if(typeof(T) == typeof(ulong )) return from((long  )(-to<long  >(x)));
+        if(typeof(T) == typeof(nuint )) return from((nint  )(-to<nint  >(x)));
+        if(typeof(T) == typeof(sbyte )) return from((sbyte )(-to<sbyte >(x)));
+        if(typeof(T) == typeof(short )) return from((short )(-to<short >(x)));
+        if(typeof(T) == typeof(int   )) return from((int   )(-to<int   >(x)));
+        if(typeof(T) == typeof(long  )) return from((long  )(-to<long  >(x)));
+        if(typeof(T) == typeof(nint  )) return from((nint  )(-to<nint  >(x)));
+        if(typeof(T) == typeof(float )) return from((float )(-to<float >(x)));
+        if(typeof(T) == typeof(double)) return from((double)(-to<double>(x)));
         throw new NotSupportedException();
     }
+    
+    /**<see cref="UnaryMinus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static sbyte  UnaryMinus(sbyte  x) => (sbyte )(-x);
+    /**<see cref="UnaryMinus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static short  UnaryMinus(short  x) => (short )(-x);
+    /**<see cref="UnaryMinus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static int    UnaryMinus(int    x) => (int   )(-x);
+    /**<see cref="UnaryMinus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static long   UnaryMinus(long   x) => (long  )(-x);
+    /**<see cref="UnaryMinus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nint   UnaryMinus(nint   x) => (nint  )(-x);
+    /**<see cref="UnaryMinus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static float  UnaryMinus(float  x) => (float )(-x);
+    /**<see cref="UnaryMinus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static double UnaryMinus(double x) => (double)(-x);
+    /**<see cref="UnaryMinus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte   UnaryMinus(byte   x) => H.Reinterpret<sbyte , byte  >(UnaryMinus(H.Reinterpret<byte  , sbyte >(x)));
+    /**<see cref="UnaryMinus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ushort UnaryMinus(ushort x) => H.Reinterpret<short , ushort>(UnaryMinus(H.Reinterpret<ushort, short >(x)));
+    /**<see cref="UnaryMinus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static uint   UnaryMinus(uint   x) => H.Reinterpret<int   , uint  >(UnaryMinus(H.Reinterpret<uint  , int   >(x)));
+    /**<see cref="UnaryMinus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ulong  UnaryMinus(ulong  x) => H.Reinterpret<long  , ulong >(UnaryMinus(H.Reinterpret<ulong , long  >(x)));
+    /**<see cref="UnaryMinus{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nuint  UnaryMinus(nuint  x) => H.Reinterpret<nint  , nuint >(UnaryMinus(H.Reinterpret<nuint , nint  >(x)));
 
 
     /// <summary> Operates <c>Not</c> unaly operation. </summary>
@@ -80,20 +116,14 @@ partial class ScalarOp
     public static T Not<T>(T x)
         where T : unmanaged
     {
-        if(typeof(T) == typeof(byte  )) throw new NotSupportedException();
-        if(typeof(T) == typeof(ushort)) throw new NotSupportedException();
-        if(typeof(T) == typeof(uint  )) throw new NotSupportedException();
-        if(typeof(T) == typeof(ulong )) throw new NotSupportedException();
-        if(typeof(T) == typeof(nuint )) throw new NotSupportedException();
-        if(typeof(T) == typeof(sbyte )) throw new NotSupportedException();
-        if(typeof(T) == typeof(short )) throw new NotSupportedException();
-        if(typeof(T) == typeof(int   )) throw new NotSupportedException();
-        if(typeof(T) == typeof(long  )) throw new NotSupportedException();
-        if(typeof(T) == typeof(nint  )) throw new NotSupportedException();
-        if(typeof(T) == typeof(float )) throw new NotSupportedException();
-        if(typeof(T) == typeof(double)) throw new NotSupportedException();
+        #pragma warning disable CS8321
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+        #pragma warning restore CS8321
+
         throw new NotSupportedException();
     }
+    
 
 
     /// <summary> Operates <c>Complement</c> unaly operation. </summary>
@@ -109,19 +139,37 @@ partial class ScalarOp
     public static T Complement<T>(T x)
         where T : unmanaged
     {
-        if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>((byte  )(~Reinterpret<T, byte  >(x)));
-        if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>((ushort)(~Reinterpret<T, ushort>(x)));
-        if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>((uint  )(~Reinterpret<T, uint  >(x)));
-        if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>((ulong )(~Reinterpret<T, ulong >(x)));
-        if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>((nuint )(~Reinterpret<T, nuint >(x)));
-        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>((sbyte )(~Reinterpret<T, sbyte >(x)));
-        if(typeof(T) == typeof(short )) return Reinterpret<short , T>((short )(~Reinterpret<T, short >(x)));
-        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>((int   )(~Reinterpret<T, int   >(x)));
-        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>((long  )(~Reinterpret<T, long  >(x)));
-        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>((nint  )(~Reinterpret<T, nint  >(x)));
-        if(typeof(T) == typeof(float )) return Reinterpret<uint  , T>((uint  )(~Reinterpret<T, uint  >(x)));
-        if(typeof(T) == typeof(double)) return Reinterpret<ulong , T>((ulong )(~Reinterpret<T, ulong >(x)));
+        #pragma warning disable CS8321
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+        #pragma warning restore CS8321
+
+        if(typeof(T) == typeof(byte  )) return from((byte  )(~to<byte  >(x)));
+        if(typeof(T) == typeof(ushort)) return from((ushort)(~to<ushort>(x)));
+        if(typeof(T) == typeof(uint  )) return from((uint  )(~to<uint  >(x)));
+        if(typeof(T) == typeof(ulong )) return from((ulong )(~to<ulong >(x)));
+        if(typeof(T) == typeof(nuint )) return from((nuint )(~to<nuint >(x)));
+        if(typeof(T) == typeof(sbyte )) return from((sbyte )(~to<sbyte >(x)));
+        if(typeof(T) == typeof(short )) return from((short )(~to<short >(x)));
+        if(typeof(T) == typeof(int   )) return from((int   )(~to<int   >(x)));
+        if(typeof(T) == typeof(long  )) return from((long  )(~to<long  >(x)));
+        if(typeof(T) == typeof(nint  )) return from((nint  )(~to<nint  >(x)));
+        if(typeof(T) == typeof(float )) return from((uint  )(~to<uint  >(x)));
+        if(typeof(T) == typeof(double)) return from((ulong )(~to<ulong >(x)));
         throw new NotSupportedException();
     }
+    
+    /**<see cref="Complement{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte   Complement(byte   x) => (byte  )(~x);
+    /**<see cref="Complement{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ushort Complement(ushort x) => (ushort)(~x);
+    /**<see cref="Complement{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static uint   Complement(uint   x) => (uint  )(~x);
+    /**<see cref="Complement{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ulong  Complement(ulong  x) => (ulong )(~x);
+    /**<see cref="Complement{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nuint  Complement(nuint  x) => (nuint )(~x);
+    /**<see cref="Complement{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static sbyte  Complement(sbyte  x) => (sbyte )(~x);
+    /**<see cref="Complement{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static short  Complement(short  x) => (short )(~x);
+    /**<see cref="Complement{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static int    Complement(int    x) => (int   )(~x);
+    /**<see cref="Complement{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static long   Complement(long   x) => (long  )(~x);
+    /**<see cref="Complement{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nint   Complement(nint   x) => (nint  )(~x);
+    /**<see cref="Complement{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static float  Complement(float  x) => H.Reinterpret<uint  , float >(Complement(H.Reinterpret<float , uint  >(x)));
+    /**<see cref="Complement{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static double Complement(double x) => H.Reinterpret<ulong , double>(Complement(H.Reinterpret<double, ulong >(x)));
 
 }

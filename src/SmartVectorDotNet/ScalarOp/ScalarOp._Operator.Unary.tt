@@ -52,15 +52,23 @@ partial class ScalarOp
     public static T <#=opname#><T>(T x)
         where T : unmanaged
     {
-<# foreach(var type in types) { #>
-<#     if(type.OperationType[opname] is not null) { #>
-        if(typeof(T) == typeof(<#=type#>)) return Reinterpret<<#=type.OperationType[opname]#>, T>((<#=type.OperationType[opname]#>)(<#=op($"Reinterpret<T, {type.OperationType[opname]}>(x)")#>));
-<#     } else { #>
-        if(typeof(T) == typeof(<#=type#>)) throw new NotSupportedException();
-<#     } #>
+        #pragma warning disable CS8321
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+        #pragma warning restore CS8321
+
+<# foreach(var type in types.Where(type => type.OperationType[opname] is not null)) { #>
+        if(typeof(T) == typeof(<#=type#>)) return from((<#=type.OperationType[opname]#>)(<#=op($"to<{type.OperationType[opname]}>(x)")#>));
 <# } #>
         throw new NotSupportedException();
     }
+    
+<# foreach(var type in types.Where(type => type.OperationType[opname] == type.Name)) { #>
+    /**<see cref="<#=opname#>{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static <#=type#> <#=opname#>(<#=type#> x) => (<#=type#>)(<#=op("x")#>);
+<# } #>
+<# foreach(var type in types.Where(type => (type.OperationType[opname] ?? type.Name) != type.Name)) { #>
+    /**<see cref="<#=opname#>{T}"/>*/ [GeneratedCode("T4", null)] [MethodImpl(MethodImplOptions.AggressiveInlining)] public static <#=type#> <#=opname#>(<#=type#> x) => H.Reinterpret<<#=type.OperationType[opname]#>, <#=type#>>(<#=opname#>(H.Reinterpret<<#=type#>, <#=type.OperationType[opname]#>>(x)));
+<# } #>
 
 <# } #>
 }
@@ -72,7 +80,7 @@ public class TypeDef
 
     public TypeDef(string name, string unaryPlus, string unaryMinus, string not, string complement)
     {
-        Name          = name      ;
+        Name          = $"{name, -6}";
         OperationType = new Dictionary<string, string>
         {
             { "UnaryPlus" , unaryPlus  is not null ? $"{unaryPlus , -6}" : null },

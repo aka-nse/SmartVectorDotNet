@@ -54,6 +54,7 @@ var bitwiseTypes = new [] {
 using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 partial class ScalarOp
 {
@@ -72,8 +73,11 @@ partial class ScalarOp
     public static T <#=opname#><T>(T x, T y)
         where T : unmanaged
     {
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
 <#      foreach(var type in arithmeticTypes) { #>
-            if(typeof(T) == typeof(<#=type#>)) return Reinterpret<<#=type#>, T>(<#=opname#>(Reinterpret<T, <#=type#>>(x), Reinterpret<T, <#=type#>>(y)));
+        if(typeof(T) == typeof(<#=type#>)) return from(<#=opname#>(to<<#=type#>>(x), to<<#=type#>>(y)));
 <#      } #>
         throw new NotSupportedException();
     }
@@ -100,8 +104,11 @@ partial class ScalarOp
     public static T <#=opname#><T>(T x, T y)
         where T : unmanaged
     {
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
 <#      foreach(var type in arithmeticTypes) { #>
-        if(typeof(T) == typeof(<#=type#>)) return Reinterpret<<#=type#>, T>(<#=opname#>(Reinterpret<T, <#=type#>>(x), Reinterpret<T, <#=type#>>(y)));
+        if(typeof(T) == typeof(<#=type#>)) return from(<#=opname#>(to<<#=type#>>(x), to<<#=type#>>(y)));
 <#      } #>
         throw new NotSupportedException();
     }

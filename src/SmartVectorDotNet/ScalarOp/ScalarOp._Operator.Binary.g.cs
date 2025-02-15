@@ -4,6 +4,7 @@
 using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 partial class ScalarOp
 {
@@ -21,18 +22,21 @@ partial class ScalarOp
     public static T Add<T>(T x, T y)
         where T : unmanaged
     {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(Add(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(Add(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(Add(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(Add(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(Add(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(Add(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(Add(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(Add(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(Add(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(Add(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(Add(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(Add(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
+        if(typeof(T) == typeof(byte  )) return from(Add(to<byte  >(x), to<byte  >(y)));
+        if(typeof(T) == typeof(ushort)) return from(Add(to<ushort>(x), to<ushort>(y)));
+        if(typeof(T) == typeof(uint  )) return from(Add(to<uint  >(x), to<uint  >(y)));
+        if(typeof(T) == typeof(ulong )) return from(Add(to<ulong >(x), to<ulong >(y)));
+        if(typeof(T) == typeof(nuint )) return from(Add(to<nuint >(x), to<nuint >(y)));
+        if(typeof(T) == typeof(sbyte )) return from(Add(to<sbyte >(x), to<sbyte >(y)));
+        if(typeof(T) == typeof(short )) return from(Add(to<short >(x), to<short >(y)));
+        if(typeof(T) == typeof(int   )) return from(Add(to<int   >(x), to<int   >(y)));
+        if(typeof(T) == typeof(long  )) return from(Add(to<long  >(x), to<long  >(y)));
+        if(typeof(T) == typeof(nint  )) return from(Add(to<nint  >(x), to<nint  >(y)));
+        if(typeof(T) == typeof(float )) return from(Add(to<float >(x), to<float >(y)));
+        if(typeof(T) == typeof(double)) return from(Add(to<double>(x), to<double>(y)));
         throw new NotSupportedException();
     }
     
@@ -63,18 +67,21 @@ partial class ScalarOp
     public static T AddChecked<T>(T x, T y)
         where T : unmanaged
     {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(AddChecked(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(AddChecked(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(AddChecked(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(AddChecked(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(AddChecked(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(AddChecked(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(AddChecked(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(AddChecked(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(AddChecked(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(AddChecked(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(AddChecked(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(AddChecked(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
+        if(typeof(T) == typeof(byte  )) return from(AddChecked(to<byte  >(x), to<byte  >(y)));
+        if(typeof(T) == typeof(ushort)) return from(AddChecked(to<ushort>(x), to<ushort>(y)));
+        if(typeof(T) == typeof(uint  )) return from(AddChecked(to<uint  >(x), to<uint  >(y)));
+        if(typeof(T) == typeof(ulong )) return from(AddChecked(to<ulong >(x), to<ulong >(y)));
+        if(typeof(T) == typeof(nuint )) return from(AddChecked(to<nuint >(x), to<nuint >(y)));
+        if(typeof(T) == typeof(sbyte )) return from(AddChecked(to<sbyte >(x), to<sbyte >(y)));
+        if(typeof(T) == typeof(short )) return from(AddChecked(to<short >(x), to<short >(y)));
+        if(typeof(T) == typeof(int   )) return from(AddChecked(to<int   >(x), to<int   >(y)));
+        if(typeof(T) == typeof(long  )) return from(AddChecked(to<long  >(x), to<long  >(y)));
+        if(typeof(T) == typeof(nint  )) return from(AddChecked(to<nint  >(x), to<nint  >(y)));
+        if(typeof(T) == typeof(float )) return from(AddChecked(to<float >(x), to<float >(y)));
+        if(typeof(T) == typeof(double)) return from(AddChecked(to<double>(x), to<double>(y)));
         throw new NotSupportedException();
     }
     
@@ -105,18 +112,21 @@ partial class ScalarOp
     public static T Subtract<T>(T x, T y)
         where T : unmanaged
     {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(Subtract(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(Subtract(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(Subtract(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(Subtract(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(Subtract(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(Subtract(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(Subtract(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(Subtract(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(Subtract(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(Subtract(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(Subtract(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(Subtract(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
+        if(typeof(T) == typeof(byte  )) return from(Subtract(to<byte  >(x), to<byte  >(y)));
+        if(typeof(T) == typeof(ushort)) return from(Subtract(to<ushort>(x), to<ushort>(y)));
+        if(typeof(T) == typeof(uint  )) return from(Subtract(to<uint  >(x), to<uint  >(y)));
+        if(typeof(T) == typeof(ulong )) return from(Subtract(to<ulong >(x), to<ulong >(y)));
+        if(typeof(T) == typeof(nuint )) return from(Subtract(to<nuint >(x), to<nuint >(y)));
+        if(typeof(T) == typeof(sbyte )) return from(Subtract(to<sbyte >(x), to<sbyte >(y)));
+        if(typeof(T) == typeof(short )) return from(Subtract(to<short >(x), to<short >(y)));
+        if(typeof(T) == typeof(int   )) return from(Subtract(to<int   >(x), to<int   >(y)));
+        if(typeof(T) == typeof(long  )) return from(Subtract(to<long  >(x), to<long  >(y)));
+        if(typeof(T) == typeof(nint  )) return from(Subtract(to<nint  >(x), to<nint  >(y)));
+        if(typeof(T) == typeof(float )) return from(Subtract(to<float >(x), to<float >(y)));
+        if(typeof(T) == typeof(double)) return from(Subtract(to<double>(x), to<double>(y)));
         throw new NotSupportedException();
     }
     
@@ -147,18 +157,21 @@ partial class ScalarOp
     public static T SubtractChecked<T>(T x, T y)
         where T : unmanaged
     {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(SubtractChecked(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(SubtractChecked(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(SubtractChecked(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(SubtractChecked(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(SubtractChecked(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(SubtractChecked(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(SubtractChecked(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(SubtractChecked(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(SubtractChecked(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(SubtractChecked(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(SubtractChecked(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(SubtractChecked(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
+        if(typeof(T) == typeof(byte  )) return from(SubtractChecked(to<byte  >(x), to<byte  >(y)));
+        if(typeof(T) == typeof(ushort)) return from(SubtractChecked(to<ushort>(x), to<ushort>(y)));
+        if(typeof(T) == typeof(uint  )) return from(SubtractChecked(to<uint  >(x), to<uint  >(y)));
+        if(typeof(T) == typeof(ulong )) return from(SubtractChecked(to<ulong >(x), to<ulong >(y)));
+        if(typeof(T) == typeof(nuint )) return from(SubtractChecked(to<nuint >(x), to<nuint >(y)));
+        if(typeof(T) == typeof(sbyte )) return from(SubtractChecked(to<sbyte >(x), to<sbyte >(y)));
+        if(typeof(T) == typeof(short )) return from(SubtractChecked(to<short >(x), to<short >(y)));
+        if(typeof(T) == typeof(int   )) return from(SubtractChecked(to<int   >(x), to<int   >(y)));
+        if(typeof(T) == typeof(long  )) return from(SubtractChecked(to<long  >(x), to<long  >(y)));
+        if(typeof(T) == typeof(nint  )) return from(SubtractChecked(to<nint  >(x), to<nint  >(y)));
+        if(typeof(T) == typeof(float )) return from(SubtractChecked(to<float >(x), to<float >(y)));
+        if(typeof(T) == typeof(double)) return from(SubtractChecked(to<double>(x), to<double>(y)));
         throw new NotSupportedException();
     }
     
@@ -189,18 +202,21 @@ partial class ScalarOp
     public static T Multiply<T>(T x, T y)
         where T : unmanaged
     {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(Multiply(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(Multiply(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(Multiply(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(Multiply(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(Multiply(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(Multiply(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(Multiply(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(Multiply(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(Multiply(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(Multiply(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(Multiply(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(Multiply(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
+        if(typeof(T) == typeof(byte  )) return from(Multiply(to<byte  >(x), to<byte  >(y)));
+        if(typeof(T) == typeof(ushort)) return from(Multiply(to<ushort>(x), to<ushort>(y)));
+        if(typeof(T) == typeof(uint  )) return from(Multiply(to<uint  >(x), to<uint  >(y)));
+        if(typeof(T) == typeof(ulong )) return from(Multiply(to<ulong >(x), to<ulong >(y)));
+        if(typeof(T) == typeof(nuint )) return from(Multiply(to<nuint >(x), to<nuint >(y)));
+        if(typeof(T) == typeof(sbyte )) return from(Multiply(to<sbyte >(x), to<sbyte >(y)));
+        if(typeof(T) == typeof(short )) return from(Multiply(to<short >(x), to<short >(y)));
+        if(typeof(T) == typeof(int   )) return from(Multiply(to<int   >(x), to<int   >(y)));
+        if(typeof(T) == typeof(long  )) return from(Multiply(to<long  >(x), to<long  >(y)));
+        if(typeof(T) == typeof(nint  )) return from(Multiply(to<nint  >(x), to<nint  >(y)));
+        if(typeof(T) == typeof(float )) return from(Multiply(to<float >(x), to<float >(y)));
+        if(typeof(T) == typeof(double)) return from(Multiply(to<double>(x), to<double>(y)));
         throw new NotSupportedException();
     }
     
@@ -231,18 +247,21 @@ partial class ScalarOp
     public static T MultiplyChecked<T>(T x, T y)
         where T : unmanaged
     {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(MultiplyChecked(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(MultiplyChecked(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(MultiplyChecked(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(MultiplyChecked(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(MultiplyChecked(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(MultiplyChecked(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(MultiplyChecked(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(MultiplyChecked(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(MultiplyChecked(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(MultiplyChecked(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(MultiplyChecked(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(MultiplyChecked(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
+        if(typeof(T) == typeof(byte  )) return from(MultiplyChecked(to<byte  >(x), to<byte  >(y)));
+        if(typeof(T) == typeof(ushort)) return from(MultiplyChecked(to<ushort>(x), to<ushort>(y)));
+        if(typeof(T) == typeof(uint  )) return from(MultiplyChecked(to<uint  >(x), to<uint  >(y)));
+        if(typeof(T) == typeof(ulong )) return from(MultiplyChecked(to<ulong >(x), to<ulong >(y)));
+        if(typeof(T) == typeof(nuint )) return from(MultiplyChecked(to<nuint >(x), to<nuint >(y)));
+        if(typeof(T) == typeof(sbyte )) return from(MultiplyChecked(to<sbyte >(x), to<sbyte >(y)));
+        if(typeof(T) == typeof(short )) return from(MultiplyChecked(to<short >(x), to<short >(y)));
+        if(typeof(T) == typeof(int   )) return from(MultiplyChecked(to<int   >(x), to<int   >(y)));
+        if(typeof(T) == typeof(long  )) return from(MultiplyChecked(to<long  >(x), to<long  >(y)));
+        if(typeof(T) == typeof(nint  )) return from(MultiplyChecked(to<nint  >(x), to<nint  >(y)));
+        if(typeof(T) == typeof(float )) return from(MultiplyChecked(to<float >(x), to<float >(y)));
+        if(typeof(T) == typeof(double)) return from(MultiplyChecked(to<double>(x), to<double>(y)));
         throw new NotSupportedException();
     }
     
@@ -273,18 +292,21 @@ partial class ScalarOp
     public static T Divide<T>(T x, T y)
         where T : unmanaged
     {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(Divide(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(Divide(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(Divide(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(Divide(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(Divide(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(Divide(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(Divide(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(Divide(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(Divide(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(Divide(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(Divide(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(Divide(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
+        if(typeof(T) == typeof(byte  )) return from(Divide(to<byte  >(x), to<byte  >(y)));
+        if(typeof(T) == typeof(ushort)) return from(Divide(to<ushort>(x), to<ushort>(y)));
+        if(typeof(T) == typeof(uint  )) return from(Divide(to<uint  >(x), to<uint  >(y)));
+        if(typeof(T) == typeof(ulong )) return from(Divide(to<ulong >(x), to<ulong >(y)));
+        if(typeof(T) == typeof(nuint )) return from(Divide(to<nuint >(x), to<nuint >(y)));
+        if(typeof(T) == typeof(sbyte )) return from(Divide(to<sbyte >(x), to<sbyte >(y)));
+        if(typeof(T) == typeof(short )) return from(Divide(to<short >(x), to<short >(y)));
+        if(typeof(T) == typeof(int   )) return from(Divide(to<int   >(x), to<int   >(y)));
+        if(typeof(T) == typeof(long  )) return from(Divide(to<long  >(x), to<long  >(y)));
+        if(typeof(T) == typeof(nint  )) return from(Divide(to<nint  >(x), to<nint  >(y)));
+        if(typeof(T) == typeof(float )) return from(Divide(to<float >(x), to<float >(y)));
+        if(typeof(T) == typeof(double)) return from(Divide(to<double>(x), to<double>(y)));
         throw new NotSupportedException();
     }
     
@@ -315,18 +337,21 @@ partial class ScalarOp
     public static T DivideChecked<T>(T x, T y)
         where T : unmanaged
     {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(DivideChecked(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(DivideChecked(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(DivideChecked(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(DivideChecked(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(DivideChecked(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(DivideChecked(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(DivideChecked(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(DivideChecked(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(DivideChecked(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(DivideChecked(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(DivideChecked(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(DivideChecked(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
+        if(typeof(T) == typeof(byte  )) return from(DivideChecked(to<byte  >(x), to<byte  >(y)));
+        if(typeof(T) == typeof(ushort)) return from(DivideChecked(to<ushort>(x), to<ushort>(y)));
+        if(typeof(T) == typeof(uint  )) return from(DivideChecked(to<uint  >(x), to<uint  >(y)));
+        if(typeof(T) == typeof(ulong )) return from(DivideChecked(to<ulong >(x), to<ulong >(y)));
+        if(typeof(T) == typeof(nuint )) return from(DivideChecked(to<nuint >(x), to<nuint >(y)));
+        if(typeof(T) == typeof(sbyte )) return from(DivideChecked(to<sbyte >(x), to<sbyte >(y)));
+        if(typeof(T) == typeof(short )) return from(DivideChecked(to<short >(x), to<short >(y)));
+        if(typeof(T) == typeof(int   )) return from(DivideChecked(to<int   >(x), to<int   >(y)));
+        if(typeof(T) == typeof(long  )) return from(DivideChecked(to<long  >(x), to<long  >(y)));
+        if(typeof(T) == typeof(nint  )) return from(DivideChecked(to<nint  >(x), to<nint  >(y)));
+        if(typeof(T) == typeof(float )) return from(DivideChecked(to<float >(x), to<float >(y)));
+        if(typeof(T) == typeof(double)) return from(DivideChecked(to<double>(x), to<double>(y)));
         throw new NotSupportedException();
     }
     
@@ -357,18 +382,21 @@ partial class ScalarOp
     public static T Modulo<T>(T x, T y)
         where T : unmanaged
     {
-            if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(Modulo(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
-            if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(Modulo(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
-            if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(Modulo(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
-            if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(Modulo(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
-            if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(Modulo(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
-            if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(Modulo(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
-            if(typeof(T) == typeof(short )) return Reinterpret<short , T>(Modulo(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
-            if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(Modulo(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
-            if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(Modulo(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
-            if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(Modulo(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
-            if(typeof(T) == typeof(float )) return Reinterpret<float , T>(Modulo(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
-            if(typeof(T) == typeof(double)) return Reinterpret<double, T>(Modulo(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
+        if(typeof(T) == typeof(byte  )) return from(Modulo(to<byte  >(x), to<byte  >(y)));
+        if(typeof(T) == typeof(ushort)) return from(Modulo(to<ushort>(x), to<ushort>(y)));
+        if(typeof(T) == typeof(uint  )) return from(Modulo(to<uint  >(x), to<uint  >(y)));
+        if(typeof(T) == typeof(ulong )) return from(Modulo(to<ulong >(x), to<ulong >(y)));
+        if(typeof(T) == typeof(nuint )) return from(Modulo(to<nuint >(x), to<nuint >(y)));
+        if(typeof(T) == typeof(sbyte )) return from(Modulo(to<sbyte >(x), to<sbyte >(y)));
+        if(typeof(T) == typeof(short )) return from(Modulo(to<short >(x), to<short >(y)));
+        if(typeof(T) == typeof(int   )) return from(Modulo(to<int   >(x), to<int   >(y)));
+        if(typeof(T) == typeof(long  )) return from(Modulo(to<long  >(x), to<long  >(y)));
+        if(typeof(T) == typeof(nint  )) return from(Modulo(to<nint  >(x), to<nint  >(y)));
+        if(typeof(T) == typeof(float )) return from(Modulo(to<float >(x), to<float >(y)));
+        if(typeof(T) == typeof(double)) return from(Modulo(to<double>(x), to<double>(y)));
         throw new NotSupportedException();
     }
     
@@ -401,18 +429,21 @@ partial class ScalarOp
     public static T BitwiseOr<T>(T x, T y)
         where T : unmanaged
     {
-        if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(BitwiseOr(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
-        if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(BitwiseOr(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
-        if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(BitwiseOr(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
-        if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(BitwiseOr(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
-        if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(BitwiseOr(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
-        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(BitwiseOr(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
-        if(typeof(T) == typeof(short )) return Reinterpret<short , T>(BitwiseOr(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
-        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(BitwiseOr(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
-        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(BitwiseOr(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
-        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(BitwiseOr(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
-        if(typeof(T) == typeof(float )) return Reinterpret<float , T>(BitwiseOr(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
-        if(typeof(T) == typeof(double)) return Reinterpret<double, T>(BitwiseOr(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
+        if(typeof(T) == typeof(byte  )) return from(BitwiseOr(to<byte  >(x), to<byte  >(y)));
+        if(typeof(T) == typeof(ushort)) return from(BitwiseOr(to<ushort>(x), to<ushort>(y)));
+        if(typeof(T) == typeof(uint  )) return from(BitwiseOr(to<uint  >(x), to<uint  >(y)));
+        if(typeof(T) == typeof(ulong )) return from(BitwiseOr(to<ulong >(x), to<ulong >(y)));
+        if(typeof(T) == typeof(nuint )) return from(BitwiseOr(to<nuint >(x), to<nuint >(y)));
+        if(typeof(T) == typeof(sbyte )) return from(BitwiseOr(to<sbyte >(x), to<sbyte >(y)));
+        if(typeof(T) == typeof(short )) return from(BitwiseOr(to<short >(x), to<short >(y)));
+        if(typeof(T) == typeof(int   )) return from(BitwiseOr(to<int   >(x), to<int   >(y)));
+        if(typeof(T) == typeof(long  )) return from(BitwiseOr(to<long  >(x), to<long  >(y)));
+        if(typeof(T) == typeof(nint  )) return from(BitwiseOr(to<nint  >(x), to<nint  >(y)));
+        if(typeof(T) == typeof(float )) return from(BitwiseOr(to<float >(x), to<float >(y)));
+        if(typeof(T) == typeof(double)) return from(BitwiseOr(to<double>(x), to<double>(y)));
         throw new NotSupportedException();
     }
 
@@ -452,18 +483,21 @@ partial class ScalarOp
     public static T BitwiseAnd<T>(T x, T y)
         where T : unmanaged
     {
-        if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(BitwiseAnd(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
-        if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(BitwiseAnd(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
-        if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(BitwiseAnd(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
-        if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(BitwiseAnd(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
-        if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(BitwiseAnd(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
-        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(BitwiseAnd(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
-        if(typeof(T) == typeof(short )) return Reinterpret<short , T>(BitwiseAnd(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
-        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(BitwiseAnd(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
-        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(BitwiseAnd(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
-        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(BitwiseAnd(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
-        if(typeof(T) == typeof(float )) return Reinterpret<float , T>(BitwiseAnd(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
-        if(typeof(T) == typeof(double)) return Reinterpret<double, T>(BitwiseAnd(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
+        if(typeof(T) == typeof(byte  )) return from(BitwiseAnd(to<byte  >(x), to<byte  >(y)));
+        if(typeof(T) == typeof(ushort)) return from(BitwiseAnd(to<ushort>(x), to<ushort>(y)));
+        if(typeof(T) == typeof(uint  )) return from(BitwiseAnd(to<uint  >(x), to<uint  >(y)));
+        if(typeof(T) == typeof(ulong )) return from(BitwiseAnd(to<ulong >(x), to<ulong >(y)));
+        if(typeof(T) == typeof(nuint )) return from(BitwiseAnd(to<nuint >(x), to<nuint >(y)));
+        if(typeof(T) == typeof(sbyte )) return from(BitwiseAnd(to<sbyte >(x), to<sbyte >(y)));
+        if(typeof(T) == typeof(short )) return from(BitwiseAnd(to<short >(x), to<short >(y)));
+        if(typeof(T) == typeof(int   )) return from(BitwiseAnd(to<int   >(x), to<int   >(y)));
+        if(typeof(T) == typeof(long  )) return from(BitwiseAnd(to<long  >(x), to<long  >(y)));
+        if(typeof(T) == typeof(nint  )) return from(BitwiseAnd(to<nint  >(x), to<nint  >(y)));
+        if(typeof(T) == typeof(float )) return from(BitwiseAnd(to<float >(x), to<float >(y)));
+        if(typeof(T) == typeof(double)) return from(BitwiseAnd(to<double>(x), to<double>(y)));
         throw new NotSupportedException();
     }
 
@@ -503,18 +537,21 @@ partial class ScalarOp
     public static T BitwiseXor<T>(T x, T y)
         where T : unmanaged
     {
-        if(typeof(T) == typeof(byte  )) return Reinterpret<byte  , T>(BitwiseXor(Reinterpret<T, byte  >(x), Reinterpret<T, byte  >(y)));
-        if(typeof(T) == typeof(ushort)) return Reinterpret<ushort, T>(BitwiseXor(Reinterpret<T, ushort>(x), Reinterpret<T, ushort>(y)));
-        if(typeof(T) == typeof(uint  )) return Reinterpret<uint  , T>(BitwiseXor(Reinterpret<T, uint  >(x), Reinterpret<T, uint  >(y)));
-        if(typeof(T) == typeof(ulong )) return Reinterpret<ulong , T>(BitwiseXor(Reinterpret<T, ulong >(x), Reinterpret<T, ulong >(y)));
-        if(typeof(T) == typeof(nuint )) return Reinterpret<nuint , T>(BitwiseXor(Reinterpret<T, nuint >(x), Reinterpret<T, nuint >(y)));
-        if(typeof(T) == typeof(sbyte )) return Reinterpret<sbyte , T>(BitwiseXor(Reinterpret<T, sbyte >(x), Reinterpret<T, sbyte >(y)));
-        if(typeof(T) == typeof(short )) return Reinterpret<short , T>(BitwiseXor(Reinterpret<T, short >(x), Reinterpret<T, short >(y)));
-        if(typeof(T) == typeof(int   )) return Reinterpret<int   , T>(BitwiseXor(Reinterpret<T, int   >(x), Reinterpret<T, int   >(y)));
-        if(typeof(T) == typeof(long  )) return Reinterpret<long  , T>(BitwiseXor(Reinterpret<T, long  >(x), Reinterpret<T, long  >(y)));
-        if(typeof(T) == typeof(nint  )) return Reinterpret<nint  , T>(BitwiseXor(Reinterpret<T, nint  >(x), Reinterpret<T, nint  >(y)));
-        if(typeof(T) == typeof(float )) return Reinterpret<float , T>(BitwiseXor(Reinterpret<T, float >(x), Reinterpret<T, float >(y)));
-        if(typeof(T) == typeof(double)) return Reinterpret<double, T>(BitwiseXor(Reinterpret<T, double>(x), Reinterpret<T, double>(y)));
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
+        if(typeof(T) == typeof(byte  )) return from(BitwiseXor(to<byte  >(x), to<byte  >(y)));
+        if(typeof(T) == typeof(ushort)) return from(BitwiseXor(to<ushort>(x), to<ushort>(y)));
+        if(typeof(T) == typeof(uint  )) return from(BitwiseXor(to<uint  >(x), to<uint  >(y)));
+        if(typeof(T) == typeof(ulong )) return from(BitwiseXor(to<ulong >(x), to<ulong >(y)));
+        if(typeof(T) == typeof(nuint )) return from(BitwiseXor(to<nuint >(x), to<nuint >(y)));
+        if(typeof(T) == typeof(sbyte )) return from(BitwiseXor(to<sbyte >(x), to<sbyte >(y)));
+        if(typeof(T) == typeof(short )) return from(BitwiseXor(to<short >(x), to<short >(y)));
+        if(typeof(T) == typeof(int   )) return from(BitwiseXor(to<int   >(x), to<int   >(y)));
+        if(typeof(T) == typeof(long  )) return from(BitwiseXor(to<long  >(x), to<long  >(y)));
+        if(typeof(T) == typeof(nint  )) return from(BitwiseXor(to<nint  >(x), to<nint  >(y)));
+        if(typeof(T) == typeof(float )) return from(BitwiseXor(to<float >(x), to<float >(y)));
+        if(typeof(T) == typeof(double)) return from(BitwiseXor(to<double>(x), to<double>(y)));
         throw new NotSupportedException();
     }
 

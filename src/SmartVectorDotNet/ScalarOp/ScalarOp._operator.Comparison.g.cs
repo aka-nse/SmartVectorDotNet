@@ -4,6 +4,7 @@
 using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 partial class ScalarOp
 {
@@ -13,25 +14,39 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
-    [GeneratedCode("T4", null)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
     public static bool Equals<T>(T x, T y)
         where T : unmanaged
     {
-        if(typeof(T) == typeof(byte  )) return Reinterpret<T, byte  >(x) == Reinterpret<T, byte  >(y);
-        if(typeof(T) == typeof(ushort)) return Reinterpret<T, ushort>(x) == Reinterpret<T, ushort>(y);
-        if(typeof(T) == typeof(uint  )) return Reinterpret<T, uint  >(x) == Reinterpret<T, uint  >(y);
-        if(typeof(T) == typeof(ulong )) return Reinterpret<T, ulong >(x) == Reinterpret<T, ulong >(y);
-        if(typeof(T) == typeof(nuint )) return Reinterpret<T, nuint >(x) == Reinterpret<T, nuint >(y);
-        if(typeof(T) == typeof(sbyte )) return Reinterpret<T, sbyte >(x) == Reinterpret<T, sbyte >(y);
-        if(typeof(T) == typeof(short )) return Reinterpret<T, short >(x) == Reinterpret<T, short >(y);
-        if(typeof(T) == typeof(int   )) return Reinterpret<T, int   >(x) == Reinterpret<T, int   >(y);
-        if(typeof(T) == typeof(long  )) return Reinterpret<T, long  >(x) == Reinterpret<T, long  >(y);
-        if(typeof(T) == typeof(nint  )) return Reinterpret<T, nint  >(x) == Reinterpret<T, nint  >(y);
-        if(typeof(T) == typeof(float )) return Reinterpret<T, float >(x) == Reinterpret<T, float >(y);
-        if(typeof(T) == typeof(double)) return Reinterpret<T, double>(x) == Reinterpret<T, double>(y);
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+
+        if(typeof(T) == typeof(byte  )) return Equals(to<byte  >(x), to<byte  >(y));
+        if(typeof(T) == typeof(ushort)) return Equals(to<ushort>(x), to<ushort>(y));
+        if(typeof(T) == typeof(uint  )) return Equals(to<uint  >(x), to<uint  >(y));
+        if(typeof(T) == typeof(ulong )) return Equals(to<ulong >(x), to<ulong >(y));
+        if(typeof(T) == typeof(nuint )) return Equals(to<nuint >(x), to<nuint >(y));
+        if(typeof(T) == typeof(sbyte )) return Equals(to<sbyte >(x), to<sbyte >(y));
+        if(typeof(T) == typeof(short )) return Equals(to<short >(x), to<short >(y));
+        if(typeof(T) == typeof(int   )) return Equals(to<int   >(x), to<int   >(y));
+        if(typeof(T) == typeof(long  )) return Equals(to<long  >(x), to<long  >(y));
+        if(typeof(T) == typeof(nint  )) return Equals(to<nint  >(x), to<nint  >(y));
+        if(typeof(T) == typeof(float )) return Equals(to<float >(x), to<float >(y));
+        if(typeof(T) == typeof(double)) return Equals(to<double>(x), to<double>(y));
         throw new NotSupportedException();
     }
+
+    /**<see cref="Equals{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool Equals(byte   x, byte   y) => x == y;
+    /**<see cref="Equals{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool Equals(ushort x, ushort y) => x == y;
+    /**<see cref="Equals{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool Equals(uint   x, uint   y) => x == y;
+    /**<see cref="Equals{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool Equals(ulong  x, ulong  y) => x == y;
+    /**<see cref="Equals{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool Equals(nuint  x, nuint  y) => x == y;
+    /**<see cref="Equals{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool Equals(sbyte  x, sbyte  y) => x == y;
+    /**<see cref="Equals{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool Equals(short  x, short  y) => x == y;
+    /**<see cref="Equals{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool Equals(int    x, int    y) => x == y;
+    /**<see cref="Equals{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool Equals(long   x, long   y) => x == y;
+    /**<see cref="Equals{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool Equals(nint   x, nint   y) => x == y;
+    /**<see cref="Equals{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool Equals(float  x, float  y) => x == y;
+    /**<see cref="Equals{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool Equals(double x, double y) => x == y;
 
 
     /// <summary> Compares 2 values of <typeparamref name="T"/>. </summary>
@@ -40,95 +55,203 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <returns></returns>
     /// <exception cref="NotSupportedException" />
-    [GeneratedCode("T4", null)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
     public static int Compare<T>(T x, T y)
         where T : unmanaged
     {
-        if(typeof(T) == typeof(byte  ))
-        {
-            var xx = Unsafe.As<T, byte  >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, byte  >(ref Unsafe.AsRef(in y));
-            if(xx == yy) return 0;
-            return xx > yy ? +1 : -1;
-        }
-        if(typeof(T) == typeof(ushort))
-        {
-            var xx = Unsafe.As<T, ushort>(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, ushort>(ref Unsafe.AsRef(in y));
-            if(xx == yy) return 0;
-            return xx > yy ? +1 : -1;
-        }
-        if(typeof(T) == typeof(uint  ))
-        {
-            var xx = Unsafe.As<T, uint  >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, uint  >(ref Unsafe.AsRef(in y));
-            if(xx == yy) return 0;
-            return xx > yy ? +1 : -1;
-        }
-        if(typeof(T) == typeof(ulong ))
-        {
-            var xx = Unsafe.As<T, ulong >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, ulong >(ref Unsafe.AsRef(in y));
-            if(xx == yy) return 0;
-            return xx > yy ? +1 : -1;
-        }
-        if(typeof(T) == typeof(nuint ))
-        {
-            var xx = Unsafe.As<T, nuint >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, nuint >(ref Unsafe.AsRef(in y));
-            if(xx == yy) return 0;
-            return xx > yy ? +1 : -1;
-        }
-        if(typeof(T) == typeof(sbyte ))
-        {
-            var xx = Unsafe.As<T, sbyte >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, sbyte >(ref Unsafe.AsRef(in y));
-            if(xx == yy) return 0;
-            return xx > yy ? +1 : -1;
-        }
-        if(typeof(T) == typeof(short ))
-        {
-            var xx = Unsafe.As<T, short >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, short >(ref Unsafe.AsRef(in y));
-            if(xx == yy) return 0;
-            return xx > yy ? +1 : -1;
-        }
-        if(typeof(T) == typeof(int   ))
-        {
-            var xx = Unsafe.As<T, int   >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, int   >(ref Unsafe.AsRef(in y));
-            if(xx == yy) return 0;
-            return xx > yy ? +1 : -1;
-        }
-        if(typeof(T) == typeof(long  ))
-        {
-            var xx = Unsafe.As<T, long  >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, long  >(ref Unsafe.AsRef(in y));
-            if(xx == yy) return 0;
-            return xx > yy ? +1 : -1;
-        }
-        if(typeof(T) == typeof(nint  ))
-        {
-            var xx = Unsafe.As<T, nint  >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, nint  >(ref Unsafe.AsRef(in y));
-            if(xx == yy) return 0;
-            return xx > yy ? +1 : -1;
-        }
-        if(typeof(T) == typeof(float ))
-        {
-            var xx = Unsafe.As<T, float >(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, float >(ref Unsafe.AsRef(in y));
-            if(xx == yy) return 0;
-            return xx > yy ? +1 : -1;
-        }
-        if(typeof(T) == typeof(double))
-        {
-            var xx = Unsafe.As<T, double>(ref Unsafe.AsRef(in x));
-            var yy = Unsafe.As<T, double>(ref Unsafe.AsRef(in y));
-            if(xx == yy) return 0;
-            return xx > yy ? +1 : -1;
-        }
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        
+        if(typeof(T) == typeof(byte  )) return Compare(to<byte  >(x), to<byte  >(y));
+        if(typeof(T) == typeof(ushort)) return Compare(to<ushort>(x), to<ushort>(y));
+        if(typeof(T) == typeof(uint  )) return Compare(to<uint  >(x), to<uint  >(y));
+        if(typeof(T) == typeof(ulong )) return Compare(to<ulong >(x), to<ulong >(y));
+        if(typeof(T) == typeof(nuint )) return Compare(to<nuint >(x), to<nuint >(y));
+        if(typeof(T) == typeof(sbyte )) return Compare(to<sbyte >(x), to<sbyte >(y));
+        if(typeof(T) == typeof(short )) return Compare(to<short >(x), to<short >(y));
+        if(typeof(T) == typeof(int   )) return Compare(to<int   >(x), to<int   >(y));
+        if(typeof(T) == typeof(long  )) return Compare(to<long  >(x), to<long  >(y));
+        if(typeof(T) == typeof(nint  )) return Compare(to<nint  >(x), to<nint  >(y));
+        if(typeof(T) == typeof(float )) return Compare(to<float >(x), to<float >(y));
+        if(typeof(T) == typeof(double)) return Compare(to<double>(x), to<double>(y));
         throw new NotSupportedException();
     }
+    
+    /**<see cref="Compare{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int Compare(byte   x, byte   y) => x == y ? 0 : (x > y ? +1 : -1);
+    /**<see cref="Compare{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int Compare(ushort x, ushort y) => x == y ? 0 : (x > y ? +1 : -1);
+    /**<see cref="Compare{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int Compare(uint   x, uint   y) => x == y ? 0 : (x > y ? +1 : -1);
+    /**<see cref="Compare{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int Compare(ulong  x, ulong  y) => x == y ? 0 : (x > y ? +1 : -1);
+    /**<see cref="Compare{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int Compare(nuint  x, nuint  y) => x == y ? 0 : (x > y ? +1 : -1);
+    /**<see cref="Compare{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int Compare(sbyte  x, sbyte  y) => x == y ? 0 : (x > y ? +1 : -1);
+    /**<see cref="Compare{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int Compare(short  x, short  y) => x == y ? 0 : (x > y ? +1 : -1);
+    /**<see cref="Compare{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int Compare(int    x, int    y) => x == y ? 0 : (x > y ? +1 : -1);
+    /**<see cref="Compare{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int Compare(long   x, long   y) => x == y ? 0 : (x > y ? +1 : -1);
+    /**<see cref="Compare{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int Compare(nint   x, nint   y) => x == y ? 0 : (x > y ? +1 : -1);
+    /**<see cref="Compare{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int Compare(float  x, float  y) => x == y ? 0 : (x > y ? +1 : -1);
+    /**<see cref="Compare{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int Compare(double x, double y) => x == y ? 0 : (x > y ? +1 : -1);
+
+
+
+    /// <summary> Compares 2 values of <typeparamref name="T"/>. </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException" />
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
+    public static bool LessThan<T>(T x, T y)
+        where T : unmanaged
+    {
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        
+        if(typeof(T) == typeof(byte  )) return LessThan(to<byte  >(x), to<byte  >(y));
+        if(typeof(T) == typeof(ushort)) return LessThan(to<ushort>(x), to<ushort>(y));
+        if(typeof(T) == typeof(uint  )) return LessThan(to<uint  >(x), to<uint  >(y));
+        if(typeof(T) == typeof(ulong )) return LessThan(to<ulong >(x), to<ulong >(y));
+        if(typeof(T) == typeof(nuint )) return LessThan(to<nuint >(x), to<nuint >(y));
+        if(typeof(T) == typeof(sbyte )) return LessThan(to<sbyte >(x), to<sbyte >(y));
+        if(typeof(T) == typeof(short )) return LessThan(to<short >(x), to<short >(y));
+        if(typeof(T) == typeof(int   )) return LessThan(to<int   >(x), to<int   >(y));
+        if(typeof(T) == typeof(long  )) return LessThan(to<long  >(x), to<long  >(y));
+        if(typeof(T) == typeof(nint  )) return LessThan(to<nint  >(x), to<nint  >(y));
+        if(typeof(T) == typeof(float )) return LessThan(to<float >(x), to<float >(y));
+        if(typeof(T) == typeof(double)) return LessThan(to<double>(x), to<double>(y));
+        throw new NotSupportedException();
+    }
+    
+    /**<see cref="LessThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThan(byte   x, byte   y) => Compare(x, y) < 0;
+    /**<see cref="LessThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThan(ushort x, ushort y) => Compare(x, y) < 0;
+    /**<see cref="LessThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThan(uint   x, uint   y) => Compare(x, y) < 0;
+    /**<see cref="LessThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThan(ulong  x, ulong  y) => Compare(x, y) < 0;
+    /**<see cref="LessThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThan(nuint  x, nuint  y) => Compare(x, y) < 0;
+    /**<see cref="LessThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThan(sbyte  x, sbyte  y) => Compare(x, y) < 0;
+    /**<see cref="LessThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThan(short  x, short  y) => Compare(x, y) < 0;
+    /**<see cref="LessThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThan(int    x, int    y) => Compare(x, y) < 0;
+    /**<see cref="LessThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThan(long   x, long   y) => Compare(x, y) < 0;
+    /**<see cref="LessThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThan(nint   x, nint   y) => Compare(x, y) < 0;
+    /**<see cref="LessThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThan(float  x, float  y) => Compare(x, y) < 0;
+    /**<see cref="LessThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThan(double x, double y) => Compare(x, y) < 0;
+
+
+    /// <summary> Compares 2 values of <typeparamref name="T"/>. </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException" />
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
+    public static bool LessThanOrEqual<T>(T x, T y)
+        where T : unmanaged
+    {
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        
+        if(typeof(T) == typeof(byte  )) return LessThanOrEqual(to<byte  >(x), to<byte  >(y));
+        if(typeof(T) == typeof(ushort)) return LessThanOrEqual(to<ushort>(x), to<ushort>(y));
+        if(typeof(T) == typeof(uint  )) return LessThanOrEqual(to<uint  >(x), to<uint  >(y));
+        if(typeof(T) == typeof(ulong )) return LessThanOrEqual(to<ulong >(x), to<ulong >(y));
+        if(typeof(T) == typeof(nuint )) return LessThanOrEqual(to<nuint >(x), to<nuint >(y));
+        if(typeof(T) == typeof(sbyte )) return LessThanOrEqual(to<sbyte >(x), to<sbyte >(y));
+        if(typeof(T) == typeof(short )) return LessThanOrEqual(to<short >(x), to<short >(y));
+        if(typeof(T) == typeof(int   )) return LessThanOrEqual(to<int   >(x), to<int   >(y));
+        if(typeof(T) == typeof(long  )) return LessThanOrEqual(to<long  >(x), to<long  >(y));
+        if(typeof(T) == typeof(nint  )) return LessThanOrEqual(to<nint  >(x), to<nint  >(y));
+        if(typeof(T) == typeof(float )) return LessThanOrEqual(to<float >(x), to<float >(y));
+        if(typeof(T) == typeof(double)) return LessThanOrEqual(to<double>(x), to<double>(y));
+        throw new NotSupportedException();
+    }
+    
+    /**<see cref="LessThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThanOrEqual(byte   x, byte   y) => Compare(x, y) <= 0;
+    /**<see cref="LessThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThanOrEqual(ushort x, ushort y) => Compare(x, y) <= 0;
+    /**<see cref="LessThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThanOrEqual(uint   x, uint   y) => Compare(x, y) <= 0;
+    /**<see cref="LessThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThanOrEqual(ulong  x, ulong  y) => Compare(x, y) <= 0;
+    /**<see cref="LessThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThanOrEqual(nuint  x, nuint  y) => Compare(x, y) <= 0;
+    /**<see cref="LessThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThanOrEqual(sbyte  x, sbyte  y) => Compare(x, y) <= 0;
+    /**<see cref="LessThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThanOrEqual(short  x, short  y) => Compare(x, y) <= 0;
+    /**<see cref="LessThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThanOrEqual(int    x, int    y) => Compare(x, y) <= 0;
+    /**<see cref="LessThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThanOrEqual(long   x, long   y) => Compare(x, y) <= 0;
+    /**<see cref="LessThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThanOrEqual(nint   x, nint   y) => Compare(x, y) <= 0;
+    /**<see cref="LessThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThanOrEqual(float  x, float  y) => Compare(x, y) <= 0;
+    /**<see cref="LessThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool LessThanOrEqual(double x, double y) => Compare(x, y) <= 0;
+
+
+    /// <summary> Compares 2 values of <typeparamref name="T"/>. </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException" />
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
+    public static bool GreaterThan<T>(T x, T y)
+        where T : unmanaged
+    {
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        
+        if(typeof(T) == typeof(byte  )) return GreaterThan(to<byte  >(x), to<byte  >(y));
+        if(typeof(T) == typeof(ushort)) return GreaterThan(to<ushort>(x), to<ushort>(y));
+        if(typeof(T) == typeof(uint  )) return GreaterThan(to<uint  >(x), to<uint  >(y));
+        if(typeof(T) == typeof(ulong )) return GreaterThan(to<ulong >(x), to<ulong >(y));
+        if(typeof(T) == typeof(nuint )) return GreaterThan(to<nuint >(x), to<nuint >(y));
+        if(typeof(T) == typeof(sbyte )) return GreaterThan(to<sbyte >(x), to<sbyte >(y));
+        if(typeof(T) == typeof(short )) return GreaterThan(to<short >(x), to<short >(y));
+        if(typeof(T) == typeof(int   )) return GreaterThan(to<int   >(x), to<int   >(y));
+        if(typeof(T) == typeof(long  )) return GreaterThan(to<long  >(x), to<long  >(y));
+        if(typeof(T) == typeof(nint  )) return GreaterThan(to<nint  >(x), to<nint  >(y));
+        if(typeof(T) == typeof(float )) return GreaterThan(to<float >(x), to<float >(y));
+        if(typeof(T) == typeof(double)) return GreaterThan(to<double>(x), to<double>(y));
+        throw new NotSupportedException();
+    }
+    
+    /**<see cref="GreaterThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThan(byte   x, byte   y) => Compare(x, y) > 0;
+    /**<see cref="GreaterThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThan(ushort x, ushort y) => Compare(x, y) > 0;
+    /**<see cref="GreaterThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThan(uint   x, uint   y) => Compare(x, y) > 0;
+    /**<see cref="GreaterThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThan(ulong  x, ulong  y) => Compare(x, y) > 0;
+    /**<see cref="GreaterThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThan(nuint  x, nuint  y) => Compare(x, y) > 0;
+    /**<see cref="GreaterThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThan(sbyte  x, sbyte  y) => Compare(x, y) > 0;
+    /**<see cref="GreaterThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThan(short  x, short  y) => Compare(x, y) > 0;
+    /**<see cref="GreaterThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThan(int    x, int    y) => Compare(x, y) > 0;
+    /**<see cref="GreaterThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThan(long   x, long   y) => Compare(x, y) > 0;
+    /**<see cref="GreaterThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThan(nint   x, nint   y) => Compare(x, y) > 0;
+    /**<see cref="GreaterThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThan(float  x, float  y) => Compare(x, y) > 0;
+    /**<see cref="GreaterThan{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThan(double x, double y) => Compare(x, y) > 0;
+
+
+    /// <summary> Compares 2 values of <typeparamref name="T"/>. </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException" />
+    [GeneratedCode("T4", null), MethodImpl(_inlining)]
+    public static bool GreaterThanOrEqual<T>(T x, T y)
+        where T : unmanaged
+    {
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        
+        if(typeof(T) == typeof(byte  )) return GreaterThanOrEqual(to<byte  >(x), to<byte  >(y));
+        if(typeof(T) == typeof(ushort)) return GreaterThanOrEqual(to<ushort>(x), to<ushort>(y));
+        if(typeof(T) == typeof(uint  )) return GreaterThanOrEqual(to<uint  >(x), to<uint  >(y));
+        if(typeof(T) == typeof(ulong )) return GreaterThanOrEqual(to<ulong >(x), to<ulong >(y));
+        if(typeof(T) == typeof(nuint )) return GreaterThanOrEqual(to<nuint >(x), to<nuint >(y));
+        if(typeof(T) == typeof(sbyte )) return GreaterThanOrEqual(to<sbyte >(x), to<sbyte >(y));
+        if(typeof(T) == typeof(short )) return GreaterThanOrEqual(to<short >(x), to<short >(y));
+        if(typeof(T) == typeof(int   )) return GreaterThanOrEqual(to<int   >(x), to<int   >(y));
+        if(typeof(T) == typeof(long  )) return GreaterThanOrEqual(to<long  >(x), to<long  >(y));
+        if(typeof(T) == typeof(nint  )) return GreaterThanOrEqual(to<nint  >(x), to<nint  >(y));
+        if(typeof(T) == typeof(float )) return GreaterThanOrEqual(to<float >(x), to<float >(y));
+        if(typeof(T) == typeof(double)) return GreaterThanOrEqual(to<double>(x), to<double>(y));
+        throw new NotSupportedException();
+    }
+    
+    /**<see cref="GreaterThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThanOrEqual(byte   x, byte   y) => Compare(x, y) >= 0;
+    /**<see cref="GreaterThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThanOrEqual(ushort x, ushort y) => Compare(x, y) >= 0;
+    /**<see cref="GreaterThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThanOrEqual(uint   x, uint   y) => Compare(x, y) >= 0;
+    /**<see cref="GreaterThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThanOrEqual(ulong  x, ulong  y) => Compare(x, y) >= 0;
+    /**<see cref="GreaterThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThanOrEqual(nuint  x, nuint  y) => Compare(x, y) >= 0;
+    /**<see cref="GreaterThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThanOrEqual(sbyte  x, sbyte  y) => Compare(x, y) >= 0;
+    /**<see cref="GreaterThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThanOrEqual(short  x, short  y) => Compare(x, y) >= 0;
+    /**<see cref="GreaterThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThanOrEqual(int    x, int    y) => Compare(x, y) >= 0;
+    /**<see cref="GreaterThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThanOrEqual(long   x, long   y) => Compare(x, y) >= 0;
+    /**<see cref="GreaterThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThanOrEqual(nint   x, nint   y) => Compare(x, y) >= 0;
+    /**<see cref="GreaterThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThanOrEqual(float  x, float  y) => Compare(x, y) >= 0;
+    /**<see cref="GreaterThanOrEqual{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static bool GreaterThanOrEqual(double x, double y) => Compare(x, y) >= 0;
+
 }

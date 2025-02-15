@@ -14,19 +14,22 @@ partial class ScalarOp
     public static T CountTrailingZeros<T>(T x)
         where T : unmanaged
     {
+        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+
 #pragma warning disable format
-        if (typeof(T) == typeof(byte  )) { return H.Reinterpret<byte  , T>((byte  )CountTrailingZeros(H.Reinterpret<T, byte  >(x))); }
-        if (typeof(T) == typeof(ushort)) { return H.Reinterpret<ushort, T>((ushort)CountTrailingZeros(H.Reinterpret<T, ushort>(x))); }
-        if (typeof(T) == typeof(uint  )) { return H.Reinterpret<uint  , T>((uint  )CountTrailingZeros(H.Reinterpret<T, uint  >(x))); }
-        if (typeof(T) == typeof(ulong )) { return H.Reinterpret<ulong , T>((ulong )CountTrailingZeros(H.Reinterpret<T, ulong >(x))); }
-        if (typeof(T) == typeof(nuint )) { return H.Reinterpret<nuint , T>((nuint )CountTrailingZeros(H.Reinterpret<T, nuint >(x))); }
-        if (typeof(T) == typeof(sbyte )) { return H.Reinterpret<sbyte , T>((sbyte )CountTrailingZeros(H.Reinterpret<T, byte  >(x))); }
-        if (typeof(T) == typeof(short )) { return H.Reinterpret<short , T>((short )CountTrailingZeros(H.Reinterpret<T, ushort>(x))); }
-        if (typeof(T) == typeof(int   )) { return H.Reinterpret<int   , T>((int   )CountTrailingZeros(H.Reinterpret<T, uint  >(x))); }
-        if (typeof(T) == typeof(long  )) { return H.Reinterpret<long  , T>((long  )CountTrailingZeros(H.Reinterpret<T, ulong >(x))); }
-        if (typeof(T) == typeof(nint  )) { return H.Reinterpret<nint  , T>((nint  )CountTrailingZeros(H.Reinterpret<T, nuint >(x))); }
-        if (typeof(T) == typeof(float )) { return H.Reinterpret<float , T>((float )CountTrailingZeros(H.Reinterpret<T, uint  >(x))); }
-        if (typeof(T) == typeof(double)) { return H.Reinterpret<double, T>((double)CountTrailingZeros(H.Reinterpret<T, ulong >(x))); }
+        if (typeof(T) == typeof(byte  )) return from((byte  )CountTrailingZeros(to<byte  >(x)));
+        if (typeof(T) == typeof(ushort)) return from((ushort)CountTrailingZeros(to<ushort>(x)));
+        if (typeof(T) == typeof(uint  )) return from((uint  )CountTrailingZeros(to<uint  >(x)));
+        if (typeof(T) == typeof(ulong )) return from((ulong )CountTrailingZeros(to<ulong >(x)));
+        if (typeof(T) == typeof(nuint )) return from((nuint )CountTrailingZeros(to<nuint >(x)));
+        if (typeof(T) == typeof(sbyte )) return from((sbyte )CountTrailingZeros(to<byte  >(x)));
+        if (typeof(T) == typeof(short )) return from((short )CountTrailingZeros(to<ushort>(x)));
+        if (typeof(T) == typeof(int   )) return from((int   )CountTrailingZeros(to<uint  >(x)));
+        if (typeof(T) == typeof(long  )) return from((long  )CountTrailingZeros(to<ulong >(x)));
+        if (typeof(T) == typeof(nint  )) return from((nint  )CountTrailingZeros(to<nuint >(x)));
+        if (typeof(T) == typeof(float )) return from((float )CountTrailingZeros(to<uint  >(x)));
+        if (typeof(T) == typeof(double)) return from((double)CountTrailingZeros(to<ulong >(x)));
 #pragma warning restore format
         throw new NotSupportedException();
     }
