@@ -24,7 +24,7 @@ public partial class ScalarOpTest
         }
 
         static void testCore(uint x)
-            => Assert.Equal(clzReference(x), ScalarOp.CountLeadingZeros(x));
+            => Assert.Equal(clzReference(x), (int)ScalarOp.CountLeadingZeros(x));
 
         static int clzReference(uint x)
         {
@@ -59,7 +59,7 @@ public partial class ScalarOpTest
         }
 
         static void testCore(ulong x)
-            => Assert.Equal(clzReference(x), ScalarOp.CountLeadingZeros(x));
+            => Assert.Equal(clzReference(x), (int)ScalarOp.CountLeadingZeros(x));
 
         static int clzReference(ulong x)
         {

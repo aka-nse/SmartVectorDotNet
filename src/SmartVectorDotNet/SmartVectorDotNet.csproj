@@ -17,10 +17,11 @@
         <RepositoryUrl>https://github.com/aka-nse/SmartVectorDotNet</RepositoryUrl>
         <PackageProjectUrl>https://github.com/aka-nse/SmartVectorDotNet</PackageProjectUrl>
         <PackageTags>vectorization,SIMD</PackageTags>
+        <UserSecretsId>cc9cb6a8-5056-484a-8d70-34919a83fa87</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="akanse.GenericSpecializationGenerator" Version="0.1.0">
+        <PackageReference Include="akanse.GenericSpecializationGenerator" Version="0.1.1">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
