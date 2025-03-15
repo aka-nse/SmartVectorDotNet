@@ -109,18 +109,6 @@
         </Compile>
     </ItemGroup>
 
-    <ItemGroup Label="ScalarOp\ScalarOp._Operator.Comparison">
-        <None Update="ScalarOp\ScalarOp._Operator.Comparison.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarOp._Operator.Comparison.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="ScalarOp\ScalarOp._Operator.Comparison.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarOp._Operator.Comparison.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
     <ItemGroup Label="ScalarOp\ScalarOp._Operator.Unary">
         <None Update="ScalarOp\ScalarOp._Operator.Unary.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
