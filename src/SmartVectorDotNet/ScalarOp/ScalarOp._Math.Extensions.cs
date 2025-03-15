@@ -53,7 +53,15 @@ partial class ScalarOp
 #endif
     }
 
-    #endregion
+    #endregion Sign
+
+    #region FusedMultiplyAdd
+
+    /// <inheritdoc cref="FusedMultiplyAdd_default" />
+    /// <exception cref="NotSupportedException" />
+    [PrimaryGeneric(nameof(FusedMultiplyAdd_default))]
+    public static partial T FusedMultiplyAdd<T>(T x, T y, T z)
+        where T : unmanaged;
 
     /// <summary>
     /// Calculates FMA <c>(x * y) + z</c>.
@@ -63,32 +71,19 @@ partial class ScalarOp
     /// <param name="y"></param>
     /// <param name="z"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException" />
-    public static T FusedMultiplyAdd<T>(T x, T y, T z)
+    private static T FusedMultiplyAdd_default<T>(T x, T y, T z)
         where T : unmanaged
-    {
+        => OP.Add(OP.Multiply(x, y), z);
+
 #if NET6_0_OR_GREATER
-        if(typeof(T) == typeof(double))
-        {
-            return Reinterpret<double, T>(
-                Math.FusedMultiplyAdd(
-                    Reinterpret<T, double>(x),
-                    Reinterpret<T, double>(y),
-                    Reinterpret<T, double>(z)
-                    )
-                );
-        }
-        if (typeof(T) == typeof(float))
-        {
-            return Reinterpret<float, T>(
-                MathF.FusedMultiplyAdd(
-                    Reinterpret<T, float>(x),
-                    Reinterpret<T, float>(y),
-                    Reinterpret<T, float>(z)
-                    )
-                );
-        }
+    /// <inheritdoc cref="FusedMultiplyAdd_default" />
+    public static float FusedMultiplyAdd(float x, float y, float z)
+        => MathF.FusedMultiplyAdd(x, y, z);
+        
+    /// <inheritdoc cref="FusedMultiplyAdd_default" />
+    public static double FusedMultiplyAdd(double x, double y, double z)
+        => Math.FusedMultiplyAdd(x, y, z);
 #endif
-        return OP.Add(OP.Multiply(x, y), z);
-    }
+
+    #endregion FuseMultiplyAdd
 }
