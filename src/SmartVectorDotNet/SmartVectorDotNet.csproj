@@ -135,18 +135,6 @@
             <LastGenOutput>VectorOp._Operator.Shift.g.cs</LastGenOutput>
         </None>
     </ItemGroup>
-    
-    <ItemGroup Label="VectorOp\VectorOp.Specialized">
-        <None Update="VectorOp\VectorOp.Specialized.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorOp.Specialized.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="VectorOp\VectorOp.Specialized.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>VectorOp.Specialized.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
 
     <ItemGroup Label="VectorOp\VectorOp._Vector.Gather">
         <Compile Update="VectorOp\VectorOp._Vector.Gather.g.cs">

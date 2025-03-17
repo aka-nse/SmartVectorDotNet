@@ -1,4 +1,6 @@
 namespace SmartVectorDotNet;
+
+using GenericSpecialization;
 using H = InternalHelpers;
 
 
@@ -33,12 +35,17 @@ file class Log_<T> : VectorOp.Const<T> where T : unmanaged
 
 partial class VectorOp
 {
-    /// <summary> Calculates log. </summary>
-    [VectorOp]
+    /// <inheritdoc cref="Log_default" />
+    /// <exception cref="NotSupportedException" />
+    [PrimaryGeneric(nameof(Log_default))]
     public static partial Vector<T> Log<T>(Vector<T> x)
         where T : unmanaged;
 
-    private static Vector<double> Log_double(Vector<double> x)
+    /// <summary> Calculates log. </summary>
+    private static Vector<T> Log_default<T>(Vector<T> x)
+        where T : unmanaged => throw new NotSupportedException();
+
+    private static Vector<double> Log(Vector<double> x)
     {
         var isNaN = IsNaN(x);
         var isNega = LessThan(x, Log_<double>._0);
@@ -59,7 +66,7 @@ partial class VectorOp
             y))));
     }
 
-    private static Vector<float> Log_float(Vector<float> x)
+    private static Vector<float> Log(Vector<float> x)
     {
         var isNaN = IsNaN(x);
         var isNega = LessThan(x, Log_<float>._0);
