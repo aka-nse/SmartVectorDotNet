@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <LangVersion>12.0</LangVersion>
@@ -17,12 +17,26 @@
         <RepositoryUrl>https://github.com/aka-nse/SmartVectorDotNet</RepositoryUrl>
         <PackageProjectUrl>https://github.com/aka-nse/SmartVectorDotNet</PackageProjectUrl>
         <PackageTags>vectorization,SIMD</PackageTags>
+        <UserSecretsId>cc9cb6a8-5056-484a-8d70-34919a83fa87</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.Collections.Immutable" Version="9.0.0" />
+        <!--
+        <PackageReference Include="akanse.GenericSpecializationGenerator" Version="0.1.2">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        -->
+        <PackageReference Include="System.Collections.Immutable" Version="9.0.3" />
         <PackageReference Include="System.Memory" Version="4.6.0" />
         <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\subrepos\GenericSpecializationGenerator\src\GenericSpecializationGenerator\GenericSpecializationGenerator.csproj">
+            <OutputItemType>Analyzer</OutputItemType>
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+        </ProjectReference>
     </ItemGroup>
 
     <ItemGroup>
@@ -56,18 +70,6 @@
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>ScalarOp._Const.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup Label="ScalarOp\ScalarOp._Math.General">
-        <None Update="ScalarOp\ScalarOp._Math.General.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarOp._Math.General.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="ScalarOp\ScalarOp._Math.General.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarOp._Math.General.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
@@ -106,30 +108,6 @@
             <DependentUpon>ScalarOp._Operator.Shift.tt</DependentUpon>
         </Compile>
     </ItemGroup>
-
-    <ItemGroup Label="ScalarOp\ScalarOp._Operator.Comparison">
-        <None Update="ScalarOp\ScalarOp._Operator.Comparison.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarOp._Operator.Comparison.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="ScalarOp\ScalarOp._Operator.Comparison.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarOp._Operator.Comparison.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup Label="ScalarOp\ScalarOp._Operator.Unary">
-        <None Update="ScalarOp\ScalarOp._Operator.Unary.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarOp._Operator.Unary.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="ScalarOp\ScalarOp._Operator.Unary.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarOp._Operator.Unary.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
     <!-- #endregion ScalarOp -->
 
     <!-- #region VectorOp -->
@@ -156,18 +134,6 @@
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>VectorOp._Operator.Shift.g.cs</LastGenOutput>
         </None>
-    </ItemGroup>
-    
-    <ItemGroup Label="VectorOp\VectorOp.Specialized">
-        <None Update="VectorOp\VectorOp.Specialized.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorOp.Specialized.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="VectorOp\VectorOp.Specialized.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>VectorOp.Specialized.tt</DependentUpon>
-        </Compile>
     </ItemGroup>
 
     <ItemGroup Label="VectorOp\VectorOp._Vector.Gather">

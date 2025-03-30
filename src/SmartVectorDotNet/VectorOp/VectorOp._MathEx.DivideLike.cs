@@ -16,11 +16,11 @@ partial class VectorOp
     {
         if (typeof(T) == typeof(float))
         {
-            return H.Reinterpret<float, T>(Floor(H.Reinterpret<T, float>(a) / H.Reinterpret<T, float>(b)));
+            return H.Reinterpret<float, T>(Floor<float>(H.Reinterpret<T, float>(a) / H.Reinterpret<T, float>(b)));
         }
         if (typeof(T) == typeof(double))
         {
-            return H.Reinterpret<double, T>(Floor(H.Reinterpret<T, double>(a) / H.Reinterpret<T, double>(b)));
+            return H.Reinterpret<double, T>(Floor<double>(H.Reinterpret<T, double>(a) / H.Reinterpret<T, double>(b)));
         }
         if (typeof(T) == typeof(byte)
             || typeof(T) == typeof(ushort)
@@ -59,11 +59,11 @@ partial class VectorOp
     {
         if (typeof(T) == typeof(float))
         {
-            return H.Reinterpret<float, T>(Ceiling(H.Reinterpret<T, float>(a) / H.Reinterpret<T, float>(b)));
+            return H.Reinterpret<float, T>(Ceiling<float>(H.Reinterpret<T, float>(a) / H.Reinterpret<T, float>(b)));
         }
         if (typeof(T) == typeof(double))
         {
-            return H.Reinterpret<double, T>(Ceiling(H.Reinterpret<T, double>(a) / H.Reinterpret<T, double>(b)));
+            return H.Reinterpret<double, T>(Ceiling<double>(H.Reinterpret<T, double>(a) / H.Reinterpret<T, double>(b)));
         }
         if (typeof(T) == typeof(sbyte)
             || typeof(T) == typeof(short)

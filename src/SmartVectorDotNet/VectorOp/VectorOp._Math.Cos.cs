@@ -1,4 +1,6 @@
 namespace SmartVectorDotNet;
+
+using GenericSpecialization;
 using H = InternalHelpers;
 
 
@@ -65,12 +67,14 @@ partial class VectorOp
         return sign * CosBounded(xx);
     }
 
-    [VectorOp]
+    [PrimaryGeneric(nameof(CosBounded_default))]
     private static partial Vector<T> CosBounded<T>(Vector<T> x)
         where T : unmanaged;
 
+    private static Vector<T> CosBounded_default<T>(Vector<T> x) where T : unmanaged => throw new NotSupportedException();
+
     /// <param name="x"> $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ </param>
-    private static Vector<double> CosBounded_double(Vector<double> x)
+    private static Vector<double> CosBounded(Vector<double> x)
     {
         Vector<double> y;
         var x2 = x * x;
@@ -89,7 +93,7 @@ partial class VectorOp
     }
 
     /// <param name="x"> $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ </param>
-    private static Vector<float> CosBounded_float(Vector<float> x)
+    private static Vector<float> CosBounded(Vector<float> x)
     {
         Vector<float> y;
         var x2 = x * x;

@@ -1,4 +1,6 @@
 namespace SmartVectorDotNet;
+
+using GenericSpecialization;
 using H = InternalHelpers;
 
 
@@ -40,17 +42,22 @@ file class Atan_<T> : VectorOp.Const<T> where T : unmanaged
 
 partial class VectorOp
 {
+    /// <inheritdoc cref="Atan_default" />
+    /// <exception cref="NotSupportedException" />
+    [PrimaryGeneric(nameof(Atan_default))]
+    public static partial Vector<T> Atan<T>(Vector<T> x)
+        where T : unmanaged;
+
     /// <summary>
     /// Calculates atan(x).
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    [VectorOp]
-    public static partial Vector<T> Atan<T>(Vector<T> x)
-        where T : unmanaged;
+    private static Vector<T> Atan_default<T>(Vector<T> x) where T : unmanaged
+        => throw new NotSupportedException();
 
-    private static Vector<double> Atan_double(Vector<double> x)
+    private static Vector<double> Atan(Vector<double> x)
     {
         static Vector<double> core(Vector<double> x)
         {
@@ -97,7 +104,7 @@ partial class VectorOp
         );
     }
 
-    private static Vector<float> Atan_float(Vector<float> x)
+    private static Vector<float> Atan(Vector<float> x)
     {
         static Vector<float> core(Vector<float> x)
         {

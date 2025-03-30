@@ -1,4 +1,6 @@
 namespace SmartVectorDotNet;
+
+using GenericSpecialization;
 using H = InternalHelpers;
 
 
@@ -58,12 +60,15 @@ partial class VectorOp
         return SinBounded(xx);
     }
 
-    [VectorOp]
+    [PrimaryGeneric(nameof(SinBounded_default))]
     private static partial Vector<T> SinBounded<T>(Vector<T> x)
         where T : unmanaged;
+
+    private static Vector<T> SinBounded_default<T>(Vector<T> x)
+        where T : unmanaged => throw new NotSupportedException();
     
     /// <param name="x"> $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ </param>
-    private static Vector<double> SinBounded_double(Vector<double> x)
+    private static Vector<double> SinBounded(Vector<double> x)
     {
         Vector<double> y;
         var x2 = x * x;
@@ -82,7 +87,7 @@ partial class VectorOp
     }
 
     /// <param name="x"> $-\frac{\pi}{2} \le x \lt \frac{\pi}{2}$ </param>
-    private static Vector<float> SinBounded_float(Vector<float> x)
+    private static Vector<float> SinBounded(Vector<float> x)
     {
         Vector<float> y;
         var x2 = x * x;
