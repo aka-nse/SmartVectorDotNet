@@ -14,6 +14,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: update submodules
+        run: git submodule update --init --recursive
+
     - name: Restore dependencies
       run: dotnet restore src/SmartVectorDotNet.sln
 
