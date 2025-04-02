@@ -1,6 +1,7 @@
 namespace SmartVectorDotNet;
 using SC = ScalarOp.Const;
 using H = InternalHelpers;
+using GenericSpecialization;
 
 partial class VectorOp
 {
@@ -137,6 +138,12 @@ partial class VectorOp
 
     #region Scale
 
+    /// <inheritdoc cref="Scale_default" />
+    /// <exception cref="NotSupportedException" />
+    [PrimaryGeneric(nameof(Scale_default))]
+    public static partial Vector<T> Scale<T>(Vector<T> n, Vector<T> x)
+        where T : unmanaged;
+
     /// <summary>
     /// Calculates <c>pow(2, n) * x</c>.
     /// </summary>
@@ -144,12 +151,12 @@ partial class VectorOp
     /// <param name="n">Must be integer.</param>
     /// <param name="x"></param>
     /// <returns></returns>
-    [VectorOp]
-    public static partial Vector<T> Scale<T>(Vector<T> n, Vector<T> x)
-        where T : unmanaged;
+    private static Vector<T> Scale_default<T>(Vector<T> n, Vector<T> x)
+        where T : unmanaged
+        => throw new NotSupportedException();
 
     // pow(2, n) * x
-    static Vector<double> Scale_double(Vector<double> n, Vector<double> x)
+    private static Vector<double> Scale(Vector<double> n, Vector<double> x)
     {
         var nn = ConvertToInt64(n);
         var pow2n = ShiftLeft(nn + IEEE754Double_.ExpPartBias, 52);
@@ -158,7 +165,7 @@ partial class VectorOp
 
 
     // pow(2, n) * x
-    static Vector<float> Scale_float(Vector<float> n, Vector<float> x)
+    private static Vector<float> Scale(Vector<float> n, Vector<float> x)
     {
         var nn = ConvertToInt32(n);
         var pow2n = ShiftLeft(nn + IEEE754Single_.ExpPartBias, 23);
@@ -173,7 +180,7 @@ partial class VectorOp
     /// <param name="expo"></param>
     /// <param name="frac"></param>
     /// <returns></returns>
-    public static Vector<double> Scale_double(Vector<long> sign, Vector<long> expo, Vector<long> frac)
+    public static Vector<double> Scale(Vector<long> sign, Vector<long> expo, Vector<long> frac)
         => H.Reinterpret<long, double>(ShiftLeft(sign, SC.DoubleSignBitOffset) | ShiftLeft(expo, SC.DoubleExpBitOffset) | frac);
 
 
@@ -184,7 +191,7 @@ partial class VectorOp
     /// <param name="expo"></param>
     /// <param name="frac"></param>
     /// <returns></returns>
-    public static Vector<float> Scale_float(Vector<int> sign, Vector<int> expo, Vector<int> frac)
+    public static Vector<float> Scale(Vector<int> sign, Vector<int> expo, Vector<int> frac)
         => H.Reinterpret<int, float>(ShiftLeft(sign, SC.SingleSignBitOffset) | ShiftLeft(expo, SC.SingleExpBitOffset) | frac);
 
     #endregion

@@ -1,0 +1,3 @@
+[submodule "subrepos/GenericSpecializationGenerator"]
+	path = subrepos/GenericSpecializationGenerator
+	url = https://github.com/aka-nse/GenericSpecializationGenerator.git

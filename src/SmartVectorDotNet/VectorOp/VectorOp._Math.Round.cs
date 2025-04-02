@@ -4,20 +4,27 @@ using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 #endif
 
+using GenericSpecialization;
+
 namespace SmartVectorDotNet;
 
 
 partial class VectorOp
 {
+    /// <inheritdoc cref="Round_default" />
+    /// <exception cref="NotSupportedException" />
+    [PrimaryGeneric(nameof(Round_default))]
+    public static partial Vector<T> Round<T>(Vector<T> x)
+        where T : unmanaged;
+
     /// <summary>
     /// Calculates Round.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <returns></returns>
-    [VectorOp]
-    public static partial Vector<T> Round<T>(Vector<T> x)
-        where T : unmanaged;
+    private static Vector<T> Round_default<T>(Vector<T> x)
+        where T : unmanaged => throw new NotSupportedException();
 
     private struct Round_<T> : IVectorEmulationOp1<T>
         where T : unmanaged
@@ -26,7 +33,7 @@ partial class VectorOp
     }
 
     /// <summary> Calculates round. </summary>
-    private static Vector<double> Round_double(Vector<double> x)
+    private static Vector<double> Round(Vector<double> x)
     {
 #if NET6_0_OR_GREATER
         if (Unsafe.SizeOf<Vector<double>>() == Unsafe.SizeOf<Vector256<double>>() && Avx.IsSupported)
@@ -44,7 +51,7 @@ partial class VectorOp
     }
 
 
-    private static Vector<float> Round_float(Vector<float> x)
+    private static Vector<float> Round(Vector<float> x)
     {
 #if NET6_0_OR_GREATER
         if (Unsafe.SizeOf<Vector<float>>() == Unsafe.SizeOf<Vector256<float>>() && Avx.IsSupported)

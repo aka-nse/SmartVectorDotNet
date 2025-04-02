@@ -1,4 +1,6 @@
 namespace SmartVectorDotNet;
+
+using GenericSpecialization;
 using H = InternalHelpers;
 
 
@@ -63,15 +65,18 @@ partial class VectorOp
             );
     }
 
-    [VectorOp]
-    private static partial Vector<T> ExpCore<T>(Vector<T> d)
+    [PrimaryGeneric(nameof(ExpCore_default))]
+    private static partial Vector<T> ExpCore<T>(Vector<T> x)
         where T : unmanaged;
 
+    private static Vector<T> ExpCore_default<T>(Vector<T> x)
+        where T : unmanaged => throw new NotSupportedException();
+
 #pragma warning disable format
-    private static Vector<double> ExpCore_double(Vector<double> x)
+    private static Vector<double> ExpCore(Vector<double> x)
     {
         var y = x * Exp_<double>.Log_2_E;
-        var n = Round_double(y);
+        var n = Round(y);
         var a = y - n;
         var b = a * Exp_<double>.Log_E_2;
         var z = Exp_<double>._0;                                        // a_11~
@@ -86,13 +91,13 @@ partial class VectorOp
         z = (b * Exp_<double>.Coeffs[ 2 - 1]) * (Exp_<double>._1 + z);  // a_2
         z = (b * Exp_<double>.Coeffs[ 1 - 1]) * (Exp_<double>._1 + z);  // a_1
         z = z + Exp_<double>._1;                                        // a_0
-        return Scale_double(n, z);
+        return Scale(n, z);
     }
 
-    private static Vector<float> ExpCore_float(Vector<float> x)
+    private static Vector<float> ExpCore(Vector<float> x)
     {
         var y = x * Exp_<float>.Log_2_E;
-        var n = Round_float(y);
+        var n = Round(y);
         var a = y - n;
         var b = a * Exp_<float>.Log_E_2;
         var z = Exp_<float>._0;                                         // a_7~
@@ -103,7 +108,7 @@ partial class VectorOp
         z = (b * Exp_<float>.Coeffs[2 - 1]) * (Exp_<float>._1 + z);  // a_2
         z = (b * Exp_<float>.Coeffs[1 - 1]) * (Exp_<float>._1 + z);  // a_1
         z = z + Exp_<float>._1;                                         // a_0
-        return Scale_float(n, z);
+        return Scale(n, z);
     }
 #pragma warning restore format
 }

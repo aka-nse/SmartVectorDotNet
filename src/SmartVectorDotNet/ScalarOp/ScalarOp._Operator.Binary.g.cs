@@ -3,577 +3,441 @@
 // </auto-generated>
 using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
+using GenericSpecialization;
 namespace SmartVectorDotNet;
-using H = InternalHelpers;
 
 partial class ScalarOp
 {
+    #region Add
 
+    /// <inheritdoc cref="Add_default" />
+    /// <exception cref="NotSupportedException" />
+    /// <remarks>
+    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    [PrimaryGeneric(nameof(Add_default))]
+    public static partial T Add<T>(T x, T y)
+        where T : unmanaged;
+    
     /// <summary> Operates <c>Add</c> unaly operation. </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
+    private static T Add_default<T>(T x, T y) => throw new NotSupportedException();
+
+    /** <inheritdoc cref="Add_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte   Add(byte   x, byte   y) => unchecked((byte  )(x + y));
+    /** <inheritdoc cref="Add_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ushort Add(ushort x, ushort y) => unchecked((ushort)(x + y));
+    /** <inheritdoc cref="Add_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static uint   Add(uint   x, uint   y) => unchecked((uint  )(x + y));
+    /** <inheritdoc cref="Add_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ulong  Add(ulong  x, ulong  y) => unchecked((ulong )(x + y));
+    /** <inheritdoc cref="Add_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nuint  Add(nuint  x, nuint  y) => unchecked((nuint )(x + y));
+    /** <inheritdoc cref="Add_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static sbyte  Add(sbyte  x, sbyte  y) => unchecked((sbyte )(x + y));
+    /** <inheritdoc cref="Add_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static short  Add(short  x, short  y) => unchecked((short )(x + y));
+    /** <inheritdoc cref="Add_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static int    Add(int    x, int    y) => unchecked((int   )(x + y));
+    /** <inheritdoc cref="Add_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static long   Add(long   x, long   y) => unchecked((long  )(x + y));
+    /** <inheritdoc cref="Add_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nint   Add(nint   x, nint   y) => unchecked((nint  )(x + y));
+    /** <inheritdoc cref="Add_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static float  Add(float  x, float  y) => unchecked((float )(x + y));
+    /** <inheritdoc cref="Add_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static double Add(double x, double y) => unchecked((double)(x + y));
+
+    #endregion Add
+
+    #region AddChecked
+
+    /// <inheritdoc cref="AddChecked_default" />
     /// <exception cref="NotSupportedException" />
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static T Add<T>(T x, T y)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-
-        if(typeof(T) == typeof(byte  )) return from(Add(to<byte  >(x), to<byte  >(y)));
-        if(typeof(T) == typeof(ushort)) return from(Add(to<ushort>(x), to<ushort>(y)));
-        if(typeof(T) == typeof(uint  )) return from(Add(to<uint  >(x), to<uint  >(y)));
-        if(typeof(T) == typeof(ulong )) return from(Add(to<ulong >(x), to<ulong >(y)));
-        if(typeof(T) == typeof(nuint )) return from(Add(to<nuint >(x), to<nuint >(y)));
-        if(typeof(T) == typeof(sbyte )) return from(Add(to<sbyte >(x), to<sbyte >(y)));
-        if(typeof(T) == typeof(short )) return from(Add(to<short >(x), to<short >(y)));
-        if(typeof(T) == typeof(int   )) return from(Add(to<int   >(x), to<int   >(y)));
-        if(typeof(T) == typeof(long  )) return from(Add(to<long  >(x), to<long  >(y)));
-        if(typeof(T) == typeof(nint  )) return from(Add(to<nint  >(x), to<nint  >(y)));
-        if(typeof(T) == typeof(float )) return from(Add(to<float >(x), to<float >(y)));
-        if(typeof(T) == typeof(double)) return from(Add(to<double>(x), to<double>(y)));
-        throw new NotSupportedException();
-    }
+    [GeneratedCode("T4", null)]
+    [PrimaryGeneric(nameof(AddChecked_default))]
+    public static partial T AddChecked<T>(T x, T y)
+        where T : unmanaged;
     
-    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   Add(byte   x, byte   y) => unchecked((byte  )(x + y));
-    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort Add(ushort x, ushort y) => unchecked((ushort)(x + y));
-    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   Add(uint   x, uint   y) => unchecked((uint  )(x + y));
-    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  Add(ulong  x, ulong  y) => unchecked((ulong )(x + y));
-    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  Add(nuint  x, nuint  y) => unchecked((nuint )(x + y));
-    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  Add(sbyte  x, sbyte  y) => unchecked((sbyte )(x + y));
-    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  Add(short  x, short  y) => unchecked((short )(x + y));
-    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    Add(int    x, int    y) => unchecked((int   )(x + y));
-    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   Add(long   x, long   y) => unchecked((long  )(x + y));
-    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   Add(nint   x, nint   y) => unchecked((nint  )(x + y));
-    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  Add(float  x, float  y) => unchecked((float )(x + y));
-    /** <see cref="Add{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double Add(double x, double y) => unchecked((double)(x + y));
-
-
     /// <summary> Operates <c>AddChecked</c> unaly operation. </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
+    private static T AddChecked_default<T>(T x, T y) => throw new NotSupportedException();
+
+    /** <inheritdoc cref="AddChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte   AddChecked(byte   x, byte   y) => checked((byte  )(x + y));
+    /** <inheritdoc cref="AddChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ushort AddChecked(ushort x, ushort y) => checked((ushort)(x + y));
+    /** <inheritdoc cref="AddChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static uint   AddChecked(uint   x, uint   y) => checked((uint  )(x + y));
+    /** <inheritdoc cref="AddChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ulong  AddChecked(ulong  x, ulong  y) => checked((ulong )(x + y));
+    /** <inheritdoc cref="AddChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nuint  AddChecked(nuint  x, nuint  y) => checked((nuint )(x + y));
+    /** <inheritdoc cref="AddChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static sbyte  AddChecked(sbyte  x, sbyte  y) => checked((sbyte )(x + y));
+    /** <inheritdoc cref="AddChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static short  AddChecked(short  x, short  y) => checked((short )(x + y));
+    /** <inheritdoc cref="AddChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static int    AddChecked(int    x, int    y) => checked((int   )(x + y));
+    /** <inheritdoc cref="AddChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static long   AddChecked(long   x, long   y) => checked((long  )(x + y));
+    /** <inheritdoc cref="AddChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nint   AddChecked(nint   x, nint   y) => checked((nint  )(x + y));
+    /** <inheritdoc cref="AddChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static float  AddChecked(float  x, float  y) => checked((float )(x + y));
+    /** <inheritdoc cref="AddChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static double AddChecked(double x, double y) => checked((double)(x + y));
+
+    #endregion AddChecked
+
+    #region Subtract
+
+    /// <inheritdoc cref="Subtract_default" />
     /// <exception cref="NotSupportedException" />
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static T AddChecked<T>(T x, T y)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-
-        if(typeof(T) == typeof(byte  )) return from(AddChecked(to<byte  >(x), to<byte  >(y)));
-        if(typeof(T) == typeof(ushort)) return from(AddChecked(to<ushort>(x), to<ushort>(y)));
-        if(typeof(T) == typeof(uint  )) return from(AddChecked(to<uint  >(x), to<uint  >(y)));
-        if(typeof(T) == typeof(ulong )) return from(AddChecked(to<ulong >(x), to<ulong >(y)));
-        if(typeof(T) == typeof(nuint )) return from(AddChecked(to<nuint >(x), to<nuint >(y)));
-        if(typeof(T) == typeof(sbyte )) return from(AddChecked(to<sbyte >(x), to<sbyte >(y)));
-        if(typeof(T) == typeof(short )) return from(AddChecked(to<short >(x), to<short >(y)));
-        if(typeof(T) == typeof(int   )) return from(AddChecked(to<int   >(x), to<int   >(y)));
-        if(typeof(T) == typeof(long  )) return from(AddChecked(to<long  >(x), to<long  >(y)));
-        if(typeof(T) == typeof(nint  )) return from(AddChecked(to<nint  >(x), to<nint  >(y)));
-        if(typeof(T) == typeof(float )) return from(AddChecked(to<float >(x), to<float >(y)));
-        if(typeof(T) == typeof(double)) return from(AddChecked(to<double>(x), to<double>(y)));
-        throw new NotSupportedException();
-    }
+    [GeneratedCode("T4", null)]
+    [PrimaryGeneric(nameof(Subtract_default))]
+    public static partial T Subtract<T>(T x, T y)
+        where T : unmanaged;
     
-    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   AddChecked(byte   x, byte   y) => checked((byte  )(x + y));
-    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort AddChecked(ushort x, ushort y) => checked((ushort)(x + y));
-    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   AddChecked(uint   x, uint   y) => checked((uint  )(x + y));
-    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  AddChecked(ulong  x, ulong  y) => checked((ulong )(x + y));
-    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  AddChecked(nuint  x, nuint  y) => checked((nuint )(x + y));
-    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  AddChecked(sbyte  x, sbyte  y) => checked((sbyte )(x + y));
-    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  AddChecked(short  x, short  y) => checked((short )(x + y));
-    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    AddChecked(int    x, int    y) => checked((int   )(x + y));
-    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   AddChecked(long   x, long   y) => checked((long  )(x + y));
-    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   AddChecked(nint   x, nint   y) => checked((nint  )(x + y));
-    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  AddChecked(float  x, float  y) => checked((float )(x + y));
-    /** <see cref="AddChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double AddChecked(double x, double y) => checked((double)(x + y));
-
-
     /// <summary> Operates <c>Subtract</c> unaly operation. </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
+    private static T Subtract_default<T>(T x, T y) => throw new NotSupportedException();
+
+    /** <inheritdoc cref="Subtract_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte   Subtract(byte   x, byte   y) => unchecked((byte  )(x - y));
+    /** <inheritdoc cref="Subtract_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ushort Subtract(ushort x, ushort y) => unchecked((ushort)(x - y));
+    /** <inheritdoc cref="Subtract_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static uint   Subtract(uint   x, uint   y) => unchecked((uint  )(x - y));
+    /** <inheritdoc cref="Subtract_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ulong  Subtract(ulong  x, ulong  y) => unchecked((ulong )(x - y));
+    /** <inheritdoc cref="Subtract_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nuint  Subtract(nuint  x, nuint  y) => unchecked((nuint )(x - y));
+    /** <inheritdoc cref="Subtract_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static sbyte  Subtract(sbyte  x, sbyte  y) => unchecked((sbyte )(x - y));
+    /** <inheritdoc cref="Subtract_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static short  Subtract(short  x, short  y) => unchecked((short )(x - y));
+    /** <inheritdoc cref="Subtract_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static int    Subtract(int    x, int    y) => unchecked((int   )(x - y));
+    /** <inheritdoc cref="Subtract_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static long   Subtract(long   x, long   y) => unchecked((long  )(x - y));
+    /** <inheritdoc cref="Subtract_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nint   Subtract(nint   x, nint   y) => unchecked((nint  )(x - y));
+    /** <inheritdoc cref="Subtract_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static float  Subtract(float  x, float  y) => unchecked((float )(x - y));
+    /** <inheritdoc cref="Subtract_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static double Subtract(double x, double y) => unchecked((double)(x - y));
+
+    #endregion Subtract
+
+    #region SubtractChecked
+
+    /// <inheritdoc cref="SubtractChecked_default" />
     /// <exception cref="NotSupportedException" />
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static T Subtract<T>(T x, T y)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-
-        if(typeof(T) == typeof(byte  )) return from(Subtract(to<byte  >(x), to<byte  >(y)));
-        if(typeof(T) == typeof(ushort)) return from(Subtract(to<ushort>(x), to<ushort>(y)));
-        if(typeof(T) == typeof(uint  )) return from(Subtract(to<uint  >(x), to<uint  >(y)));
-        if(typeof(T) == typeof(ulong )) return from(Subtract(to<ulong >(x), to<ulong >(y)));
-        if(typeof(T) == typeof(nuint )) return from(Subtract(to<nuint >(x), to<nuint >(y)));
-        if(typeof(T) == typeof(sbyte )) return from(Subtract(to<sbyte >(x), to<sbyte >(y)));
-        if(typeof(T) == typeof(short )) return from(Subtract(to<short >(x), to<short >(y)));
-        if(typeof(T) == typeof(int   )) return from(Subtract(to<int   >(x), to<int   >(y)));
-        if(typeof(T) == typeof(long  )) return from(Subtract(to<long  >(x), to<long  >(y)));
-        if(typeof(T) == typeof(nint  )) return from(Subtract(to<nint  >(x), to<nint  >(y)));
-        if(typeof(T) == typeof(float )) return from(Subtract(to<float >(x), to<float >(y)));
-        if(typeof(T) == typeof(double)) return from(Subtract(to<double>(x), to<double>(y)));
-        throw new NotSupportedException();
-    }
+    [GeneratedCode("T4", null)]
+    [PrimaryGeneric(nameof(SubtractChecked_default))]
+    public static partial T SubtractChecked<T>(T x, T y)
+        where T : unmanaged;
     
-    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   Subtract(byte   x, byte   y) => unchecked((byte  )(x - y));
-    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort Subtract(ushort x, ushort y) => unchecked((ushort)(x - y));
-    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   Subtract(uint   x, uint   y) => unchecked((uint  )(x - y));
-    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  Subtract(ulong  x, ulong  y) => unchecked((ulong )(x - y));
-    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  Subtract(nuint  x, nuint  y) => unchecked((nuint )(x - y));
-    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  Subtract(sbyte  x, sbyte  y) => unchecked((sbyte )(x - y));
-    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  Subtract(short  x, short  y) => unchecked((short )(x - y));
-    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    Subtract(int    x, int    y) => unchecked((int   )(x - y));
-    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   Subtract(long   x, long   y) => unchecked((long  )(x - y));
-    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   Subtract(nint   x, nint   y) => unchecked((nint  )(x - y));
-    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  Subtract(float  x, float  y) => unchecked((float )(x - y));
-    /** <see cref="Subtract{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double Subtract(double x, double y) => unchecked((double)(x - y));
-
-
     /// <summary> Operates <c>SubtractChecked</c> unaly operation. </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
+    private static T SubtractChecked_default<T>(T x, T y) => throw new NotSupportedException();
+
+    /** <inheritdoc cref="SubtractChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte   SubtractChecked(byte   x, byte   y) => checked((byte  )(x - y));
+    /** <inheritdoc cref="SubtractChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ushort SubtractChecked(ushort x, ushort y) => checked((ushort)(x - y));
+    /** <inheritdoc cref="SubtractChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static uint   SubtractChecked(uint   x, uint   y) => checked((uint  )(x - y));
+    /** <inheritdoc cref="SubtractChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ulong  SubtractChecked(ulong  x, ulong  y) => checked((ulong )(x - y));
+    /** <inheritdoc cref="SubtractChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nuint  SubtractChecked(nuint  x, nuint  y) => checked((nuint )(x - y));
+    /** <inheritdoc cref="SubtractChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static sbyte  SubtractChecked(sbyte  x, sbyte  y) => checked((sbyte )(x - y));
+    /** <inheritdoc cref="SubtractChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static short  SubtractChecked(short  x, short  y) => checked((short )(x - y));
+    /** <inheritdoc cref="SubtractChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static int    SubtractChecked(int    x, int    y) => checked((int   )(x - y));
+    /** <inheritdoc cref="SubtractChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static long   SubtractChecked(long   x, long   y) => checked((long  )(x - y));
+    /** <inheritdoc cref="SubtractChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nint   SubtractChecked(nint   x, nint   y) => checked((nint  )(x - y));
+    /** <inheritdoc cref="SubtractChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static float  SubtractChecked(float  x, float  y) => checked((float )(x - y));
+    /** <inheritdoc cref="SubtractChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static double SubtractChecked(double x, double y) => checked((double)(x - y));
+
+    #endregion SubtractChecked
+
+    #region Multiply
+
+    /// <inheritdoc cref="Multiply_default" />
     /// <exception cref="NotSupportedException" />
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static T SubtractChecked<T>(T x, T y)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-
-        if(typeof(T) == typeof(byte  )) return from(SubtractChecked(to<byte  >(x), to<byte  >(y)));
-        if(typeof(T) == typeof(ushort)) return from(SubtractChecked(to<ushort>(x), to<ushort>(y)));
-        if(typeof(T) == typeof(uint  )) return from(SubtractChecked(to<uint  >(x), to<uint  >(y)));
-        if(typeof(T) == typeof(ulong )) return from(SubtractChecked(to<ulong >(x), to<ulong >(y)));
-        if(typeof(T) == typeof(nuint )) return from(SubtractChecked(to<nuint >(x), to<nuint >(y)));
-        if(typeof(T) == typeof(sbyte )) return from(SubtractChecked(to<sbyte >(x), to<sbyte >(y)));
-        if(typeof(T) == typeof(short )) return from(SubtractChecked(to<short >(x), to<short >(y)));
-        if(typeof(T) == typeof(int   )) return from(SubtractChecked(to<int   >(x), to<int   >(y)));
-        if(typeof(T) == typeof(long  )) return from(SubtractChecked(to<long  >(x), to<long  >(y)));
-        if(typeof(T) == typeof(nint  )) return from(SubtractChecked(to<nint  >(x), to<nint  >(y)));
-        if(typeof(T) == typeof(float )) return from(SubtractChecked(to<float >(x), to<float >(y)));
-        if(typeof(T) == typeof(double)) return from(SubtractChecked(to<double>(x), to<double>(y)));
-        throw new NotSupportedException();
-    }
+    [GeneratedCode("T4", null)]
+    [PrimaryGeneric(nameof(Multiply_default))]
+    public static partial T Multiply<T>(T x, T y)
+        where T : unmanaged;
     
-    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   SubtractChecked(byte   x, byte   y) => checked((byte  )(x - y));
-    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort SubtractChecked(ushort x, ushort y) => checked((ushort)(x - y));
-    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   SubtractChecked(uint   x, uint   y) => checked((uint  )(x - y));
-    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  SubtractChecked(ulong  x, ulong  y) => checked((ulong )(x - y));
-    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  SubtractChecked(nuint  x, nuint  y) => checked((nuint )(x - y));
-    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  SubtractChecked(sbyte  x, sbyte  y) => checked((sbyte )(x - y));
-    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  SubtractChecked(short  x, short  y) => checked((short )(x - y));
-    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    SubtractChecked(int    x, int    y) => checked((int   )(x - y));
-    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   SubtractChecked(long   x, long   y) => checked((long  )(x - y));
-    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   SubtractChecked(nint   x, nint   y) => checked((nint  )(x - y));
-    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  SubtractChecked(float  x, float  y) => checked((float )(x - y));
-    /** <see cref="SubtractChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double SubtractChecked(double x, double y) => checked((double)(x - y));
-
-
     /// <summary> Operates <c>Multiply</c> unaly operation. </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
+    private static T Multiply_default<T>(T x, T y) => throw new NotSupportedException();
+
+    /** <inheritdoc cref="Multiply_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte   Multiply(byte   x, byte   y) => unchecked((byte  )(x * y));
+    /** <inheritdoc cref="Multiply_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ushort Multiply(ushort x, ushort y) => unchecked((ushort)(x * y));
+    /** <inheritdoc cref="Multiply_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static uint   Multiply(uint   x, uint   y) => unchecked((uint  )(x * y));
+    /** <inheritdoc cref="Multiply_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ulong  Multiply(ulong  x, ulong  y) => unchecked((ulong )(x * y));
+    /** <inheritdoc cref="Multiply_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nuint  Multiply(nuint  x, nuint  y) => unchecked((nuint )(x * y));
+    /** <inheritdoc cref="Multiply_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static sbyte  Multiply(sbyte  x, sbyte  y) => unchecked((sbyte )(x * y));
+    /** <inheritdoc cref="Multiply_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static short  Multiply(short  x, short  y) => unchecked((short )(x * y));
+    /** <inheritdoc cref="Multiply_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static int    Multiply(int    x, int    y) => unchecked((int   )(x * y));
+    /** <inheritdoc cref="Multiply_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static long   Multiply(long   x, long   y) => unchecked((long  )(x * y));
+    /** <inheritdoc cref="Multiply_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nint   Multiply(nint   x, nint   y) => unchecked((nint  )(x * y));
+    /** <inheritdoc cref="Multiply_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static float  Multiply(float  x, float  y) => unchecked((float )(x * y));
+    /** <inheritdoc cref="Multiply_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static double Multiply(double x, double y) => unchecked((double)(x * y));
+
+    #endregion Multiply
+
+    #region MultiplyChecked
+
+    /// <inheritdoc cref="MultiplyChecked_default" />
     /// <exception cref="NotSupportedException" />
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static T Multiply<T>(T x, T y)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-
-        if(typeof(T) == typeof(byte  )) return from(Multiply(to<byte  >(x), to<byte  >(y)));
-        if(typeof(T) == typeof(ushort)) return from(Multiply(to<ushort>(x), to<ushort>(y)));
-        if(typeof(T) == typeof(uint  )) return from(Multiply(to<uint  >(x), to<uint  >(y)));
-        if(typeof(T) == typeof(ulong )) return from(Multiply(to<ulong >(x), to<ulong >(y)));
-        if(typeof(T) == typeof(nuint )) return from(Multiply(to<nuint >(x), to<nuint >(y)));
-        if(typeof(T) == typeof(sbyte )) return from(Multiply(to<sbyte >(x), to<sbyte >(y)));
-        if(typeof(T) == typeof(short )) return from(Multiply(to<short >(x), to<short >(y)));
-        if(typeof(T) == typeof(int   )) return from(Multiply(to<int   >(x), to<int   >(y)));
-        if(typeof(T) == typeof(long  )) return from(Multiply(to<long  >(x), to<long  >(y)));
-        if(typeof(T) == typeof(nint  )) return from(Multiply(to<nint  >(x), to<nint  >(y)));
-        if(typeof(T) == typeof(float )) return from(Multiply(to<float >(x), to<float >(y)));
-        if(typeof(T) == typeof(double)) return from(Multiply(to<double>(x), to<double>(y)));
-        throw new NotSupportedException();
-    }
+    [GeneratedCode("T4", null)]
+    [PrimaryGeneric(nameof(MultiplyChecked_default))]
+    public static partial T MultiplyChecked<T>(T x, T y)
+        where T : unmanaged;
     
-    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   Multiply(byte   x, byte   y) => unchecked((byte  )(x * y));
-    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort Multiply(ushort x, ushort y) => unchecked((ushort)(x * y));
-    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   Multiply(uint   x, uint   y) => unchecked((uint  )(x * y));
-    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  Multiply(ulong  x, ulong  y) => unchecked((ulong )(x * y));
-    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  Multiply(nuint  x, nuint  y) => unchecked((nuint )(x * y));
-    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  Multiply(sbyte  x, sbyte  y) => unchecked((sbyte )(x * y));
-    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  Multiply(short  x, short  y) => unchecked((short )(x * y));
-    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    Multiply(int    x, int    y) => unchecked((int   )(x * y));
-    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   Multiply(long   x, long   y) => unchecked((long  )(x * y));
-    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   Multiply(nint   x, nint   y) => unchecked((nint  )(x * y));
-    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  Multiply(float  x, float  y) => unchecked((float )(x * y));
-    /** <see cref="Multiply{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double Multiply(double x, double y) => unchecked((double)(x * y));
-
-
     /// <summary> Operates <c>MultiplyChecked</c> unaly operation. </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
+    private static T MultiplyChecked_default<T>(T x, T y) => throw new NotSupportedException();
+
+    /** <inheritdoc cref="MultiplyChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte   MultiplyChecked(byte   x, byte   y) => checked((byte  )(x * y));
+    /** <inheritdoc cref="MultiplyChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ushort MultiplyChecked(ushort x, ushort y) => checked((ushort)(x * y));
+    /** <inheritdoc cref="MultiplyChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static uint   MultiplyChecked(uint   x, uint   y) => checked((uint  )(x * y));
+    /** <inheritdoc cref="MultiplyChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ulong  MultiplyChecked(ulong  x, ulong  y) => checked((ulong )(x * y));
+    /** <inheritdoc cref="MultiplyChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nuint  MultiplyChecked(nuint  x, nuint  y) => checked((nuint )(x * y));
+    /** <inheritdoc cref="MultiplyChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static sbyte  MultiplyChecked(sbyte  x, sbyte  y) => checked((sbyte )(x * y));
+    /** <inheritdoc cref="MultiplyChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static short  MultiplyChecked(short  x, short  y) => checked((short )(x * y));
+    /** <inheritdoc cref="MultiplyChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static int    MultiplyChecked(int    x, int    y) => checked((int   )(x * y));
+    /** <inheritdoc cref="MultiplyChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static long   MultiplyChecked(long   x, long   y) => checked((long  )(x * y));
+    /** <inheritdoc cref="MultiplyChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nint   MultiplyChecked(nint   x, nint   y) => checked((nint  )(x * y));
+    /** <inheritdoc cref="MultiplyChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static float  MultiplyChecked(float  x, float  y) => checked((float )(x * y));
+    /** <inheritdoc cref="MultiplyChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static double MultiplyChecked(double x, double y) => checked((double)(x * y));
+
+    #endregion MultiplyChecked
+
+    #region Divide
+
+    /// <inheritdoc cref="Divide_default" />
     /// <exception cref="NotSupportedException" />
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static T MultiplyChecked<T>(T x, T y)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-
-        if(typeof(T) == typeof(byte  )) return from(MultiplyChecked(to<byte  >(x), to<byte  >(y)));
-        if(typeof(T) == typeof(ushort)) return from(MultiplyChecked(to<ushort>(x), to<ushort>(y)));
-        if(typeof(T) == typeof(uint  )) return from(MultiplyChecked(to<uint  >(x), to<uint  >(y)));
-        if(typeof(T) == typeof(ulong )) return from(MultiplyChecked(to<ulong >(x), to<ulong >(y)));
-        if(typeof(T) == typeof(nuint )) return from(MultiplyChecked(to<nuint >(x), to<nuint >(y)));
-        if(typeof(T) == typeof(sbyte )) return from(MultiplyChecked(to<sbyte >(x), to<sbyte >(y)));
-        if(typeof(T) == typeof(short )) return from(MultiplyChecked(to<short >(x), to<short >(y)));
-        if(typeof(T) == typeof(int   )) return from(MultiplyChecked(to<int   >(x), to<int   >(y)));
-        if(typeof(T) == typeof(long  )) return from(MultiplyChecked(to<long  >(x), to<long  >(y)));
-        if(typeof(T) == typeof(nint  )) return from(MultiplyChecked(to<nint  >(x), to<nint  >(y)));
-        if(typeof(T) == typeof(float )) return from(MultiplyChecked(to<float >(x), to<float >(y)));
-        if(typeof(T) == typeof(double)) return from(MultiplyChecked(to<double>(x), to<double>(y)));
-        throw new NotSupportedException();
-    }
+    [GeneratedCode("T4", null)]
+    [PrimaryGeneric(nameof(Divide_default))]
+    public static partial T Divide<T>(T x, T y)
+        where T : unmanaged;
     
-    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   MultiplyChecked(byte   x, byte   y) => checked((byte  )(x * y));
-    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort MultiplyChecked(ushort x, ushort y) => checked((ushort)(x * y));
-    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   MultiplyChecked(uint   x, uint   y) => checked((uint  )(x * y));
-    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  MultiplyChecked(ulong  x, ulong  y) => checked((ulong )(x * y));
-    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  MultiplyChecked(nuint  x, nuint  y) => checked((nuint )(x * y));
-    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  MultiplyChecked(sbyte  x, sbyte  y) => checked((sbyte )(x * y));
-    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  MultiplyChecked(short  x, short  y) => checked((short )(x * y));
-    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    MultiplyChecked(int    x, int    y) => checked((int   )(x * y));
-    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   MultiplyChecked(long   x, long   y) => checked((long  )(x * y));
-    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   MultiplyChecked(nint   x, nint   y) => checked((nint  )(x * y));
-    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  MultiplyChecked(float  x, float  y) => checked((float )(x * y));
-    /** <see cref="MultiplyChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double MultiplyChecked(double x, double y) => checked((double)(x * y));
-
-
     /// <summary> Operates <c>Divide</c> unaly operation. </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
+    private static T Divide_default<T>(T x, T y) => throw new NotSupportedException();
+
+    /** <inheritdoc cref="Divide_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte   Divide(byte   x, byte   y) => unchecked((byte  )(x / y));
+    /** <inheritdoc cref="Divide_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ushort Divide(ushort x, ushort y) => unchecked((ushort)(x / y));
+    /** <inheritdoc cref="Divide_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static uint   Divide(uint   x, uint   y) => unchecked((uint  )(x / y));
+    /** <inheritdoc cref="Divide_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ulong  Divide(ulong  x, ulong  y) => unchecked((ulong )(x / y));
+    /** <inheritdoc cref="Divide_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nuint  Divide(nuint  x, nuint  y) => unchecked((nuint )(x / y));
+    /** <inheritdoc cref="Divide_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static sbyte  Divide(sbyte  x, sbyte  y) => unchecked((sbyte )(x / y));
+    /** <inheritdoc cref="Divide_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static short  Divide(short  x, short  y) => unchecked((short )(x / y));
+    /** <inheritdoc cref="Divide_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static int    Divide(int    x, int    y) => unchecked((int   )(x / y));
+    /** <inheritdoc cref="Divide_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static long   Divide(long   x, long   y) => unchecked((long  )(x / y));
+    /** <inheritdoc cref="Divide_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nint   Divide(nint   x, nint   y) => unchecked((nint  )(x / y));
+    /** <inheritdoc cref="Divide_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static float  Divide(float  x, float  y) => unchecked((float )(x / y));
+    /** <inheritdoc cref="Divide_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static double Divide(double x, double y) => unchecked((double)(x / y));
+
+    #endregion Divide
+
+    #region DivideChecked
+
+    /// <inheritdoc cref="DivideChecked_default" />
     /// <exception cref="NotSupportedException" />
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static T Divide<T>(T x, T y)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-
-        if(typeof(T) == typeof(byte  )) return from(Divide(to<byte  >(x), to<byte  >(y)));
-        if(typeof(T) == typeof(ushort)) return from(Divide(to<ushort>(x), to<ushort>(y)));
-        if(typeof(T) == typeof(uint  )) return from(Divide(to<uint  >(x), to<uint  >(y)));
-        if(typeof(T) == typeof(ulong )) return from(Divide(to<ulong >(x), to<ulong >(y)));
-        if(typeof(T) == typeof(nuint )) return from(Divide(to<nuint >(x), to<nuint >(y)));
-        if(typeof(T) == typeof(sbyte )) return from(Divide(to<sbyte >(x), to<sbyte >(y)));
-        if(typeof(T) == typeof(short )) return from(Divide(to<short >(x), to<short >(y)));
-        if(typeof(T) == typeof(int   )) return from(Divide(to<int   >(x), to<int   >(y)));
-        if(typeof(T) == typeof(long  )) return from(Divide(to<long  >(x), to<long  >(y)));
-        if(typeof(T) == typeof(nint  )) return from(Divide(to<nint  >(x), to<nint  >(y)));
-        if(typeof(T) == typeof(float )) return from(Divide(to<float >(x), to<float >(y)));
-        if(typeof(T) == typeof(double)) return from(Divide(to<double>(x), to<double>(y)));
-        throw new NotSupportedException();
-    }
+    [GeneratedCode("T4", null)]
+    [PrimaryGeneric(nameof(DivideChecked_default))]
+    public static partial T DivideChecked<T>(T x, T y)
+        where T : unmanaged;
     
-    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   Divide(byte   x, byte   y) => unchecked((byte  )(x / y));
-    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort Divide(ushort x, ushort y) => unchecked((ushort)(x / y));
-    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   Divide(uint   x, uint   y) => unchecked((uint  )(x / y));
-    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  Divide(ulong  x, ulong  y) => unchecked((ulong )(x / y));
-    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  Divide(nuint  x, nuint  y) => unchecked((nuint )(x / y));
-    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  Divide(sbyte  x, sbyte  y) => unchecked((sbyte )(x / y));
-    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  Divide(short  x, short  y) => unchecked((short )(x / y));
-    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    Divide(int    x, int    y) => unchecked((int   )(x / y));
-    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   Divide(long   x, long   y) => unchecked((long  )(x / y));
-    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   Divide(nint   x, nint   y) => unchecked((nint  )(x / y));
-    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  Divide(float  x, float  y) => unchecked((float )(x / y));
-    /** <see cref="Divide{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double Divide(double x, double y) => unchecked((double)(x / y));
-
-
     /// <summary> Operates <c>DivideChecked</c> unaly operation. </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
+    private static T DivideChecked_default<T>(T x, T y) => throw new NotSupportedException();
+
+    /** <inheritdoc cref="DivideChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte   DivideChecked(byte   x, byte   y) => checked((byte  )(x / y));
+    /** <inheritdoc cref="DivideChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ushort DivideChecked(ushort x, ushort y) => checked((ushort)(x / y));
+    /** <inheritdoc cref="DivideChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static uint   DivideChecked(uint   x, uint   y) => checked((uint  )(x / y));
+    /** <inheritdoc cref="DivideChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ulong  DivideChecked(ulong  x, ulong  y) => checked((ulong )(x / y));
+    /** <inheritdoc cref="DivideChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nuint  DivideChecked(nuint  x, nuint  y) => checked((nuint )(x / y));
+    /** <inheritdoc cref="DivideChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static sbyte  DivideChecked(sbyte  x, sbyte  y) => checked((sbyte )(x / y));
+    /** <inheritdoc cref="DivideChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static short  DivideChecked(short  x, short  y) => checked((short )(x / y));
+    /** <inheritdoc cref="DivideChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static int    DivideChecked(int    x, int    y) => checked((int   )(x / y));
+    /** <inheritdoc cref="DivideChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static long   DivideChecked(long   x, long   y) => checked((long  )(x / y));
+    /** <inheritdoc cref="DivideChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nint   DivideChecked(nint   x, nint   y) => checked((nint  )(x / y));
+    /** <inheritdoc cref="DivideChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static float  DivideChecked(float  x, float  y) => checked((float )(x / y));
+    /** <inheritdoc cref="DivideChecked_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static double DivideChecked(double x, double y) => checked((double)(x / y));
+
+    #endregion DivideChecked
+
+    #region Modulo
+
+    /// <inheritdoc cref="Modulo_default" />
     /// <exception cref="NotSupportedException" />
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static T DivideChecked<T>(T x, T y)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-
-        if(typeof(T) == typeof(byte  )) return from(DivideChecked(to<byte  >(x), to<byte  >(y)));
-        if(typeof(T) == typeof(ushort)) return from(DivideChecked(to<ushort>(x), to<ushort>(y)));
-        if(typeof(T) == typeof(uint  )) return from(DivideChecked(to<uint  >(x), to<uint  >(y)));
-        if(typeof(T) == typeof(ulong )) return from(DivideChecked(to<ulong >(x), to<ulong >(y)));
-        if(typeof(T) == typeof(nuint )) return from(DivideChecked(to<nuint >(x), to<nuint >(y)));
-        if(typeof(T) == typeof(sbyte )) return from(DivideChecked(to<sbyte >(x), to<sbyte >(y)));
-        if(typeof(T) == typeof(short )) return from(DivideChecked(to<short >(x), to<short >(y)));
-        if(typeof(T) == typeof(int   )) return from(DivideChecked(to<int   >(x), to<int   >(y)));
-        if(typeof(T) == typeof(long  )) return from(DivideChecked(to<long  >(x), to<long  >(y)));
-        if(typeof(T) == typeof(nint  )) return from(DivideChecked(to<nint  >(x), to<nint  >(y)));
-        if(typeof(T) == typeof(float )) return from(DivideChecked(to<float >(x), to<float >(y)));
-        if(typeof(T) == typeof(double)) return from(DivideChecked(to<double>(x), to<double>(y)));
-        throw new NotSupportedException();
-    }
+    [GeneratedCode("T4", null)]
+    [PrimaryGeneric(nameof(Modulo_default))]
+    public static partial T Modulo<T>(T x, T y)
+        where T : unmanaged;
     
-    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   DivideChecked(byte   x, byte   y) => checked((byte  )(x / y));
-    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort DivideChecked(ushort x, ushort y) => checked((ushort)(x / y));
-    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   DivideChecked(uint   x, uint   y) => checked((uint  )(x / y));
-    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  DivideChecked(ulong  x, ulong  y) => checked((ulong )(x / y));
-    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  DivideChecked(nuint  x, nuint  y) => checked((nuint )(x / y));
-    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  DivideChecked(sbyte  x, sbyte  y) => checked((sbyte )(x / y));
-    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  DivideChecked(short  x, short  y) => checked((short )(x / y));
-    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    DivideChecked(int    x, int    y) => checked((int   )(x / y));
-    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   DivideChecked(long   x, long   y) => checked((long  )(x / y));
-    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   DivideChecked(nint   x, nint   y) => checked((nint  )(x / y));
-    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  DivideChecked(float  x, float  y) => checked((float )(x / y));
-    /** <see cref="DivideChecked{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double DivideChecked(double x, double y) => checked((double)(x / y));
-
-
     /// <summary> Operates <c>Modulo</c> unaly operation. </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
+    private static T Modulo_default<T>(T x, T y) => throw new NotSupportedException();
+
+    /** <inheritdoc cref="Modulo_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte   Modulo(byte   x, byte   y) => unchecked((byte  )(x % y));
+    /** <inheritdoc cref="Modulo_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ushort Modulo(ushort x, ushort y) => unchecked((ushort)(x % y));
+    /** <inheritdoc cref="Modulo_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static uint   Modulo(uint   x, uint   y) => unchecked((uint  )(x % y));
+    /** <inheritdoc cref="Modulo_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ulong  Modulo(ulong  x, ulong  y) => unchecked((ulong )(x % y));
+    /** <inheritdoc cref="Modulo_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nuint  Modulo(nuint  x, nuint  y) => unchecked((nuint )(x % y));
+    /** <inheritdoc cref="Modulo_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static sbyte  Modulo(sbyte  x, sbyte  y) => unchecked((sbyte )(x % y));
+    /** <inheritdoc cref="Modulo_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static short  Modulo(short  x, short  y) => unchecked((short )(x % y));
+    /** <inheritdoc cref="Modulo_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static int    Modulo(int    x, int    y) => unchecked((int   )(x % y));
+    /** <inheritdoc cref="Modulo_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static long   Modulo(long   x, long   y) => unchecked((long  )(x % y));
+    /** <inheritdoc cref="Modulo_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nint   Modulo(nint   x, nint   y) => unchecked((nint  )(x % y));
+    /** <inheritdoc cref="Modulo_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static float  Modulo(float  x, float  y) => unchecked((float )(x % y));
+    /** <inheritdoc cref="Modulo_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static double Modulo(double x, double y) => unchecked((double)(x % y));
+
+    #endregion Modulo
+
+    #region BitwiseOr
+
+    /// <inheritdoc cref="BitwiseOr_default" />
     /// <exception cref="NotSupportedException" />
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static T Modulo<T>(T x, T y)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-
-        if(typeof(T) == typeof(byte  )) return from(Modulo(to<byte  >(x), to<byte  >(y)));
-        if(typeof(T) == typeof(ushort)) return from(Modulo(to<ushort>(x), to<ushort>(y)));
-        if(typeof(T) == typeof(uint  )) return from(Modulo(to<uint  >(x), to<uint  >(y)));
-        if(typeof(T) == typeof(ulong )) return from(Modulo(to<ulong >(x), to<ulong >(y)));
-        if(typeof(T) == typeof(nuint )) return from(Modulo(to<nuint >(x), to<nuint >(y)));
-        if(typeof(T) == typeof(sbyte )) return from(Modulo(to<sbyte >(x), to<sbyte >(y)));
-        if(typeof(T) == typeof(short )) return from(Modulo(to<short >(x), to<short >(y)));
-        if(typeof(T) == typeof(int   )) return from(Modulo(to<int   >(x), to<int   >(y)));
-        if(typeof(T) == typeof(long  )) return from(Modulo(to<long  >(x), to<long  >(y)));
-        if(typeof(T) == typeof(nint  )) return from(Modulo(to<nint  >(x), to<nint  >(y)));
-        if(typeof(T) == typeof(float )) return from(Modulo(to<float >(x), to<float >(y)));
-        if(typeof(T) == typeof(double)) return from(Modulo(to<double>(x), to<double>(y)));
-        throw new NotSupportedException();
-    }
+    [GeneratedCode("T4", null)]
+    [PrimaryGeneric(nameof(BitwiseOr_default))]
+    public static partial T BitwiseOr<T>(T x, T y)
+        where T : unmanaged;
     
-    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   Modulo(byte   x, byte   y) => unchecked((byte  )(x % y));
-    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort Modulo(ushort x, ushort y) => unchecked((ushort)(x % y));
-    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   Modulo(uint   x, uint   y) => unchecked((uint  )(x % y));
-    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  Modulo(ulong  x, ulong  y) => unchecked((ulong )(x % y));
-    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  Modulo(nuint  x, nuint  y) => unchecked((nuint )(x % y));
-    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  Modulo(sbyte  x, sbyte  y) => unchecked((sbyte )(x % y));
-    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  Modulo(short  x, short  y) => unchecked((short )(x % y));
-    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    Modulo(int    x, int    y) => unchecked((int   )(x % y));
-    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   Modulo(long   x, long   y) => unchecked((long  )(x % y));
-    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   Modulo(nint   x, nint   y) => unchecked((nint  )(x % y));
-    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  Modulo(float  x, float  y) => unchecked((float )(x % y));
-    /** <see cref="Modulo{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double Modulo(double x, double y) => unchecked((double)(x % y));
-
-
-
     /// <summary> Operates <c>BitwiseOr</c> unaly operation. </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
+    private static T BitwiseOr_default<T>(T x, T y) => throw new NotSupportedException();
+
+    /** <inheritdoc cref="BitwiseOr_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte   BitwiseOr(byte   x, byte   y) => unchecked((byte  )(x | y));
+    /** <inheritdoc cref="BitwiseOr_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ushort BitwiseOr(ushort x, ushort y) => unchecked((ushort)(x | y));
+    /** <inheritdoc cref="BitwiseOr_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static uint   BitwiseOr(uint   x, uint   y) => unchecked((uint  )(x | y));
+    /** <inheritdoc cref="BitwiseOr_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ulong  BitwiseOr(ulong  x, ulong  y) => unchecked((ulong )(x | y));
+    /** <inheritdoc cref="BitwiseOr_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nuint  BitwiseOr(nuint  x, nuint  y) => unchecked((nuint )(x | y));
+    /** <inheritdoc cref="BitwiseOr_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static sbyte  BitwiseOr(sbyte  x, sbyte  y) => unchecked((sbyte )(x | y));
+    /** <inheritdoc cref="BitwiseOr_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static short  BitwiseOr(short  x, short  y) => unchecked((short )(x | y));
+    /** <inheritdoc cref="BitwiseOr_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static int    BitwiseOr(int    x, int    y) => unchecked((int   )(x | y));
+    /** <inheritdoc cref="BitwiseOr_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static long   BitwiseOr(long   x, long   y) => unchecked((long  )(x | y));
+    /** <inheritdoc cref="BitwiseOr_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nint   BitwiseOr(nint   x, nint   y) => unchecked((nint  )(x | y));
+
+    /** <inheritdoc cref="BitwiseOr_default" /> */
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static float BitwiseOr(float x, float y)
+        => Reinterpret<uint, float>(Reinterpret<float, uint>(x) | Reinterpret<float, uint>(y));
+
+    /** <inheritdoc cref="BitwiseOr_default" /> */
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static double BitwiseOr(double x, double y)
+        => Reinterpret<ulong, double>(Reinterpret<double, ulong>(x) | Reinterpret<double, ulong>(y));
+
+    #endregion BitwiseOr
+
+    #region BitwiseAnd
+
+    /// <inheritdoc cref="BitwiseAnd_default" />
     /// <exception cref="NotSupportedException" />
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
     [GeneratedCode("T4", null)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T BitwiseOr<T>(T x, T y)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-
-        if(typeof(T) == typeof(byte  )) return from(BitwiseOr(to<byte  >(x), to<byte  >(y)));
-        if(typeof(T) == typeof(ushort)) return from(BitwiseOr(to<ushort>(x), to<ushort>(y)));
-        if(typeof(T) == typeof(uint  )) return from(BitwiseOr(to<uint  >(x), to<uint  >(y)));
-        if(typeof(T) == typeof(ulong )) return from(BitwiseOr(to<ulong >(x), to<ulong >(y)));
-        if(typeof(T) == typeof(nuint )) return from(BitwiseOr(to<nuint >(x), to<nuint >(y)));
-        if(typeof(T) == typeof(sbyte )) return from(BitwiseOr(to<sbyte >(x), to<sbyte >(y)));
-        if(typeof(T) == typeof(short )) return from(BitwiseOr(to<short >(x), to<short >(y)));
-        if(typeof(T) == typeof(int   )) return from(BitwiseOr(to<int   >(x), to<int   >(y)));
-        if(typeof(T) == typeof(long  )) return from(BitwiseOr(to<long  >(x), to<long  >(y)));
-        if(typeof(T) == typeof(nint  )) return from(BitwiseOr(to<nint  >(x), to<nint  >(y)));
-        if(typeof(T) == typeof(float )) return from(BitwiseOr(to<float >(x), to<float >(y)));
-        if(typeof(T) == typeof(double)) return from(BitwiseOr(to<double>(x), to<double>(y)));
-        throw new NotSupportedException();
-    }
-
-    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   BitwiseOr(byte   x, byte   y) => unchecked((byte  )(x | y));
-    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort BitwiseOr(ushort x, ushort y) => unchecked((ushort)(x | y));
-    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   BitwiseOr(uint   x, uint   y) => unchecked((uint  )(x | y));
-    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  BitwiseOr(ulong  x, ulong  y) => unchecked((ulong )(x | y));
-    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  BitwiseOr(nuint  x, nuint  y) => unchecked((nuint )(x | y));
-    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  BitwiseOr(sbyte  x, sbyte  y) => unchecked((sbyte )(x | y));
-    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  BitwiseOr(short  x, short  y) => unchecked((short )(x | y));
-    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    BitwiseOr(int    x, int    y) => unchecked((int   )(x | y));
-    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   BitwiseOr(long   x, long   y) => unchecked((long  )(x | y));
-    /** <see cref="BitwiseOr{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   BitwiseOr(nint   x, nint   y) => unchecked((nint  )(x | y));
-
-    /** <see cref="BitwiseOr{T}" /> */
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static float  BitwiseOr(float  x, float  y)
-        => unchecked(Reinterpret<uint, float>(Reinterpret<float, uint>(x) | Reinterpret<float, uint>(y)));
-
-    /** <see cref="BitwiseOr{T}" /> */
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static double BitwiseOr(double x, double y)
-        => unchecked(Reinterpret<ulong, double>(Reinterpret<double, ulong>(x) | Reinterpret<double, ulong>(y)));
-
-
+    [PrimaryGeneric(nameof(BitwiseAnd_default))]
+    public static partial T BitwiseAnd<T>(T x, T y)
+        where T : unmanaged;
+    
     /// <summary> Operates <c>BitwiseAnd</c> unaly operation. </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
+    private static T BitwiseAnd_default<T>(T x, T y) => throw new NotSupportedException();
+
+    /** <inheritdoc cref="BitwiseAnd_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte   BitwiseAnd(byte   x, byte   y) => unchecked((byte  )(x & y));
+    /** <inheritdoc cref="BitwiseAnd_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ushort BitwiseAnd(ushort x, ushort y) => unchecked((ushort)(x & y));
+    /** <inheritdoc cref="BitwiseAnd_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static uint   BitwiseAnd(uint   x, uint   y) => unchecked((uint  )(x & y));
+    /** <inheritdoc cref="BitwiseAnd_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ulong  BitwiseAnd(ulong  x, ulong  y) => unchecked((ulong )(x & y));
+    /** <inheritdoc cref="BitwiseAnd_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nuint  BitwiseAnd(nuint  x, nuint  y) => unchecked((nuint )(x & y));
+    /** <inheritdoc cref="BitwiseAnd_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static sbyte  BitwiseAnd(sbyte  x, sbyte  y) => unchecked((sbyte )(x & y));
+    /** <inheritdoc cref="BitwiseAnd_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static short  BitwiseAnd(short  x, short  y) => unchecked((short )(x & y));
+    /** <inheritdoc cref="BitwiseAnd_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static int    BitwiseAnd(int    x, int    y) => unchecked((int   )(x & y));
+    /** <inheritdoc cref="BitwiseAnd_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static long   BitwiseAnd(long   x, long   y) => unchecked((long  )(x & y));
+    /** <inheritdoc cref="BitwiseAnd_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nint   BitwiseAnd(nint   x, nint   y) => unchecked((nint  )(x & y));
+
+    /** <inheritdoc cref="BitwiseAnd_default" /> */
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static float BitwiseAnd(float x, float y)
+        => Reinterpret<uint, float>(Reinterpret<float, uint>(x) & Reinterpret<float, uint>(y));
+
+    /** <inheritdoc cref="BitwiseAnd_default" /> */
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static double BitwiseAnd(double x, double y)
+        => Reinterpret<ulong, double>(Reinterpret<double, ulong>(x) & Reinterpret<double, ulong>(y));
+
+    #endregion BitwiseAnd
+
+    #region BitwiseXor
+
+    /// <inheritdoc cref="BitwiseXor_default" />
     /// <exception cref="NotSupportedException" />
     /// <remarks>
     /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
     /// </remarks>
     [GeneratedCode("T4", null)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T BitwiseAnd<T>(T x, T y)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-
-        if(typeof(T) == typeof(byte  )) return from(BitwiseAnd(to<byte  >(x), to<byte  >(y)));
-        if(typeof(T) == typeof(ushort)) return from(BitwiseAnd(to<ushort>(x), to<ushort>(y)));
-        if(typeof(T) == typeof(uint  )) return from(BitwiseAnd(to<uint  >(x), to<uint  >(y)));
-        if(typeof(T) == typeof(ulong )) return from(BitwiseAnd(to<ulong >(x), to<ulong >(y)));
-        if(typeof(T) == typeof(nuint )) return from(BitwiseAnd(to<nuint >(x), to<nuint >(y)));
-        if(typeof(T) == typeof(sbyte )) return from(BitwiseAnd(to<sbyte >(x), to<sbyte >(y)));
-        if(typeof(T) == typeof(short )) return from(BitwiseAnd(to<short >(x), to<short >(y)));
-        if(typeof(T) == typeof(int   )) return from(BitwiseAnd(to<int   >(x), to<int   >(y)));
-        if(typeof(T) == typeof(long  )) return from(BitwiseAnd(to<long  >(x), to<long  >(y)));
-        if(typeof(T) == typeof(nint  )) return from(BitwiseAnd(to<nint  >(x), to<nint  >(y)));
-        if(typeof(T) == typeof(float )) return from(BitwiseAnd(to<float >(x), to<float >(y)));
-        if(typeof(T) == typeof(double)) return from(BitwiseAnd(to<double>(x), to<double>(y)));
-        throw new NotSupportedException();
-    }
-
-    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   BitwiseAnd(byte   x, byte   y) => unchecked((byte  )(x & y));
-    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort BitwiseAnd(ushort x, ushort y) => unchecked((ushort)(x & y));
-    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   BitwiseAnd(uint   x, uint   y) => unchecked((uint  )(x & y));
-    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  BitwiseAnd(ulong  x, ulong  y) => unchecked((ulong )(x & y));
-    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  BitwiseAnd(nuint  x, nuint  y) => unchecked((nuint )(x & y));
-    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  BitwiseAnd(sbyte  x, sbyte  y) => unchecked((sbyte )(x & y));
-    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  BitwiseAnd(short  x, short  y) => unchecked((short )(x & y));
-    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    BitwiseAnd(int    x, int    y) => unchecked((int   )(x & y));
-    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   BitwiseAnd(long   x, long   y) => unchecked((long  )(x & y));
-    /** <see cref="BitwiseAnd{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   BitwiseAnd(nint   x, nint   y) => unchecked((nint  )(x & y));
-
-    /** <see cref="BitwiseAnd{T}" /> */
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static float  BitwiseAnd(float  x, float  y)
-        => unchecked(Reinterpret<uint, float>(Reinterpret<float, uint>(x) & Reinterpret<float, uint>(y)));
-
-    /** <see cref="BitwiseAnd{T}" /> */
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static double BitwiseAnd(double x, double y)
-        => unchecked(Reinterpret<ulong, double>(Reinterpret<double, ulong>(x) & Reinterpret<double, ulong>(y)));
-
-
+    [PrimaryGeneric(nameof(BitwiseXor_default))]
+    public static partial T BitwiseXor<T>(T x, T y)
+        where T : unmanaged;
+    
     /// <summary> Operates <c>BitwiseXor</c> unaly operation. </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException" />
-    /// <remarks>
-    /// This method's type support conforms to <see cref="System.Numerics.Vector{T}"/>.
-    /// </remarks>
-    [GeneratedCode("T4", null)]
+    private static T BitwiseXor_default<T>(T x, T y) => throw new NotSupportedException();
+
+    /** <inheritdoc cref="BitwiseXor_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte   BitwiseXor(byte   x, byte   y) => unchecked((byte  )(x ^ y));
+    /** <inheritdoc cref="BitwiseXor_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ushort BitwiseXor(ushort x, ushort y) => unchecked((ushort)(x ^ y));
+    /** <inheritdoc cref="BitwiseXor_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static uint   BitwiseXor(uint   x, uint   y) => unchecked((uint  )(x ^ y));
+    /** <inheritdoc cref="BitwiseXor_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static ulong  BitwiseXor(ulong  x, ulong  y) => unchecked((ulong )(x ^ y));
+    /** <inheritdoc cref="BitwiseXor_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nuint  BitwiseXor(nuint  x, nuint  y) => unchecked((nuint )(x ^ y));
+    /** <inheritdoc cref="BitwiseXor_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static sbyte  BitwiseXor(sbyte  x, sbyte  y) => unchecked((sbyte )(x ^ y));
+    /** <inheritdoc cref="BitwiseXor_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static short  BitwiseXor(short  x, short  y) => unchecked((short )(x ^ y));
+    /** <inheritdoc cref="BitwiseXor_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static int    BitwiseXor(int    x, int    y) => unchecked((int   )(x ^ y));
+    /** <inheritdoc cref="BitwiseXor_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static long   BitwiseXor(long   x, long   y) => unchecked((long  )(x ^ y));
+    /** <inheritdoc cref="BitwiseXor_default" /> */ [MethodImpl(MethodImplOptions.AggressiveInlining)] public static nint   BitwiseXor(nint   x, nint   y) => unchecked((nint  )(x ^ y));
+
+    /** <inheritdoc cref="BitwiseXor_default" /> */
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T BitwiseXor<T>(T x, T y)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+    public static float BitwiseXor(float x, float y)
+        => Reinterpret<uint, float>(Reinterpret<float, uint>(x) ^ Reinterpret<float, uint>(y));
 
-        if(typeof(T) == typeof(byte  )) return from(BitwiseXor(to<byte  >(x), to<byte  >(y)));
-        if(typeof(T) == typeof(ushort)) return from(BitwiseXor(to<ushort>(x), to<ushort>(y)));
-        if(typeof(T) == typeof(uint  )) return from(BitwiseXor(to<uint  >(x), to<uint  >(y)));
-        if(typeof(T) == typeof(ulong )) return from(BitwiseXor(to<ulong >(x), to<ulong >(y)));
-        if(typeof(T) == typeof(nuint )) return from(BitwiseXor(to<nuint >(x), to<nuint >(y)));
-        if(typeof(T) == typeof(sbyte )) return from(BitwiseXor(to<sbyte >(x), to<sbyte >(y)));
-        if(typeof(T) == typeof(short )) return from(BitwiseXor(to<short >(x), to<short >(y)));
-        if(typeof(T) == typeof(int   )) return from(BitwiseXor(to<int   >(x), to<int   >(y)));
-        if(typeof(T) == typeof(long  )) return from(BitwiseXor(to<long  >(x), to<long  >(y)));
-        if(typeof(T) == typeof(nint  )) return from(BitwiseXor(to<nint  >(x), to<nint  >(y)));
-        if(typeof(T) == typeof(float )) return from(BitwiseXor(to<float >(x), to<float >(y)));
-        if(typeof(T) == typeof(double)) return from(BitwiseXor(to<double>(x), to<double>(y)));
-        throw new NotSupportedException();
-    }
-
-    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   BitwiseXor(byte   x, byte   y) => unchecked((byte  )(x ^ y));
-    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort BitwiseXor(ushort x, ushort y) => unchecked((ushort)(x ^ y));
-    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   BitwiseXor(uint   x, uint   y) => unchecked((uint  )(x ^ y));
-    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  BitwiseXor(ulong  x, ulong  y) => unchecked((ulong )(x ^ y));
-    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  BitwiseXor(nuint  x, nuint  y) => unchecked((nuint )(x ^ y));
-    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  BitwiseXor(sbyte  x, sbyte  y) => unchecked((sbyte )(x ^ y));
-    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  BitwiseXor(short  x, short  y) => unchecked((short )(x ^ y));
-    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    BitwiseXor(int    x, int    y) => unchecked((int   )(x ^ y));
-    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   BitwiseXor(long   x, long   y) => unchecked((long  )(x ^ y));
-    /** <see cref="BitwiseXor{T}" /> */ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   BitwiseXor(nint   x, nint   y) => unchecked((nint  )(x ^ y));
-
-    /** <see cref="BitwiseXor{T}" /> */
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static float  BitwiseXor(float  x, float  y)
-        => unchecked(Reinterpret<uint, float>(Reinterpret<float, uint>(x) ^ Reinterpret<float, uint>(y)));
-
-    /** <see cref="BitwiseXor{T}" /> */
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
+    /** <inheritdoc cref="BitwiseXor_default" /> */
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double BitwiseXor(double x, double y)
-        => unchecked(Reinterpret<ulong, double>(Reinterpret<double, ulong>(x) ^ Reinterpret<double, ulong>(y)));
+        => Reinterpret<ulong, double>(Reinterpret<double, ulong>(x) ^ Reinterpret<double, ulong>(y));
+
+    #endregion BitwiseXor
 
 }

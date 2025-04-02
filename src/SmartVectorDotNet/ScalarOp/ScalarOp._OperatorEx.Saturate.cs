@@ -1,11 +1,15 @@
-using System.Runtime.CompilerServices;
-
+using GenericSpecialization;
 namespace SmartVectorDotNet;
-using H = InternalHelpers;
 
 partial class ScalarOp
 {
-#pragma warning disable format
+    #region AddSaturate
+
+    /// <inheritdoc cref="AddSaturate_default" />
+    /// <exception cref="NotSupportedException"></exception>
+    [PrimaryGeneric(nameof(AddSaturate_default))]
+    public static partial T AddSaturate<T>(T lhs, T rhs)
+        where T : unmanaged;
 
     /// <summary>
     /// Adds two values and saturates the result if can; otherwise returns simply add.
@@ -14,68 +18,97 @@ partial class ScalarOp
     /// <param name="lhs"></param>
     /// <param name="rhs"></param>
     /// <returns></returns>
+    private static T AddSaturate_default<T>(T lhs, T rhs) where T : unmanaged => Add(lhs, rhs);
+
+    /** <inheritdoc cref="AddSaturate_default" /> */
+    public static byte AddSaturate(byte lhs, byte rhs)
+        => rhs <= byte.MaxValue - lhs
+        ? (byte)(lhs + rhs)
+        : byte.MaxValue;
+
+    /** <inheritdoc cref="AddSaturate_default" /> */
+    public static ushort AddSaturate(ushort lhs, ushort rhs)
+        => rhs <= ushort.MaxValue - lhs
+        ? (ushort)(lhs + rhs)
+        : ushort.MaxValue;
+
+    /** <inheritdoc cref="AddSaturate_default" /> */
+    public static uint AddSaturate(uint lhs, uint rhs)
+        => rhs <= uint.MaxValue - lhs
+        ? lhs + rhs
+        : uint.MaxValue;
+
+    /** <inheritdoc cref="AddSaturate_default" /> */
+    public static ulong AddSaturate(ulong lhs, ulong rhs)
+        => rhs <= ulong.MaxValue - lhs
+        ? lhs + rhs
+        : ulong.MaxValue;
+
+    /** <inheritdoc cref="AddSaturate_default" /> */
+    public static nuint AddSaturate(nuint lhs, nuint rhs)
+        => rhs <= Const<nuint>.MaxValue - lhs
+        ? lhs + rhs
+        : Const<nuint>.MaxValue;
+
+    /** <inheritdoc cref="AddSaturate_default" /> */
+    public static sbyte AddSaturate(sbyte lhs, sbyte rhs)
+        => rhs >= 0
+        ? lhs <= sbyte.MaxValue - rhs
+            ? (sbyte)(lhs + rhs)
+            : sbyte.MaxValue
+        : lhs >= sbyte.MinValue - rhs
+            ? (sbyte)(lhs + rhs)
+            : sbyte.MinValue;
+
+    /** <inheritdoc cref="AddSaturate_default" /> */
+    public static short AddSaturate(short lhs, short rhs)
+        => rhs >= 0
+        ? lhs <= short.MaxValue - rhs
+            ? (short)(lhs + rhs)
+            : short.MaxValue
+        : lhs >= short.MinValue - rhs
+            ? (short)(lhs + rhs)
+            : short.MinValue;
+
+    /** <inheritdoc cref="AddSaturate_default" /> */
+    public static int AddSaturate(int lhs, int rhs)
+        => rhs >= 0
+        ? lhs <= int.MaxValue - rhs
+            ? lhs + rhs
+            : int.MaxValue
+        : lhs >= int.MinValue - rhs
+            ? lhs + rhs
+            : int.MinValue;
+
+    /** <inheritdoc cref="AddSaturate_default" /> */
+    public static long AddSaturate(long lhs, long rhs)
+        => rhs >= 0
+        ? lhs <= long.MaxValue - rhs
+            ? lhs + rhs
+            : long.MaxValue
+        : lhs >= long.MinValue - rhs
+            ? lhs + rhs
+            : long.MinValue;
+
+    /** <inheritdoc cref="AddSaturate_default" /> */
+    public static nint AddSaturate(nint lhs, nint rhs)
+        => rhs >= 0
+        ? lhs <= Const<nint>.MaxValue - rhs
+            ? lhs + rhs
+            : Const<nint>.MaxValue
+        : lhs >= Const<nint>.MinValue - rhs
+            ? lhs + rhs
+            : Const<nint>.MinValue;
+
+    #endregion AddSaturate
+
+    #region SubtractSaturate
+
+    /// <inheritdoc cref="SubtractSaturate_default" />
     /// <exception cref="NotSupportedException"></exception>
-    public static T AddSaturate<T>(T lhs, T rhs)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-        
-        if (typeof(T) == typeof(byte  )) return from((byte  )AddSaturate(to<byte  >(lhs), to<byte  >(rhs)));
-        if (typeof(T) == typeof(ushort)) return from((ushort)AddSaturate(to<ushort>(lhs), to<ushort>(rhs)));
-        if (typeof(T) == typeof(uint  )) return from((uint  )AddSaturate(to<uint  >(lhs), to<uint  >(rhs)));
-        if (typeof(T) == typeof(ulong )) return from((ulong )AddSaturate(to<ulong >(lhs), to<ulong >(rhs)));
-        if (typeof(T) == typeof(nuint )) return from((nuint )AddSaturate(to<nuint >(lhs), to<nuint >(rhs)));
-        if (typeof(T) == typeof(sbyte )) return from((sbyte )AddSaturate(to<sbyte >(lhs), to<sbyte >(rhs)));
-        if (typeof(T) == typeof(short )) return from((short )AddSaturate(to<short >(lhs), to<short >(rhs)));
-        if (typeof(T) == typeof(int   )) return from((int   )AddSaturate(to<int   >(lhs), to<int   >(rhs)));
-        if (typeof(T) == typeof(long  )) return from((long  )AddSaturate(to<long  >(lhs), to<long  >(rhs)));
-        if (typeof(T) == typeof(nint  )) return from((nint  )AddSaturate(to<nint  >(lhs), to<nint  >(rhs)));
-        if (typeof(T) == typeof(float )) return from((float )AddSaturate(to<float >(lhs), to<float >(rhs)));
-        if (typeof(T) == typeof(double)) return from((double)AddSaturate(to<double>(lhs), to<double>(rhs)));
-        throw new NotSupportedException();
-    }
-    
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static byte   AddSaturate(byte   lhs, byte   rhs) => AddSaturateUnsigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static ushort AddSaturate(ushort lhs, ushort rhs) => AddSaturateUnsigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static uint   AddSaturate(uint   lhs, uint   rhs) => AddSaturateUnsigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static ulong  AddSaturate(ulong  lhs, ulong  rhs) => AddSaturateUnsigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static nuint  AddSaturate(nuint  lhs, nuint  rhs) => AddSaturateUnsigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static sbyte  AddSaturate(sbyte  lhs, sbyte  rhs) => AddSaturateSigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static short  AddSaturate(short  lhs, short  rhs) => AddSaturateSigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static int    AddSaturate(int    lhs, int    rhs) => AddSaturateSigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static long   AddSaturate(long   lhs, long   rhs) => AddSaturateSigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static nint   AddSaturate(nint   lhs, nint   rhs) => AddSaturateSigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static float  AddSaturate(float  lhs, float  rhs) => lhs + rhs;
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static double AddSaturate(double lhs, double rhs) => lhs + rhs;
-
-    private static T AddSaturateUnsigned<T>(T lhs, T rhs)
-        where T : unmanaged
-    {
-        var add = Add(lhs, rhs);
-        return LessThanOrEqual(rhs, Subtract(Const<T>.MaxValue, lhs))
-            ? add
-            : Const<T>.MaxValue;
-    }
-
-    private static T AddSaturateSigned<T>(T lhs, T rhs)
-        where T : unmanaged
-    {
-        var add = Add(lhs, rhs);
-        if (GreaterThanOrEqual(lhs, Const<T>.Zero))
-        {
-            return LessThanOrEqual(rhs, Subtract(Const<T>.MaxValue, lhs))
-                ? add
-                : Const<T>.MaxValue;
-        }
-        else
-        {
-            return LessThanOrEqual(Subtract(Const<T>.MinValue, lhs), rhs)
-                ? add
-                : Const<T>.MinValue;
-        }
-    }
-
+    [PrimaryGeneric(nameof(SubtractSaturate_default))]
+    public static partial T SubtractSaturate<T>(T lhs, T rhs)
+        where T : unmanaged;
 
     /// <summary>
     /// Subtracts two values and saturates the result if can; otherwise returns simply subtract.
@@ -84,70 +117,87 @@ partial class ScalarOp
     /// <param name="lhs"></param>
     /// <param name="rhs"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException"></exception>
-    public static T SubtractSaturate<T>(T lhs, T rhs)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-        
-        if (typeof(T) == typeof(byte  )) return from((byte  )SubtractSaturate(to<byte  >(lhs), to<byte  >(rhs)));
-        if (typeof(T) == typeof(ushort)) return from((ushort)SubtractSaturate(to<ushort>(lhs), to<ushort>(rhs)));
-        if (typeof(T) == typeof(uint  )) return from((uint  )SubtractSaturate(to<uint  >(lhs), to<uint  >(rhs)));
-        if (typeof(T) == typeof(ulong )) return from((ulong )SubtractSaturate(to<ulong >(lhs), to<ulong >(rhs)));
-        if (typeof(T) == typeof(nuint )) return from((nuint )SubtractSaturate(to<nuint >(lhs), to<nuint >(rhs)));
-        if (typeof(T) == typeof(sbyte )) return from((sbyte )SubtractSaturate(to<sbyte >(lhs), to<sbyte >(rhs)));
-        if (typeof(T) == typeof(short )) return from((short )SubtractSaturate(to<short >(lhs), to<short >(rhs)));
-        if (typeof(T) == typeof(int   )) return from((int   )SubtractSaturate(to<int   >(lhs), to<int   >(rhs)));
-        if (typeof(T) == typeof(long  )) return from((long  )SubtractSaturate(to<long  >(lhs), to<long  >(rhs)));
-        if (typeof(T) == typeof(nint  )) return from((nint  )SubtractSaturate(to<nint  >(lhs), to<nint  >(rhs)));
-        if (typeof(T) == typeof(float )) return from((float )SubtractSaturate(to<float >(lhs), to<float >(rhs)));
-        if (typeof(T) == typeof(double)) return from((double)SubtractSaturate(to<double>(lhs), to<double>(rhs)));
-        throw new NotSupportedException();
-    }
-    
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static byte   SubtractSaturate(byte   lhs, byte   rhs) => SubtractSaturateUnsigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static ushort SubtractSaturate(ushort lhs, ushort rhs) => SubtractSaturateUnsigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static uint   SubtractSaturate(uint   lhs, uint   rhs) => SubtractSaturateUnsigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static ulong  SubtractSaturate(ulong  lhs, ulong  rhs) => SubtractSaturateUnsigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static nuint  SubtractSaturate(nuint  lhs, nuint  rhs) => SubtractSaturateUnsigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static sbyte  SubtractSaturate(sbyte  lhs, sbyte  rhs) => SubtractSaturateSigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static short  SubtractSaturate(short  lhs, short  rhs) => SubtractSaturateSigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static int    SubtractSaturate(int    lhs, int    rhs) => SubtractSaturateSigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static long   SubtractSaturate(long   lhs, long   rhs) => SubtractSaturateSigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static nint   SubtractSaturate(nint   lhs, nint   rhs) => SubtractSaturateSigned(lhs, rhs);
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static float  SubtractSaturate(float  lhs, float  rhs) => lhs - rhs;
-    /**<see cref="AddSaturate{T}"/>*/ [MethodImpl(_inlining)] public static double SubtractSaturate(double lhs, double rhs) => lhs - rhs;
+    private static T SubtractSaturate_default<T>(T lhs, T rhs) where T : unmanaged => Subtract(lhs, rhs);
 
+    /** <inheritdoc cref="SubtractSaturate_default" /> */
+    public static byte SubtractSaturate(byte lhs, byte rhs)
+        => lhs >= rhs
+        ? (byte)(lhs - rhs)
+        : byte.MinValue;
 
+    /** <inheritdoc cref="SubtractSaturate_default" /> */
+    public static ushort SubtractSaturate(ushort lhs, ushort rhs)
+        => lhs >= rhs
+        ? (ushort)(lhs - rhs)
+        : ushort.MinValue;
 
-    private static T SubtractSaturateUnsigned<T>(T lhs, T rhs)
-        where T : unmanaged
-    {
-        var sub = Subtract(lhs, rhs);
-        return GreaterThanOrEqual(lhs, rhs)
-            ? sub
-            : Const<T>.MinValue;
-    }
+    /** <inheritdoc cref="SubtractSaturate_default" /> */
+    public static uint SubtractSaturate(uint lhs, uint rhs)
+        => lhs >= rhs
+        ? lhs - rhs
+        : uint.MinValue;
 
-    private static T SubtractSaturateSigned<T>(T lhs, T rhs)
-        where T : unmanaged
-    {
-        var sub = Subtract(lhs, rhs);
-        if (GreaterThanOrEqual(rhs, Const<T>.Zero))
-        {
-            return LessThanOrEqual(Add(Const<T>.MinValue, rhs), lhs)
-                ? sub
-                : Const<T>.MinValue;
-        }
-        else
-        {
-            return LessThanOrEqual(lhs, Add(Const<T>.MaxValue, rhs))
-                ? sub
-                : Const<T>.MaxValue;
-        }
-    }
-    
-#pragma warning restore format
+    /** <inheritdoc cref="SubtractSaturate_default" /> */
+    public static ulong SubtractSaturate(ulong lhs, ulong rhs)
+        => lhs >= rhs
+        ? lhs - rhs
+        : ulong.MinValue;
 
+    /** <inheritdoc cref="SubtractSaturate_default" /> */
+    public static nuint SubtractSaturate(nuint lhs, nuint rhs)
+        => lhs >= rhs
+        ? lhs - rhs
+        : Const<nuint>.MinValue;
+
+    /** <inheritdoc cref="SubtractSaturate_default" /> */
+    public static sbyte SubtractSaturate(sbyte lhs, sbyte rhs)
+        => rhs >= 0
+        ? sbyte.MinValue + rhs <= lhs
+            ? (sbyte)(lhs - rhs)
+            : sbyte.MinValue
+        : lhs <= sbyte.MaxValue + rhs
+            ? (sbyte)(lhs - rhs)
+            : sbyte.MaxValue;
+
+    /** <inheritdoc cref="SubtractSaturate_default" /> */
+    public static short SubtractSaturate(short lhs, short rhs)
+        => rhs >= 0
+        ? short.MinValue + rhs <= lhs
+            ? (short)(lhs - rhs)
+            : short.MinValue
+        : lhs <= short.MaxValue + rhs
+            ? (short)(lhs - rhs)
+            : short.MaxValue;
+
+    /** <inheritdoc cref="SubtractSaturate_default" /> */
+    public static int SubtractSaturate(int lhs, int rhs)
+        => rhs >= 0
+        ? int.MinValue + rhs <= lhs
+            ? lhs - rhs
+            : int.MinValue
+        : lhs <= int.MaxValue + rhs
+            ? lhs - rhs
+            : int.MaxValue;
+
+    /** <inheritdoc cref="SubtractSaturate_default" /> */
+    public static long SubtractSaturate(long lhs, long rhs)
+        => rhs >= 0
+        ? long.MinValue + rhs <= lhs
+            ? lhs - rhs
+            : long.MinValue
+        : lhs <= long.MaxValue + rhs
+            ? lhs - rhs
+            : long.MaxValue;
+
+    /** <inheritdoc cref="SubtractSaturate_default" /> */
+    public static nint SubtractSaturate(nint lhs, nint rhs)
+        => rhs >= 0
+        ? Const<nint>.MinValue + rhs <= lhs
+            ? lhs - rhs
+            : Const<nint>.MinValue
+        : lhs <= Const<nint>.MaxValue + rhs
+            ? lhs - rhs
+            : Const<nint>.MaxValue;
+
+    #endregion SubtractSaturate
 }

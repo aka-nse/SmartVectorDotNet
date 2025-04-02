@@ -14,11 +14,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: update submodules
+      run: git submodule update --init --recursive
+
     - name: Restore dependencies
-      run: dotnet restore src/SmartVectorDotNet.sln
+      run: dotnet restore src/SmartVectorDotNet.slnx
 
     - name: Build solution
-      run: dotnet build src/SmartVectorDotNet.sln --no-restore
+      run: dotnet build src/SmartVectorDotNet.slnx --no-restore
 
     - name: Run tests
-      run: dotnet test src/SmartVectorDotNet.sln --no-build --verbosity normal
+      run: dotnet test src/SmartVectorDotNet.slnx --no-build --verbosity normal

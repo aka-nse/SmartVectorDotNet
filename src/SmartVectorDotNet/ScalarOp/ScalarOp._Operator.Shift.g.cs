@@ -3,94 +3,84 @@
 // </auto-generated>
 using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
+using GenericSpecialization;
 namespace SmartVectorDotNet;
-using H = InternalHelpers;
 
 partial class ScalarOp
 {
+    #region ShiftLeft
 
+    /// <inheritdoc cref="ShiftLeft_default" />
+    /// <exception cref="NotSupportedException" />
+    [GeneratedCode("T4", null)]
+    [PrimaryGeneric(nameof(ShiftLeft_default))]
+    public static partial T ShiftLeft<T>(T x, int y)
+        where T : unmanaged;
+    
     /// <summary> Operates <c>ShiftLeft</c> unaly operation. </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException" />
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static T ShiftLeft<T>(T x, int y)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-
-        if(typeof(T) == typeof(byte  )) return from(ShiftLeft(to<byte  >(x), y));
-        if(typeof(T) == typeof(ushort)) return from(ShiftLeft(to<ushort>(x), y));
-        if(typeof(T) == typeof(uint  )) return from(ShiftLeft(to<uint  >(x), y));
-        if(typeof(T) == typeof(ulong )) return from(ShiftLeft(to<ulong >(x), y));
-        if(typeof(T) == typeof(nuint )) return from(ShiftLeft(to<nuint >(x), y));
-        if(typeof(T) == typeof(sbyte )) return from(ShiftLeft(to<sbyte >(x), y));
-        if(typeof(T) == typeof(short )) return from(ShiftLeft(to<short >(x), y));
-        if(typeof(T) == typeof(int   )) return from(ShiftLeft(to<int   >(x), y));
-        if(typeof(T) == typeof(long  )) return from(ShiftLeft(to<long  >(x), y));
-        if(typeof(T) == typeof(nint  )) return from(ShiftLeft(to<nint  >(x), y));
-        if(typeof(T) == typeof(float )) return from(ShiftLeft(to<float >(x), y));
-        if(typeof(T) == typeof(double)) return from(ShiftLeft(to<double>(x), y));
-        throw new NotSupportedException();
-    }
+    private static T ShiftLeft_default<T>(T x, int y) => throw new NotSupportedException();
     
-    /**<see cref="ShiftLeft{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   ShiftLeft(byte   x, int y) => (byte  )(x << y);
-    /**<see cref="ShiftLeft{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort ShiftLeft(ushort x, int y) => (ushort)(x << y);
-    /**<see cref="ShiftLeft{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   ShiftLeft(uint   x, int y) => (uint  )(x << y);
-    /**<see cref="ShiftLeft{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  ShiftLeft(ulong  x, int y) => (ulong )(x << y);
-    /**<see cref="ShiftLeft{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  ShiftLeft(nuint  x, int y) => (nuint )(x << y);
-    /**<see cref="ShiftLeft{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  ShiftLeft(sbyte  x, int y) => (sbyte )(x << y);
-    /**<see cref="ShiftLeft{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  ShiftLeft(short  x, int y) => (short )(x << y);
-    /**<see cref="ShiftLeft{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    ShiftLeft(int    x, int y) => (int   )(x << y);
-    /**<see cref="ShiftLeft{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   ShiftLeft(long   x, int y) => (long  )(x << y);
-    /**<see cref="ShiftLeft{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   ShiftLeft(nint   x, int y) => (nint  )(x << y);
-    /**<see cref="ShiftLeft{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  ShiftLeft(float  x, int y) => H.Reinterpret<int   , float >(H.Reinterpret<float , int   >(x) << y);
-    /**<see cref="ShiftLeft{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double ShiftLeft(double x, int y) => H.Reinterpret<long  , double>(H.Reinterpret<double, long  >(x) << y);
+    /** <inheritdoc cref="ShiftLeft_default" /> */ public static byte   ShiftLeft(byte   x, int y) => (byte  )(x << y);
+    /** <inheritdoc cref="ShiftLeft_default" /> */ public static ushort ShiftLeft(ushort x, int y) => (ushort)(x << y);
+    /** <inheritdoc cref="ShiftLeft_default" /> */ public static uint   ShiftLeft(uint   x, int y) => (uint  )(x << y);
+    /** <inheritdoc cref="ShiftLeft_default" /> */ public static ulong  ShiftLeft(ulong  x, int y) => (ulong )(x << y);
+    /** <inheritdoc cref="ShiftLeft_default" /> */ public static nuint  ShiftLeft(nuint  x, int y) => (nuint )(x << y);
+    /** <inheritdoc cref="ShiftLeft_default" /> */ public static sbyte  ShiftLeft(sbyte  x, int y) => (sbyte )(x << y);
+    /** <inheritdoc cref="ShiftLeft_default" /> */ public static short  ShiftLeft(short  x, int y) => (short )(x << y);
+    /** <inheritdoc cref="ShiftLeft_default" /> */ public static int    ShiftLeft(int    x, int y) => (int   )(x << y);
+    /** <inheritdoc cref="ShiftLeft_default" /> */ public static long   ShiftLeft(long   x, int y) => (long  )(x << y);
+    /** <inheritdoc cref="ShiftLeft_default" /> */ public static nint   ShiftLeft(nint   x, int y) => (nint  )(x << y);
 
+    /** <inheritdoc cref="ShiftLeft_default" /> */
+    public static float ShiftLeft(float x, int y)
+        => Reinterpret<int, float>(Reinterpret<float, int>(x) << y);
 
+    /** <inheritdoc cref="ShiftLeft_default" /> */
+    public static double ShiftLeft(double x, int y)
+        => Reinterpret<long, double>(Reinterpret<double, long>(x) << y);
+
+    #endregion
+
+    #region ShiftRight
+
+    /// <inheritdoc cref="ShiftRight_default" />
+    /// <exception cref="NotSupportedException" />
+    [GeneratedCode("T4", null)]
+    [PrimaryGeneric(nameof(ShiftRight_default))]
+    public static partial T ShiftRight<T>(T x, int y)
+        where T : unmanaged;
+    
     /// <summary> Operates <c>ShiftRight</c> unaly operation. </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException" />
-    [GeneratedCode("T4", null), MethodImpl(_inlining)]
-    public static T ShiftRight<T>(T x, int y)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-
-        if(typeof(T) == typeof(byte  )) return from(ShiftRight(to<byte  >(x), y));
-        if(typeof(T) == typeof(ushort)) return from(ShiftRight(to<ushort>(x), y));
-        if(typeof(T) == typeof(uint  )) return from(ShiftRight(to<uint  >(x), y));
-        if(typeof(T) == typeof(ulong )) return from(ShiftRight(to<ulong >(x), y));
-        if(typeof(T) == typeof(nuint )) return from(ShiftRight(to<nuint >(x), y));
-        if(typeof(T) == typeof(sbyte )) return from(ShiftRight(to<sbyte >(x), y));
-        if(typeof(T) == typeof(short )) return from(ShiftRight(to<short >(x), y));
-        if(typeof(T) == typeof(int   )) return from(ShiftRight(to<int   >(x), y));
-        if(typeof(T) == typeof(long  )) return from(ShiftRight(to<long  >(x), y));
-        if(typeof(T) == typeof(nint  )) return from(ShiftRight(to<nint  >(x), y));
-        if(typeof(T) == typeof(float )) return from(ShiftRight(to<float >(x), y));
-        if(typeof(T) == typeof(double)) return from(ShiftRight(to<double>(x), y));
-        throw new NotSupportedException();
-    }
+    private static T ShiftRight_default<T>(T x, int y) => throw new NotSupportedException();
     
-    /**<see cref="ShiftRight{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static byte   ShiftRight(byte   x, int y) => (byte  )(x >> y);
-    /**<see cref="ShiftRight{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ushort ShiftRight(ushort x, int y) => (ushort)(x >> y);
-    /**<see cref="ShiftRight{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static uint   ShiftRight(uint   x, int y) => (uint  )(x >> y);
-    /**<see cref="ShiftRight{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static ulong  ShiftRight(ulong  x, int y) => (ulong )(x >> y);
-    /**<see cref="ShiftRight{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nuint  ShiftRight(nuint  x, int y) => (nuint )(x >> y);
-    /**<see cref="ShiftRight{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static sbyte  ShiftRight(sbyte  x, int y) => (sbyte )(x >> y);
-    /**<see cref="ShiftRight{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static short  ShiftRight(short  x, int y) => (short )(x >> y);
-    /**<see cref="ShiftRight{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static int    ShiftRight(int    x, int y) => (int   )(x >> y);
-    /**<see cref="ShiftRight{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static long   ShiftRight(long   x, int y) => (long  )(x >> y);
-    /**<see cref="ShiftRight{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static nint   ShiftRight(nint   x, int y) => (nint  )(x >> y);
-    /**<see cref="ShiftRight{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static float  ShiftRight(float  x, int y) => H.Reinterpret<int   , float >(H.Reinterpret<float , int   >(x) >> y);
-    /**<see cref="ShiftRight{T}"/>*/ [GeneratedCode("T4", null), MethodImpl(_inlining)] public static double ShiftRight(double x, int y) => H.Reinterpret<long  , double>(H.Reinterpret<double, long  >(x) >> y);
+    /** <inheritdoc cref="ShiftRight_default" /> */ public static byte   ShiftRight(byte   x, int y) => (byte  )(x >> y);
+    /** <inheritdoc cref="ShiftRight_default" /> */ public static ushort ShiftRight(ushort x, int y) => (ushort)(x >> y);
+    /** <inheritdoc cref="ShiftRight_default" /> */ public static uint   ShiftRight(uint   x, int y) => (uint  )(x >> y);
+    /** <inheritdoc cref="ShiftRight_default" /> */ public static ulong  ShiftRight(ulong  x, int y) => (ulong )(x >> y);
+    /** <inheritdoc cref="ShiftRight_default" /> */ public static nuint  ShiftRight(nuint  x, int y) => (nuint )(x >> y);
+    /** <inheritdoc cref="ShiftRight_default" /> */ public static sbyte  ShiftRight(sbyte  x, int y) => (sbyte )(x >> y);
+    /** <inheritdoc cref="ShiftRight_default" /> */ public static short  ShiftRight(short  x, int y) => (short )(x >> y);
+    /** <inheritdoc cref="ShiftRight_default" /> */ public static int    ShiftRight(int    x, int y) => (int   )(x >> y);
+    /** <inheritdoc cref="ShiftRight_default" /> */ public static long   ShiftRight(long   x, int y) => (long  )(x >> y);
+    /** <inheritdoc cref="ShiftRight_default" /> */ public static nint   ShiftRight(nint   x, int y) => (nint  )(x >> y);
+
+    /** <inheritdoc cref="ShiftRight_default" /> */
+    public static float ShiftRight(float x, int y)
+        => Reinterpret<int, float>(Reinterpret<float, int>(x) >> y);
+
+    /** <inheritdoc cref="ShiftRight_default" /> */
+    public static double ShiftRight(double x, int y)
+        => Reinterpret<long, double>(Reinterpret<double, long>(x) >> y);
+
+    #endregion
 
 }
 

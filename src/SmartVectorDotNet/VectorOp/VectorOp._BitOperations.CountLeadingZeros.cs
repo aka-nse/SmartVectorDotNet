@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using GenericSpecialization;
 
 namespace SmartVectorDotNet;
 using H = InternalHelpers;
@@ -8,21 +9,15 @@ partial class VectorOp
 
 #pragma warning disable format
     
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    [PrimaryGeneric(nameof(CountLeadingZeros_default))]
+    public static partial Vector<T> CountLeadingZeros<T>(Vector<T> x)
+        where T : unmanaged;
+    
     /// <summary> Counts <c>1</c> bit. </summary>
-    public static Vector<T> CountLeadingZeros<T>(Vector<T> x)
-        where T : unmanaged
-    {
-        if (typeof(T) == typeof(byte  ) || typeof(T) == typeof(sbyte )) { return H.Reinterpret<byte  , T>(CountLeadingZeros(H.Reinterpret<T, byte  >(x))); }
-        if (typeof(T) == typeof(ushort) || typeof(T) == typeof(short )) { return H.Reinterpret<ushort, T>(CountLeadingZeros(H.Reinterpret<T, ushort>(x))); }
-        if (typeof(T) == typeof(uint  ) || typeof(T) == typeof(int   )) { return H.Reinterpret<uint  , T>(CountLeadingZeros(H.Reinterpret<T, uint  >(x))); }
-        if (typeof(T) == typeof(ulong ) || typeof(T) == typeof(long  )) { return H.Reinterpret<ulong , T>(CountLeadingZeros(H.Reinterpret<T, ulong >(x))); }
-        if (typeof(T) == typeof(nuint ) || typeof(T) == typeof(nint  )) { return H.Reinterpret<nuint , T>(CountLeadingZeros(H.Reinterpret<T, nuint >(x))); }
-        if (typeof(T) == typeof(float )) { return H.Reinterpret<float , T>(Vector.ConvertToSingle(CountLeadingZeros(H.Reinterpret<T, uint  >(x)))); }
-        if (typeof(T) == typeof(double)) { return H.Reinterpret<double, T>(Vector.ConvertToDouble(CountLeadingZeros(H.Reinterpret<T, ulong >(x)))); }
-        throw new NotSupportedException();
-    }
+    private static Vector<T> CountLeadingZeros_default<T>(Vector<T> x) where T : unmanaged => throw new NotSupportedException();
 
-    /// <summary> Counts <c>1</c> bit. </summary>
+    /// <inheritdoc cref="CountLeadingZeros_default" />
     public static Vector<byte> CountLeadingZeros(Vector<byte> x)
     {
         Vector<byte> y = x;
@@ -32,7 +27,7 @@ partial class VectorOp
         return CountPopulation(~y);
     }
 
-    /// <summary> Counts <c>1</c> bit. </summary>
+    /// <inheritdoc cref="CountLeadingZeros_default" />
     public static Vector<ushort> CountLeadingZeros(Vector<ushort> x)
     {
         Vector<ushort> y = x;
@@ -43,7 +38,7 @@ partial class VectorOp
         return CountPopulation(~y);
     }
 
-    /// <summary> Counts <c>1</c> bit. </summary>
+    /// <inheritdoc cref="CountLeadingZeros_default" />
     public static Vector<uint> CountLeadingZeros(Vector<uint> x)
     {
         Vector<uint> y = x;
@@ -55,7 +50,7 @@ partial class VectorOp
         return CountPopulation(~y);
     }
 
-    /// <summary> Counts <c>1</c> bit. </summary>
+    /// <inheritdoc cref="CountLeadingZeros_default" />
     public static Vector<ulong> CountLeadingZeros(Vector<ulong> x)
     {
         Vector<ulong> y = x;
@@ -68,13 +63,41 @@ partial class VectorOp
         return CountPopulation(~y);
     }
 
-    /// <summary> Count the number of trailing zero bits in a mask. </summary>
+    /// <inheritdoc cref="CountLeadingZeros_default" />
     public static Vector<nuint> CountLeadingZeros(Vector<nuint> x)
     {
         if (Unsafe.SizeOf<nuint>() == sizeof(ulong)) { return H.Reinterpret<ulong, nuint>(CountLeadingZeros(H.Reinterpret<nuint, ulong>(x))); }
         if (Unsafe.SizeOf<nuint>() == sizeof(uint)) { return H.Reinterpret<uint, nuint>(CountLeadingZeros(H.Reinterpret<nuint, uint>(x))); }
         throw new NotSupportedException();
     }
+
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static Vector<sbyte> CountLeadingZeros(Vector<sbyte> x)
+        => H.Reinterpret<byte, sbyte>(CountLeadingZeros(H.Reinterpret<sbyte, byte>(x)));
+
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static Vector<short> CountLeadingZeros(Vector<short> x)
+        => H.Reinterpret<ushort, short>(CountLeadingZeros(H.Reinterpret<short, ushort>(x)));
+
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static Vector<int> CountLeadingZeros(Vector<int> x)
+        => H.Reinterpret<uint, int>(CountLeadingZeros(H.Reinterpret<int, uint>(x)));
+
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static Vector<long> CountLeadingZeros(Vector<long> x)
+        => H.Reinterpret<ulong, long>(CountLeadingZeros(H.Reinterpret<long, ulong>(x)));
+
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static Vector<nint> CountLeadingZeros(Vector<nint> x)
+        => H.Reinterpret<nuint, nint>(CountLeadingZeros(H.Reinterpret<nint, nuint>(x)));
+
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static Vector<float> CountLeadingZeros(Vector<float> x)
+        => Vector.ConvertToSingle(CountLeadingZeros(H.Reinterpret<float, uint>(x)));
+
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static Vector<double> CountLeadingZeros(Vector<double> x)
+        => Vector.ConvertToDouble(CountLeadingZeros(H.Reinterpret<double, ulong>(x)));
 
 #pragma warning restore format
 }

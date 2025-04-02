@@ -1,80 +1,93 @@
-using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Text;
+using GenericSpecialization;
 
 namespace SmartVectorDotNet;
 using H = InternalHelpers;
 
 
-#pragma warning disable format
 partial class ScalarOp
 {
-    /// <summary> Count the number of leading zero bits in a mask. </summary>
+    /// <inheritdoc cref="CountLeadingZeros_default" />
     /// <exception cref="NotSupportedException" />
-    public static T CountLeadingZeros<T>(T x)
-        where T : unmanaged
-    {
-        static ref readonly TTo to<TTo>(in T x) => ref H.Reinterpret<T, TTo>(in x);
-        static ref readonly T from<TFrom>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
+    [PrimaryGeneric(nameof(CountLeadingZeros_default))]
+    public static partial T CountLeadingZeros<T>(T x) where T : unmanaged;
 
-        if (typeof(T) == typeof(byte  )) return from((byte  )CountLeadingZeros(to<byte  >(x)));
-        if (typeof(T) == typeof(ushort)) return from((ushort)CountLeadingZeros(to<ushort>(x)));
-        if (typeof(T) == typeof(uint  )) return from((uint  )CountLeadingZeros(to<uint  >(x)));
-        if (typeof(T) == typeof(ulong )) return from((ulong )CountLeadingZeros(to<ulong >(x)));
-        if (typeof(T) == typeof(nuint )) return from((nuint )CountLeadingZeros(to<nuint >(x)));
-        if (typeof(T) == typeof(sbyte )) return from((sbyte )CountLeadingZeros(to<sbyte >(x)));
-        if (typeof(T) == typeof(short )) return from((short )CountLeadingZeros(to<short >(x)));
-        if (typeof(T) == typeof(int   )) return from((int   )CountLeadingZeros(to<int   >(x)));
-        if (typeof(T) == typeof(long  )) return from((long  )CountLeadingZeros(to<long  >(x)));
-        if (typeof(T) == typeof(nint  )) return from((nint  )CountLeadingZeros(to<nint  >(x)));
-        if (typeof(T) == typeof(float )) return from((float )CountLeadingZeros(to<float >(x)));
-        if (typeof(T) == typeof(double)) return from((double)CountLeadingZeros(to<double>(x)));
-        throw new NotSupportedException();
-    }
+    /// <summary> Count the number of leading zero bits in a mask. </summary>
+    private static T CountLeadingZeros_default<T>(T x)
+        => throw new NotSupportedException();
 
-    /** <see cref="CountLeadingZeros{T}" /> */
-    public static int CountLeadingZeros(byte x)
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static byte CountLeadingZeros(byte x)
     {
         uint y = x;
         y |= y >> 1;
         y |= y >> 2;
         y |= y >> 4;
-        return CountPopulation((byte)~y);
+        return (byte)CountPopulation((byte)~y);
     }
 
-    /** <see cref="CountLeadingZeros{T}" /> */
-    public static int CountLeadingZeros(ushort x)
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static ushort CountLeadingZeros(ushort x)
     {
         uint y = x;
         y |= y >> 1;
         y |= y >> 2;
         y |= y >> 4;
         y |= y >> 8;
-        return CountPopulation((ushort)~y);
+        return (ushort)CountPopulation((ushort)~y);
     }
 
-    /** <see cref="CountLeadingZeros{T}" /> */ public static partial int CountLeadingZeros(uint  x);
-    /** <see cref="CountLeadingZeros{T}" /> */ public static partial int CountLeadingZeros(ulong x);
-    /** <see cref="CountLeadingZeros{T}" /> */ public static partial int CountLeadingZeros(nuint x);
-    /** <see cref="CountLeadingZeros{T}" /> */ public static int CountLeadingZeros(sbyte  x) => CountLeadingZeros((byte  )x);
-    /** <see cref="CountLeadingZeros{T}" /> */ public static int CountLeadingZeros(short  x) => CountLeadingZeros((ushort)x);
-    /** <see cref="CountLeadingZeros{T}" /> */ public static int CountLeadingZeros(int    x) => CountLeadingZeros((uint  )x);
-    /** <see cref="CountLeadingZeros{T}" /> */ public static int CountLeadingZeros(long   x) => CountLeadingZeros((ulong )x);
-    /** <see cref="CountLeadingZeros{T}" /> */ public static int CountLeadingZeros(nint   x) => CountLeadingZeros((nuint )x);
-    /** <see cref="CountLeadingZeros{T}" /> */ public static int CountLeadingZeros(float  x) => CountLeadingZeros(H.Reinterpret<float, uint>(x));
-    /** <see cref="CountLeadingZeros{T}" /> */ public static int CountLeadingZeros(double x) => CountLeadingZeros(H.Reinterpret<double, ulong>(x));
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static partial uint CountLeadingZeros(uint x);
 
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static partial ulong CountLeadingZeros(ulong x);
+
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static partial nuint CountLeadingZeros(nuint x);
+
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static sbyte CountLeadingZeros(sbyte x)
+        => (sbyte)CountLeadingZeros((byte)x);
+
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static short CountLeadingZeros(short x)
+        => (short)CountLeadingZeros((ushort)x);
+
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static int CountLeadingZeros(int x)
+        => (int)CountLeadingZeros((uint)x);
+
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static long CountLeadingZeros(long x)
+        => (long)CountLeadingZeros((ulong)x);
+
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static nint CountLeadingZeros(nint x)
+        => (nint)CountLeadingZeros((nuint)x);
+
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static float CountLeadingZeros(float x)
+        => CountLeadingZeros(H.Reinterpret<float, uint>(x));
+
+    /// <inheritdoc cref="CountLeadingZeros_default" />
+    public static double CountLeadingZeros(double x)
+        => CountLeadingZeros(H.Reinterpret<double, ulong>(x));
 
 #if NETCOREAPP3_0_OR_GREATER
 
-    public static partial int CountLeadingZeros(uint  x) => BitOperations.LeadingZeroCount(x);
-    public static partial int CountLeadingZeros(ulong x) => BitOperations.LeadingZeroCount(x);
-    public static partial int CountLeadingZeros(nuint x) => BitOperations.LeadingZeroCount(x);
+    public static partial uint CountLeadingZeros(uint x)
+        => (uint)BitOperations.LeadingZeroCount(x);
+        
+    public static partial ulong CountLeadingZeros(ulong x)
+        => (ulong)BitOperations.LeadingZeroCount(x);
+        
+    public static partial nuint CountLeadingZeros(nuint x)
+        => (nuint)BitOperations.LeadingZeroCount(x);
 
 #else
 
-    public static partial int CountLeadingZeros(uint x)
+    public static partial uint CountLeadingZeros(uint x)
     {
         uint y = x;
         y |= y >> 1;
@@ -85,7 +98,7 @@ partial class ScalarOp
         return CountPopulation(~y);
     }
 
-    public static partial int CountLeadingZeros(ulong x)
+    public static partial ulong CountLeadingZeros(ulong x)
     {
         var y = x;
         y |= y >> 1;
@@ -97,7 +110,7 @@ partial class ScalarOp
         return CountPopulation(~y);
     }
 
-    public static partial int CountLeadingZeros(nuint x)
+    public static partial nuint CountLeadingZeros(nuint x)
     {
         if (Unsafe.SizeOf<nuint>() == sizeof(uint))
         {
@@ -105,10 +118,9 @@ partial class ScalarOp
         }
         if (Unsafe.SizeOf<nuint>() == sizeof(ulong))
         {
-            return CountLeadingZeros((ulong)x);
+            return (nuint)CountLeadingZeros((ulong)x);
         }
         throw new NotSupportedException();
     }
 #endif
 }
-#pragma warning restore format
