@@ -30,7 +30,7 @@ using H = InternalHelpers;
 partial class ScalarOp
 {
     /// <summary>
-    /// Casts the value from <typeparamref name="TFrom"/> to <typeparamref name="TTo"/>.
+    /// Casts the value from <typeparamref name="TFrom"/> to <typeparamref name="TTo"/> by reinterpreting.
     /// </summary>
     /// <typeparam name="TFrom"></typeparam>
     /// <typeparam name="TTo"></typeparam>
