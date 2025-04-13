@@ -64,14 +64,22 @@ public partial class VectorizationTest
     public void CalculateIntegerVector1(int[][] arguments)
     {
         var op = default(TestIntegerOp1);
-        var exp = new int[arguments[0].Length];
-        var act = new int[arguments[0].Length];
-        for(var i = 0; i < exp.Length; ++i)
-        {
-            exp[i] = op.Calculate(arguments[0][i]);
-        }
-        Vectorization.SIMD.Calculate<int, TestIntegerOp1>(arguments[0], act);
-        Assert.Equal(exp, act);
+        AssertEx.SameBehavior(
+            () =>
+            {
+                var exp = new int[arguments[0].Length];
+                for(var i = 0; i < exp.Length; ++i)
+                {
+                    exp[i] = op.Calculate(arguments[0][i]);
+                }
+                return exp;
+            },
+            () =>
+            {
+                var act = new int[arguments[0].Length];
+                Vectorization.SIMD.Calculate<int, TestIntegerOp1>(arguments[0], act);
+                return act;
+            });
     }
 
     private readonly struct TestIntegerOp2 : IVectorFormula2<int>
@@ -88,14 +96,22 @@ public partial class VectorizationTest
     public void CalculateIntegerVector2(int[][] arguments)
     {
         var op = default(TestIntegerOp2);
-        var exp = new int[arguments[0].Length];
-        var act = new int[arguments[0].Length];
-        for(var i = 0; i < exp.Length; ++i)
-        {
-            exp[i] = op.Calculate(arguments[0][i], arguments[1][i]);
-        }
-        Vectorization.SIMD.Calculate<int, TestIntegerOp2>(arguments[0], arguments[1], act);
-        Assert.Equal(exp, act);
+        AssertEx.SameBehavior(
+            () =>
+            {
+                var exp = new int[arguments[0].Length];
+                for(var i = 0; i < exp.Length; ++i)
+                {
+                    exp[i] = op.Calculate(arguments[0][i], arguments[1][i]);
+                }
+                return exp;
+            },
+            () =>
+            {
+                var act = new int[arguments[0].Length];
+                Vectorization.SIMD.Calculate<int, TestIntegerOp2>(arguments[0], arguments[1], act);
+                return act;
+            });
     }
 
     private readonly struct TestIntegerOp3 : IVectorFormula3<int>
@@ -112,14 +128,22 @@ public partial class VectorizationTest
     public void CalculateIntegerVector3(int[][] arguments)
     {
         var op = default(TestIntegerOp3);
-        var exp = new int[arguments[0].Length];
-        var act = new int[arguments[0].Length];
-        for(var i = 0; i < exp.Length; ++i)
-        {
-            exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i]);
-        }
-        Vectorization.SIMD.Calculate<int, TestIntegerOp3>(arguments[0], arguments[1], arguments[2], act);
-        Assert.Equal(exp, act);
+        AssertEx.SameBehavior(
+            () =>
+            {
+                var exp = new int[arguments[0].Length];
+                for(var i = 0; i < exp.Length; ++i)
+                {
+                    exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i]);
+                }
+                return exp;
+            },
+            () =>
+            {
+                var act = new int[arguments[0].Length];
+                Vectorization.SIMD.Calculate<int, TestIntegerOp3>(arguments[0], arguments[1], arguments[2], act);
+                return act;
+            });
     }
 
     private readonly struct TestIntegerOp4 : IVectorFormula4<int>
@@ -136,14 +160,22 @@ public partial class VectorizationTest
     public void CalculateIntegerVector4(int[][] arguments)
     {
         var op = default(TestIntegerOp4);
-        var exp = new int[arguments[0].Length];
-        var act = new int[arguments[0].Length];
-        for(var i = 0; i < exp.Length; ++i)
-        {
-            exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i], arguments[3][i]);
-        }
-        Vectorization.SIMD.Calculate<int, TestIntegerOp4>(arguments[0], arguments[1], arguments[2], arguments[3], act);
-        Assert.Equal(exp, act);
+        AssertEx.SameBehavior(
+            () =>
+            {
+                var exp = new int[arguments[0].Length];
+                for(var i = 0; i < exp.Length; ++i)
+                {
+                    exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i], arguments[3][i]);
+                }
+                return exp;
+            },
+            () =>
+            {
+                var act = new int[arguments[0].Length];
+                Vectorization.SIMD.Calculate<int, TestIntegerOp4>(arguments[0], arguments[1], arguments[2], arguments[3], act);
+                return act;
+            });
     }
 
     private readonly struct TestIntegerOp5 : IVectorFormula5<int>
@@ -160,14 +192,22 @@ public partial class VectorizationTest
     public void CalculateIntegerVector5(int[][] arguments)
     {
         var op = default(TestIntegerOp5);
-        var exp = new int[arguments[0].Length];
-        var act = new int[arguments[0].Length];
-        for(var i = 0; i < exp.Length; ++i)
-        {
-            exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i], arguments[3][i], arguments[4][i]);
-        }
-        Vectorization.SIMD.Calculate<int, TestIntegerOp5>(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], act);
-        Assert.Equal(exp, act);
+        AssertEx.SameBehavior(
+            () =>
+            {
+                var exp = new int[arguments[0].Length];
+                for(var i = 0; i < exp.Length; ++i)
+                {
+                    exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i], arguments[3][i], arguments[4][i]);
+                }
+                return exp;
+            },
+            () =>
+            {
+                var act = new int[arguments[0].Length];
+                Vectorization.SIMD.Calculate<int, TestIntegerOp5>(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], act);
+                return act;
+            });
     }
 
     private readonly struct TestIntegerOp6 : IVectorFormula6<int>
@@ -184,14 +224,22 @@ public partial class VectorizationTest
     public void CalculateIntegerVector6(int[][] arguments)
     {
         var op = default(TestIntegerOp6);
-        var exp = new int[arguments[0].Length];
-        var act = new int[arguments[0].Length];
-        for(var i = 0; i < exp.Length; ++i)
-        {
-            exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i], arguments[3][i], arguments[4][i], arguments[5][i]);
-        }
-        Vectorization.SIMD.Calculate<int, TestIntegerOp6>(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], act);
-        Assert.Equal(exp, act);
+        AssertEx.SameBehavior(
+            () =>
+            {
+                var exp = new int[arguments[0].Length];
+                for(var i = 0; i < exp.Length; ++i)
+                {
+                    exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i], arguments[3][i], arguments[4][i], arguments[5][i]);
+                }
+                return exp;
+            },
+            () =>
+            {
+                var act = new int[arguments[0].Length];
+                Vectorization.SIMD.Calculate<int, TestIntegerOp6>(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], act);
+                return act;
+            });
     }
 
     private readonly struct TestIntegerOp7 : IVectorFormula7<int>
@@ -208,14 +256,22 @@ public partial class VectorizationTest
     public void CalculateIntegerVector7(int[][] arguments)
     {
         var op = default(TestIntegerOp7);
-        var exp = new int[arguments[0].Length];
-        var act = new int[arguments[0].Length];
-        for(var i = 0; i < exp.Length; ++i)
-        {
-            exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i], arguments[3][i], arguments[4][i], arguments[5][i], arguments[6][i]);
-        }
-        Vectorization.SIMD.Calculate<int, TestIntegerOp7>(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], act);
-        Assert.Equal(exp, act);
+        AssertEx.SameBehavior(
+            () =>
+            {
+                var exp = new int[arguments[0].Length];
+                for(var i = 0; i < exp.Length; ++i)
+                {
+                    exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i], arguments[3][i], arguments[4][i], arguments[5][i], arguments[6][i]);
+                }
+                return exp;
+            },
+            () =>
+            {
+                var act = new int[arguments[0].Length];
+                Vectorization.SIMD.Calculate<int, TestIntegerOp7>(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], act);
+                return act;
+            });
     }
 
     private readonly struct TestIntegerOp8 : IVectorFormula8<int>
@@ -232,14 +288,22 @@ public partial class VectorizationTest
     public void CalculateIntegerVector8(int[][] arguments)
     {
         var op = default(TestIntegerOp8);
-        var exp = new int[arguments[0].Length];
-        var act = new int[arguments[0].Length];
-        for(var i = 0; i < exp.Length; ++i)
-        {
-            exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i], arguments[3][i], arguments[4][i], arguments[5][i], arguments[6][i], arguments[7][i]);
-        }
-        Vectorization.SIMD.Calculate<int, TestIntegerOp8>(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], arguments[7], act);
-        Assert.Equal(exp, act);
+        AssertEx.SameBehavior(
+            () =>
+            {
+                var exp = new int[arguments[0].Length];
+                for(var i = 0; i < exp.Length; ++i)
+                {
+                    exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i], arguments[3][i], arguments[4][i], arguments[5][i], arguments[6][i], arguments[7][i]);
+                }
+                return exp;
+            },
+            () =>
+            {
+                var act = new int[arguments[0].Length];
+                Vectorization.SIMD.Calculate<int, TestIntegerOp8>(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], arguments[7], act);
+                return act;
+            });
     }
 
     private readonly struct TestIntegerOp9 : IVectorFormula9<int>
@@ -256,14 +320,22 @@ public partial class VectorizationTest
     public void CalculateIntegerVector9(int[][] arguments)
     {
         var op = default(TestIntegerOp9);
-        var exp = new int[arguments[0].Length];
-        var act = new int[arguments[0].Length];
-        for(var i = 0; i < exp.Length; ++i)
-        {
-            exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i], arguments[3][i], arguments[4][i], arguments[5][i], arguments[6][i], arguments[7][i], arguments[8][i]);
-        }
-        Vectorization.SIMD.Calculate<int, TestIntegerOp9>(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], arguments[7], arguments[8], act);
-        Assert.Equal(exp, act);
+        AssertEx.SameBehavior(
+            () =>
+            {
+                var exp = new int[arguments[0].Length];
+                for(var i = 0; i < exp.Length; ++i)
+                {
+                    exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i], arguments[3][i], arguments[4][i], arguments[5][i], arguments[6][i], arguments[7][i], arguments[8][i]);
+                }
+                return exp;
+            },
+            () =>
+            {
+                var act = new int[arguments[0].Length];
+                Vectorization.SIMD.Calculate<int, TestIntegerOp9>(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], arguments[7], arguments[8], act);
+                return act;
+            });
     }
 
     private readonly struct TestIntegerOp10 : IVectorFormula10<int>
@@ -280,14 +352,22 @@ public partial class VectorizationTest
     public void CalculateIntegerVector10(int[][] arguments)
     {
         var op = default(TestIntegerOp10);
-        var exp = new int[arguments[0].Length];
-        var act = new int[arguments[0].Length];
-        for(var i = 0; i < exp.Length; ++i)
-        {
-            exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i], arguments[3][i], arguments[4][i], arguments[5][i], arguments[6][i], arguments[7][i], arguments[8][i], arguments[9][i]);
-        }
-        Vectorization.SIMD.Calculate<int, TestIntegerOp10>(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], arguments[7], arguments[8], arguments[9], act);
-        Assert.Equal(exp, act);
+        AssertEx.SameBehavior(
+            () =>
+            {
+                var exp = new int[arguments[0].Length];
+                for(var i = 0; i < exp.Length; ++i)
+                {
+                    exp[i] = op.Calculate(arguments[0][i], arguments[1][i], arguments[2][i], arguments[3][i], arguments[4][i], arguments[5][i], arguments[6][i], arguments[7][i], arguments[8][i], arguments[9][i]);
+                }
+                return exp;
+            },
+            () =>
+            {
+                var act = new int[arguments[0].Length];
+                Vectorization.SIMD.Calculate<int, TestIntegerOp10>(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], arguments[7], arguments[8], arguments[9], act);
+                return act;
+            });
     }
 
 }

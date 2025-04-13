@@ -55,14 +55,22 @@ public partial class VectorizationTest
     public void CalculateIntegerVector<#=i#>(int[][] arguments)
     {
         var op = default(TestIntegerOp<#=i#>);
-        var exp = new int[arguments[0].Length];
-        var act = new int[arguments[0].Length];
-        for(var i = 0; i < exp.Length; ++i)
-        {
-            exp[i] = op.Calculate(<#=CommaSeparated(0, i, j => $"arguments[{j}][i]")#>);
-        }
-        Vectorization.SIMD.Calculate<int, TestIntegerOp<#=i#>>(<#=CommaSeparated(0, i, j => $"arguments[{j}]")#>, act);
-        Assert.Equal(exp, act);
+        AssertEx.SameBehavior(
+            () =>
+            {
+                var exp = new int[arguments[0].Length];
+                for(var i = 0; i < exp.Length; ++i)
+                {
+                    exp[i] = op.Calculate(<#=CommaSeparated(0, i, j => $"arguments[{j}][i]")#>);
+                }
+                return exp;
+            },
+            () =>
+            {
+                var act = new int[arguments[0].Length];
+                Vectorization.SIMD.Calculate<int, TestIntegerOp<#=i#>>(<#=CommaSeparated(0, i, j => $"arguments[{j}]")#>, act);
+                return act;
+            });
     }
 
 <#  } #>
