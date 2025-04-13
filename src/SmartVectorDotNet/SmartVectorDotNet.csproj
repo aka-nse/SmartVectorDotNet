@@ -61,18 +61,6 @@
         </Compile>
     </ItemGroup>
 
-    <ItemGroup Label="ScalarOp\ScalarOp._Constant">
-        <None Update="ScalarOp\ScalarOp._Const.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>ScalarOp._Const.g.cs</LastGenOutput>
-        </None>
-        <Compile Update="ScalarOp\ScalarOp._Const.g.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>ScalarOp._Const.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
     <ItemGroup Label="ScalarOp\ScalarOp._Math.Real">
         <None Update="ScalarOp\ScalarOp._Math.Real.tt">
             <Generator>TextTemplatingFileGenerator</Generator>

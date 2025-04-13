@@ -24,17 +24,25 @@ public partial class VectorOpTest
 <#  foreach(var type in types) { #>
 
     public static TheoryData<<#=type#>, <#=type#>> SaturateTestCases_<#=type#>()
-        => new (){
-            { ScalarOp.Const<<#=type#>>.MinValue, ScalarOp.Const<<#=type#>>.MinValue },
-            { ScalarOp.Const<<#=type#>>.MinValue, 0 },
-            { ScalarOp.Const<<#=type#>>.MinValue, ScalarOp.Const<<#=type#>>.MaxValue },
-            { 0, ScalarOp.Const<<#=type#>>.MinValue },
-            { 0, 0 },
-            { 0, ScalarOp.Const<<#=type#>>.MaxValue },
-            { ScalarOp.Const<<#=type#>>.MaxValue, ScalarOp.Const<<#=type#>>.MinValue },
-            { ScalarOp.Const<<#=type#>>.MaxValue, 0 },
-            { ScalarOp.Const<<#=type#>>.MaxValue, ScalarOp.Const<<#=type#>>.MaxValue },
+    {
+        var data = new TheoryData<<#=type#>, <#=type#>>();
+        var testCases = new (<#=type#>, <#=type#>)[]{
+            (ScalarOp.Const<<#=type#>>.MinValue, ScalarOp.Const<<#=type#>>.MinValue),
+            (ScalarOp.Const<<#=type#>>.MinValue, 0),
+            (ScalarOp.Const<<#=type#>>.MinValue, ScalarOp.Const<<#=type#>>.MaxValue),
+            (0, ScalarOp.Const<<#=type#>>.MinValue),
+            (0, 0),
+            (0, ScalarOp.Const<<#=type#>>.MaxValue),
+            (ScalarOp.Const<<#=type#>>.MaxValue, ScalarOp.Const<<#=type#>>.MinValue),
+            (ScalarOp.Const<<#=type#>>.MaxValue, 0),
+            (ScalarOp.Const<<#=type#>>.MaxValue, ScalarOp.Const<<#=type#>>.MaxValue),
         };
+        foreach(var (a, b) in testCases.Distinct())
+        {
+            data.Add(a, b);
+        }
+        return data;
+    }
 
     [Theory, MemberData(nameof(SaturateTestCases_<#=type#>))]
     public void AddSaturate_<#=type#>(<#=type#> a, <#=type#> b)

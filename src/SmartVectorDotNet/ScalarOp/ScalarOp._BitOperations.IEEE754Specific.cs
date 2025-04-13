@@ -1,4 +1,6 @@
 namespace SmartVectorDotNet;
+
+using GenericSpecialization;
 using static ScalarOp.Const;
 
 partial class ScalarOp
@@ -49,36 +51,41 @@ partial class ScalarOp
     }
 
 
+    /// <see cref="Decompose_default" />
+    /// <exception cref="NotSupportedException" />
+    [PrimaryGeneric(nameof(Decompose_default))]
+    public static partial void Decompose<T>(T x, out T n, out T a)
+        where T : unmanaged;
+
     /// <summary>
     /// Calculates the pair of <c>n</c> and <c>a</c>
-    /// which satisfies <c>x = pow(2, n) * a</c>
-    /// (<c>n</c> is non-negative integer, and <c>1 &lt;= abs(a) &lt; 2 or a == 0</c>).
+    /// which satisfies <c>x = a * pow(2, n)</c>
+    /// (<c>n</c> is an integer, and <c>1 &lt;= abs(a) &lt; 2 or a == 0</c>).
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="x"></param>
     /// <param name="n"></param>
     /// <param name="a"></param>
-    /// <exception cref="NotSupportedException" />
-    public static void Decompose<T>(T x, out T n, out T a)
-        where T : unmanaged
+    private static void Decompose_default<T>(T x, out T n, out T a)
+        => throw new NotSupportedException();
+
+    /// <see cref="Decompose_default" />
+    public static void Decompose(double x, out double n, out double a)
     {
-        if (typeof(T) == typeof(double))
-        {
-            Decompose(Reinterpret<T, double>(x), out long nn, out double aa);
-            n = Reinterpret<double, T>(nn);
-            a = Reinterpret<double, T>(aa);
-            return;
-        }
-        if (typeof(T) == typeof(float))
-        {
-            Decompose(Reinterpret<T, float>(x), out int nn, out float aa);
-            n = Reinterpret<float, T>(nn);
-            a = Reinterpret<float, T>(aa);
-            return;
-        }
-        throw new NotSupportedException();
+        Decompose(x, out var sign, out var expo, out var frac);
+        var s = sign == 0 ? 1.0 : -1.0;
+        n = Max(expo, 1L) - DoubleExpPartBias;
+        a = s * ((expo > 0 ? 1.0 : 0.0) + frac * DoubleFracPartOffsetDenom);
     }
 
+    /// <see cref="Decompose_default" />
+    public static void Decompose(float x, out float n, out float a)
+    {
+        Decompose(x, out var sign, out var expo, out var frac);
+        var s = (sign == 0 ? 1.0f : -1.0f);
+        n = Max(expo, 1) - SingleExpPartBias;
+        a = s * ((expo > 0 ? 1.0f : 0.0f) + frac * SingleFracPartOffsetDenom);
+    }
 
     /// <summary>
     /// Splits real number into IEEE754 part.
@@ -94,16 +101,6 @@ partial class ScalarOp
         expo = (bin & DoubleExpPartMask) >> DoubleExpBitOffset;
         frac = bin & DoubleFracPartMask;
     }
-
-
-    internal static void Decompose(double x, out long n, out double a)
-    {
-        Decompose(x, out var sign, out var expo, out var frac);
-        var s = sign == 0 ? 1.0 : -1.0;
-        n = Max(expo, 1L) - DoubleExpPartBias;
-        a = s * ((expo > 0 ? 1.0 : 0.0) + frac * DoubleFracPartOffsetDenom);
-    }
-
 
     /// <summary>
     /// Splits real number into IEEE754 part.
@@ -121,40 +118,29 @@ partial class ScalarOp
     }
 
 
-    internal static void Decompose(float x, out int n, out float a)
-    {
-        Decompose(x, out var sign, out var expo, out var frac);
-        var s = (sign == 0 ? 1.0f : -1.0f);
-        n = Max(expo, 1) - SingleExpPartBias;
-        a = s * ((expo > 0 ? 1.0f : 0.0f) + frac * SingleFracPartOffsetDenom);
-    }
-
+    /// <see cref="Scale_default" />
+    /// <exception cref="NotSupportedException" />
+    [PrimaryGeneric(nameof(Scale_default))]
+    public static partial T Scale<T>(T n, T x)
+        where T : unmanaged;
 
     /// <summary>
-    /// Calculates <c>pow(2, n) * x</c>.
+    /// Calculates <c>x * pow(2, n)</c>.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="n"></param>
     /// <param name="x"></param>
     /// <returns></returns>
-    /// <exception cref="NotSupportedException" />
-    public static T Scale<T>(T n, T x)
-        where T : unmanaged
-    {
-        if (typeof(T) == typeof(double))
-        {
-            var nn = Reinterpret<T, double>(n);
-            var xx = Reinterpret<T, double>(x);
-            return Reinterpret<double, T>(Reinterpret<long, double>(((long)nn + DoubleExpPartBias) << DoubleExpBitOffset) * xx);
-        }
-        if (typeof(T) == typeof(float))
-        {
-            var nn = Reinterpret<T, float>(n);
-            var xx = Reinterpret<T, float>(x);
-            return Reinterpret<float, T>(Reinterpret<int, float>(((int)nn + SingleExpPartBias) << SingleExpBitOffset) * xx);
-        }
-        throw new NotSupportedException();
-    }
+    private static T Scale_default<T>(T n, T x)
+        => throw new NotSupportedException();
+
+    /// <see cref="Scale_default" />
+    public static double Scale(double n, double x)
+        => x * Reinterpret<long, double>(((long)n + DoubleExpPartBias) << DoubleExpBitOffset);
+
+    /// <see cref="Scale_default" />
+    public static float Scale(float n, float x)
+        => x * Reinterpret<int, float>(((int)n + SingleExpPartBias) << SingleExpBitOffset);
 
 
     /// <summary>
@@ -166,7 +152,6 @@ partial class ScalarOp
     /// <returns></returns>
     public static double Scale(long sign, long expo, long frac)
         => Reinterpret<long, double>((sign << DoubleSignBitOffset) | (expo << DoubleExpBitOffset) | frac);
-
 
     /// <summary>
     /// Composes IEEE754 parts into one real number.
