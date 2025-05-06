@@ -4,6 +4,7 @@
     <Project Path="SmartVectorDotNet/SmartVectorDotNet.csproj" />
   </Folder>
   <Folder Name="/submodules/">
+    <Project Path="../../GenericSpecializationGenerator/submodules/SourceGeneratorToolkit/src/SourceGeneratorToolkit/SourceGeneratorToolkit.csproj" />
     <Project Path="../subrepos/GenericSpecializationGenerator/src/GenericSpecializationGenerator/GenericSpecializationGenerator.csproj" />
   </Folder>
   <Folder Name="/test/">
