@@ -26,10 +26,10 @@ partial class VectorOp
     private static Vector<T> Round_default<T>(Vector<T> x)
         where T : unmanaged => throw new NotSupportedException();
 
-    private struct Round_<T> : IVectorEmulationOp1<T>
+    private readonly struct Round_<T> : IVectorEmulationOp1<T>
         where T : unmanaged
     {
-        public T Calculate(T x) => ScalarOp.Round(x);
+        public readonly T Calculate(T x) => ScalarOp.Round(x);
     }
 
     /// <summary> Calculates round. </summary>
