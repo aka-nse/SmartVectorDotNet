@@ -15,6 +15,8 @@ partial class VectorOp
     public static Vector<T> Tanh<T>(Vector<T> x)
         where T : unmanaged
     {
+        Guard.OnlyRealSupported<T>();
+
         var p = Exp(x);
         var n = Exp(-x);
         var a = p - n;

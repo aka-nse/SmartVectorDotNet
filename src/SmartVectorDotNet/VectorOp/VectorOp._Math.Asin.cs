@@ -16,5 +16,8 @@ partial class VectorOp
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<T> Asin<T>(Vector<T> x)
         where T : unmanaged
-        => Asin_<T>._2 * Atan(x / (Asin_<T>._1 + Sqrt(Asin_<T>._1 - x * x)));
+    {
+        Guard.OnlyRealSupported<T>();
+        return Asin_<T>._2 * Atan(x / (Asin_<T>._1 + Sqrt(Asin_<T>._1 - x * x)));
+    }
 }

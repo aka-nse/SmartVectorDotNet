@@ -18,6 +18,7 @@ partial class VectorOp
         where T : unmanaged
     {
         Guard.OnlyRealSupported<T>();
+
         var a = Atanh_<T>._1 + x;
         var b = Atanh_<T>._1 - x;
         return ConditionalSelect(

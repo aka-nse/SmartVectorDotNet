@@ -14,5 +14,8 @@ partial class VectorOp
     /// <returns></returns>
     public static Vector<T> Sinh<T>(Vector<T> x)
         where T : unmanaged
-        => (Exp(x) - Exp(-x)) * Sinh_<T>._1p2;
+    {
+        Guard.OnlyRealSupported<T>();
+        return (Exp(x) - Exp(-x)) * Sinh_<T>._1p2;
+    }
 }

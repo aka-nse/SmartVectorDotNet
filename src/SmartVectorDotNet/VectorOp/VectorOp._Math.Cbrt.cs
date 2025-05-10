@@ -14,6 +14,8 @@ partial class VectorOp
     public static Vector<T> Cbrt<T>(Vector<T> x)
         where T : unmanaged
     {
+        Guard.OnlyRealSupported<T>();
+
         Decompose(x, out var n, out var a);
         var xn = Scale(Round(n / Const<T>._3), a);
         xn = Const<T>._2p3 * xn + x / (Const<T>._3 * xn * xn);

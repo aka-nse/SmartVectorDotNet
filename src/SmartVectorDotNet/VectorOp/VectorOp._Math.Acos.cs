@@ -16,5 +16,8 @@ partial class VectorOp
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<T> Acos<T>(Vector<T> x)
         where T : unmanaged
-        => Acos_<T>._2 * Atan(Sqrt(Acos_<T>._1 - x * x) / (Acos_<T>._1 + x));
+    {
+        Guard.OnlyRealSupported<T>();
+        return Acos_<T>._2 * Atan(Sqrt(Acos_<T>._1 - x * x) / (Acos_<T>._1 + x));
+    }
 }

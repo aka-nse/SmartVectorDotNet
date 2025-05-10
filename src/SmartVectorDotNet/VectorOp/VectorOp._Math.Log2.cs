@@ -18,5 +18,8 @@ partial class VectorOp
     /// <returns></returns>
     public static Vector<T> Log2<T>(Vector<T> x)
         where T : unmanaged
-        => Log(x) * Log2_<T>.OnePerLog_E_2;
+    {
+        Guard.OnlyRealSupported<T>();
+        return Log(x) * Log2_<T>.OnePerLog_E_2;
+    }
 }
