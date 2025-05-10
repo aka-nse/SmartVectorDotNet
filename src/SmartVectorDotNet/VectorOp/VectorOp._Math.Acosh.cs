@@ -28,6 +28,7 @@ partial class VectorOp
         //    {\rm arccosh}\ x &= \ln\left\{x\left(1 + \cfrac{\sqrt{x^2 - 1}}{x}\right)\right\}  \\
         //                     &= \ln\ x + \ln\left(1 + \cfrac{\sqrt{x - 1}\sqrt{x + 1}}{x}\right)
         //    $$
+        Guard.OnlyRealSupported<T>();
         return Log(Acosh_<T>._1 + Sqrt(x - Acosh_<T>._1) * Sqrt(x + Acosh_<T>._1) / x) + Log(x);
     }
 }

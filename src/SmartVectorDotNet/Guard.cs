@@ -147,4 +147,15 @@ internal static class Guard
             throw new InvalidOperationException(message);
         }
     }
+
+    [DebuggerHidden]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void OnlyRealSupported<TShouldBeReal>()
+        where TShouldBeReal : unmanaged
+    {
+        if(typeof(TShouldBeReal) != typeof(float) && typeof(TShouldBeReal) != typeof(double))
+        {
+            throw new NotSupportedException();
+        }
+    }
 }

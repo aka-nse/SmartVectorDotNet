@@ -7,5 +7,8 @@ partial class VectorOp
     [VectorOp]
     public static Vector<T> Sqrt<T>(Vector<T> d)
         where T : unmanaged
-        => SquareRoot(d);
+    {
+        Guard.OnlyRealSupported<T>();
+        return SquareRoot(d);
+    }
 }
