@@ -22,25 +22,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <!--
-        <PackageReference Include="akanse.GenericSpecializationGenerator" Version="0.1.2">
+        <PackageReference Include="akanse.GenericSpecializationGenerator" Version="0.1.5.1">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        -->
         <PackageReference Include="System.Collections.Immutable" Version="9.0.3" />
         <PackageReference Include="System.Memory" Version="4.6.0" />
         <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\subrepos\GenericSpecializationGenerator\src\GenericSpecializationGenerator\GenericSpecializationGenerator.csproj">
-            <OutputItemType>Analyzer</OutputItemType>
-            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-        </ProjectReference>
-    </ItemGroup>
-
-    <ItemGroup>
         <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
     </ItemGroup>
 
@@ -56,9 +44,9 @@
             <DependentUpon>ScalarOp._Convert.tt</DependentUpon>
         </Compile>
         <Compile Update="VectorOp\VectorOp._Emulate.g.cs">
-          <DesignTime>True</DesignTime>
-          <AutoGen>True</AutoGen>
-          <DependentUpon>VectorOp._Emulate.tt</DependentUpon>
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorOp._Emulate.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
@@ -112,7 +100,7 @@
             <LastGenOutput>VectorOp._Emulate.g.cs</LastGenOutput>
         </None>
     </ItemGroup>
-    
+
     <ItemGroup Label="VectorOp\VectorOp._Shift">
         <Compile Update="VectorOp\VectorOp._Operator.Shift.g.cs">
             <DesignTime>True</DesignTime>
@@ -150,7 +138,7 @@
             <DependentUpon>IVectorizationFormula.tt</DependentUpon>
         </Compile>
     </ItemGroup>
-    
+
     <ItemGroup Label="Vectorization\Vectorization._Binary">
         <None Update="Vectorization\Vectorization._Binary.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
@@ -162,7 +150,7 @@
             <DependentUpon>Vectorization._Binary.tt</DependentUpon>
         </Compile>
     </ItemGroup>
-    
+
     <ItemGroup Label="Vectorization\Vectorization._NarrowWiden">
         <None Update="Vectorization\Vectorization._NarrowWiden.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
@@ -186,7 +174,7 @@
             <DependentUpon>Vectorization._Unary.tt</DependentUpon>
         </Compile>
     </ItemGroup>
-    
+
     <ItemGroup Label="Vectorization\VectorizedFunc">
         <None Update="Vectorization\VectorizedFunc.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
@@ -219,14 +207,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="..\..\LICENSE.txt">
-        <Pack>True</Pack>
-        <PackagePath>\</PackagePath>
-      </None>
-      <None Include="..\..\README.md">
-        <Pack>True</Pack>
-        <PackagePath>\</PackagePath>
-      </None>
+        <None Include="..\..\LICENSE.txt">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+        <None Include="..\..\README.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
     </ItemGroup>
 
 </Project>
