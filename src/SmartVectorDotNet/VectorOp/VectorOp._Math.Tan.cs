@@ -18,6 +18,8 @@ partial class VectorOp
     public static Vector<T> Tan<T>(Vector<T> x)
         where T : unmanaged
     {
+        Guard.OnlyRealSupported<T>();
+
         var xx = ModuloByPI(x);
         var shouldReverse = GreaterThan(xx, Tan_<T>.PI_1p2);
         var sign = ConditionalSelect(

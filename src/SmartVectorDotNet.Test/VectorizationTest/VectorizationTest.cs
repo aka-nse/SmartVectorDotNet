@@ -23,6 +23,13 @@ public partial class VectorizationTest(ITestOutputHelper output)
 
         protected abstract void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, Span<T> result) where T : unmanaged;
 
+        public void IntegerIqual(int[] x)
+        {
+            AssertEx.SameBehavior(
+                () => { var ans = new int[x.Length]; Operate<int>(Emulated, x, ans); return ans; },
+                () => { var ans = new int[x.Length]; Operate<int>(SIMD    , x, ans); return ans; });
+        }
+
         public void DoubleAccuracy(double[] x, ITestOutputHelper output)
         { // double accuracy
             var exp = new double[x.Length];
@@ -75,6 +82,27 @@ public partial class VectorizationTest(ITestOutputHelper output)
 
     private static partial UnaryOperatorTestSuite[] UnaryOperatorTestSuites();
 
+    public static TheoryData<UnaryOperatorTestSuite, int[]> UnaryOperatorIntegerTestCases()
+    {
+        int[][] arguments = [
+            [],
+            [0],
+            [0, 1, 2, 3],
+            [0, 1, 2, 3, 4],
+            [0, 1, 2, 3, 4, 5, 6, 7],
+            [0, 1, 2, 3, 4, 5, 6, 7, 8],
+        ];
+        var data = new TheoryData<UnaryOperatorTestSuite, int[]>();
+        foreach (var suite in UnaryOperatorTestSuites())
+        {
+            foreach (var x in arguments)
+            {
+                data.Add(suite, x);
+            }
+        }
+        return data;
+    }
+
     public static TheoryData<UnaryOperatorTestSuite, double[]> UnaryOperatorTestCases()
     {
         double[][] arguments = [
@@ -96,6 +124,12 @@ public partial class VectorizationTest(ITestOutputHelper output)
         }
         return data;
     }
+
+
+    [Theory]
+    [MemberData(nameof(UnaryOperatorIntegerTestCases))]
+    public void Unary_IntegerEqual(UnaryOperatorTestSuite suite, int[] x)
+        => suite.IntegerIqual(x);
 
     [Theory]
     [MemberData(nameof(UnaryOperatorTestCases))]
@@ -127,6 +161,27 @@ public partial class VectorizationTest(ITestOutputHelper output)
         protected abstract void Operate<T>(Vectorization vectorization, T x, ReadOnlySpan<T> y, Span<T> result) where T : unmanaged;
         protected abstract void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, T y, Span<T> result) where T : unmanaged;
         protected abstract void Operate<T>(Vectorization vectorization, ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> result) where T : unmanaged;
+
+        public void IntegerEqual(int[] x, int[] y)
+        {
+            var exp = new int[x.Length];
+            var act = new int[x.Length];
+
+            AssertEx.SameBehavior(
+                () => { var ans = new int[x.Length]; Operate(Emulated, x.FirstOrDefault(), y, ans); return ans; },
+                () => { var ans = new int[x.Length]; Operate(SIMD    , x.FirstOrDefault(), y, ans); return ans; }
+                );
+
+            AssertEx.SameBehavior(
+                () => { var ans = new int[x.Length]; Operate(Emulated, x, y.FirstOrDefault(), ans); return ans; },
+                () => { var ans = new int[x.Length]; Operate(SIMD    , x, y.FirstOrDefault(), ans); return ans; }
+                );
+
+            AssertEx.SameBehavior(
+                () => { var ans = new int[x.Length]; Operate<int>(Emulated, x, y, ans); return ans; },
+                () => { var ans = new int[x.Length]; Operate<int>(SIMD    , x, y, ans); return ans; }
+                );
+        }
 
         public void DoubleAccuracy(double[] x, double[] y, ITestOutputHelper? output)
         {
@@ -293,6 +348,32 @@ public partial class VectorizationTest(ITestOutputHelper output)
 
     private static partial BinaryOperatorTestSuite[] BinaryOperatorTestSuites();
 
+    public static TheoryData<BinaryOperatorTestSuite, int[], int[]> BinaryOperatorIntegerTestCases()
+    {
+        (int[], int[])[] arguments = [
+            ([], []),
+            ([-1], [-1]),
+            ([-1], [+0]),
+            ([-1], [+1]),
+            ([+0], [-1]),
+            ([+0], [+0]),
+            ([+0], [+1]),
+            ([+1], [-1]),
+            ([+1], [+0]),
+            ([+1], [+1]),
+            ([0, 1, 2, 3, 4, 5, 6, 7, 8], [0, 1, 2, 3, 4, 5, 6, 7, 8]),
+        ];
+        var data = new TheoryData<BinaryOperatorTestSuite, int[], int[]>();
+        foreach (var suite in BinaryOperatorTestSuites())
+        {
+            foreach (var (x, y) in arguments)
+            {
+                data.Add(suite, x, y);
+            }
+        }
+        return data;
+    }
+
     public static TheoryData<BinaryOperatorTestSuite, double[], double[]> BinaryOperatorTestCases()
     {
         (double[], double[])[] arguments = [
@@ -322,6 +403,11 @@ public partial class VectorizationTest(ITestOutputHelper output)
         }
         return data;
     }
+
+    [Theory]
+    [MemberData(nameof(BinaryOperatorIntegerTestCases))]
+    public void Binary_IntegerEqual(BinaryOperatorTestSuite suite, int[] x, int[] y)
+        => suite.IntegerEqual(x, y);
 
     [Theory]
     [MemberData(nameof(BinaryOperatorTestCases))]

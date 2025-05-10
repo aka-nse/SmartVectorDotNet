@@ -121,13 +121,18 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx1 = (stackalloc Vector<T>[1]); x1.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
+            calculateExtra(formula, x1.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(TFormula formula, ReadOnlySpan<T> x1, Span<T> ans)
+        {
+            var vx1 = (stackalloc Vector<T>[1]{ new(x1[0]) }); x1.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
             var vans = (stackalloc Vector<T>[1]);
             vans[0] = formula.Calculate(vx1[0]);
             MemoryMarshal
                 .Cast<Vector<T>, T>(vans)
-                .Slice(0, ans.Length - vectorLength)
-                .CopyTo(ans.Slice(vectorLength));
+                .Slice(0, ans.Length)
+                .CopyTo(ans);
         }
     }
 }
@@ -254,14 +259,19 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx1 = (stackalloc Vector<T>[1]); x1.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
-            var vx2 = (stackalloc Vector<T>[1]); x2.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
+            calculateExtra(formula, x1.Slice(vectorLength), x2.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, Span<T> ans)
+        {
+            var vx1 = (stackalloc Vector<T>[1]{ new(x1[0]) }); x1.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
+            var vx2 = (stackalloc Vector<T>[1]{ new(x2[0]) }); x2.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
             var vans = (stackalloc Vector<T>[1]);
             vans[0] = formula.Calculate(vx1[0], vx2[0]);
             MemoryMarshal
                 .Cast<Vector<T>, T>(vans)
-                .Slice(0, ans.Length - vectorLength)
-                .CopyTo(ans.Slice(vectorLength));
+                .Slice(0, ans.Length)
+                .CopyTo(ans);
         }
     }
 }
@@ -398,15 +408,20 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx1 = (stackalloc Vector<T>[1]); x1.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
-            var vx2 = (stackalloc Vector<T>[1]); x2.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
-            var vx3 = (stackalloc Vector<T>[1]); x3.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
+            calculateExtra(formula, x1.Slice(vectorLength), x2.Slice(vectorLength), x3.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, Span<T> ans)
+        {
+            var vx1 = (stackalloc Vector<T>[1]{ new(x1[0]) }); x1.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
+            var vx2 = (stackalloc Vector<T>[1]{ new(x2[0]) }); x2.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
+            var vx3 = (stackalloc Vector<T>[1]{ new(x3[0]) }); x3.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
             var vans = (stackalloc Vector<T>[1]);
             vans[0] = formula.Calculate(vx1[0], vx2[0], vx3[0]);
             MemoryMarshal
                 .Cast<Vector<T>, T>(vans)
-                .Slice(0, ans.Length - vectorLength)
-                .CopyTo(ans.Slice(vectorLength));
+                .Slice(0, ans.Length)
+                .CopyTo(ans);
         }
     }
 }
@@ -553,16 +568,21 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx1 = (stackalloc Vector<T>[1]); x1.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
-            var vx2 = (stackalloc Vector<T>[1]); x2.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
-            var vx3 = (stackalloc Vector<T>[1]); x3.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
-            var vx4 = (stackalloc Vector<T>[1]); x4.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx4));
+            calculateExtra(formula, x1.Slice(vectorLength), x2.Slice(vectorLength), x3.Slice(vectorLength), x4.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, Span<T> ans)
+        {
+            var vx1 = (stackalloc Vector<T>[1]{ new(x1[0]) }); x1.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
+            var vx2 = (stackalloc Vector<T>[1]{ new(x2[0]) }); x2.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
+            var vx3 = (stackalloc Vector<T>[1]{ new(x3[0]) }); x3.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
+            var vx4 = (stackalloc Vector<T>[1]{ new(x4[0]) }); x4.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx4));
             var vans = (stackalloc Vector<T>[1]);
             vans[0] = formula.Calculate(vx1[0], vx2[0], vx3[0], vx4[0]);
             MemoryMarshal
                 .Cast<Vector<T>, T>(vans)
-                .Slice(0, ans.Length - vectorLength)
-                .CopyTo(ans.Slice(vectorLength));
+                .Slice(0, ans.Length)
+                .CopyTo(ans);
         }
     }
 }
@@ -719,17 +739,22 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx1 = (stackalloc Vector<T>[1]); x1.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
-            var vx2 = (stackalloc Vector<T>[1]); x2.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
-            var vx3 = (stackalloc Vector<T>[1]); x3.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
-            var vx4 = (stackalloc Vector<T>[1]); x4.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx4));
-            var vx5 = (stackalloc Vector<T>[1]); x5.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx5));
+            calculateExtra(formula, x1.Slice(vectorLength), x2.Slice(vectorLength), x3.Slice(vectorLength), x4.Slice(vectorLength), x5.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, Span<T> ans)
+        {
+            var vx1 = (stackalloc Vector<T>[1]{ new(x1[0]) }); x1.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
+            var vx2 = (stackalloc Vector<T>[1]{ new(x2[0]) }); x2.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
+            var vx3 = (stackalloc Vector<T>[1]{ new(x3[0]) }); x3.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
+            var vx4 = (stackalloc Vector<T>[1]{ new(x4[0]) }); x4.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx4));
+            var vx5 = (stackalloc Vector<T>[1]{ new(x5[0]) }); x5.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx5));
             var vans = (stackalloc Vector<T>[1]);
             vans[0] = formula.Calculate(vx1[0], vx2[0], vx3[0], vx4[0], vx5[0]);
             MemoryMarshal
                 .Cast<Vector<T>, T>(vans)
-                .Slice(0, ans.Length - vectorLength)
-                .CopyTo(ans.Slice(vectorLength));
+                .Slice(0, ans.Length)
+                .CopyTo(ans);
         }
     }
 }
@@ -896,18 +921,23 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx1 = (stackalloc Vector<T>[1]); x1.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
-            var vx2 = (stackalloc Vector<T>[1]); x2.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
-            var vx3 = (stackalloc Vector<T>[1]); x3.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
-            var vx4 = (stackalloc Vector<T>[1]); x4.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx4));
-            var vx5 = (stackalloc Vector<T>[1]); x5.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx5));
-            var vx6 = (stackalloc Vector<T>[1]); x6.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx6));
+            calculateExtra(formula, x1.Slice(vectorLength), x2.Slice(vectorLength), x3.Slice(vectorLength), x4.Slice(vectorLength), x5.Slice(vectorLength), x6.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, Span<T> ans)
+        {
+            var vx1 = (stackalloc Vector<T>[1]{ new(x1[0]) }); x1.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
+            var vx2 = (stackalloc Vector<T>[1]{ new(x2[0]) }); x2.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
+            var vx3 = (stackalloc Vector<T>[1]{ new(x3[0]) }); x3.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
+            var vx4 = (stackalloc Vector<T>[1]{ new(x4[0]) }); x4.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx4));
+            var vx5 = (stackalloc Vector<T>[1]{ new(x5[0]) }); x5.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx5));
+            var vx6 = (stackalloc Vector<T>[1]{ new(x6[0]) }); x6.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx6));
             var vans = (stackalloc Vector<T>[1]);
             vans[0] = formula.Calculate(vx1[0], vx2[0], vx3[0], vx4[0], vx5[0], vx6[0]);
             MemoryMarshal
                 .Cast<Vector<T>, T>(vans)
-                .Slice(0, ans.Length - vectorLength)
-                .CopyTo(ans.Slice(vectorLength));
+                .Slice(0, ans.Length)
+                .CopyTo(ans);
         }
     }
 }
@@ -1084,19 +1114,24 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx1 = (stackalloc Vector<T>[1]); x1.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
-            var vx2 = (stackalloc Vector<T>[1]); x2.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
-            var vx3 = (stackalloc Vector<T>[1]); x3.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
-            var vx4 = (stackalloc Vector<T>[1]); x4.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx4));
-            var vx5 = (stackalloc Vector<T>[1]); x5.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx5));
-            var vx6 = (stackalloc Vector<T>[1]); x6.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx6));
-            var vx7 = (stackalloc Vector<T>[1]); x7.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx7));
+            calculateExtra(formula, x1.Slice(vectorLength), x2.Slice(vectorLength), x3.Slice(vectorLength), x4.Slice(vectorLength), x5.Slice(vectorLength), x6.Slice(vectorLength), x7.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, Span<T> ans)
+        {
+            var vx1 = (stackalloc Vector<T>[1]{ new(x1[0]) }); x1.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
+            var vx2 = (stackalloc Vector<T>[1]{ new(x2[0]) }); x2.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
+            var vx3 = (stackalloc Vector<T>[1]{ new(x3[0]) }); x3.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
+            var vx4 = (stackalloc Vector<T>[1]{ new(x4[0]) }); x4.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx4));
+            var vx5 = (stackalloc Vector<T>[1]{ new(x5[0]) }); x5.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx5));
+            var vx6 = (stackalloc Vector<T>[1]{ new(x6[0]) }); x6.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx6));
+            var vx7 = (stackalloc Vector<T>[1]{ new(x7[0]) }); x7.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx7));
             var vans = (stackalloc Vector<T>[1]);
             vans[0] = formula.Calculate(vx1[0], vx2[0], vx3[0], vx4[0], vx5[0], vx6[0], vx7[0]);
             MemoryMarshal
                 .Cast<Vector<T>, T>(vans)
-                .Slice(0, ans.Length - vectorLength)
-                .CopyTo(ans.Slice(vectorLength));
+                .Slice(0, ans.Length)
+                .CopyTo(ans);
         }
     }
 }
@@ -1283,20 +1318,25 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx1 = (stackalloc Vector<T>[1]); x1.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
-            var vx2 = (stackalloc Vector<T>[1]); x2.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
-            var vx3 = (stackalloc Vector<T>[1]); x3.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
-            var vx4 = (stackalloc Vector<T>[1]); x4.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx4));
-            var vx5 = (stackalloc Vector<T>[1]); x5.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx5));
-            var vx6 = (stackalloc Vector<T>[1]); x6.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx6));
-            var vx7 = (stackalloc Vector<T>[1]); x7.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx7));
-            var vx8 = (stackalloc Vector<T>[1]); x8.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx8));
+            calculateExtra(formula, x1.Slice(vectorLength), x2.Slice(vectorLength), x3.Slice(vectorLength), x4.Slice(vectorLength), x5.Slice(vectorLength), x6.Slice(vectorLength), x7.Slice(vectorLength), x8.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, Span<T> ans)
+        {
+            var vx1 = (stackalloc Vector<T>[1]{ new(x1[0]) }); x1.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
+            var vx2 = (stackalloc Vector<T>[1]{ new(x2[0]) }); x2.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
+            var vx3 = (stackalloc Vector<T>[1]{ new(x3[0]) }); x3.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
+            var vx4 = (stackalloc Vector<T>[1]{ new(x4[0]) }); x4.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx4));
+            var vx5 = (stackalloc Vector<T>[1]{ new(x5[0]) }); x5.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx5));
+            var vx6 = (stackalloc Vector<T>[1]{ new(x6[0]) }); x6.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx6));
+            var vx7 = (stackalloc Vector<T>[1]{ new(x7[0]) }); x7.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx7));
+            var vx8 = (stackalloc Vector<T>[1]{ new(x8[0]) }); x8.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx8));
             var vans = (stackalloc Vector<T>[1]);
             vans[0] = formula.Calculate(vx1[0], vx2[0], vx3[0], vx4[0], vx5[0], vx6[0], vx7[0], vx8[0]);
             MemoryMarshal
                 .Cast<Vector<T>, T>(vans)
-                .Slice(0, ans.Length - vectorLength)
-                .CopyTo(ans.Slice(vectorLength));
+                .Slice(0, ans.Length)
+                .CopyTo(ans);
         }
     }
 }
@@ -1493,21 +1533,26 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx1 = (stackalloc Vector<T>[1]); x1.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
-            var vx2 = (stackalloc Vector<T>[1]); x2.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
-            var vx3 = (stackalloc Vector<T>[1]); x3.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
-            var vx4 = (stackalloc Vector<T>[1]); x4.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx4));
-            var vx5 = (stackalloc Vector<T>[1]); x5.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx5));
-            var vx6 = (stackalloc Vector<T>[1]); x6.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx6));
-            var vx7 = (stackalloc Vector<T>[1]); x7.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx7));
-            var vx8 = (stackalloc Vector<T>[1]); x8.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx8));
-            var vx9 = (stackalloc Vector<T>[1]); x9.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx9));
+            calculateExtra(formula, x1.Slice(vectorLength), x2.Slice(vectorLength), x3.Slice(vectorLength), x4.Slice(vectorLength), x5.Slice(vectorLength), x6.Slice(vectorLength), x7.Slice(vectorLength), x8.Slice(vectorLength), x9.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, Span<T> ans)
+        {
+            var vx1 = (stackalloc Vector<T>[1]{ new(x1[0]) }); x1.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
+            var vx2 = (stackalloc Vector<T>[1]{ new(x2[0]) }); x2.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
+            var vx3 = (stackalloc Vector<T>[1]{ new(x3[0]) }); x3.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
+            var vx4 = (stackalloc Vector<T>[1]{ new(x4[0]) }); x4.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx4));
+            var vx5 = (stackalloc Vector<T>[1]{ new(x5[0]) }); x5.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx5));
+            var vx6 = (stackalloc Vector<T>[1]{ new(x6[0]) }); x6.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx6));
+            var vx7 = (stackalloc Vector<T>[1]{ new(x7[0]) }); x7.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx7));
+            var vx8 = (stackalloc Vector<T>[1]{ new(x8[0]) }); x8.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx8));
+            var vx9 = (stackalloc Vector<T>[1]{ new(x9[0]) }); x9.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx9));
             var vans = (stackalloc Vector<T>[1]);
             vans[0] = formula.Calculate(vx1[0], vx2[0], vx3[0], vx4[0], vx5[0], vx6[0], vx7[0], vx8[0], vx9[0]);
             MemoryMarshal
                 .Cast<Vector<T>, T>(vans)
-                .Slice(0, ans.Length - vectorLength)
-                .CopyTo(ans.Slice(vectorLength));
+                .Slice(0, ans.Length)
+                .CopyTo(ans);
         }
     }
 }
@@ -1714,22 +1759,27 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx1 = (stackalloc Vector<T>[1]); x1.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
-            var vx2 = (stackalloc Vector<T>[1]); x2.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
-            var vx3 = (stackalloc Vector<T>[1]); x3.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
-            var vx4 = (stackalloc Vector<T>[1]); x4.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx4));
-            var vx5 = (stackalloc Vector<T>[1]); x5.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx5));
-            var vx6 = (stackalloc Vector<T>[1]); x6.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx6));
-            var vx7 = (stackalloc Vector<T>[1]); x7.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx7));
-            var vx8 = (stackalloc Vector<T>[1]); x8.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx8));
-            var vx9 = (stackalloc Vector<T>[1]); x9.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx9));
-            var vx10 = (stackalloc Vector<T>[1]); x10.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx10));
+            calculateExtra(formula, x1.Slice(vectorLength), x2.Slice(vectorLength), x3.Slice(vectorLength), x4.Slice(vectorLength), x5.Slice(vectorLength), x6.Slice(vectorLength), x7.Slice(vectorLength), x8.Slice(vectorLength), x9.Slice(vectorLength), x10.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(TFormula formula, ReadOnlySpan<T> x1, ReadOnlySpan<T> x2, ReadOnlySpan<T> x3, ReadOnlySpan<T> x4, ReadOnlySpan<T> x5, ReadOnlySpan<T> x6, ReadOnlySpan<T> x7, ReadOnlySpan<T> x8, ReadOnlySpan<T> x9, ReadOnlySpan<T> x10, Span<T> ans)
+        {
+            var vx1 = (stackalloc Vector<T>[1]{ new(x1[0]) }); x1.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx1));
+            var vx2 = (stackalloc Vector<T>[1]{ new(x2[0]) }); x2.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx2));
+            var vx3 = (stackalloc Vector<T>[1]{ new(x3[0]) }); x3.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx3));
+            var vx4 = (stackalloc Vector<T>[1]{ new(x4[0]) }); x4.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx4));
+            var vx5 = (stackalloc Vector<T>[1]{ new(x5[0]) }); x5.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx5));
+            var vx6 = (stackalloc Vector<T>[1]{ new(x6[0]) }); x6.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx6));
+            var vx7 = (stackalloc Vector<T>[1]{ new(x7[0]) }); x7.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx7));
+            var vx8 = (stackalloc Vector<T>[1]{ new(x8[0]) }); x8.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx8));
+            var vx9 = (stackalloc Vector<T>[1]{ new(x9[0]) }); x9.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx9));
+            var vx10 = (stackalloc Vector<T>[1]{ new(x10[0]) }); x10.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx10));
             var vans = (stackalloc Vector<T>[1]);
             vans[0] = formula.Calculate(vx1[0], vx2[0], vx3[0], vx4[0], vx5[0], vx6[0], vx7[0], vx8[0], vx9[0], vx10[0]);
             MemoryMarshal
                 .Cast<Vector<T>, T>(vans)
-                .Slice(0, ans.Length - vectorLength)
-                .CopyTo(ans.Slice(vectorLength));
+                .Slice(0, ans.Length)
+                .CopyTo(ans);
         }
     }
 }

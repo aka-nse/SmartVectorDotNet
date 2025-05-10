@@ -16,6 +16,8 @@ partial class VectorOp
     public static Vector<T> Pow<T>(Vector<T> a, Vector<T> x)
         where T : unmanaged
     {
+        Guard.OnlyRealSupported<T>();
+
         var isAZero = Equals(a, Pow_<T>._0);
         var isXZero = Equals(x, Pow_<T>._0);
         var isANegative = LessThan(a, Pow_<T>._0);

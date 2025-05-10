@@ -11,5 +11,8 @@ partial class VectorOp
     /// <returns></returns>
     public static Vector<T> Log<T>(Vector<T> x, Vector<T> newBase)
         where T : unmanaged
-        => Log(x) / Log(newBase);
+    {
+        Guard.OnlyRealSupported<T>();
+        return Log(x) / Log(newBase);
+    }
 }

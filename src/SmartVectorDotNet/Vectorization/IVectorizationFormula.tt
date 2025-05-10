@@ -148,15 +148,20 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
+            calculateExtra(formula, <#=CommaSeparated(1, i, j => $"x{j}.Slice(vectorLength)")#>, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(TFormula formula, <#=CommaSeparated(1, i, j => $"ReadOnlySpan<T> x{j}")#>, Span<T> ans)
+        {
 <# for(var j = 1; j <= i; ++j) { #>
-            var vx<#=j#> = (stackalloc Vector<T>[1]); x<#=j#>.Slice(vectorLength).CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx<#=j#>));
+            var vx<#=j#> = (stackalloc Vector<T>[1]{ new(x<#=j#>[0]) }); x<#=j#>.CopyTo(MemoryMarshal.Cast<Vector<T>, T>(vx<#=j#>));
 <# } #>
             var vans = (stackalloc Vector<T>[1]);
             vans[0] = formula.Calculate(<#=CommaSeparated(1, i, j => $"vx{j}[0]")#>);
             MemoryMarshal
                 .Cast<Vector<T>, T>(vans)
-                .Slice(0, ans.Length - vectorLength)
-                .CopyTo(ans.Slice(vectorLength));
+                .Slice(0, ans.Length)
+                .CopyTo(ans);
         }
     }
 }

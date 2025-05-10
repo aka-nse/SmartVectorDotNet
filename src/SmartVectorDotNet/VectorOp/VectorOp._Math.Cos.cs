@@ -47,6 +47,8 @@ partial class VectorOp
     public static Vector<T> Cos<T>(Vector<T> x)
         where T : unmanaged
     {
+        Guard.OnlyRealSupported<T>();
+
         var xx = ModuloByTau(x);
         var lessThan_1_2 = LessThan(xx, Cos_<T>.PI_1p2);
         var lessThan_3_2 = LessThan(xx, Cos_<T>.PI_3p2);

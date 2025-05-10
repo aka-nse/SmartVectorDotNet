@@ -51,6 +51,8 @@ partial class VectorOp
     public static Vector<T> Exp<T>(Vector<T> x)
         where T : unmanaged
     {
+        Guard.OnlyRealSupported<T>();
+
         var isSaturatedMax = GreaterThan(x, Exp_<T>.Max);
         var isSaturatedMin = LessThan(x, Exp_<T>.Min);
         var isNormal = OnesComplement(BitwiseOr(isSaturatedMax, isSaturatedMin));

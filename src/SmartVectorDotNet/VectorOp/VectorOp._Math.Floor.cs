@@ -28,7 +28,7 @@ partial class VectorOp
 
 #else
 
-    private struct Floor_<T> : IVectorEmulationOp1<T>
+    private readonly struct Floor_<T> : IVectorEmulationOp1<T>
         where T : unmanaged
     {
         public readonly T Calculate(T x) => ScalarOp.Floor(x);

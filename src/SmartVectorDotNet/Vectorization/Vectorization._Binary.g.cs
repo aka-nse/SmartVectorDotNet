@@ -5,6 +5,7 @@
 using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using MM = System.Runtime.InteropServices.MemoryMarshal;
 
 namespace SmartVectorDotNet;
 
@@ -147,20 +148,25 @@ partial class SimdVectorization
     protected internal override sealed void AddCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX + vectorY[i];
+            vectorAns[i] = VectorOp.Add(vectorX, vectorY[i]);
         }
         if(vectorLength < ans.Length)
         {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = vectorX + Unsafe.As<T, Vector<T>>(ref vy[0]); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Add(vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -168,21 +174,26 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void AddCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX[i] + vectorY;
+            vectorAns[i] = VectorOp.Add(vectorX[i], vectorY);
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Unsafe.As<T, Vector<T>>(ref vx[0]) + vectorY; 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = VectorOp.Add(vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -190,23 +201,28 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void AddCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX[i] + vectorY[i];
+            vectorAns[i] = VectorOp.Add(vectorX[i], vectorY[i]);
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Unsafe.As<T, Vector<T>>(ref vx[0]) + Unsafe.As<T, Vector<T>>(ref vy[0]); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Add(vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 }
@@ -351,20 +367,25 @@ partial class SimdVectorization
     protected internal override sealed void SubtractCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX - vectorY[i];
+            vectorAns[i] = VectorOp.Subtract(vectorX, vectorY[i]);
         }
         if(vectorLength < ans.Length)
         {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = vectorX - Unsafe.As<T, Vector<T>>(ref vy[0]); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Subtract(vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -372,21 +393,26 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void SubtractCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX[i] - vectorY;
+            vectorAns[i] = VectorOp.Subtract(vectorX[i], vectorY);
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Unsafe.As<T, Vector<T>>(ref vx[0]) - vectorY; 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = VectorOp.Subtract(vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -394,23 +420,28 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void SubtractCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX[i] - vectorY[i];
+            vectorAns[i] = VectorOp.Subtract(vectorX[i], vectorY[i]);
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Unsafe.As<T, Vector<T>>(ref vx[0]) - Unsafe.As<T, Vector<T>>(ref vy[0]); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Subtract(vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 }
@@ -555,20 +586,25 @@ partial class SimdVectorization
     protected internal override sealed void MultiplyCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX * vectorY[i];
+            vectorAns[i] = VectorOp.Multiply(vectorX, vectorY[i]);
         }
         if(vectorLength < ans.Length)
         {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = vectorX * Unsafe.As<T, Vector<T>>(ref vy[0]); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Multiply(vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -576,21 +612,26 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void MultiplyCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX[i] * vectorY;
+            vectorAns[i] = VectorOp.Multiply(vectorX[i], vectorY);
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Unsafe.As<T, Vector<T>>(ref vx[0]) * vectorY; 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = VectorOp.Multiply(vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -598,23 +639,28 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void MultiplyCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX[i] * vectorY[i];
+            vectorAns[i] = VectorOp.Multiply(vectorX[i], vectorY[i]);
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Unsafe.As<T, Vector<T>>(ref vx[0]) * Unsafe.As<T, Vector<T>>(ref vy[0]); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Multiply(vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 }
@@ -759,20 +805,25 @@ partial class SimdVectorization
     protected internal override sealed void DivideCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX / vectorY[i];
+            vectorAns[i] = VectorOp.Divide(vectorX, vectorY[i]);
         }
         if(vectorLength < ans.Length)
         {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = vectorX / Unsafe.As<T, Vector<T>>(ref vy[0]); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1]{ new(y[0]) };
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Divide(vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -780,21 +831,26 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void DivideCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX[i] / vectorY;
+            vectorAns[i] = VectorOp.Divide(vectorX[i], vectorY);
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Unsafe.As<T, Vector<T>>(ref vx[0]) / vectorY; 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1]{ new(x[0]) };
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = VectorOp.Divide(vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -802,33 +858,38 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void DivideCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX[i] / vectorY[i];
+            vectorAns[i] = VectorOp.Divide(vectorX[i], vectorY[i]);
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Unsafe.As<T, Vector<T>>(ref vx[0]) / Unsafe.As<T, Vector<T>>(ref vy[0]); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1]{ new(x[0]) };
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1]{ new(y[0]) };
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Divide(vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 }
 #endregion
 
-#region bitwiseand
+#region modulo
 partial class Vectorization
 {
     /// <summary>
-    /// Operates bitwiseand for each corresponding elements of operands.
+    /// Operates modulo for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The 1st operand elements. </param>
@@ -837,16 +898,16 @@ partial class Vectorization
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     [GeneratedCode("T4", null)]
-    public void BitwiseAnd<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    public void Modulo<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        BitwiseAndCore(x, y, ans);
+        ModuloCore(x, y, ans);
     }
     
     /// <summary>
-    /// Operates bitwiseand for each corresponding elements of operands.
+    /// Operates modulo for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The 1st operand elements. </param>
@@ -855,16 +916,16 @@ partial class Vectorization
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     [GeneratedCode("T4", null)]
-    public void BitwiseAnd<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    public void Modulo<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        BitwiseAndCore(x, y, ans);
+        ModuloCore(x, y, ans);
     }
     
     /// <summary>
-    /// Operates bitwiseand for each corresponding elements of operands.
+    /// Operates modulo for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The 1st operand elements. </param>
@@ -873,18 +934,18 @@ partial class Vectorization
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     [GeneratedCode("T4", null)]
-    public void BitwiseAnd<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    public void Modulo<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        BitwiseAndCore(x, y, ans);
+        ModuloCore(x, y, ans);
     }
     
     /// <summary>
-    /// Core implementation for <see cref="BitwiseAnd{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// Core implementation for <see cref="Modulo{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
@@ -900,15 +961,15 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void BitwiseAndCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal virtual void ModuloCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.BitwiseAnd(x, y[i]);
+            ans[i] = ScalarOp.Modulo(x, y[i]);
     }
     
     /// <summary>
-    /// Core implementation for <see cref="BitwiseAnd{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// Core implementation for <see cref="Modulo{T}(ReadOnlySpan{T}, T, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
@@ -924,15 +985,15 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void BitwiseAndCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    protected internal virtual void ModuloCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.BitwiseAnd(x[i], y);
+            ans[i] = ScalarOp.Modulo(x[i], y);
     }
     
     /// <summary>
-    /// Core implementation for <see cref="BitwiseAnd{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// Core implementation for <see cref="Modulo{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
@@ -948,11 +1009,11 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void BitwiseAndCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal virtual void ModuloCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.BitwiseAnd(x[i], y[i]);
+            ans[i] = ScalarOp.Modulo(x[i], y[i]);
     }
 }
 
@@ -960,79 +1021,94 @@ partial class SimdVectorization
 {
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override sealed void BitwiseAndCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal override sealed void ModuloCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX & vectorY[i];
+            vectorAns[i] = VectorOp.Modulo(vectorX, vectorY[i]);
         }
         if(vectorLength < ans.Length)
         {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = vectorX & Unsafe.As<T, Vector<T>>(ref vy[0]); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1]{ new(y[0]) };
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Modulo(vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override sealed void BitwiseAndCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    protected internal override sealed void ModuloCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX[i] & vectorY;
+            vectorAns[i] = VectorOp.Modulo(vectorX[i], vectorY);
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Unsafe.As<T, Vector<T>>(ref vx[0]) & vectorY; 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1]{ new(x[0]) };
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = VectorOp.Modulo(vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override sealed void BitwiseAndCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal override sealed void ModuloCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX[i] & vectorY[i];
+            vectorAns[i] = VectorOp.Modulo(vectorX[i], vectorY[i]);
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Unsafe.As<T, Vector<T>>(ref vx[0]) & Unsafe.As<T, Vector<T>>(ref vy[0]); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1]{ new(x[0]) };
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1]{ new(y[0]) };
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Modulo(vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 }
 #endregion
 
-#region bitwiseor
+#region modulobyfloor
 partial class Vectorization
 {
     /// <summary>
-    /// Operates bitwiseor for each corresponding elements of operands.
+    /// Operates modulobyfloor for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The 1st operand elements. </param>
@@ -1041,16 +1117,16 @@ partial class Vectorization
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     [GeneratedCode("T4", null)]
-    public void BitwiseOr<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    public void ModuloByFloor<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        BitwiseOrCore(x, y, ans);
+        ModuloByFloorCore(x, y, ans);
     }
     
     /// <summary>
-    /// Operates bitwiseor for each corresponding elements of operands.
+    /// Operates modulobyfloor for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The 1st operand elements. </param>
@@ -1059,16 +1135,16 @@ partial class Vectorization
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     [GeneratedCode("T4", null)]
-    public void BitwiseOr<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    public void ModuloByFloor<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        BitwiseOrCore(x, y, ans);
+        ModuloByFloorCore(x, y, ans);
     }
     
     /// <summary>
-    /// Operates bitwiseor for each corresponding elements of operands.
+    /// Operates modulobyfloor for each corresponding elements of operands.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
     /// <param name="x"> The 1st operand elements. </param>
@@ -1077,18 +1153,18 @@ partial class Vectorization
     /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
     /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
     [GeneratedCode("T4", null)]
-    public void BitwiseOr<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    public void ModuloByFloor<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        BitwiseOrCore(x, y, ans);
+        ModuloByFloorCore(x, y, ans);
     }
     
     /// <summary>
-    /// Core implementation for <see cref="BitwiseOr{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// Core implementation for <see cref="ModuloByFloor{T}(T, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
@@ -1104,15 +1180,15 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void BitwiseOrCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal virtual void ModuloByFloorCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.BitwiseOr(x, y[i]);
+            ans[i] = ScalarOp.ModuloByFloor(x, y[i]);
     }
     
     /// <summary>
-    /// Core implementation for <see cref="BitwiseOr{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// Core implementation for <see cref="ModuloByFloor{T}(ReadOnlySpan{T}, T, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
@@ -1128,15 +1204,15 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void BitwiseOrCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    protected internal virtual void ModuloByFloorCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.BitwiseOr(x[i], y);
+            ans[i] = ScalarOp.ModuloByFloor(x[i], y);
     }
     
     /// <summary>
-    /// Core implementation for <see cref="BitwiseOr{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// Core implementation for <see cref="ModuloByFloor{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
     /// For this method it is ensured that all parameters have same length.
     /// </summary>
     /// <typeparam name="T"> The type of elements. </typeparam>
@@ -1152,11 +1228,11 @@ partial class Vectorization
     /// </list>
     /// </remarks>
     [GeneratedCode("T4", null)]
-    protected internal virtual void BitwiseOrCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal virtual void ModuloByFloorCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.BitwiseOr(x[i], y[i]);
+            ans[i] = ScalarOp.ModuloByFloor(x[i], y[i]);
     }
 }
 
@@ -1164,1293 +1240,84 @@ partial class SimdVectorization
 {
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override sealed void BitwiseOrCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal override sealed void ModuloByFloorCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX | vectorY[i];
+            vectorAns[i] = VectorOp.ModuloByFloor(vectorX, vectorY[i]);
         }
         if(vectorLength < ans.Length)
         {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = vectorX | Unsafe.As<T, Vector<T>>(ref vy[0]); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1]{ new(y[0]) };
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.ModuloByFloor(vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override sealed void BitwiseOrCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    protected internal override sealed void ModuloByFloorCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX[i] | vectorY;
+            vectorAns[i] = VectorOp.ModuloByFloor(vectorX[i], vectorY);
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Unsafe.As<T, Vector<T>>(ref vx[0]) | vectorY; 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1]{ new(x[0]) };
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = VectorOp.ModuloByFloor(vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
     /// <inheritdoc />
     [GeneratedCode("T4", null)]
-    protected internal override sealed void BitwiseOrCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    protected internal override sealed void ModuloByFloorCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = vectorX[i] | vectorY[i];
+            vectorAns[i] = VectorOp.ModuloByFloor(vectorX[i], vectorY[i]);
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Unsafe.As<T, Vector<T>>(ref vx[0]) | Unsafe.As<T, Vector<T>>(ref vy[0]); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
         }
-    }
-}
-#endregion
 
-#region bitwisexor
-partial class Vectorization
-{
-    /// <summary>
-    /// Operates bitwisexor for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void BitwiseXor<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
-        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        BitwiseXorCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Operates bitwisexor for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void BitwiseXor<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        BitwiseXorCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Operates bitwisexor for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void BitwiseXor<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
-        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        BitwiseXorCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="BitwiseXor{T}(T, ReadOnlySpan{T}, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void BitwiseXorCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.BitwiseXor(x, y[i]);
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="BitwiseXor{T}(ReadOnlySpan{T}, T, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void BitwiseXorCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.BitwiseXor(x[i], y);
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="BitwiseXor{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void BitwiseXorCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.BitwiseXor(x[i], y[i]);
-    }
-}
-
-partial class SimdVectorization
-{
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void BitwiseXorCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-    {
-        var vectorX = new Vector<T>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         {
-            vectorAns[i] = vectorX ^ vectorY[i];
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = vectorX ^ Unsafe.As<T, Vector<T>>(ref vy[0]); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void BitwiseXorCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-    {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = new Vector<T>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = vectorX[i] ^ vectorY;
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Unsafe.As<T, Vector<T>>(ref vx[0]) ^ vectorY; 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void BitwiseXorCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-    {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = vectorX[i] ^ vectorY[i];
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Unsafe.As<T, Vector<T>>(ref vx[0]) ^ Unsafe.As<T, Vector<T>>(ref vy[0]); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-}
-#endregion
-
-#region equals
-partial class Vectorization
-{
-    /// <summary>
-    /// Operates equals for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void Equals<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
-        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        EqualsCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Operates equals for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void Equals<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        EqualsCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Operates equals for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void Equals<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
-        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        EqualsCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="Equals{T}(T, ReadOnlySpan{T}, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void EqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Equals(x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="Equals{T}(ReadOnlySpan{T}, T, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void EqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Equals(x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="Equals{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void EqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Equals(x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
-    }
-}
-
-partial class SimdVectorization
-{
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void EqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-    {
-        var vectorX = new Vector<T>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = Vector.Equals(vectorX, vectorY[i]);
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.Equals(vectorX, Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void EqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-    {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = new Vector<T>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = Vector.Equals(vectorX[i], vectorY);
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.Equals(Unsafe.As<T, Vector<T>>(ref vx[0]), vectorY); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void EqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-    {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = Vector.Equals(vectorX[i], vectorY[i]);
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.Equals(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-}
-#endregion
-
-#region lessthan
-partial class Vectorization
-{
-    /// <summary>
-    /// Operates lessthan for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void LessThan<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
-        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        LessThanCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Operates lessthan for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void LessThan<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        LessThanCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Operates lessthan for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void LessThan<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
-        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        LessThanCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="LessThan{T}(T, ReadOnlySpan{T}, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void LessThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThan(x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="LessThan{T}(ReadOnlySpan{T}, T, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void LessThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThan(x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="LessThan{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void LessThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThan(x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
-    }
-}
-
-partial class SimdVectorization
-{
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void LessThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-    {
-        var vectorX = new Vector<T>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = Vector.LessThan(vectorX, vectorY[i]);
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.LessThan(vectorX, Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void LessThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-    {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = new Vector<T>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = Vector.LessThan(vectorX[i], vectorY);
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.LessThan(Unsafe.As<T, Vector<T>>(ref vx[0]), vectorY); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void LessThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-    {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = Vector.LessThan(vectorX[i], vectorY[i]);
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.LessThan(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-}
-#endregion
-
-#region lessthanorequal
-partial class Vectorization
-{
-    /// <summary>
-    /// Operates lessthanorequal for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void LessThanOrEqual<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
-        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        LessThanOrEqualCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Operates lessthanorequal for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void LessThanOrEqual<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        LessThanOrEqualCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Operates lessthanorequal for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void LessThanOrEqual<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
-        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        LessThanOrEqualCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="LessThanOrEqual{T}(T, ReadOnlySpan{T}, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void LessThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThanOrEqual(x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="LessThanOrEqual{T}(ReadOnlySpan{T}, T, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThanOrEqual(x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="LessThanOrEqual{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.LessThanOrEqual(x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
-    }
-}
-
-partial class SimdVectorization
-{
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void LessThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-    {
-        var vectorX = new Vector<T>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = Vector.LessThanOrEqual(vectorX, vectorY[i]);
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.LessThanOrEqual(vectorX, Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-    {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = new Vector<T>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = Vector.LessThanOrEqual(vectorX[i], vectorY);
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.LessThanOrEqual(Unsafe.As<T, Vector<T>>(ref vx[0]), vectorY); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-    {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = Vector.LessThanOrEqual(vectorX[i], vectorY[i]);
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.LessThanOrEqual(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-}
-#endregion
-
-#region greaterthan
-partial class Vectorization
-{
-    /// <summary>
-    /// Operates greaterthan for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void GreaterThan<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
-        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        GreaterThanCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Operates greaterthan for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void GreaterThan<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        GreaterThanCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Operates greaterthan for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void GreaterThan<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
-        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        GreaterThanCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="GreaterThan{T}(T, ReadOnlySpan{T}, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void GreaterThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThan(x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="GreaterThan{T}(ReadOnlySpan{T}, T, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void GreaterThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThan(x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="GreaterThan{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void GreaterThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThan(x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
-    }
-}
-
-partial class SimdVectorization
-{
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void GreaterThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-    {
-        var vectorX = new Vector<T>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = Vector.GreaterThan(vectorX, vectorY[i]);
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.GreaterThan(vectorX, Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void GreaterThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-    {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = new Vector<T>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = Vector.GreaterThan(vectorX[i], vectorY);
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.GreaterThan(Unsafe.As<T, Vector<T>>(ref vx[0]), vectorY); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void GreaterThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-    {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = Vector.GreaterThan(vectorX[i], vectorY[i]);
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.GreaterThan(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-}
-#endregion
-
-#region greaterthanorequal
-partial class Vectorization
-{
-    /// <summary>
-    /// Operates greaterthanorequal for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void GreaterThanOrEqual<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
-        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        GreaterThanOrEqualCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Operates greaterthanorequal for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void GreaterThanOrEqual<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        GreaterThanOrEqualCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Operates greaterthanorequal for each corresponding elements of operands.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    [GeneratedCode("T4", null)]
-    public void GreaterThanOrEqual<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
-        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
-        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        GreaterThanOrEqualCore(x, y, ans);
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="GreaterThanOrEqual{T}(T, ReadOnlySpan{T}, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void GreaterThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThanOrEqual(x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="GreaterThanOrEqual{T}(ReadOnlySpan{T}, T, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThanOrEqual(x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
-    }
-    
-    /// <summary>
-    /// Core implementation for <see cref="GreaterThanOrEqual{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
-    /// For this method it is ensured that all parameters have same length.
-    /// </summary>
-    /// <typeparam name="T"> The type of elements. </typeparam>
-    /// <param name="x"> The 1st operand elements. </param>
-    /// <param name="y"> The 2nd operand elements. </param>
-    /// <param name="ans"> The destination of answer. </param>
-    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
-    /// <remarks>
-    /// For this method it is ensured followings:
-    /// <list type="bullet">
-    /// <item> all parameters have same length </item>
-    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
-    /// </list>
-    /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-        where T : unmanaged
-    {
-        for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.GreaterThanOrEqual(x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
-    }
-}
-
-partial class SimdVectorization
-{
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void GreaterThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
-    {
-        var vectorX = new Vector<T>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = Vector.GreaterThanOrEqual(vectorX, vectorY[i]);
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.GreaterThanOrEqual(vectorX, Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
-    {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = new Vector<T>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = Vector.GreaterThanOrEqual(vectorX[i], vectorY);
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.GreaterThanOrEqual(Unsafe.As<T, Vector<T>>(ref vx[0]), vectorY); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
-        }
-    }
-
-    /// <inheritdoc />
-    [GeneratedCode("T4", null)]
-    protected internal override sealed void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
-    {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
-        var vectorLength = vectorAns.Length * Vector<T>.Count;
-        for(var i = 0; i < vectorAns.Length; ++i)
-        {
-            vectorAns[i] = Vector.GreaterThanOrEqual(vectorX[i], vectorY[i]);
-        }
-        if(vectorLength < ans.Length)
-        {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = Vector.GreaterThanOrEqual(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1]{ new(x[0]) };
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1]{ new(y[0]) };
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.ModuloByFloor(vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 }
@@ -2595,8 +1462,8 @@ partial class SimdVectorization
     protected internal override sealed void AddSaturateCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
@@ -2604,11 +1471,16 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.AddSaturate(vectorX, Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.AddSaturate(vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -2616,9 +1488,9 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void AddSaturateCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
@@ -2626,11 +1498,16 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.AddSaturate(Unsafe.As<T, Vector<T>>(ref vx[0]), vectorY); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = VectorOp.AddSaturate(vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -2638,9 +1515,9 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void AddSaturateCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
@@ -2648,13 +1525,18 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.AddSaturate(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.AddSaturate(vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 }
@@ -2799,8 +1681,8 @@ partial class SimdVectorization
     protected internal override sealed void SubtractSaturateCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
@@ -2808,11 +1690,16 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.SubtractSaturate(vectorX, Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.SubtractSaturate(vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -2820,9 +1707,9 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void SubtractSaturateCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
@@ -2830,11 +1717,16 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.SubtractSaturate(Unsafe.As<T, Vector<T>>(ref vx[0]), vectorY); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = VectorOp.SubtractSaturate(vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -2842,9 +1734,9 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void SubtractSaturateCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
@@ -2852,13 +1744,1770 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            y.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.SubtractSaturate(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.SubtractSaturate(vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+}
+#endregion
+
+#region bitwiseand
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates bitwiseand for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void BitwiseAnd<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        BitwiseAndCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates bitwiseand for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void BitwiseAnd<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        BitwiseAndCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates bitwiseand for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void BitwiseAnd<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        BitwiseAndCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="BitwiseAnd{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void BitwiseAndCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.BitwiseAnd(x, y[i]);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="BitwiseAnd{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void BitwiseAndCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.BitwiseAnd(x[i], y);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="BitwiseAnd{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void BitwiseAndCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.BitwiseAnd(x[i], y[i]);
+    }
+}
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void BitwiseAndCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = new Vector<T>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = vectorX & vectorY[i];
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = vectorX & vy[0]; 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void BitwiseAndCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = new Vector<T>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = vectorX[i] & vectorY;
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = vx[0] & vectorY; 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void BitwiseAndCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = vectorX[i] & vectorY[i];
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = vx[0] & vy[0]; 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+}
+#endregion
+
+#region bitwiseor
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates bitwiseor for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void BitwiseOr<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        BitwiseOrCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates bitwiseor for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void BitwiseOr<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        BitwiseOrCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates bitwiseor for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void BitwiseOr<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        BitwiseOrCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="BitwiseOr{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void BitwiseOrCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.BitwiseOr(x, y[i]);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="BitwiseOr{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void BitwiseOrCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.BitwiseOr(x[i], y);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="BitwiseOr{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void BitwiseOrCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.BitwiseOr(x[i], y[i]);
+    }
+}
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void BitwiseOrCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = new Vector<T>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = vectorX | vectorY[i];
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = vectorX | vy[0]; 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void BitwiseOrCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = new Vector<T>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = vectorX[i] | vectorY;
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = vx[0] | vectorY; 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void BitwiseOrCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = vectorX[i] | vectorY[i];
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = vx[0] | vy[0]; 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+}
+#endregion
+
+#region bitwisexor
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates bitwisexor for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void BitwiseXor<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        BitwiseXorCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates bitwisexor for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void BitwiseXor<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        BitwiseXorCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates bitwisexor for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void BitwiseXor<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        BitwiseXorCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="BitwiseXor{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void BitwiseXorCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.BitwiseXor(x, y[i]);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="BitwiseXor{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void BitwiseXorCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.BitwiseXor(x[i], y);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="BitwiseXor{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void BitwiseXorCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.BitwiseXor(x[i], y[i]);
+    }
+}
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void BitwiseXorCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = new Vector<T>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = vectorX ^ vectorY[i];
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = vectorX ^ vy[0]; 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void BitwiseXorCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = new Vector<T>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = vectorX[i] ^ vectorY;
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = vx[0] ^ vectorY; 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void BitwiseXorCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = vectorX[i] ^ vectorY[i];
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = vx[0] ^ vy[0]; 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+}
+#endregion
+
+#region equals
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates equals for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void Equals<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        EqualsCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates equals for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void Equals<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        EqualsCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates equals for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void Equals<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        EqualsCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="Equals{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void EqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.Equals            (x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="Equals{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void EqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.Equals            (x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="Equals{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void EqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.Equals            (x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+    }
+}
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void EqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = new Vector<T>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = Vector.Equals            (vectorX, vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = Vector.Equals            (vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void EqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = new Vector<T>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = Vector.Equals            (vectorX[i], vectorY);
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = Vector.Equals            (vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void EqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = Vector.Equals            (vectorX[i], vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = Vector.Equals            (vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+}
+#endregion
+
+#region lessthan
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates lessthan for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void LessThan<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        LessThanCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates lessthan for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void LessThan<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        LessThanCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates lessthan for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void LessThan<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        LessThanCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="LessThan{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void LessThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.LessThan          (x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="LessThan{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void LessThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.LessThan          (x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="LessThan{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void LessThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.LessThan          (x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+    }
+}
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void LessThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = new Vector<T>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = Vector.LessThan          (vectorX, vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = Vector.LessThan          (vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void LessThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = new Vector<T>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = Vector.LessThan          (vectorX[i], vectorY);
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = Vector.LessThan          (vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void LessThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = Vector.LessThan          (vectorX[i], vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = Vector.LessThan          (vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+}
+#endregion
+
+#region lessthanorequal
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates lessthanorequal for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void LessThanOrEqual<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        LessThanOrEqualCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates lessthanorequal for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void LessThanOrEqual<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        LessThanOrEqualCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates lessthanorequal for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void LessThanOrEqual<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        LessThanOrEqualCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="LessThanOrEqual{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void LessThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.LessThanOrEqual   (x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="LessThanOrEqual{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.LessThanOrEqual   (x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="LessThanOrEqual{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.LessThanOrEqual   (x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+    }
+}
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void LessThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = new Vector<T>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = Vector.LessThanOrEqual   (vectorX, vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = Vector.LessThanOrEqual   (vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = new Vector<T>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = Vector.LessThanOrEqual   (vectorX[i], vectorY);
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = Vector.LessThanOrEqual   (vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = Vector.LessThanOrEqual   (vectorX[i], vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = Vector.LessThanOrEqual   (vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+}
+#endregion
+
+#region greaterthan
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates greaterthan for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void GreaterThan<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        GreaterThanCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates greaterthan for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void GreaterThan<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        GreaterThanCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates greaterthan for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void GreaterThan<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        GreaterThanCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="GreaterThan{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void GreaterThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.GreaterThan       (x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="GreaterThan{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void GreaterThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.GreaterThan       (x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="GreaterThan{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void GreaterThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.GreaterThan       (x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+    }
+}
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void GreaterThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = new Vector<T>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = Vector.GreaterThan       (vectorX, vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = Vector.GreaterThan       (vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void GreaterThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = new Vector<T>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = Vector.GreaterThan       (vectorX[i], vectorY);
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = Vector.GreaterThan       (vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void GreaterThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = Vector.GreaterThan       (vectorX[i], vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = Vector.GreaterThan       (vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+}
+#endregion
+
+#region greaterthanorequal
+partial class Vectorization
+{
+    /// <summary>
+    /// Operates greaterthanorequal for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void GreaterThanOrEqual<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        GreaterThanOrEqualCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates greaterthanorequal for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void GreaterThanOrEqual<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        GreaterThanOrEqualCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Operates greaterthanorequal for each corresponding elements of operands.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    [GeneratedCode("T4", null)]
+    public void GreaterThanOrEqual<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
+        Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
+        using var safeXBuffer = EnsureSourceSafe(ref x, ans);
+        using var safeYBuffer = EnsureSourceSafe(ref y, ans);
+        GreaterThanOrEqualCore(x, y, ans);
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="GreaterThanOrEqual{T}(T, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void GreaterThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.GreaterThanOrEqual(x, y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="GreaterThanOrEqual{T}(ReadOnlySpan{T}, T, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.GreaterThanOrEqual(x[i], y) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+    }
+    
+    /// <summary>
+    /// Core implementation for <see cref="GreaterThanOrEqual{T}(ReadOnlySpan{T}, ReadOnlySpan{T}, Span{T})" />.
+    /// For this method it is ensured that all parameters have same length.
+    /// </summary>
+    /// <typeparam name="T"> The type of elements. </typeparam>
+    /// <param name="x"> The 1st operand elements. </param>
+    /// <param name="y"> The 2nd operand elements. </param>
+    /// <param name="ans"> The destination of answer. </param>
+    /// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+    /// <remarks>
+    /// For this method it is ensured followings:
+    /// <list type="bullet">
+    /// <item> all parameters have same length </item>
+    /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+    /// </list>
+    /// </remarks>
+    [GeneratedCode("T4", null)]
+    protected internal virtual void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        where T : unmanaged
+    {
+        for (var i = 0; i < ans.Length; ++i)
+            ans[i] = ScalarOp.GreaterThanOrEqual(x[i], y[i]) ? ScalarOp.Const<T>.TrueValue : ScalarOp.Const<T>.FalseValue;
+    }
+}
+
+partial class SimdVectorization
+{
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void GreaterThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = new Vector<T>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = Vector.GreaterThanOrEqual(vectorX, vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(vectorX, y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = Vector.GreaterThanOrEqual(vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = new Vector<T>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = Vector.GreaterThanOrEqual(vectorX[i], vectorY);
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = Vector.GreaterThanOrEqual(vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
+        }
+    }
+
+    /// <inheritdoc />
+    [GeneratedCode("T4", null)]
+    protected internal override sealed void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+    {
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(y);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
+        var vectorLength = vectorAns.Length * Vector<T>.Count;
+        for(var i = 0; i < vectorAns.Length; ++i)
+        {
+            vectorAns[i] = Vector.GreaterThanOrEqual(vectorX[i], vectorY[i]);
+        }
+        if(vectorLength < ans.Length)
+        {
+            calculateExtra(x.Slice(vectorLength), y.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = Vector.GreaterThanOrEqual(vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 }
@@ -3003,8 +3652,8 @@ partial class SimdVectorization
     protected internal override sealed void Atan2Core<T>(T y, ReadOnlySpan<T> x, Span<T> ans)
     {
         var vectorX = new Vector<T>(y);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorY = MM.Cast<T, Vector<T>>(x);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
@@ -3012,11 +3661,16 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Atan2(vectorX, Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(vectorX, x.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Atan2(vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -3024,9 +3678,9 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void Atan2Core<T>(ReadOnlySpan<T> y, T x, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(y);
+        var vectorX = MM.Cast<T, Vector<T>>(y);
         var vectorY = new Vector<T>(x);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
@@ -3034,11 +3688,16 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Atan2(Unsafe.As<T, Vector<T>>(ref vx[0]), vectorY); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(y.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = VectorOp.Atan2(vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -3046,9 +3705,9 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void Atan2Core<T>(ReadOnlySpan<T> y, ReadOnlySpan<T> x, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(y);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorX = MM.Cast<T, Vector<T>>(y);
+        var vectorY = MM.Cast<T, Vector<T>>(x);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
@@ -3056,13 +3715,18 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            y.Slice(vectorLength).CopyTo(vx);
-            x.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Atan2(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(y.Slice(vectorLength), x.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Atan2(vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 }
@@ -3207,8 +3871,8 @@ partial class SimdVectorization
     protected internal override sealed void LogCore<T>(T x, ReadOnlySpan<T> newBase, Span<T> ans)
     {
         var vectorX = new Vector<T>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(newBase);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorY = MM.Cast<T, Vector<T>>(newBase);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
@@ -3216,11 +3880,16 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            newBase.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Log(vectorX, Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(vectorX, newBase.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Log(vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -3228,9 +3897,9 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void LogCore<T>(ReadOnlySpan<T> x, T newBase, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
         var vectorY = new Vector<T>(newBase);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
@@ -3238,11 +3907,16 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Log(Unsafe.As<T, Vector<T>>(ref vx[0]), vectorY); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = VectorOp.Log(vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -3250,9 +3924,9 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void LogCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> newBase, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(newBase);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorX = MM.Cast<T, Vector<T>>(x);
+        var vectorY = MM.Cast<T, Vector<T>>(newBase);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
@@ -3260,13 +3934,18 @@ partial class SimdVectorization
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vx);
-            newBase.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Log(Unsafe.As<T, Vector<T>>(ref vx[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(x.Slice(vectorLength), newBase.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Log(vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 }
@@ -3352,7 +4031,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Pow(x[i], x[i]);
+            ans[i] = ScalarOp.Pow(a, x[i]);
     }
     
     /// <summary>
@@ -3376,7 +4055,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Pow(x, x);
+            ans[i] = ScalarOp.Pow(a[i], x);
     }
     
     /// <summary>
@@ -3400,7 +4079,7 @@ partial class Vectorization
         where T : unmanaged
     {
         for (var i = 0; i < ans.Length; ++i)
-            ans[i] = ScalarOp.Pow(x[i], x[i]);
+            ans[i] = ScalarOp.Pow(a[i], x[i]);
     }
 }
 
@@ -3411,20 +4090,25 @@ partial class SimdVectorization
     protected internal override sealed void PowCore<T>(T a, ReadOnlySpan<T> x, Span<T> ans)
     {
         var vectorX = new Vector<T>(a);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorY = MM.Cast<T, Vector<T>>(x);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorOp.Pow(vectorY[i], vectorY[i]);
+            vectorAns[i] = VectorOp.Pow(vectorX, vectorY[i]);
         }
         if(vectorLength < ans.Length)
         {
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            x.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Pow(Unsafe.As<T, Vector<T>>(ref vy[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(vectorX, x.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(Vector<T> vectorX, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Pow(vectorX, vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -3432,21 +4116,26 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void PowCore<T>(ReadOnlySpan<T> a, T x, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(a);
+        var vectorX = MM.Cast<T, Vector<T>>(a);
         var vectorY = new Vector<T>(x);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorOp.Pow(vectorY, vectorY);
+            vectorAns[i] = VectorOp.Pow(vectorX[i], vectorY);
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            a.Slice(vectorLength).CopyTo(vx);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Pow(vectorY, vectorY); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(a.Slice(vectorLength), vectorY, ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, Vector<T> vectorY, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            vans[0] = VectorOp.Pow(vx[0], vectorY); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 
@@ -3454,23 +4143,28 @@ partial class SimdVectorization
     [GeneratedCode("T4", null)]
     protected internal override sealed void PowCore<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> x, Span<T> ans)
     {
-        var vectorX = MemoryMarshal.Cast<T, Vector<T>>(a);
-        var vectorY = MemoryMarshal.Cast<T, Vector<T>>(x);
-        var vectorAns = MemoryMarshal.Cast<T, Vector<T>>(ans);
+        var vectorX = MM.Cast<T, Vector<T>>(a);
+        var vectorY = MM.Cast<T, Vector<T>>(x);
+        var vectorAns = MM.Cast<T, Vector<T>>(ans);
         var vectorLength = vectorAns.Length * Vector<T>.Count;
         for(var i = 0; i < vectorAns.Length; ++i)
         {
-            vectorAns[i] = VectorOp.Pow(vectorY[i], vectorY[i]);
+            vectorAns[i] = VectorOp.Pow(vectorX[i], vectorY[i]);
         }
         if(vectorLength < ans.Length)
         {
-            var vx = (stackalloc T[Vector<T>.Count]);
-            var vy = (stackalloc T[Vector<T>.Count]);
-            var vans = (stackalloc T[Vector<T>.Count]);
-            a.Slice(vectorLength).CopyTo(vx);
-            x.Slice(vectorLength).CopyTo(vy);
-            Unsafe.As<T, Vector<T>>(ref vans[0]) = VectorOp.Pow(Unsafe.As<T, Vector<T>>(ref vy[0]), Unsafe.As<T, Vector<T>>(ref vy[0])); 
-            vans.Slice(0, ans.Length - vectorLength).CopyTo(ans.Slice(vectorLength));
+            calculateExtra(a.Slice(vectorLength), x.Slice(vectorLength), ans.Slice(vectorLength));
+        }
+
+        static void calculateExtra(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
+        {
+            Span<Vector<T>> vx   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vy   = stackalloc Vector<T>[1];
+            Span<Vector<T>> vans = stackalloc Vector<T>[1];
+            x.CopyTo(MM.Cast<Vector<T>, T>(vx));
+            y.CopyTo(MM.Cast<Vector<T>, T>(vy));
+            vans[0] = VectorOp.Pow(vx[0], vy[0]); 
+            MM.Cast<Vector<T>, T>(vans).Slice(0, ans.Length).CopyTo(ans);
         }
     }
 }

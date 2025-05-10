@@ -18,6 +18,8 @@ partial class VectorOp
     public static Vector<T> Atan2<T>(Vector<T> y, Vector<T> x)
         where T : unmanaged
     {
+        Guard.OnlyRealSupported<T>();
+
         var a = Atan(y / x);
         Vector<T> signY = SignFast(y);
         return ConditionalSelect(

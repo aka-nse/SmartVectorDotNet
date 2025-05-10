@@ -37,6 +37,7 @@ partial class VectorOp
         //    \mathrm{arsinh}\,x &= \ln(x + \sqrt{x^2+1})  \\
         //                       &\sim \mathrm{Sign}(x) \ln(2|x|) \sim \mathrm{Sign}(x) (2 + \ln|x|) &(x \rightarrow \pm\infty)
         //    $$
+        Guard.OnlyRealSupported<T>();
         var absX = Abs(x);
         var sign = Sign(x);
         return ConditionalSelect(

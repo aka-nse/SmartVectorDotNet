@@ -29,10 +29,10 @@ partial class VectorOp
 
 #else
 
-    private struct Ceiling_<T> : IVectorEmulationOp1<T>
+    private readonly struct Ceiling_<T> : IVectorEmulationOp1<T>
         where T : unmanaged
     {
-        public T Calculate(T x) => ScalarOp.Ceiling(x);
+        public readonly T Calculate(T x) => ScalarOp.Ceiling(x);
     }
     
     private static partial Vector<double> Ceiling(Vector<double> x)
