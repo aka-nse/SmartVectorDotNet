@@ -2,7 +2,7 @@
 $currentDir = Get-Location
 try {
     Set-Location $PSScriptRoot
-    
+
     # install reportgenerator if not installed
     if(dotnet tool list --tool-path .dotnet/ `
         | Select-String dotnet-reportgenerator-globaltool) {
@@ -15,7 +15,7 @@ try {
     Get-ChildItem -Directory src/*.Test*/TestResults/* | Remove-Item -Recurse
 
     # test and measure coverage
-    dotnet test src/SmartVectorDotNet.sln --collect:"XPlat Code Coverage"
+    dotnet test src/SmartVectorDotNet.slnx --collect:"XPlat Code Coverage"
 
     # export HTML coverage report
     Get-ChildItem src/*.Test*/TestResults/*/coverage.cobertura.xml `
