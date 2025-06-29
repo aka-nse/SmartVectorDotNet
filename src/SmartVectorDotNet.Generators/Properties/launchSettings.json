@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "プロファイル 1": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\SmartVectorDotNet.Generator.Experiment\\SmartVectorDotNet.Generator.Experiment.csproj"
+    }
+  }
+}
