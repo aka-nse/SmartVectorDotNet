@@ -14,6 +14,18 @@
         <IncludeSymbols>false</IncludeSymbols>
         <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+
+        <PackageId>akanse.$(AssemblyName)</PackageId>
+        <Title>SmartVectorDotNet.Generators</Title>
+        <Version>0.1.0.0</Version>
+        <Authors>aka-nse</Authors>
+        <Company />
+        <PackageLicenseFile>../LICENSE.txt</PackageLicenseFile>
+        <PackageReadmeFile>../README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/aka-nse/SmartVectorDotNet</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/aka-nse/SmartVectorDotNet</PackageProjectUrl>
+        <PackageTags>vectorization,SIMD</PackageTags>
+        <UserSecretsId>cc9cb6a8-5056-484a-8d70-34919a83fa87</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -25,6 +37,11 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="System.CodeDom" Version="9.0.6" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="$(OutputPath)/$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="buildTransitive\SmartVectorDotNet.Generators.props" Pack="true" PackagePath="buildTransitive\$(PackageId).props" />
     </ItemGroup>
 
 </Project>

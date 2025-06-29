@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis;
 namespace SmartVectorDotNet.Generators;
 
 [Generator(LanguageNames.CSharp)]
-public partial class ImplicitFormulaGenerator : IIncrementalGenerator
+public partial class VectorizationFormulaInterceptorGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
