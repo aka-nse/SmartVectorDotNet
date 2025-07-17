@@ -29,7 +29,7 @@ public class ArrayNumericUtilsTest
         Assert.Equal(expected.Length, result.Length);
         for (int i = 0; i < expected.Length; i++)
         {
-            Assert.Equal(expected[i], result[i], 6);
+            Assert.Equal(expected[i], result[i], 6); // Using 6 decimal places for floating point comparison
         }
     }
 
@@ -59,7 +59,7 @@ public class ArrayNumericUtilsTest
         Assert.Equal(expected.Length, result.Length);
         for (int i = 0; i < expected.Length; i++)
         {
-            Assert.Equal(expected[i], result[i], 6);
+            Assert.Equal(expected[i], result[i], 6); // Using 6 decimal places for floating point comparison
         }
 
     }
