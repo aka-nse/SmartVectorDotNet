@@ -32,6 +32,13 @@
         <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\SmartVectorDotNet.Generators.Internal\SmartVectorDotNet.Generators.Internal.csproj">
+            <OutputItemType>Analyzer</OutputItemType>
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+        </ProjectReference>
+    </ItemGroup>
+
     <!-- #region ScalarOp -->
     <ItemGroup Label="ScalarOp\ScalarOp._Convert">
         <None Update="ScalarOp\ScalarOp._Convert.tt">

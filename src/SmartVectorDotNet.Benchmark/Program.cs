@@ -2,6 +2,5 @@
 using System.Runtime.CompilerServices;
 using SmartVectorDotNet;
 using SmartVectorDotNet.Benchmark;
-using SmartVectorDotNet.Benchmark.Vectorization;
 
-BenchmarkFacade.Run<VectorCallByBenchmark>();
+BenchmarkFacade.Run<ParallelVectorizationBenchmark>();
