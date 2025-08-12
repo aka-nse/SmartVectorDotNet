@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="SmartVectorDotNet.Generators.Internal/SmartVectorDotNet.Generators.Internal.csproj" />
     <Project Path="SmartVectorDotNet.Generators/SmartVectorDotNet.Generators.csproj" />
     <Project Path="SmartVectorDotNet/SmartVectorDotNet.csproj" />
   </Folder>
