@@ -8,6 +8,7 @@
         <RootNamespace>SmartVectorDotNet</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <IsTestProject>true</IsTestProject>
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
