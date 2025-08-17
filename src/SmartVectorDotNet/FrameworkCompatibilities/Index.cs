@@ -18,6 +18,7 @@ namespace System
     /// int lastElement = someArray[^1]; // lastElement = 5
     /// </code>
     /// </remarks>
+    [ExcludeFromCodeCoverage]
 #if SYSTEM_PRIVATE_CORELIB || MICROSOFT_BCL_MEMORY
     public
 #else

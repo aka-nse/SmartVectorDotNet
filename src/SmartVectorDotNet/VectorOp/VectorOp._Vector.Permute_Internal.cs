@@ -1,12 +1,11 @@
-#if NET6_0_OR_GREATER
+namespace SmartVectorDotNet;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Runtime.Intrinsics;
-using System.Runtime.Intrinsics.X86;
-
-namespace SmartVectorDotNet;
 using H = InternalHelpers;
 
+#if NET6_0_OR_GREATER
+using System.Runtime.Intrinsics;
+using System.Runtime.Intrinsics.X86;
 
 file class Permute_
 {
@@ -48,7 +47,6 @@ file class Permute_
         }
     }
 }
-
 
 partial class VectorOp
 {
@@ -298,5 +296,24 @@ partial class VectorOp
             return H.CreateVector256(retval);
         }
     }
+
 }
+
 #endif
+
+partial class VectorOp
+{
+    internal static Vector<T> Permute4_Emulate<T>(Vector<T> v, byte m0, byte m1, byte m2, byte m3)
+        where T : unmanaged
+    {
+        var retval = (stackalloc T[Vector<T>.Count]);
+        for (var i = 0; i < Vector<T>.Count; i += 4)
+        {
+            retval[i + 0] = v[i + m0];
+            retval[i + 1] = v[i + m1];
+            retval[i + 2] = v[i + m2];
+            retval[i + 3] = v[i + m3];
+        }
+        return H.CreateVector(retval);
+    }
+}
