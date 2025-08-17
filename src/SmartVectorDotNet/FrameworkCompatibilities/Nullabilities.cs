@@ -3,18 +3,22 @@
 namespace System.Diagnostics.CodeAnalysis;
 
 /// <summary />
+[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Property, Inherited = false)]
 internal class AllowNullAttribute : Attribute;
 
 /// <summary />
+[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Property, Inherited = false)]
 internal class DisallowNullAttribute : Attribute;
 
 /// <summary />
+[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Method, Inherited = false)]
 internal class DoesNotReturnAttribute : Attribute;
 
 /// <summary />
+[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Parameter, Inherited = false)]
 internal class DoesNotReturnIfAttribute(bool parameterValue) : Attribute
 {
@@ -23,10 +27,12 @@ internal class DoesNotReturnIfAttribute(bool parameterValue) : Attribute
 }
 
 /// <summary />
+[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.ReturnValue, Inherited = false)]
 internal class MaybeNullAttribute : Attribute;
 
 /// <summary />
+[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Parameter, Inherited = false)]
 internal class MaybeNullWhenAttribute(bool returnValue) : Attribute
 {
@@ -35,6 +41,7 @@ internal class MaybeNullWhenAttribute(bool returnValue) : Attribute
 }
 
 /// <summary />
+[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property, AllowMultiple = true, Inherited = false)]
 internal class MemberNotNullAttribute(string[] members) : Attribute
 {
@@ -48,14 +55,17 @@ internal class MemberNotNullAttribute(string[] members) : Attribute
 }
 
 /// <summary />
+[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property, AllowMultiple = true, Inherited = false)]
 internal class MemberNotNullWhenAttribute : Attribute;
 
 /// <summary />
+[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.ReturnValue, Inherited = false)]
 internal class NotNullAttribute : Attribute;
 
 /// <summary />
+[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.ReturnValue, AllowMultiple = true, Inherited = false)]
 internal class NotNullIfNotNullAttribute(string parameterName) : Attribute
 {
@@ -64,6 +74,7 @@ internal class NotNullIfNotNullAttribute(string parameterName) : Attribute
 }
 
 /// <summary />
+[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Parameter, Inherited = false)]
 internal class NotNullWhenAttribute(bool returnValue) : Attribute
 {
