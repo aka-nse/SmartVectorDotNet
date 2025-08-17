@@ -58,15 +58,7 @@ partial class VectorOp
 #endif
         if(Vector<T>.Count >= 4)
         {
-            var retval = (stackalloc T[Vector<T>.Count]);
-            for (var i = 0; i < Vector<T>.Count; i += 4)
-            {
-                retval[i + 0] = v[i + m0];
-                retval[i + 1] = v[i + m1];
-                retval[i + 2] = v[i + m2];
-                retval[i + 3] = v[i + m3];
-            }
-            return H.CreateVector(retval);
+            return Permute4_Emulate(v, m0, m1, m2, m3);
         }
         throw new NotSupportedException();
     }
@@ -111,8 +103,8 @@ partial class VectorOp
 #endif
         if (Vector<T>.Count >= 4)
         {
-            v1 = emulate(v1, m0, m1, m2, m3);
-            v2 = emulate(v2, m0, m1, m2, m3);
+            v1 = Permute4_Emulate(v1, m0, m1, m2, m3);
+            v2 = Permute4_Emulate(v2, m0, m1, m2, m3);
             return;
         }
         if(Vector<T>.Count == 2)
@@ -128,18 +120,5 @@ partial class VectorOp
             return;
         }
         throw new NotSupportedException();
-
-        static Vector<T> emulate(Vector<T> v, byte m0, byte m1, byte m2, byte m3)
-        {
-            var retval = (stackalloc T[Vector<T>.Count]);
-            for (var i = 0; i < Vector<T>.Count; i += 4)
-            {
-                retval[i + 0] = v[i + (m0 & 0b11)];
-                retval[i + 1] = v[i + (m1 & 0b11)];
-                retval[i + 2] = v[i + (m2 & 0b11)];
-                retval[i + 3] = v[i + (m3 & 0b11)];
-            }
-            return H.CreateVector(retval);
-        }
     }
 }
