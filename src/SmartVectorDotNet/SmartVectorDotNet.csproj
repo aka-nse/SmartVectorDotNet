@@ -12,8 +12,8 @@
         <Version>0.1.0.0</Version>
         <Authors>aka-nse</Authors>
         <Company />
-        <PackageLicenseFile>../LICENSE.txt</PackageLicenseFile>
-        <PackageReadmeFile>../README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryUrl>https://github.com/aka-nse/SmartVectorDotNet</RepositoryUrl>
         <PackageProjectUrl>https://github.com/aka-nse/SmartVectorDotNet</PackageProjectUrl>
         <PackageTags>vectorization,SIMD</PackageTags>
@@ -33,60 +33,60 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SmartVectorDotNet.Generators.Internal\SmartVectorDotNet.Generators.Internal.csproj">
+        <ProjectReference Include="../SmartVectorDotNet.Generators.Internal/SmartVectorDotNet.Generators.Internal.csproj">
             <OutputItemType>Analyzer</OutputItemType>
             <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
         </ProjectReference>
     </ItemGroup>
 
     <!-- #region ScalarOp -->
-    <ItemGroup Label="ScalarOp\ScalarOp._Convert">
-        <None Update="ScalarOp\ScalarOp._Convert.tt">
+    <ItemGroup Label="ScalarOp/ScalarOp._Convert">
+        <None Update="ScalarOp/ScalarOp._Convert.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>ScalarOp._Convert.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ScalarOp\ScalarOp._Convert.g.cs">
+        <Compile Update="ScalarOp/ScalarOp._Convert.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>ScalarOp._Convert.tt</DependentUpon>
         </Compile>
-        <Compile Update="VectorOp\VectorOp._Emulate.g.cs">
+        <Compile Update="VectorOp/VectorOp._Emulate.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>VectorOp._Emulate.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
-    <ItemGroup Label="ScalarOp\ScalarOp._Math.Real">
-        <None Update="ScalarOp\ScalarOp._Math.Real.tt">
+    <ItemGroup Label="ScalarOp/ScalarOp._Math.Real">
+        <None Update="ScalarOp/ScalarOp._Math.Real.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>ScalarOp._Math.Real.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ScalarOp\ScalarOp._Math.Real.g.cs">
+        <Compile Update="ScalarOp/ScalarOp._Math.Real.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>ScalarOp._Math.Real.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
-    <ItemGroup Label="ScalarOp\ScalarOp._Operator.Binary">
-        <None Update="ScalarOp\ScalarOp._Operator.Binary.tt">
+    <ItemGroup Label="ScalarOp/ScalarOp._Operator.Binary">
+        <None Update="ScalarOp/ScalarOp._Operator.Binary.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>ScalarOp._Operator.Binary.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ScalarOp\ScalarOp._Operator.Binary.g.cs">
+        <Compile Update="ScalarOp/ScalarOp._Operator.Binary.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>ScalarOp._Operator.Binary.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
-    <ItemGroup Label="ScalarOp\ScalarOp._Operator.Shift">
-        <None Update="ScalarOp\ScalarOp._Operator.Shift.tt">
+    <ItemGroup Label="ScalarOp/ScalarOp._Operator.Shift">
+        <None Update="ScalarOp/ScalarOp._Operator.Shift.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>ScalarOp._Operator.Shift.g.cs</LastGenOutput>
         </None>
-        <Compile Update="ScalarOp\ScalarOp._Operator.Shift.g.cs">
+        <Compile Update="ScalarOp/ScalarOp._Operator.Shift.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>ScalarOp._Operator.Shift.tt</DependentUpon>
@@ -96,37 +96,37 @@
 
     <!-- #region VectorOp -->
 
-    <ItemGroup Label="VectorOp\VectorOp._Emulate">
-        <Compile Update="VectorOp\VectorOp._Emulate.g.cs">
+    <ItemGroup Label="VectorOp/VectorOp._Emulate">
+        <Compile Update="VectorOp/VectorOp._Emulate.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>VectorOp._Emulate.tt</DependentUpon>
         </Compile>
-        <None Update="VectorOp\VectorOp._Emulate.tt">
+        <None Update="VectorOp/VectorOp._Emulate.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>VectorOp._Emulate.g.cs</LastGenOutput>
         </None>
     </ItemGroup>
 
-    <ItemGroup Label="VectorOp\VectorOp._Shift">
-        <Compile Update="VectorOp\VectorOp._Operator.Shift.g.cs">
+    <ItemGroup Label="VectorOp/VectorOp._Shift">
+        <Compile Update="VectorOp/VectorOp._Operator.Shift.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>VectorOp._Operator.Shift.tt</DependentUpon>
         </Compile>
-        <None Update="VectorOp\VectorOp._Operator.Shift.tt">
+        <None Update="VectorOp/VectorOp._Operator.Shift.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>VectorOp._Operator.Shift.g.cs</LastGenOutput>
         </None>
     </ItemGroup>
 
-    <ItemGroup Label="VectorOp\VectorOp._Vector.Gather">
-        <Compile Update="VectorOp\VectorOp._Vector.Gather.g.cs">
+    <ItemGroup Label="VectorOp/VectorOp._Vector.Gather">
+        <Compile Update="VectorOp/VectorOp._Vector.Gather.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>VectorOp._Vector.Gather.tt</DependentUpon>
         </Compile>
-        <None Update="VectorOp\VectorOp._Vector.Gather.tt">
+        <None Update="VectorOp/VectorOp._Vector.Gather.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>VectorOp._Vector.Gather.g.cs</LastGenOutput>
         </None>
@@ -134,36 +134,36 @@
     <!-- #endregion VectorOp -->
 
     <!-- #region Vectorization -->
-    <ItemGroup Label="Vectorization\IVectorizationFormula">
-        <None Update="Vectorization\IVectorizationFormula.tt">
+    <ItemGroup Label="Vectorization/IVectorizationFormula">
+        <None Update="Vectorization/IVectorizationFormula.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>IVectorizationFormula.g.cs</LastGenOutput>
         </None>
-        <Compile Update="Vectorization\IVectorizationFormula.g.cs">
+        <Compile Update="Vectorization/IVectorizationFormula.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>IVectorizationFormula.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
-    <ItemGroup Label="Vectorization\Vectorization._Binary">
-        <None Update="Vectorization\Vectorization._Binary.tt">
+    <ItemGroup Label="Vectorization/Vectorization._Binary">
+        <None Update="Vectorization/Vectorization._Binary.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>Vectorization._Binary.g.cs</LastGenOutput>
         </None>
-        <Compile Update="Vectorization\Vectorization._Binary.g.cs">
+        <Compile Update="Vectorization/Vectorization._Binary.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>Vectorization._Binary.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
-    <ItemGroup Label="Vectorization\Vectorization._NarrowWiden">
-        <None Update="Vectorization\Vectorization._NarrowWiden.tt">
+    <ItemGroup Label="Vectorization/Vectorization._NarrowWiden">
+        <None Update="Vectorization/Vectorization._NarrowWiden.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>Vectorization._NarrowWiden.g.cs</LastGenOutput>
         </None>
-        <Compile Update="Vectorization\Vectorization._NarrowWiden.g.cs">
+        <Compile Update="Vectorization/Vectorization._NarrowWiden.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>Vectorization._NarrowWiden.tt</DependentUpon>
@@ -171,23 +171,23 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="Vectorization\Vectorization._Unary.tt">
+        <None Update="Vectorization/Vectorization._Unary.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>Vectorization._Unary.g.cs</LastGenOutput>
         </None>
-        <Compile Update="Vectorization\Vectorization._Unary.g.cs">
+        <Compile Update="Vectorization/Vectorization._Unary.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>Vectorization._Unary.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 
-    <ItemGroup Label="Vectorization\VectorizedFunc">
-        <None Update="Vectorization\VectorizedFunc.tt">
+    <ItemGroup Label="Vectorization/VectorizedFunc">
+        <None Update="Vectorization/VectorizedFunc.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>VectorizedFunc.g.cs</LastGenOutput>
         </None>
-        <Compile Update="Vectorization\VectorizedFunc.g.cs">
+        <Compile Update="Vectorization/VectorizedFunc.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>VectorizedFunc.tt</DependentUpon>
@@ -197,11 +197,11 @@
 
     <!-- #region DynamicServices -->
     <ItemGroup>
-        <None Update="DynamicServices\DynamicVectorizer._Impl.tt">
+        <None Update="DynamicServices/DynamicVectorizer._Impl.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>DynamicVectorizer._Impl.g.cs</LastGenOutput>
         </None>
-        <Compile Update="DynamicServices\DynamicVectorizer._Impl.g.cs">
+        <Compile Update="DynamicServices/DynamicVectorizer._Impl.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>DynamicVectorizer._Impl.tt</DependentUpon>
@@ -214,13 +214,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="..\..\LICENSE.txt">
+        <None Include="../../LICENSE.txt">
             <Pack>True</Pack>
-            <PackagePath>\</PackagePath>
+            <PackagePath>/</PackagePath>
         </None>
-        <None Include="..\..\README.md">
+        <None Include="../../README.md">
             <Pack>True</Pack>
-            <PackagePath>\</PackagePath>
+            <PackagePath>/</PackagePath>
         </None>
     </ItemGroup>
 

@@ -12,6 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SmartVectorDotNet\SmartVectorDotNet.csproj" />
+      <ProjectReference Include="../SmartVectorDotNet/SmartVectorDotNet.csproj" />
     </ItemGroup>
 </Project>
