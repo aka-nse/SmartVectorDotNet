@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="../SmartVectorDotNet.Generators/SmartVectorDotNet.Generators.props" />
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
@@ -6,14 +7,22 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <EnableSmartVectorDotNetInterceptor>true</EnableSmartVectorDotNetInterceptor>
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+        <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SmartVectorDotNet\SmartVectorDotNet.csproj" />
-        <ProjectReference Include="..\SmartVectorDotNet.Generators\SmartVectorDotNet.Generators.csproj">
+        <ProjectReference Include="../SmartVectorDotNet/SmartVectorDotNet.csproj" />
+        <ProjectReference Include="../SmartVectorDotNet.Generators/SmartVectorDotNet.Generators.csproj">
             <OutputItemType>Analyzer</OutputItemType>
             <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
         </ProjectReference>
     </ItemGroup>
 
+    <ItemGroup>
+        <Compile Remove="Generated/**/*.cs" />
+        <None Include="Generated/**/*.cs" />
+    </ItemGroup>
+
+    <Import Project="../SmartVectorDotNet.Generators/SmartVectorDotNet.Generators.targets" />
 </Project>
