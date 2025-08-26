@@ -179,7 +179,7 @@ public sealed partial class VectorizationCalculatorGenerator : IIncrementalGener
                 }
             }
             """);
-        context.AddSource(source.Location.Data + ".g.cs", sb.Build());
+        context.AddSource(source.Location.Data.Replace('/', '-').Replace('=', '.') + ".g.cs", sb.Build());
     }
 }
 
