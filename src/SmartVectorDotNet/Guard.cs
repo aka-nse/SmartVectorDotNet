@@ -17,7 +17,9 @@ namespace SmartVectorDotNet;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static class Guard
 {
+    /// <summary>
     /// Ensures that the specified value is not null.
+    /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="valueShouldBeNotNull"></param>
     /// <param name="parameterName"></param>
