@@ -195,7 +195,7 @@ public static class Guard
     }
 
     /// <summary>
-    /// Ensures that the condision is satisfied, or throws <see cref="ArgumentOutOfRangeException"/>.
+    /// Ensures that the condition is satisfied, or throws <see cref="ArgumentOutOfRangeException"/>.
     /// </summary>
     /// <param name="shouldBe"></param>
     /// <param name="message"></param>
