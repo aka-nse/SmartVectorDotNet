@@ -1,4 +1,12 @@
 <Solution>
+  <Folder Name="/experiment/">
+    <File Path="verification/readme.md" />
+    <Project Path="verification/SmartVectorBenchmarks/SmartVectorBenchmarks.csproj" />
+    <Project Path="verification/SmartVectorPoC/SmartVectorPoC.csproj" />
+  </Folder>
+  <Folder Name="/sample/">
+    <Project Path="SmartVectorDotNet.Example/SmartVectorDotNet.Example.csproj" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="SmartVectorDotNet.Generators.Internal/SmartVectorDotNet.Generators.Internal.csproj" />
     <Project Path="SmartVectorDotNet.Generators/SmartVectorDotNet.Generators.csproj" />
@@ -8,10 +16,5 @@
     <Project Path="SmartVectorDotNet.Benchmark/SmartVectorDotNet.Benchmark.csproj" />
     <Project Path="SmartVectorDotNet.Test.Legacy/SmartVectorDotNet.Test.Legacy.csproj" />
     <Project Path="SmartVectorDotNet.Test/SmartVectorDotNet.Test.csproj" />
-  </Folder>
-  <Folder Name="/verification/">
-    <File Path="verification/readme.md" />
-    <Project Path="verification/SmartVectorBenchmarks/SmartVectorBenchmarks.csproj" />
-    <Project Path="verification/SmartVectorPoC/SmartVectorPoC.csproj" />
   </Folder>
 </Solution>

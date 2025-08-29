@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -23,7 +24,15 @@ public partial class Vectorization
     /// <summary>  </summary>
     protected Vectorization() { }
 
-    private static TemporaryBuffer<T1> EnsureSourceSafe<T1, T2>(ref ReadOnlySpan<T1> source, Span<T2> destination)
+    /// <summary>
+    /// Checks for overlap between input and output spans, and allocates a temporary buffer if necessary.
+    /// </summary>
+    /// <remarks>
+    /// This method is set to public to support generators, and it is not recommended to use it directly from user code.
+    /// </remarks>
+    [Browsable(false)]
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public static TemporaryBuffer<T1> EnsureSourceSafe<T1, T2>(ref ReadOnlySpan<T1> source, Span<T2> destination)
         where T1 : unmanaged
         where T2 : unmanaged
     {
@@ -84,5 +93,8 @@ public partial class Vectorization
 /// </summary>
 public partial class SimdVectorization : Vectorization
 {
-    internal SimdVectorization() { }
+    /// <summary>
+    /// Creates a new instance of <see cref="SimdVectorization"/>.
+    /// </summary>
+    protected internal SimdVectorization() { }
 }
