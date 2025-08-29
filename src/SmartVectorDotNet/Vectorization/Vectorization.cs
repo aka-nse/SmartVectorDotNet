@@ -96,5 +96,5 @@ public partial class SimdVectorization : Vectorization
     /// <summary>
     /// Creates a new instance of <see cref="SimdVectorization"/>.
     /// </summary>
-    internal protected SimdVectorization() { }
+    protected internal SimdVectorization() { }
 }
