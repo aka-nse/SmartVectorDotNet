@@ -1,0 +1,83 @@
+<#@ assembly name="System.Core" #><#@ import namespace="System.Linq" #><#+
+
+public IDisposable PinIndent()
+{
+    var indent = "";
+    var i = GenerationEnvironment.Length - 1;
+    for(; i >= 0; --i)
+    {
+        switch(GenerationEnvironment[i])
+        {
+        case '\r':
+        case '\n':
+            break;
+        default:
+            continue;
+        }
+        break;
+    }
+    ++i;
+    if(i < GenerationEnvironment.Length)
+    {
+        var j = i;
+        for(; j < GenerationEnvironment.Length; ++j)
+        {
+            switch(GenerationEnvironment[j])
+            {
+            case ' ':
+            case '\t':
+                continue;
+            default:
+                break;
+            }
+            break;
+        }
+        var buffer = new char[j - i];
+        GenerationEnvironment.CopyTo(i, buffer, 0, j - i);
+        indent = string.Concat(buffer);
+    }
+    PushIndent(indent);
+    return new IndentScope(this.ClearIndent);
+}
+
+private class IndentScope : IDisposable
+{
+    private readonly Action _dispose;
+
+    public IndentScope(Action dispose) => _dispose = dispose;
+
+    public void Dispose() => _dispose();
+}
+
+
+public static string AnyJoined(string separator, int start, int length, Func<int, string> selector)
+    => string.Join(separator, Enumerable.Range(start, length).Select(selector));
+
+public static string CommaJoined(int start, int length, Func<int, string> selector)
+    => AnyJoined(", ", start, length, selector);
+
+public static string AndJoined(IEnumerable<string> items)
+{
+    var itemsArray = items.ToArray();
+    switch(itemsArray.Length)
+    {
+    case 0: return "";
+    case 1: return itemsArray[0];
+    case 2: return $"{itemsArray[0]} and {itemsArray[1]}";
+    default:
+        var last = itemsArray.Length - 1;
+        return $"{string.Join(", ", itemsArray, 0, last)}, and {itemsArray[last]}";
+    }
+}
+
+public static string MakeOrder(int i)
+{
+    switch(i % 10)
+    {
+    case 1: return $"{i}st";
+    case 2: return $"{i}nd";
+    case 3: return $"{i}rd";
+    default: return $"{i}th";
+    }
+}
+#>

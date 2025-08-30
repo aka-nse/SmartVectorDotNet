@@ -1,0 +1,49 @@
+<#@ assembly name="System.Core" #>
+<#@ include file="../Helpers.t4" once="true" #><#+
+
+public void DocumentPublic(string method, params string[] inputs)
+{
+    using(PinIndent())
+    {
+#>
+/// <summary>
+/// Operates <#=method.ToLower()#> for each corresponding elements of operands.
+/// </summary>
+/// <typeparam name="T"> The type of elements. </typeparam>
+<#+ foreach(var (input, i) in inputs.Select((x, i) => (x, i))) { #>
+/// <param name="<#=input#>"> The <#=MakeOrder(i + 1)#> operand elements. </param>
+<#+ } #>
+/// <param name="ans"> The destination of answer. </param>
+/// <exception cref="ArgumentException"> <paramref name="ans" /> and all span operands must have same length. </exception>
+/// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+<#+
+    }
+}
+
+public void DocumentCore(string method, string reference, params string[] inputs)
+{
+    using(PinIndent())
+    {
+#>
+/// <summary>
+/// Core implementation for <see cref="<#=reference#>" />.
+/// For this method it is ensured that all parameters have same length.
+/// </summary>
+/// <typeparam name="T"> The type of elements. </typeparam>
+<#+ foreach(var (input, i) in inputs.Select((x, i) => (x, i))) { #>
+/// <param name="<#=input#>"> The <#=MakeOrder(i + 1)#> operand elements. </param>
+<#+ } #>
+/// <param name="ans"> The destination of answer. </param>
+/// <exception cref="NotSupportedException"> The operation for <typeparamref name="T"/> is not supported. </exception>
+/// <remarks>
+/// For this method it is ensured followings:
+/// <list type="bullet">
+/// <item> all parameters have same length </item>
+/// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
+/// </list>
+/// </remarks>
+<#+
+    }
+}
+
+#>

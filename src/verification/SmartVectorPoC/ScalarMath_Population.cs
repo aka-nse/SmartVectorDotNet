@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SmartVectorDotNet.PoC;
 
-internal static class ScalarMath_Population
+internal static class ScalarOp_Population
 {
     const int Iteration = 1 << 20;
 

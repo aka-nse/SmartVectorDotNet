@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <LangVersion>12.0</LangVersion>
@@ -6,30 +6,49 @@
         <TargetFramework>net8.0</TargetFramework>
         <IsPackable>false</IsPackable>
         <RootNamespace>SmartVectorDotNet</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <IsTestProject>true</IsTestProject>
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
-        <PackageReference Include="xunit" Version="2.6.6" />
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+        <PackageReference Include="xunit" Version="2.9.3" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="3.1.0">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="coverlet.collector" Version="1.3.0">
+        <PackageReference Include="coverlet.collector" Version="6.0.4">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\SmartVectorDotNet\SmartVectorDotNet.csproj" />
+        <ProjectReference Include="../../src/SmartVectorDotNet/SmartVectorDotNet.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Xunit" />
     </ItemGroup>
 
     <ItemGroup>
         <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
     </ItemGroup>
 
-    <ItemGroup>
+    <ItemGroup Label="ScalarOpTest/ScalarOpTest._Saturate">
+        <Compile Update="ScalarOpTest/ScalarOpTest._OperatorEx.Saturate.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ScalarOpTest._OperatorEx.Saturate.tt</DependentUpon>
+        </Compile>
+        <None Update="ScalarOpTest/ScalarOpTest._OperatorEx.Saturate.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ScalarOpTest._OperatorEx.Saturate.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup Label="VectorizationTest/VectorizationTest">
         <Compile Update="VectorizationTest/VectorizationTest.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
@@ -41,16 +60,56 @@
         </None>
     </ItemGroup>
 
-    <ItemGroup>
-        <Compile Update="VectorMathTest/VectorMathTest._SpecialValue_Unary.g.cs">
+    <ItemGroup Label="VectorizationTest/VectorizationTest.VectorizationStrategy">
+        <Compile Update="VectorizationTest/VectorizationTest.VectorizationStrategy.g.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>VectorizationTest.VectorizationStrategy.tt</DependentUpon>
+        </Compile>
+        <None Update="VectorizationTest/VectorizationTest.VectorizationStrategy.tt">
+          <Generator>TextTemplatingFileGenerator</Generator>
+          <LastGenOutput>VectorizationTest.VectorizationStrategy.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup Label="VectorOpTest/VectorOpTest._Math.SpecialValues">
+        <Compile Update="VectorOpTest/VectorOpTest._Math.SpecialValues.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
-            <DependentUpon>VectorMathTest._SpecialValue_Unary.tt</DependentUpon>
+            <DependentUpon>VectorOpTest._Math.SpecialValues.tt</DependentUpon>
         </Compile>
-        <None Update="VectorMathTest/VectorMathTest._SpecialValue_Unary.tt">
+        <None Update="VectorOpTest/VectorOpTest._Math.SpecialValues.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>VectorMathTest._SpecialValue_Unary.g.cs</LastGenOutput>
+            <LastGenOutput>VectorOpTest._Math.SpecialValues.g.cs</LastGenOutput>
         </None>
+    </ItemGroup>
+
+    <ItemGroup Label="VectorOpTest/VectorOpTest._OperatorEx.Saturate">
+        <Compile Update="VectorOpTest/VectorOpTest._OperatorEx.Saturate.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorOpTest._OperatorEx.Saturate.tt</DependentUpon>
+        </Compile>
+        <None Update="VectorOpTest/VectorOpTest._OperatorEx.Saturate.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorOpTest._OperatorEx.Saturate.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup Label="VectorOpTest/VectorOpTest._Operator.Shift">
+        <Compile Update="VectorOpTest/VectorOpTest._Operator.Shift.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>VectorOpTest._Operator.Shift.tt</DependentUpon>
+        </Compile>
+        <None Update="VectorOpTest/VectorOpTest._Operator.Shift.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>VectorOpTest._Operator.Shift.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="TestResults/**/*" />
     </ItemGroup>
 
 </Project>

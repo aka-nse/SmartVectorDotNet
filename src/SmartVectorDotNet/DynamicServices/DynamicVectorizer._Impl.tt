@@ -1,4 +1,4 @@
-﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
@@ -12,6 +12,7 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
 
+#if false
 namespace SmartVectorDotNet.DynamicServices
 {
     #region delegates
@@ -35,10 +36,7 @@ namespace SmartVectorDotNet.DynamicServices
     {
         private static void GuardSpanSize<T>(Span<T> result, ReadOnlySpan<T> operand, string operandName)
         {
-            if(result.Length > operand.Length)
-            {
-                throw new ArgumentException($"Any length of operands must be longer than one of result span. '{operandName}' is too short.");
-            }
+            Guard.ValidArgument(result.Length == operand.Length, $"Any length of operands must be same. '{operandName}' is different.");
         }
 
 <# for(var i = 1; i <= 16; ++i) { #>
@@ -76,3 +74,4 @@ namespace SmartVectorDotNet.DynamicServices
 <# } #>
     }
 }
+#endif

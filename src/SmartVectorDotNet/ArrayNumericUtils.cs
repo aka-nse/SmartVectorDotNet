@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,61 +14,47 @@ public static class ArrayNumericUtils
     /// Creates a new array which contains evenly spaced numbers over a specified interval.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="minInclusive"></param>
-    /// <param name="maxExclusive"></param>
+    /// <param name="beginInclusive"></param>
+    /// <param name="endExclusive"></param>
     /// <param name="pointNum"></param>
     /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public static T[] Linspace<T>(T minInclusive, T maxExclusive, int pointNum)
+    public static T[] Linspace<T>(T beginInclusive, T endExclusive, int pointNum)
         where T : unmanaged
     {
-        if(OP.GreaterThan(minInclusive, maxExclusive))
-        {
-            throw new ArgumentException();
-        }
-        if(pointNum < 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(pointNum));
-        }
+        Guard.ValidRange(pointNum > 0, $"{nameof(pointNum)} must be greater than 0.");
+
         var stepNumAsT = OP.Convert<int, T>(pointNum);
         var retval = new T[pointNum];
-        var step = OP.Divide(OP.Subtract(maxExclusive, minInclusive), stepNumAsT);
+        var step = OP.Divide(OP.Subtract(endExclusive, beginInclusive), stepNumAsT);
         for(var i = 0; i <  pointNum; ++i)
         {
-            retval[i] = OP.Add(minInclusive, OP.Multiply(step, OP.Convert<int, T>(i)));
+            retval[i] = OP.Add(beginInclusive, OP.Multiply(step, OP.Convert<int, T>(i)));
         }
         return retval;
     }
 
 
     /// <summary>
-    /// Similar with <see cref="Linspace{T}(T, T, int)"/>, but the return value of this method contains <paramref name="maxInclusive"/>.
+    /// Similar with <see cref="Linspace{T}(T, T, int)"/>, but the return value of this method contains <paramref name="endInclusive"/>.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="minInclusive"></param>
-    /// <param name="maxInclusive"></param>
+    /// <param name="beginInclusive"></param>
+    /// <param name="endInclusive"></param>
     /// <param name="pointNum"></param>
     /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public static T[] LinspaceMaxInclusive<T>(T minInclusive, T maxInclusive, int pointNum)
+    public static T[] LinspaceMaxInclusive<T>(T beginInclusive, T endInclusive, int pointNum)
         where T : unmanaged
     {
-        if (OP.GreaterThan(minInclusive, maxInclusive))
-        {
-            throw new ArgumentException();
-        }
-        if (pointNum < 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(pointNum));
-        }
-        var stepNumAsT = OP.Convert<int, T>(Math.Max(pointNum - 1, 0));
+        Guard.ValidRange(pointNum > 1, $"{nameof(pointNum)} must be greater than 1.");
+
+        var stepNumAsT = OP.Convert<int, T>(pointNum - 1);
         var retval = new T[pointNum];
-        var step = OP.Divide(OP.Subtract(maxInclusive, minInclusive), stepNumAsT);
+        var step = OP.Divide(OP.Subtract(endInclusive, beginInclusive), stepNumAsT);
         for (var i = 0; i < pointNum; ++i)
         {
-            retval[i] = OP.Add(minInclusive, OP.Multiply(step, OP.Convert<int, T>(i)));
+            retval[i] = OP.Add(beginInclusive, OP.Multiply(step, OP.Convert<int, T>(i)));
         }
         return retval;
     }

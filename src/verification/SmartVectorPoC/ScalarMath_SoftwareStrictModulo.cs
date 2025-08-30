@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SmartVectorDotNet.PoC;
 
-internal static class ScalarMath_SoftwareStrictModulo
+internal static class ScalarOp_SoftwareStrictModulo
 {
     public static void TestModulo()
     {
@@ -49,11 +49,11 @@ internal static class ScalarMath_SoftwareStrictModulo
 
     private static float Modulo(float x, float y)
     {
-        const long economizedBit = 1L << ScalarMath.Const.SingleExpBitOffset;
-        const int exponentBits = 32 - ScalarMath.Const.SingleExpBitOffset - 1;
+        const long economizedBit = 1L << ScalarOp.Const.SingleExpBitOffset;
+        const int exponentBits = 32 - ScalarOp.Const.SingleExpBitOffset - 1;
 
-        ScalarMath.Decompose(x, out var s, out var n, out var a);
-        ScalarMath.Decompose(y, out var _, out var m, out var b);
+        ScalarOp.Decompose(x, out var s, out var n, out var a);
+        ScalarOp.Decompose(y, out var _, out var m, out var b);
         var i = n - m;
         if (i < 0)
         {
@@ -76,7 +76,7 @@ internal static class ScalarMath_SoftwareStrictModulo
         {
             return 0;
         }
-        var eBitShift = BitOperations.LeadingZeroCount(c) - (31 - ScalarMath.Const.SingleExpBitOffset);
+        var eBitShift = BitOperations.LeadingZeroCount(c) - (31 - ScalarOp.Const.SingleExpBitOffset);
         i -= eBitShift;
         c <<= eBitShift;
         // while ((c & economizedBit) == 0)
@@ -84,16 +84,16 @@ internal static class ScalarMath_SoftwareStrictModulo
         //     c <<= 1;
         //     --i;
         // }
-        return ScalarMath.Scale(s, m + i, (int)c & ScalarMath.Const.SingleFracPartMask);
+        return ScalarOp.Scale(s, m + i, (int)c & ScalarOp.Const.SingleFracPartMask);
     }
 
     private static double Modulo(double x, double y)
     {
-        const long economizedBit = 1L << ScalarMath.Const.DoubleExpBitOffset;
-        const int exponentBits = 64 - ScalarMath.Const.DoubleExpBitOffset - 1;
+        const long economizedBit = 1L << ScalarOp.Const.DoubleExpBitOffset;
+        const int exponentBits = 64 - ScalarOp.Const.DoubleExpBitOffset - 1;
 
-        ScalarMath.Decompose(x, out var s, out var n, out var a);
-        ScalarMath.Decompose(y, out var _, out var m, out var b);
+        ScalarOp.Decompose(x, out var s, out var n, out var a);
+        ScalarOp.Decompose(y, out var _, out var m, out var b);
         var i = n - m;
         if (i < 0)
         {
@@ -120,6 +120,6 @@ internal static class ScalarMath_SoftwareStrictModulo
             c <<= 1;
             --i;
         }
-        return ScalarMath.Scale(s, m + i, (long)c & ScalarMath.Const.DoubleFracPartMask);
+        return ScalarOp.Scale(s, m + i, (long)c & ScalarOp.Const.DoubleFracPartMask);
     }
 }

@@ -1,4 +1,4 @@
-﻿using BenchmarkDotNet.Running;
+using BenchmarkDotNet.Running;
 using SmartVectorBenchmarks;
 
 Console.WriteLine("Hello, Benchmark!");

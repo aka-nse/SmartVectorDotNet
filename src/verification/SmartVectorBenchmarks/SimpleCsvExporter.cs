@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,15 +32,15 @@ internal class SimpleCsvExporter : ExporterBase
         var stdErrUnit = TimeUnit.GetBestTimeUnit(stats.Select(x => x.StandardError).ToArray());
         var stdDevUnit = TimeUnit.GetBestTimeUnit(stats.Select(x => x.StandardDeviation).ToArray());
 
-        logger.WriteLine($"Method,Mean [{meanUnit.Name}],Error [{stdErrUnit.Name}],StdDev [{stdDevUnit.Name}]");
+        logger.WriteLine($"Method,Mean [{meanUnit}],Error [{stdErrUnit}],StdDev [{stdDevUnit}]");
         foreach(var @case in summary.BenchmarksCases)
         {
             var report = summary[@case]!;
             var stat = report.ResultStatistics!;
             logger.Write($"{columns["Method"].GetValue(summary, @case)},");
-            logger.Write($"{stat.Mean / meanUnit.NanosecondAmount:0.000},");
-            logger.Write($"{stat.StandardError / stdErrUnit.NanosecondAmount:0.000},");
-            logger.Write($"{stat.StandardDeviation / stdDevUnit.NanosecondAmount:0.000}");
+            logger.Write($"{stat.Mean / meanUnit.ToInterval().Nanoseconds:0.000},");
+            logger.Write($"{stat.StandardError / stdErrUnit.ToInterval().Nanoseconds:0.000},");
+            logger.Write($"{stat.StandardDeviation / stdDevUnit.ToInterval().Nanoseconds:0.000}");
             logger.WriteLine();
         }
     }
