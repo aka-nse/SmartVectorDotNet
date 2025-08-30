@@ -138,6 +138,11 @@ file class InterceptVectorization(TextWriter logger) : SimdVectorization
 
 ## Release notes
 
-### v0.1.0.0
+### v0.1.0
 
 - first releases
+
+### v0.1.1
+
+- supports custom formula vectorization
+- adds `ParallelVectorization` to parallelize vector operation

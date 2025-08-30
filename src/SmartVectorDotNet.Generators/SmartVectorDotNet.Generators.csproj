@@ -15,6 +15,19 @@
         <IncludeSymbols>false</IncludeSymbols>
         <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
         <NoWarn>1701;1702;RSEXPERIMENTAL002</NoWarn>
+      
+        <PackageId>akanse.$(AssemblyName)</PackageId>
+        <Title>SmartVectorDotNet.Generators</Title>
+        <Version>0.1.1.0</Version>
+        <Authors>aka-nse</Authors>
+        <Company />
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/aka-nse/SmartVectorDotNet</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/aka-nse/SmartVectorDotNet</PackageProjectUrl>
+        <PackageTags>vectorization,SIMD</PackageTags>
+        <UserSecretsId>cc9cb6a8-5056-484a-8d70-34919a83fa87</UserSecretsId>
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     </PropertyGroup>
 
     <ItemGroup>
