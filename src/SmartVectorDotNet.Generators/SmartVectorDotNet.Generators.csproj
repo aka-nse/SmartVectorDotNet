@@ -15,7 +15,7 @@
         <IncludeSymbols>false</IncludeSymbols>
         <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
         <NoWarn>1701;1702;RSEXPERIMENTAL002</NoWarn>
-        
+      
         <PackageId>akanse.$(AssemblyName)</PackageId>
         <Title>SmartVectorDotNet.Generators</Title>
         <Version>0.1.1.0</Version>
