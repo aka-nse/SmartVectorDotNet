@@ -88,6 +88,9 @@ internal static class InternalHelpers
 
 #endif
 
+    /// <remarks>
+    /// This method is only for generic type conversion where actual type parameter is same with closed type parameter.
+    /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ref readonly Vector<TTo>[] ReinterpretVArray<TFrom, TTo>(in Vector<TFrom>[] x)
         where TFrom : unmanaged

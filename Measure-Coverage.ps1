@@ -18,11 +18,7 @@ try {
     dotnet test src/SmartVectorDotNet.slnx --collect:"XPlat Code Coverage" --settings src/etc/coverlet.runsettings
 
     # export HTML coverage report
-    Get-ChildItem src/*.Test*/TestResults/*/coverage.cobertura.xml `
-        | ForEach-Object {
-            $name = $_.FullName -replace '^.+[/\\](.+?)[/\\]TestResults[/\\].+[/\\]coverage.cobertura.xml$', '$1'
-            &./.dotnet/reportgenerator -reports:"$_" -targetdir:".CodeCoverage/$name" -reporttypes:Html
-        }
+    &./.dotnet/reportgenerator -reports:"src/*.Test*/TestResults/*/coverage.cobertura.xml" -targetdir:".CodeCoverage" -reporttypes:Html
 } finally {
     Set-Location $currentDir
 }

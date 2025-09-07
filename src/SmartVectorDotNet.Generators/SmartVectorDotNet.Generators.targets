@@ -1,0 +1,8 @@
+<Project InitialTargets="SmartVectorDotNet_Generators_Interceptors">
+    <Target Name="SmartVectorDotNet_Generators_Interceptors">
+        <PropertyGroup Condition="'$(EnableSmartVectorDotNetInterceptor)' == 'true'">
+            <InterceptorsNamespaces>$(InterceptorsNamespaces);SmartVectorDotNet.Generated</InterceptorsNamespaces>
+            <InterceptorsPreviewNamespaces>$(InterceptorsPreviewNamespaces);SmartVectorDotNet.Generated</InterceptorsPreviewNamespaces>
+        </PropertyGroup>
+    </Target>
+</Project>

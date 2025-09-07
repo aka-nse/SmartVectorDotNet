@@ -8,6 +8,7 @@
         <RootNamespace>SmartVectorDotNet</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <IsTestProject>true</IsTestProject>
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
@@ -25,7 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\SmartVectorDotNet\SmartVectorDotNet.csproj" />
+        <ProjectReference Include="../../src/SmartVectorDotNet/SmartVectorDotNet.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -33,11 +34,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Include="..\SmartVectorDotNet.Test\AssertEx.cs" />
-        <Compile Include="..\SmartVectorDotNet.Test\AccuracyAssert.cs" />
-        <Compile Include="..\SmartVectorDotNet.Test\FloatNumberComparer.cs" />
-        <Compile Include="..\SmartVectorDotNet.Test\ScalarOpTest\*.cs" LinkBase="ScalarOpTest" />
-        <Compile Include="..\SmartVectorDotNet.Test\VectorOpTest\*.cs" LinkBase="VectorOpTest" />
+        <Compile Include="../SmartVectorDotNet.Test/AssertEx.cs" />
+        <Compile Include="../SmartVectorDotNet.Test/AccuracyAssert.cs" />
+        <Compile Include="../SmartVectorDotNet.Test/FloatNumberComparer.cs" />
+        <Compile Include="../SmartVectorDotNet.Test/ScalarOpTest/*.cs" LinkBase="ScalarOpTest" />
+        <Compile Include="../SmartVectorDotNet.Test/VectorOpTest/*.cs" LinkBase="VectorOpTest" />
     </ItemGroup>
 
     <ItemGroup>

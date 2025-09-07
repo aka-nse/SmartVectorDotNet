@@ -6,6 +6,7 @@
         <OutputType>library</OutputType>
         <Deterministic>true</Deterministic>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 
         <IsRoslynComponent>true</IsRoslynComponent>
         <AnalyzerLanguage>cs</AnalyzerLanguage>
@@ -13,7 +14,6 @@
         <DevelopmentDependency>true</DevelopmentDependency>
         <IncludeSymbols>false</IncludeSymbols>
         <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
-        <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 
         <PackageId>akanse.$(AssemblyName)</PackageId>
         <Title>SmartVectorDotNet.Generators</Title>
@@ -22,6 +22,15 @@
         <Company />
         <PackageLicenseFile>../LICENSE.txt</PackageLicenseFile>
         <PackageReadmeFile>../README.md</PackageReadmeFile>
+        <NoWarn>1701;1702;RSEXPERIMENTAL002</NoWarn>
+      
+        <PackageId>akanse.$(AssemblyName)</PackageId>
+        <Title>SmartVectorDotNet.Generators</Title>
+        <Version>0.1.1.0</Version>
+        <Authors>aka-nse</Authors>
+        <Company />
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryUrl>https://github.com/aka-nse/SmartVectorDotNet</RepositoryUrl>
         <PackageProjectUrl>https://github.com/aka-nse/SmartVectorDotNet</PackageProjectUrl>
         <PackageTags>vectorization,SIMD</PackageTags>
@@ -29,19 +38,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0">
+        <PackageReference Include="akanse.SourceGeneratorToolkit" Version="0.1.2">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0">
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0">
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="System.CodeDom" Version="9.0.6" />
     </ItemGroup>
-
+    
     <ItemGroup>
         <None Include="$(OutputPath)/$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-        <None Include="buildTransitive\SmartVectorDotNet.Generators.props" Pack="true" PackagePath="buildTransitive\$(PackageId).props" />
+        <None Include="SmartVectorDotNet.Generators.props" Visible="true" Pack="true" PackagePath="build" />
+        <None Include="SmartVectorDotNet.Generators.targets" Visible="true" Pack="true" PackagePath="build" />
     </ItemGroup>
 
 </Project>

@@ -8,6 +8,7 @@
         <RootNamespace>SmartVectorDotNet</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <IsTestProject>true</IsTestProject>
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
@@ -24,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\SmartVectorDotNet\SmartVectorDotNet.csproj" />
+        <ProjectReference Include="../../src/SmartVectorDotNet/SmartVectorDotNet.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -36,12 +37,12 @@
     </ItemGroup>
 
     <ItemGroup Label="ScalarOpTest/ScalarOpTest._Saturate">
-        <Compile Update="ScalarOpTest\ScalarOpTest._OperatorEx.Saturate.g.cs">
+        <Compile Update="ScalarOpTest/ScalarOpTest._OperatorEx.Saturate.g.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>ScalarOpTest._OperatorEx.Saturate.tt</DependentUpon>
         </Compile>
-        <None Update="ScalarOpTest\ScalarOpTest._OperatorEx.Saturate.tt">
+        <None Update="ScalarOpTest/ScalarOpTest._OperatorEx.Saturate.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>ScalarOpTest._OperatorEx.Saturate.g.cs</LastGenOutput>
         </None>
@@ -59,13 +60,13 @@
         </None>
     </ItemGroup>
 
-    <ItemGroup Label="VectorizationTest\VectorizationTest.VectorizationStrategy">
-        <Compile Update="VectorizationTest\VectorizationTest.VectorizationStrategy.g.cs">
+    <ItemGroup Label="VectorizationTest/VectorizationTest.VectorizationStrategy">
+        <Compile Update="VectorizationTest/VectorizationTest.VectorizationStrategy.g.cs">
           <DesignTime>True</DesignTime>
           <AutoGen>True</AutoGen>
           <DependentUpon>VectorizationTest.VectorizationStrategy.tt</DependentUpon>
         </Compile>
-        <None Update="VectorizationTest\VectorizationTest.VectorizationStrategy.tt">
+        <None Update="VectorizationTest/VectorizationTest.VectorizationStrategy.tt">
           <Generator>TextTemplatingFileGenerator</Generator>
           <LastGenOutput>VectorizationTest.VectorizationStrategy.g.cs</LastGenOutput>
         </None>

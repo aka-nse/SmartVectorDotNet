@@ -137,6 +137,15 @@ public partial class VectorOpTest
     {
         Assert.Equal(ScalarOp.ModuloByFloor(x, y), VectorOp.ModuloByFloor(new Vector<T>(x), new Vector<T>(y))[0]);
     }
+
+    [Fact]
+    public void DivideLike_ThrowsNotSupportedException()
+    {
+        Assert.Throws<NotSupportedException>(() => VectorOp.DivideFloor<decimal>(default, default));
+        Assert.Throws<NotSupportedException>(() => VectorOp.DivideCeiling<decimal>(default, default));
+        Assert.Throws<NotSupportedException>(() => VectorOp.DivRem<decimal>(default, default, out _));
+        Assert.Throws<NotSupportedException>(() => VectorOp.DivRemByFloor<decimal>(default, default, out _));
+    }
 }
 #pragma warning restore xUnit1042
 #pragma warning restore IDE0079
