@@ -1,6 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-
     <PropertyGroup Label="platform and framework environment">
         <LangVersion>13.0</LangVersion>
         <Nullable>enable</Nullable>
@@ -22,8 +21,8 @@
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <UserSecretsId>cc9cb6a8-5056-484a-8d70-34919a83fa87</UserSecretsId>
-        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
     </PropertyGroup>
 
     <ItemGroup>

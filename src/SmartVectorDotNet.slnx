@@ -14,6 +14,7 @@
   </Folder>
   <Folder Name="/test/">
     <Project Path="SmartVectorDotNet.Benchmark/SmartVectorDotNet.Benchmark.csproj" />
+    <Project Path="SmartVectorDotNet.Generators.Experiment/SmartVectorDotNet.Generators.Experiment.csproj" Id="f8caa58a-6b17-4b26-908c-49d102dc63ba" />
     <Project Path="SmartVectorDotNet.Test.Legacy/SmartVectorDotNet.Test.Legacy.csproj" />
     <Project Path="SmartVectorDotNet.Test/SmartVectorDotNet.Test.csproj" />
   </Folder>
