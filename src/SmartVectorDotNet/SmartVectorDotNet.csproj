@@ -1,23 +1,28 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
+    <PropertyGroup Label="platform and framework environment">
         <LangVersion>13.0</LangVersion>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <TargetFrameworks>netstandard2.0;netstandard2.1;net8.0</TargetFrameworks>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Label="package metadata">
         <PackageId>akanse.$(AssemblyName)</PackageId>
         <Title>SmartVectorDotNet</Title>
         <Version>0.1.1.0</Version>
         <Authors>aka-nse</Authors>
         <Company />
-        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <Description>A .NET library for SIMD-accelerated vector operations.</Description>
+        <PackageTags>vectorization,SIMD</PackageTags>
         <RepositoryUrl>https://github.com/aka-nse/SmartVectorDotNet</RepositoryUrl>
         <PackageProjectUrl>https://github.com/aka-nse/SmartVectorDotNet</PackageProjectUrl>
-        <PackageTags>vectorization,SIMD</PackageTags>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <UserSecretsId>cc9cb6a8-5056-484a-8d70-34919a83fa87</UserSecretsId>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
     </PropertyGroup>
 
     <ItemGroup>
