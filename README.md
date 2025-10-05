@@ -33,6 +33,8 @@ This library has 3 layers:
 
 ### Generalized `System.Numerics.Vector<T>` calculations
 
+`VectorOp` class provides mathematical constants, standard operators, and mathematical elementary functions.
+
 ```CSharp
 internal class GeneralizeMathFunc : IExample
 {
@@ -46,6 +48,8 @@ internal class GeneralizeMathFunc : IExample
 ```
 
 ### Simply vectirozation
+
+`Vectorization` class provides batched calculation.
 
 ```CSharp
 internal class VoctorizeSimply : IExample
@@ -64,6 +68,8 @@ internal class VoctorizeSimply : IExample
 ```
 
 ### Vectorization for any function
+
+By to implement `IVectorFormulaX<T>` interface on struct type, you can make any calculation as a batch operation.
 
 ```CSharp
 internal class CalculateVectorized : IExample
