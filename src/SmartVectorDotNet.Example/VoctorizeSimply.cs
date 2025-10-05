@@ -1,4 +1,4 @@
-﻿internal class VoctorizeSimply : IExample
+internal class VoctorizeSimply : IExample
 {
     public void Run(TextWriter logger)
     {
@@ -7,6 +7,6 @@
         var ans = new double[x.Length];
         Vectorization.SIMD.Multiply<double>(x, Math.PI, tmp);
         Vectorization.SIMD.Sin<double>(tmp, ans);
-        logger.WriteLine(string.Join(", ", ans));
+        logger.WriteLine(string.Join(", ", ans.Select(static x => $"{x:0.00e+0}")));
     }
 }
