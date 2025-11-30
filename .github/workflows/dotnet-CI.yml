@@ -14,14 +14,18 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: '10.0.x'
+
     - name: update submodules
       run: git submodule update --init --recursive
 
     - name: Restore dependencies
-      run: dotnet restore src/SmartVectorDotNet.slnx
+      run: dotnet restore SmartVectorDotNet.slnx
 
     - name: Build solution
-      run: dotnet build src/SmartVectorDotNet.slnx --no-restore
+      run: dotnet build SmartVectorDotNet.slnx --no-restore
 
     - name: Run tests
-      run: dotnet test src/SmartVectorDotNet.slnx --no-build --verbosity normal
+      run: dotnet test SmartVectorDotNet.slnx --no-build --verbosity normal

@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <LangVersion>13.0</LangVersion>
+        <LangVersion>14.0</LangVersion>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <InterceptorsNamespaces>$(InterceptorsNamespaces);SmartVectorDotNet.Interceptors</InterceptorsNamespaces>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SmartVectorDotNet\SmartVectorDotNet.csproj" />
-        <ProjectReference Include="..\SmartVectorDotNet.Generators\SmartVectorDotNet.Generators.csproj">
+        <ProjectReference Include="../../src/SmartVectorDotNet/SmartVectorDotNet.csproj" />
+        <ProjectReference Include="../../src/SmartVectorDotNet.Generators/SmartVectorDotNet.Generators.csproj">
             <OutputItemType>Analyzer</OutputItemType>
             <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
         </ProjectReference>

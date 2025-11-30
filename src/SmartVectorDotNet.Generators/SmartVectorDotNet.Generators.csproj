@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <LangVersion>13.0</LangVersion>
+        <LangVersion>14.0</LangVersion>
         <Nullable>enable</Nullable>
         <OutputType>library</OutputType>
         <Deterministic>true</Deterministic>
@@ -23,7 +23,7 @@
         <PackageLicenseFile>../LICENSE.txt</PackageLicenseFile>
         <PackageReadmeFile>../README.md</PackageReadmeFile>
         <NoWarn>1701;1702;RSEXPERIMENTAL002</NoWarn>
-      
+
         <PackageId>akanse.$(AssemblyName)</PackageId>
         <Title>SmartVectorDotNet.Generators</Title>
         <Version>0.1.1.0</Version>
@@ -46,7 +46,7 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
     </ItemGroup>
-    
+
     <ItemGroup>
         <None Include="$(OutputPath)/$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
         <None Include="SmartVectorDotNet.Generators.props" Visible="true" Pack="true" PackagePath="build" />

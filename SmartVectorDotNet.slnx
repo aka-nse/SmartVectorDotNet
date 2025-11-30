@@ -1,0 +1,29 @@
+<Solution>
+  <Folder Name="/etc/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="global.json" />
+    <File Path="LICENSE.txt" />
+    <File Path="Measure-Coverage.ps1" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/experiment/">
+    <File Path="experiment/readme.md" />
+    <Project Path="experiment/SmartVectorBenchmarks/SmartVectorBenchmarks.csproj" />
+    <Project Path="experiment/SmartVectorPoC/SmartVectorPoC.csproj" />
+    <Project Path="experiment/SmartVectorDotNet.Generators.Experiment/SmartVectorDotNet.Generators.Experiment.csproj" Id="f8caa58a-6b17-4b26-908c-49d102dc63ba" />
+  </Folder>
+  <Folder Name="/sample/">
+    <Project Path="sample/SmartVectorDotNet.Example/SmartVectorDotNet.Example.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/SmartVectorDotNet.Generators.Internal/SmartVectorDotNet.Generators.Internal.csproj" />
+    <Project Path="src/SmartVectorDotNet.Generators/SmartVectorDotNet.Generators.csproj" />
+    <Project Path="src/SmartVectorDotNet/SmartVectorDotNet.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SmartVectorDotNet.Benchmark/SmartVectorDotNet.Benchmark.csproj" />
+    <Project Path="tests/SmartVectorDotNet.Test.Legacy/SmartVectorDotNet.Test.Legacy.csproj" />
+    <Project Path="tests/SmartVectorDotNet.Test/SmartVectorDotNet.Test.csproj" />
+  </Folder>
+</Solution>

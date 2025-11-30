@@ -39,7 +39,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_<#=i#>()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {

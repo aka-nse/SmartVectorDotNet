@@ -1,0 +1,67 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <LangVersion>14.0</LangVersion>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+    </ItemGroup>
+
+    <ItemGroup Label="AtanBenchmarkContext">
+        <None Include="AtanBenchmarkContext.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>AtanBenchmarkContext.tt</DependentUpon>
+        </None>
+        <None Update="AtanBenchmarkContext.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>AtanBenchmarkContext.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup Label="ExponentialBenchmarkContext">
+        <None Include="ExponentialBenchmarkContext.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>ExponentialBenchmarkContext.tt</DependentUpon>
+        </None>
+        <None Update="ExponentialBenchmarkContext.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>ExponentialBenchmarkContext.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup Label="LogarithmBenchmarkContext">
+        <None Include="LogarithmBenchmarkContext.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>LogarithmBenchmarkContext.tt</DependentUpon>
+        </None>
+        <None Update="LogarithmBenchmarkContext.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>LogarithmBenchmarkContext.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup Label="TrigonometricBenchmarkContext">
+        <None Include="TrigonometricBenchmarkContext.g.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>TrigonometricBenchmarkContext.tt</DependentUpon>
+        </None>
+        <None Update="TrigonometricBenchmarkContext.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>TrigonometricBenchmarkContext.g.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="../../src/SmartVectorDotNet.Generators/SmartVectorDotNet.Generators.props" />
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <LangVersion>14.0</LangVersion>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <EnableSmartVectorDotNetInterceptor>true</EnableSmartVectorDotNetInterceptor>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="../../src/SmartVectorDotNet/SmartVectorDotNet.csproj" />
+        <ProjectReference Include="../../src/SmartVectorDotNet.Generators/SmartVectorDotNet.Generators.csproj">
+            <OutputItemType>Analyzer</OutputItemType>
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+        </ProjectReference>
+    </ItemGroup>
+
+    <Import Project="../../src/SmartVectorDotNet.Generators/SmartVectorDotNet.Generators.targets" />
+</Project>
