@@ -42,7 +42,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_2()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -93,7 +93,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_3()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -145,7 +145,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_4()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -198,7 +198,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_5()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -252,7 +252,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_6()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -307,7 +307,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_7()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -363,7 +363,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_8()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -420,7 +420,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_9()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -478,7 +478,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_10()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -537,7 +537,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_11()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -597,7 +597,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_12()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -658,7 +658,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_13()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -720,7 +720,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_14()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -783,7 +783,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_15()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -847,7 +847,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_16()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -912,7 +912,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_17()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -978,7 +978,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_18()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -1045,7 +1045,7 @@ public partial class AtanBenchmarkContext
     public double[] Use_Atan_19()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {

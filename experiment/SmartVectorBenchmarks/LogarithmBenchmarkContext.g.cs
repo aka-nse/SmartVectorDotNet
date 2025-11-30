@@ -29,7 +29,7 @@ partial class LogarithmBenchmarkContext
     public double[] Use_Log_5()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -54,7 +54,7 @@ partial class LogarithmBenchmarkContext
     public double[] Use_Log_8()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -82,7 +82,7 @@ partial class LogarithmBenchmarkContext
     public double[] Use_Log_10()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -112,7 +112,7 @@ partial class LogarithmBenchmarkContext
     public double[] Use_Log_20()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -152,7 +152,7 @@ partial class LogarithmBenchmarkContext
     public double[] Use_Log_30()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -202,7 +202,7 @@ partial class LogarithmBenchmarkContext
     public double[] Use_Log_50()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {

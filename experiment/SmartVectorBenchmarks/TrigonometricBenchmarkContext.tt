@@ -40,7 +40,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_<#=i#>()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -66,7 +66,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_<#=i#>()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {

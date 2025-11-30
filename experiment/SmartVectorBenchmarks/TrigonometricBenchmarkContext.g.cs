@@ -64,7 +64,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_1()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -85,7 +85,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_2()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -107,7 +107,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_3()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -130,7 +130,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_4()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -154,7 +154,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_5()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -179,7 +179,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_6()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -205,7 +205,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_7()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -232,7 +232,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_8()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -260,7 +260,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_9()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -289,7 +289,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_10()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -319,7 +319,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_11()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -350,7 +350,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_12()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -382,7 +382,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_13()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -415,7 +415,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_14()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -449,7 +449,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_15()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -484,7 +484,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_16()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -520,7 +520,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_17()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -557,7 +557,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_18()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -595,7 +595,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Sin_19()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -635,7 +635,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_1()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -658,7 +658,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_2()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -682,7 +682,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_3()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -707,7 +707,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_4()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -733,7 +733,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_5()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -760,7 +760,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_6()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -788,7 +788,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_7()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -817,7 +817,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_8()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -847,7 +847,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_9()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -878,7 +878,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_10()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -910,7 +910,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_11()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -943,7 +943,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_12()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -977,7 +977,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_13()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -1012,7 +1012,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_14()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -1048,7 +1048,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_15()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -1085,7 +1085,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_16()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -1123,7 +1123,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_17()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -1162,7 +1162,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_18()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
@@ -1202,7 +1202,7 @@ partial class TrigonometricBenchmarkContext
     public double[] Use_Cos_19()
     {
         var retval = new double[BenchmarkSize];
-        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval);
+        var retvalAsVector = MemoryMarshal.Cast<double, Vector<double>>(retval.AsSpan());
         var xAsVector = XAsVector;
         for(var i = 0; i < xAsVector.Length; ++i)
         {
