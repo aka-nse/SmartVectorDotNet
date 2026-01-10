@@ -25,7 +25,7 @@ internal class UnsafeContextAnalyzer : DiagnosticAnalyzer
         context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
         context.EnableConcurrentExecution();
         context.RegisterSyntaxNodeAction(AnalyzeUnsafeApiCall,
-            SyntaxKind.SimpleMemberAccessExpression);
+            SyntaxKind.InvocationExpression);
     }
 
     private static void AnalyzeUnsafeApiCall(SyntaxNodeAnalysisContext context)
@@ -35,6 +35,7 @@ internal class UnsafeContextAnalyzer : DiagnosticAnalyzer
         {
             return;
         }
+        if (!member.Name.Contains("GatherCore")) { return; }
 
         switch (typeSymbol.ToDisplayString())
         {
@@ -42,6 +43,13 @@ internal class UnsafeContextAnalyzer : DiagnosticAnalyzer
         case "System.Runtime.InteropServices.MemoryMarshal":
             break;
         default:
+            var name = member.Name;
+            TextWriter.Null.WriteLine(name);
+            if(member.GetAttributes().Any(static attr => attr.AttributeClass?.ToDisplayString() == "SmartVectorDotNet.UnsafeApiAttribute"))
+            {
+                // UnsafeApiAttribute indicates that the type is unsafe
+                break;
+            }
             // Not an unsafe API
             return;
         }
