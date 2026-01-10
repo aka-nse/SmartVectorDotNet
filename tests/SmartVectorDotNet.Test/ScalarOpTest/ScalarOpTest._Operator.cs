@@ -101,8 +101,8 @@ public partial class ScalarOpTest
             yield return TestCase<int   >(true, 123, (int   )~(int   )123);
             yield return TestCase<long  >(true, 123, (long  )~(long  )123);
             yield return TestCase<nint  >(true, 123, (nint  )~(nint  )123);
-            yield return TestCase<float >(true, 1.23f, H.Reinterpret<uint , float >(~H.Reinterpret<float , uint >(1.23f)));
-            yield return TestCase<double>(true, 1.23 , H.Reinterpret<ulong, double>(~H.Reinterpret<double, ulong>(1.23 )));
+            yield return TestCase<float >(true, 1.23f, H.BitCast<uint , float >(~H.BitCast<float , uint >(1.23f)));
+            yield return TestCase<double>(true, 1.23 , H.BitCast<ulong, double>(~H.BitCast<double, ulong>(1.23 )));
         }
 #pragma warning restore format
     }
@@ -371,8 +371,8 @@ public partial class ScalarOpTest
             yield return TestCase<int   >(true, (12, 34), (int   )(12 & 34));
             yield return TestCase<long  >(true, (12, 34), (long  )(12 & 34));
             yield return TestCase<nint  >(true, (12, 34), (nint  )(12 & 34));
-            yield return TestCase<float >(true, (12.345f, 67.890f), H.Reinterpret<int , float >(H.Reinterpret<float , int >(12.345f) & H.Reinterpret<float , int >(67.890f)));
-            yield return TestCase<double>(true, (12.345 , 67.890 ), H.Reinterpret<long, double>(H.Reinterpret<double, long>(12.345 ) & H.Reinterpret<double, long>(67.890 )));
+            yield return TestCase<float >(true, (12.345f, 67.890f), H.BitCast<int , float >(H.BitCast<float , int >(12.345f) & H.BitCast<float , int >(67.890f)));
+            yield return TestCase<double>(true, (12.345 , 67.890 ), H.BitCast<long, double>(H.BitCast<double, long>(12.345 ) & H.BitCast<double, long>(67.890 )));
         }
 #pragma warning restore format
     }
@@ -398,8 +398,8 @@ public partial class ScalarOpTest
             yield return TestCase<int   >(true, (12, 34), (int   )(12 | 34));
             yield return TestCase<long  >(true, (12, 34), (long  )(12 | 34));
             yield return TestCase<nint  >(true, (12, 34), (nint  )(12 | 34));
-            yield return TestCase<float >(true, (12.345f, 67.890f), H.Reinterpret<uint , float >(H.Reinterpret<float , uint >(12.345f) | H.Reinterpret<float , uint >(67.890f)));
-            yield return TestCase<double>(true, (12.345 , 67.890 ), H.Reinterpret<ulong, double>(H.Reinterpret<double, ulong>(12.345 ) | H.Reinterpret<double, ulong>(67.890 )));
+            yield return TestCase<float >(true, (12.345f, 67.890f), H.BitCast<uint , float >(H.BitCast<float , uint >(12.345f) | H.BitCast<float , uint >(67.890f)));
+            yield return TestCase<double>(true, (12.345 , 67.890 ), H.BitCast<ulong, double>(H.BitCast<double, ulong>(12.345 ) | H.BitCast<double, ulong>(67.890 )));
         }
 #pragma warning restore format
     }
@@ -425,8 +425,8 @@ public partial class ScalarOpTest
             yield return TestCase<int   >(true, (12, 34), (int   )(12 ^ 34));
             yield return TestCase<long  >(true, (12, 34), (long  )(12 ^ 34));
             yield return TestCase<nint  >(true, (12, 34), (nint  )(12 ^ 34));
-            yield return TestCase<float >(true, (12.345f, 67.890f), H.Reinterpret<uint , float >(H.Reinterpret<float , uint >(12.345f) ^ H.Reinterpret<float , uint >(67.890f)));
-            yield return TestCase<double>(true, (12.345 , 67.890 ), H.Reinterpret<ulong, double>(H.Reinterpret<double, ulong>(12.345 ) ^ H.Reinterpret<double, ulong>(67.890 )));
+            yield return TestCase<float >(true, (12.345f, 67.890f), H.BitCast<uint , float >(H.BitCast<float , uint >(12.345f) ^ H.BitCast<float , uint >(67.890f)));
+            yield return TestCase<double>(true, (12.345 , 67.890 ), H.BitCast<ulong, double>(H.BitCast<double, ulong>(12.345 ) ^ H.BitCast<double, ulong>(67.890 )));
         }
 #pragma warning restore format
     }
@@ -451,8 +451,8 @@ public partial class ScalarOpTest
         yield return TestCaseEx<int   , int, int   >(true, (12, 3), 12 << 3);
         yield return TestCaseEx<long  , int, long  >(true, (12, 3), 12 << 3);
         yield return TestCaseEx<nint  , int, nint  >(true, (12, 3), 12 << 3);
-        yield return TestCaseEx<float , int, float >(true, (-12f , 3), H.Reinterpret<int , float >(H.Reinterpret<float , int >(-12f ) << 3));
-        yield return TestCaseEx<double, int, double>(true, (-12.0, 3), H.Reinterpret<long, double>(H.Reinterpret<double, long>(-12.0) << 3));
+        yield return TestCaseEx<float , int, float >(true, (-12f , 3), H.BitCast<int , float >(H.BitCast<float , int >(-12f ) << 3));
+        yield return TestCaseEx<double, int, double>(true, (-12.0, 3), H.BitCast<long, double>(H.BitCast<double, long>(-12.0) << 3));
 #pragma warning restore format
     }
     [Theory, MemberData(nameof(ShiftLeftTestCases))]
@@ -476,8 +476,8 @@ public partial class ScalarOpTest
         yield return TestCaseEx<int   , int, int   >(true, (12, 3), 12 >> 3);
         yield return TestCaseEx<long  , int, long  >(true, (12, 3), 12 >> 3);
         yield return TestCaseEx<nint  , int, nint  >(true, (12, 3), 12 >> 3);
-        yield return TestCaseEx<float , int, float >(true, (-12f , 3), H.Reinterpret<int , float >(H.Reinterpret<float , int >(-12f ) >> 3));
-        yield return TestCaseEx<double, int, double>(true, (-12.0, 3), H.Reinterpret<long, double>(H.Reinterpret<double, long>(-12.0) >> 3));
+        yield return TestCaseEx<float , int, float >(true, (-12f , 3), H.BitCast<int , float >(H.BitCast<float , int >(-12f ) >> 3));
+        yield return TestCaseEx<double, int, double>(true, (-12.0, 3), H.BitCast<long, double>(H.BitCast<double, long>(-12.0) >> 3));
 #pragma warning restore format
     }
     [Theory, MemberData(nameof(ShiftRightTestCases))]

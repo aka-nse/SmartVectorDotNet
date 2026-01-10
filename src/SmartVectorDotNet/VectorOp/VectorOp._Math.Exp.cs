@@ -6,8 +6,8 @@ using H = InternalHelpers;
 
 file class Exp_<T> : VectorOp.Const<T> where T : unmanaged
 {
-    internal static readonly Vector<T> Max = AsVector(ScalarOp.Log(double.MaxValue));
-    internal static readonly Vector<T> Min = AsVector(ScalarOp.Log(1 / double.MaxValue));
+    internal static readonly Vector<T> _max = AsVector(ScalarOp.Log(double.MaxValue));
+    internal static readonly Vector<T> _min = AsVector(ScalarOp.Log(1 / double.MaxValue));
 
     internal static ReadOnlySpan<Vector<T>> Coeffs => _expCoeffs;
     private static readonly Vector<T>[] _expCoeffs;
@@ -16,26 +16,26 @@ file class Exp_<T> : VectorOp.Const<T> where T : unmanaged
     {
         if (IsT<double>())
         {
-            Max = H.Reinterpret<double, T>(new Vector<double>(ScalarOp.Log(double.MaxValue)));
-            Min = H.Reinterpret<double, T>(new Vector<double>(ScalarOp.Log(1 / double.MaxValue)));
+            _max = H.BitCastV<double, T>(new Vector<double>(ScalarOp.Log(double.MaxValue)));
+            _min = H.BitCastV<double, T>(new Vector<double>(ScalarOp.Log(1 / double.MaxValue)));
             var expCoeffs = new Vector<double>[11];
             for (var i = 1; i <= 11; ++i)
             {
                 expCoeffs[i - 1] = new Vector<double>(1 / (double)i);
             }
-            _expCoeffs = H.Reinterpret<Vector<double>[], Vector<T>[]>(expCoeffs);
+            _expCoeffs = H.ReinterpretVArray<double, T>(expCoeffs);
         }
         else if (IsT<float>())
         {
-            Max = H.Reinterpret<float, T>(new Vector<float>(ScalarOp.Log(float.MaxValue)));
-            Min = H.Reinterpret<float, T>(new Vector<float>(ScalarOp.Log(1 / float.MaxValue)));
+            _max = H.BitCastV<float, T>(new Vector<float>(ScalarOp.Log(float.MaxValue)));
+            _min = H.BitCastV<float, T>(new Vector<float>(ScalarOp.Log(1 / float.MaxValue)));
 
             var expCoeffs = new Vector<float>[6];
             for (var i = 1; i <= 6; ++i)
             {
                 expCoeffs[i - 1] = new Vector<float>(1 / (float)i);
             }
-            _expCoeffs = H.Reinterpret<Vector<float>[], Vector<T>[]>(expCoeffs);
+            _expCoeffs = H.ReinterpretVArray<float, T>(expCoeffs);
         }
         else
         {
@@ -53,8 +53,8 @@ partial class VectorOp
     {
         Guard.OnlyRealSupported<T>();
 
-        var isSaturatedMax = GreaterThan(x, Exp_<T>.Max);
-        var isSaturatedMin = LessThan(x, Exp_<T>.Min);
+        var isSaturatedMax = GreaterThan(x, Exp_<T>._max);
+        var isSaturatedMin = LessThan(x, Exp_<T>._min);
         var isNormal = OnesComplement(BitwiseOr(isSaturatedMax, isSaturatedMin));
 
         return ConditionalSelect(
@@ -102,14 +102,14 @@ partial class VectorOp
         var n = Round(y);
         var a = y - n;
         var b = a * Exp_<float>.Log_E_2;
-        var z = Exp_<float>._0;                                         // a_7~
+        var z = Exp_<float>._0;                                      // a_7~
         z = (b * Exp_<float>.Coeffs[6 - 1]) * (Exp_<float>._1 + z);  // a_6
         z = (b * Exp_<float>.Coeffs[5 - 1]) * (Exp_<float>._1 + z);  // a_5
         z = (b * Exp_<float>.Coeffs[4 - 1]) * (Exp_<float>._1 + z);  // a_4
         z = (b * Exp_<float>.Coeffs[3 - 1]) * (Exp_<float>._1 + z);  // a_3
         z = (b * Exp_<float>.Coeffs[2 - 1]) * (Exp_<float>._1 + z);  // a_2
         z = (b * Exp_<float>.Coeffs[1 - 1]) * (Exp_<float>._1 + z);  // a_1
-        z = z + Exp_<float>._1;                                         // a_0
+        z = z + Exp_<float>._1;                                      // a_0
         return Scale(n, z);
     }
 #pragma warning restore format

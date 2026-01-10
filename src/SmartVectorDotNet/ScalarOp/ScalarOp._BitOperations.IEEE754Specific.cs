@@ -1,6 +1,7 @@
 namespace SmartVectorDotNet;
 
 using GenericSpecialization;
+using H = InternalHelpers;
 using static ScalarOp.Const;
 
 partial class ScalarOp
@@ -34,9 +35,9 @@ partial class ScalarOp
         /// </summary>
         public static readonly T MachineEpsilon
             = IsT<double>()
-                ? Reinterpret(Scale<double>(-DoubleExpBitOffset, 1))
+                ? H.BitCast<double, T>(Scale<double>(-DoubleExpBitOffset, 1))
             : IsT<float>()
-                ? Reinterpret(Scale<float>(-SingleExpBitOffset, 1))
+                ? H.BitCast<float, T>(Scale<float>(-SingleExpBitOffset, 1))
             : default;
 
         /// <summary>
@@ -44,9 +45,9 @@ partial class ScalarOp
         /// </summary>
         public static readonly T PositiveMinimumNormalizedNumber
             = IsT<double>()
-                ? Reinterpret(Scale<double>(1.0 - DoubleExpPartBias, 1))
+                ? H.BitCast<double, T>(Scale<double>(1.0 - DoubleExpPartBias, 1))
             : IsT<float>()
-                ? Reinterpret(Scale<float>(1.0f - SingleExpPartBias, 1))
+                ? H.BitCast<float, T>(Scale<float>(1.0f - SingleExpPartBias, 1))
             : default;
     }
 
@@ -96,7 +97,7 @@ partial class ScalarOp
     /// <param name="frac"></param>
     public static void Decompose(double x, out long sign, out long expo, out long frac)
     {
-        var bin = Reinterpret<double, long>(x);
+        var bin = H.BitCast<double, long>(x);
         sign = (bin & DoubleSignPartMask) >> DoubleSignBitOffset;
         expo = (bin & DoubleExpPartMask) >> DoubleExpBitOffset;
         frac = bin & DoubleFracPartMask;
@@ -111,7 +112,7 @@ partial class ScalarOp
     /// <param name="frac"></param>
     public static void Decompose(float x, out int sign, out int expo, out int frac)
     {
-        var bin = Reinterpret<float, int>(x);
+        var bin = H.BitCast<float, int>(x);
         sign = (bin & SingleSignPartMask) >> SingleSignBitOffset;
         expo = (bin & SingleExpPartMask) >> SingleExpBitOffset;
         frac = bin & SingleFracPartMask;
@@ -136,11 +137,11 @@ partial class ScalarOp
 
     /// <see cref="Scale_default" />
     public static double Scale(double n, double x)
-        => x * Reinterpret<long, double>(((long)n + DoubleExpPartBias) << DoubleExpBitOffset);
+        => x * H.BitCast<long, double>(((long)n + DoubleExpPartBias) << DoubleExpBitOffset);
 
     /// <see cref="Scale_default" />
     public static float Scale(float n, float x)
-        => x * Reinterpret<int, float>(((int)n + SingleExpPartBias) << SingleExpBitOffset);
+        => x * H.BitCast<int, float>(((int)n + SingleExpPartBias) << SingleExpBitOffset);
 
 
     /// <summary>
@@ -151,7 +152,7 @@ partial class ScalarOp
     /// <param name="frac"></param>
     /// <returns></returns>
     public static double Scale(long sign, long expo, long frac)
-        => Reinterpret<long, double>((sign << DoubleSignBitOffset) | (expo << DoubleExpBitOffset) | frac);
+        => H.BitCast<long, double>((sign << DoubleSignBitOffset) | (expo << DoubleExpBitOffset) | frac);
 
     /// <summary>
     /// Composes IEEE754 parts into one real number.
@@ -161,5 +162,5 @@ partial class ScalarOp
     /// <param name="frac"></param>
     /// <returns></returns>
     public static float Scale(int sign, int expo, int frac)
-        => Reinterpret<int, float>((sign << SingleSignBitOffset) | (expo << SingleExpBitOffset) | frac);
+        => H.BitCast<int, float>((sign << SingleSignBitOffset) | (expo << SingleExpBitOffset) | frac);
 }

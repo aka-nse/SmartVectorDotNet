@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 namespace SmartVectorDotNet;
 using H = InternalHelpers;
 
@@ -47,9 +46,9 @@ partial class VectorOp
     {
         static Vector<T> core<S>(Vector<T> x)
             where S : unmanaged
-            => H.Reinterpret<S, T>(Equals(BitwiseAnd(Sign_<S>.SignBit, H.Reinterpret<T, S>(x)), Sign_<S>._0));
+            => H.BitCastV<S, T>(Equals(BitwiseAnd(Sign_<S>.SignBit, H.BitCastV<T, S>(x)), Sign_<S>._0));
 
-        return Unsafe.SizeOf<T>() switch
+        return H.SizeOf<T>() switch
         {
             1 => core<sbyte>(x),
             2 => core<short>(x),
@@ -63,7 +62,7 @@ partial class VectorOp
     private class Sign_<T> : Const<T> where T : unmanaged
     {
         internal static readonly Vector<T> SignBit = GetSignBit();
-        static Vector<T> GetSignBit() => Unsafe.SizeOf<T>() switch
+        static Vector<T> GetSignBit() => H.SizeOf<T>() switch
         {
             1 => As<byte  >(new(0x80)),
             2 => As<ushort>(new(0x8000)),

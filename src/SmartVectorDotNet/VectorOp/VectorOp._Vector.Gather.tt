@@ -56,7 +56,7 @@ partial class VectorOp
     /// <remarks> Note that this method will not validate buffer index. </remarks>
     [GeneratedCode("T4", null)]
     public static unsafe Vector<<#=def.ApiType#>> GatherUnsafe(<#=def.ApiType#>* ptr, <#=string.Join(", ", def.IndexArgs.Select(index => $"Vector<{def.IndexArgType}> {index}"))#>)
-        => H.Reinterpret<<#=def.InternalType#>, <#=def.ApiType#>>(GatherUnsafe((<#=def.InternalType#>*)ptr, <#=string.Join(", ", def.IndexArgs)#>));
+        => H.BitCastV<<#=def.InternalType#>, <#=def.ApiType#>>(GatherUnsafe((<#=def.InternalType#>*)ptr, <#=string.Join(", ", def.IndexArgs)#>));
 
 <#  } #>
 <#  foreach(var def in definitions) { #>
@@ -72,7 +72,7 @@ partial class VectorOp
     {
         var length = new Vector<u<#=def.IndexArgType#>>((u<#=def.IndexArgType#>)table.Length);
 <#      foreach(var index in def.IndexArgs) { #>
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<<#=def.IndexArgType#>, u<#=def.IndexArgType#>>(<#=index#>), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<<#=def.IndexArgType#>, u<#=def.IndexArgType#>>(<#=index#>), length), Gather_.IndexRangeError);
 <#      } #>
         fixed (<#=def.ApiType#>* ptr = table)
         {

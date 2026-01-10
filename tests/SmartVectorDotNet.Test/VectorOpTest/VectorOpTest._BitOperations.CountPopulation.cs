@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic;
@@ -17,11 +18,9 @@ public partial class VectorOpTest
         static void core<T>(IEnumerable<T> testValues)
             where T : unmanaged
         {
-            var buf = (stackalloc T[Vector<T>.Count]);
-            ref readonly var testVector = ref InternalHelpers.Reinterpret<T, Vector<T>>(buf[0]);
             foreach (var testValue in testValues)
             {
-                buf[0] = testValue;
+                var testVector = new Vector<T>(testValue);
                 Assert.Equal(
                     ScalarOp.CountPopulation(testValue),
                     VectorOp.CountPopulation(testVector)[0]);

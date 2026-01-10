@@ -65,11 +65,14 @@ partial class Vectorization
     {
         Guard.ValidArgument(<#=arg1#>.Length == ans.Length, "`<#=arg1#>` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref <#=arg1#>, ans);
-        <#=methodName#>Core(<#=arg1#>, ans);
+        unsafe
+        {
+            <#=methodName#>Core(<#=arg1#>, ans);
+        }
     }
 
     <# DocumentCore(methodName, $"{methodName}{{T}}(ReadOnlySpan{{T}}, Span{{T}})", arg1); #>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void <#=methodName#>Core<T>(ReadOnlySpan<T> <#=arg1#>, Span<T> ans)
         where T : unmanaged
     {

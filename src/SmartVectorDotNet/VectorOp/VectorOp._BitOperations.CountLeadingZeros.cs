@@ -66,38 +66,38 @@ partial class VectorOp
     /// <inheritdoc cref="CountLeadingZeros_default" />
     public static Vector<nuint> CountLeadingZeros(Vector<nuint> x)
     {
-        if (Unsafe.SizeOf<nuint>() == sizeof(ulong)) { return H.Reinterpret<ulong, nuint>(CountLeadingZeros(H.Reinterpret<nuint, ulong>(x))); }
-        if (Unsafe.SizeOf<nuint>() == sizeof(uint)) { return H.Reinterpret<uint, nuint>(CountLeadingZeros(H.Reinterpret<nuint, uint>(x))); }
+        if (H.SizeOf<nuint>() == sizeof(ulong)) { return H.BitCastV<ulong, nuint>(CountLeadingZeros(H.BitCastV<nuint, ulong>(x))); }
+        if (H.SizeOf<nuint>() == sizeof(uint)) { return H.BitCastV<uint, nuint>(CountLeadingZeros(H.BitCastV<nuint, uint>(x))); }
         throw new NotSupportedException();
     }
 
     /// <inheritdoc cref="CountLeadingZeros_default" />
     public static Vector<sbyte> CountLeadingZeros(Vector<sbyte> x)
-        => H.Reinterpret<byte, sbyte>(CountLeadingZeros(H.Reinterpret<sbyte, byte>(x)));
+        => H.BitCastV<byte, sbyte>(CountLeadingZeros(H.BitCastV<sbyte, byte>(x)));
 
     /// <inheritdoc cref="CountLeadingZeros_default" />
     public static Vector<short> CountLeadingZeros(Vector<short> x)
-        => H.Reinterpret<ushort, short>(CountLeadingZeros(H.Reinterpret<short, ushort>(x)));
+        => H.BitCastV<ushort, short>(CountLeadingZeros(H.BitCastV<short, ushort>(x)));
 
     /// <inheritdoc cref="CountLeadingZeros_default" />
     public static Vector<int> CountLeadingZeros(Vector<int> x)
-        => H.Reinterpret<uint, int>(CountLeadingZeros(H.Reinterpret<int, uint>(x)));
+        => H.BitCastV<uint, int>(CountLeadingZeros(H.BitCastV<int, uint>(x)));
 
     /// <inheritdoc cref="CountLeadingZeros_default" />
     public static Vector<long> CountLeadingZeros(Vector<long> x)
-        => H.Reinterpret<ulong, long>(CountLeadingZeros(H.Reinterpret<long, ulong>(x)));
+        => H.BitCastV<ulong, long>(CountLeadingZeros(H.BitCastV<long, ulong>(x)));
 
     /// <inheritdoc cref="CountLeadingZeros_default" />
     public static Vector<nint> CountLeadingZeros(Vector<nint> x)
-        => H.Reinterpret<nuint, nint>(CountLeadingZeros(H.Reinterpret<nint, nuint>(x)));
+        => H.BitCastV<nuint, nint>(CountLeadingZeros(H.BitCastV<nint, nuint>(x)));
 
     /// <inheritdoc cref="CountLeadingZeros_default" />
     public static Vector<float> CountLeadingZeros(Vector<float> x)
-        => Vector.ConvertToSingle(CountLeadingZeros(H.Reinterpret<float, uint>(x)));
+        => Vector.ConvertToSingle(CountLeadingZeros(H.BitCastV<float, uint>(x)));
 
     /// <inheritdoc cref="CountLeadingZeros_default" />
     public static Vector<double> CountLeadingZeros(Vector<double> x)
-        => Vector.ConvertToDouble(CountLeadingZeros(H.Reinterpret<double, ulong>(x)));
+        => Vector.ConvertToDouble(CountLeadingZeros(H.BitCastV<double, ulong>(x)));
 
 #pragma warning restore format
 }

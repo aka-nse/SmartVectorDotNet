@@ -37,9 +37,9 @@ partial class VectorOp
     internal static Vector<ulong> Blend(Vector<ulong> x, Vector<ulong> y, [ConstantExpected] byte mask)
     {
         if (Avx.IsSupported && Vector<ulong>.Count == Vector256<ulong>.Count)
-            return H.Reinterpret<Vector256<double>, Vector<ulong>>(Avx.Blend(
-                H.Reinterpret<Vector<ulong>, Vector256<double>>(x),
-                H.Reinterpret<Vector<ulong>, Vector256<double>>(y),
+            return H.BitCast<Vector256<double>, Vector<ulong>>(Avx.Blend(
+                H.BitCast<Vector<ulong>, Vector256<double>>(x),
+                H.BitCast<Vector<ulong>, Vector256<double>>(y),
                 mask));
         return Blend_Fallback(x, y, mask);
     }
@@ -77,18 +77,18 @@ partial class VectorOp
 #if NET7_0_OR_GREATER
     public static Vector<T> Blend<T>(Vector<T> x, Vector<T> y, [ConstantExpected] byte mask)
         where T : unmanaged
-        => Unsafe.SizeOf<T>() switch
+        => H.SizeOf<T>() switch
         {
-            sizeof(byte  ) => H.Reinterpret<byte  , T>(Blend(H.Reinterpret<T, byte  >(x), H.Reinterpret<T, byte  >(y), mask)),
-            sizeof(ushort) => H.Reinterpret<ushort, T>(Blend(H.Reinterpret<T, ushort>(x), H.Reinterpret<T, ushort>(y), mask)),
-            sizeof(uint  ) => H.Reinterpret<uint  , T>(Blend(H.Reinterpret<T, uint  >(x), H.Reinterpret<T, uint  >(y), mask)),
-            sizeof(ulong ) => H.Reinterpret<ulong , T>(Blend(H.Reinterpret<T, ulong >(x), H.Reinterpret<T, ulong >(y), mask)),
+            sizeof(byte  ) => H.BitCastV<byte  , T>(Blend(H.BitCastV<T, byte  >(x), H.BitCastV<T, byte  >(y), mask)),
+            sizeof(ushort) => H.BitCastV<ushort, T>(Blend(H.BitCastV<T, ushort>(x), H.BitCastV<T, ushort>(y), mask)),
+            sizeof(uint  ) => H.BitCastV<uint  , T>(Blend(H.BitCastV<T, uint  >(x), H.BitCastV<T, uint  >(y), mask)),
+            sizeof(ulong ) => H.BitCastV<ulong , T>(Blend(H.BitCastV<T, ulong >(x), H.BitCastV<T, ulong >(y), mask)),
             _ => throw new NotSupportedException(),
         };
 #elif NETCOREAPP3_0_OR_GREATER
     public static Vector<T> Blend<T>(Vector<T> x, Vector<T> y, byte mask)
         where T : unmanaged
-        => Unsafe.SizeOf<T>() switch
+        => H.SizeOf<T>() switch
         {
             sizeof(byte  ) => H.Reinterpret<byte  , T>(Blend(H.Reinterpret<T, byte  >(x), H.Reinterpret<T, byte  >(y), mask)),
             sizeof(ushort) => H.Reinterpret<ushort, T>(Blend(H.Reinterpret<T, ushort>(x), H.Reinterpret<T, ushort>(y), mask)),

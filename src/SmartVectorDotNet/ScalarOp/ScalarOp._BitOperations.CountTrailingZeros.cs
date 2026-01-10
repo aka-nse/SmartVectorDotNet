@@ -50,10 +50,10 @@ partial class ScalarOp
     public static nint CountTrailingZeros(nint x) => (nint)CountTrailingZeros((nuint)x);
 
     /// <inheritdoc cref="CountTrailingZeros_default" />
-    public static float CountTrailingZeros(float x) => CountTrailingZeros(H.Reinterpret<float, uint>(x));
+    public static float CountTrailingZeros(float x) => CountTrailingZeros(H.BitCast<float, uint>(x));
 
     /// <inheritdoc cref="CountTrailingZeros_default" />
-    public static double CountTrailingZeros(double x) => CountTrailingZeros(H.Reinterpret<double, ulong>(x));
+    public static double CountTrailingZeros(double x) => CountTrailingZeros(H.BitCast<double, ulong>(x));
 
 #if NETCOREAPP3_0_OR_GREATER
     public static partial byte CountTrailingZeros(byte x)
@@ -126,11 +126,11 @@ partial class ScalarOp
 
     public static partial nuint CountTrailingZeros(nuint x)
     {
-        if (Unsafe.SizeOf<nuint>() == sizeof(uint))
+        if (H.SizeOf<nuint>() == sizeof(uint))
         {
             return CountTrailingZeros((uint)x);
         }
-        if(Unsafe.SizeOf<nuint>() == sizeof(ulong))
+        if(H.SizeOf<nuint>() == sizeof(ulong))
         {
             return (nuint)CountTrailingZeros((ulong)x);
         }

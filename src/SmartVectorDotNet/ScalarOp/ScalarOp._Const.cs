@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using GenericSpecialization;
 
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 partial class ScalarOp
 {
@@ -127,8 +125,8 @@ partial class ScalarOp
             one = 1;
             minValue = float.MinValue;
             maxValue = float.MaxValue;
-            msb = Reinterpret<uint, float>(0x8000_0000);
-            lsb = Reinterpret<uint, float>(1);
+            msb = H.BitCast<uint, float>(0x8000_0000);
+            lsb = H.BitCast<uint, float>(1);
         }
         private static void GetConst(out double zero, out double one, out double minValue, out double maxValue, out double msb, out double lsb)
         {
@@ -136,8 +134,8 @@ partial class ScalarOp
             one = 1;
             minValue = double.MinValue;
             maxValue = double.MaxValue;
-            msb = Reinterpret<ulong, double>(0x8000_0000_0000_0000);
-            lsb = Reinterpret<ulong, double>(1);
+            msb = H.BitCast<ulong, double>(0x8000_0000_0000_0000);
+            lsb = H.BitCast<ulong, double>(1);
         }
 
         [PrimaryGeneric(nameof(GetPI_default))]
@@ -181,10 +179,6 @@ partial class ScalarOp
     {
         private static bool IsT<TEntity>()
             => typeof(T) == typeof(TEntity);
-
-        private static T Reinterpret<TFrom>(TFrom x)
-            where TFrom : unmanaged
-            => Reinterpret<TFrom, T>(x);
 
         /// <summary> Gets a value of <typeparamref name="T"/> which is corresponding to <c>0</c>. </summary>
         public static readonly T Zero;

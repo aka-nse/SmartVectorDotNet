@@ -340,16 +340,16 @@ public static partial class VectorOp
     public static Vector<T> ShiftLeft<T>(Vector<T> value, int shiftCount)
         where T : unmanaged
     {
-        if(typeof(T) == typeof(byte  )) { return H.Reinterpret<byte  , T>(ShiftLeft(H.Reinterpret<T, byte  >(value), shiftCount)); }
-        if(typeof(T) == typeof(ushort)) { return H.Reinterpret<ushort, T>(ShiftLeft(H.Reinterpret<T, ushort>(value), shiftCount)); }
-        if(typeof(T) == typeof(uint  )) { return H.Reinterpret<uint  , T>(ShiftLeft(H.Reinterpret<T, uint  >(value), shiftCount)); }
-        if(typeof(T) == typeof(ulong )) { return H.Reinterpret<ulong , T>(ShiftLeft(H.Reinterpret<T, ulong >(value), shiftCount)); }
-        if(typeof(T) == typeof(nuint )) { return H.Reinterpret<nuint , T>(ShiftLeft(H.Reinterpret<T, nuint >(value), shiftCount)); }
-        if(typeof(T) == typeof(sbyte )) { return H.Reinterpret<sbyte , T>(ShiftLeft(H.Reinterpret<T, sbyte >(value), shiftCount)); }
-        if(typeof(T) == typeof(short )) { return H.Reinterpret<short , T>(ShiftLeft(H.Reinterpret<T, short >(value), shiftCount)); }
-        if(typeof(T) == typeof(int   )) { return H.Reinterpret<int   , T>(ShiftLeft(H.Reinterpret<T, int   >(value), shiftCount)); }
-        if(typeof(T) == typeof(long  )) { return H.Reinterpret<long  , T>(ShiftLeft(H.Reinterpret<T, long  >(value), shiftCount)); }
-        if(typeof(T) == typeof(nint  )) { return H.Reinterpret<nint  , T>(ShiftLeft(H.Reinterpret<T, nint  >(value), shiftCount)); }
+        if(typeof(T) == typeof(byte  )) { return H.BitCastV<byte  , T>(ShiftLeft(H.BitCastV<T, byte  >(value), shiftCount)); }
+        if(typeof(T) == typeof(ushort)) { return H.BitCastV<ushort, T>(ShiftLeft(H.BitCastV<T, ushort>(value), shiftCount)); }
+        if(typeof(T) == typeof(uint  )) { return H.BitCastV<uint  , T>(ShiftLeft(H.BitCastV<T, uint  >(value), shiftCount)); }
+        if(typeof(T) == typeof(ulong )) { return H.BitCastV<ulong , T>(ShiftLeft(H.BitCastV<T, ulong >(value), shiftCount)); }
+        if(typeof(T) == typeof(nuint )) { return H.BitCastV<nuint , T>(ShiftLeft(H.BitCastV<T, nuint >(value), shiftCount)); }
+        if(typeof(T) == typeof(sbyte )) { return H.BitCastV<sbyte , T>(ShiftLeft(H.BitCastV<T, sbyte >(value), shiftCount)); }
+        if(typeof(T) == typeof(short )) { return H.BitCastV<short , T>(ShiftLeft(H.BitCastV<T, short >(value), shiftCount)); }
+        if(typeof(T) == typeof(int   )) { return H.BitCastV<int   , T>(ShiftLeft(H.BitCastV<T, int   >(value), shiftCount)); }
+        if(typeof(T) == typeof(long  )) { return H.BitCastV<long  , T>(ShiftLeft(H.BitCastV<T, long  >(value), shiftCount)); }
+        if(typeof(T) == typeof(nint  )) { return H.BitCastV<nint  , T>(ShiftLeft(H.BitCastV<T, nint  >(value), shiftCount)); }
         throw new NotSupportedException();
     }
     
@@ -358,16 +358,16 @@ public static partial class VectorOp
     public static Vector<T> ShiftLeft<T>(Vector<T> value, Vector<T> shiftCount)
         where T : unmanaged
     {
-        if(typeof(T) == typeof(byte  )) { return H.Reinterpret<byte  , T>(ShiftLeft(H.Reinterpret<T, byte  >(value), H.Reinterpret<T, byte  >(shiftCount))); }
-        if(typeof(T) == typeof(ushort)) { return H.Reinterpret<ushort, T>(ShiftLeft(H.Reinterpret<T, ushort>(value), H.Reinterpret<T, ushort>(shiftCount))); }
-        if(typeof(T) == typeof(uint  )) { return H.Reinterpret<uint  , T>(ShiftLeft(H.Reinterpret<T, uint  >(value), H.Reinterpret<T, uint  >(shiftCount))); }
-        if(typeof(T) == typeof(ulong )) { return H.Reinterpret<ulong , T>(ShiftLeft(H.Reinterpret<T, ulong >(value), H.Reinterpret<T, ulong >(shiftCount))); }
-        if(typeof(T) == typeof(nuint )) { return H.Reinterpret<nuint , T>(ShiftLeft(H.Reinterpret<T, nuint >(value), H.Reinterpret<T, nuint >(shiftCount))); }
-        if(typeof(T) == typeof(sbyte )) { return H.Reinterpret<sbyte , T>(ShiftLeft(H.Reinterpret<T, sbyte >(value), H.Reinterpret<T, sbyte >(shiftCount))); }
-        if(typeof(T) == typeof(short )) { return H.Reinterpret<short , T>(ShiftLeft(H.Reinterpret<T, short >(value), H.Reinterpret<T, short >(shiftCount))); }
-        if(typeof(T) == typeof(int   )) { return H.Reinterpret<int   , T>(ShiftLeft(H.Reinterpret<T, int   >(value), H.Reinterpret<T, int   >(shiftCount))); }
-        if(typeof(T) == typeof(long  )) { return H.Reinterpret<long  , T>(ShiftLeft(H.Reinterpret<T, long  >(value), H.Reinterpret<T, long  >(shiftCount))); }
-        if(typeof(T) == typeof(nint  )) { return H.Reinterpret<nint  , T>(ShiftLeft(H.Reinterpret<T, nint  >(value), H.Reinterpret<T, nint  >(shiftCount))); }
+        if(typeof(T) == typeof(byte  )) { return H.BitCastV<byte  , T>(ShiftLeft(H.BitCastV<T, byte  >(value), H.BitCastV<T, byte  >(shiftCount))); }
+        if(typeof(T) == typeof(ushort)) { return H.BitCastV<ushort, T>(ShiftLeft(H.BitCastV<T, ushort>(value), H.BitCastV<T, ushort>(shiftCount))); }
+        if(typeof(T) == typeof(uint  )) { return H.BitCastV<uint  , T>(ShiftLeft(H.BitCastV<T, uint  >(value), H.BitCastV<T, uint  >(shiftCount))); }
+        if(typeof(T) == typeof(ulong )) { return H.BitCastV<ulong , T>(ShiftLeft(H.BitCastV<T, ulong >(value), H.BitCastV<T, ulong >(shiftCount))); }
+        if(typeof(T) == typeof(nuint )) { return H.BitCastV<nuint , T>(ShiftLeft(H.BitCastV<T, nuint >(value), H.BitCastV<T, nuint >(shiftCount))); }
+        if(typeof(T) == typeof(sbyte )) { return H.BitCastV<sbyte , T>(ShiftLeft(H.BitCastV<T, sbyte >(value), H.BitCastV<T, sbyte >(shiftCount))); }
+        if(typeof(T) == typeof(short )) { return H.BitCastV<short , T>(ShiftLeft(H.BitCastV<T, short >(value), H.BitCastV<T, short >(shiftCount))); }
+        if(typeof(T) == typeof(int   )) { return H.BitCastV<int   , T>(ShiftLeft(H.BitCastV<T, int   >(value), H.BitCastV<T, int   >(shiftCount))); }
+        if(typeof(T) == typeof(long  )) { return H.BitCastV<long  , T>(ShiftLeft(H.BitCastV<T, long  >(value), H.BitCastV<T, long  >(shiftCount))); }
+        if(typeof(T) == typeof(nint  )) { return H.BitCastV<nint  , T>(ShiftLeft(H.BitCastV<T, nint  >(value), H.BitCastV<T, nint  >(shiftCount))); }
         throw new NotSupportedException();
     }
     
@@ -376,16 +376,16 @@ public static partial class VectorOp
     public static Vector<T> ShiftRightLogical<T>(Vector<T> value, int shiftCount)
         where T : unmanaged
     {
-        if(typeof(T) == typeof(byte  )) { return H.Reinterpret<byte  , T>(ShiftRightLogical(H.Reinterpret<T, byte  >(value), shiftCount)); }
-        if(typeof(T) == typeof(ushort)) { return H.Reinterpret<ushort, T>(ShiftRightLogical(H.Reinterpret<T, ushort>(value), shiftCount)); }
-        if(typeof(T) == typeof(uint  )) { return H.Reinterpret<uint  , T>(ShiftRightLogical(H.Reinterpret<T, uint  >(value), shiftCount)); }
-        if(typeof(T) == typeof(ulong )) { return H.Reinterpret<ulong , T>(ShiftRightLogical(H.Reinterpret<T, ulong >(value), shiftCount)); }
-        if(typeof(T) == typeof(nuint )) { return H.Reinterpret<nuint , T>(ShiftRightLogical(H.Reinterpret<T, nuint >(value), shiftCount)); }
-        if(typeof(T) == typeof(sbyte )) { return H.Reinterpret<sbyte , T>(ShiftRightLogical(H.Reinterpret<T, sbyte >(value), shiftCount)); }
-        if(typeof(T) == typeof(short )) { return H.Reinterpret<short , T>(ShiftRightLogical(H.Reinterpret<T, short >(value), shiftCount)); }
-        if(typeof(T) == typeof(int   )) { return H.Reinterpret<int   , T>(ShiftRightLogical(H.Reinterpret<T, int   >(value), shiftCount)); }
-        if(typeof(T) == typeof(long  )) { return H.Reinterpret<long  , T>(ShiftRightLogical(H.Reinterpret<T, long  >(value), shiftCount)); }
-        if(typeof(T) == typeof(nint  )) { return H.Reinterpret<nint  , T>(ShiftRightLogical(H.Reinterpret<T, nint  >(value), shiftCount)); }
+        if(typeof(T) == typeof(byte  )) { return H.BitCastV<byte  , T>(ShiftRightLogical(H.BitCastV<T, byte  >(value), shiftCount)); }
+        if(typeof(T) == typeof(ushort)) { return H.BitCastV<ushort, T>(ShiftRightLogical(H.BitCastV<T, ushort>(value), shiftCount)); }
+        if(typeof(T) == typeof(uint  )) { return H.BitCastV<uint  , T>(ShiftRightLogical(H.BitCastV<T, uint  >(value), shiftCount)); }
+        if(typeof(T) == typeof(ulong )) { return H.BitCastV<ulong , T>(ShiftRightLogical(H.BitCastV<T, ulong >(value), shiftCount)); }
+        if(typeof(T) == typeof(nuint )) { return H.BitCastV<nuint , T>(ShiftRightLogical(H.BitCastV<T, nuint >(value), shiftCount)); }
+        if(typeof(T) == typeof(sbyte )) { return H.BitCastV<sbyte , T>(ShiftRightLogical(H.BitCastV<T, sbyte >(value), shiftCount)); }
+        if(typeof(T) == typeof(short )) { return H.BitCastV<short , T>(ShiftRightLogical(H.BitCastV<T, short >(value), shiftCount)); }
+        if(typeof(T) == typeof(int   )) { return H.BitCastV<int   , T>(ShiftRightLogical(H.BitCastV<T, int   >(value), shiftCount)); }
+        if(typeof(T) == typeof(long  )) { return H.BitCastV<long  , T>(ShiftRightLogical(H.BitCastV<T, long  >(value), shiftCount)); }
+        if(typeof(T) == typeof(nint  )) { return H.BitCastV<nint  , T>(ShiftRightLogical(H.BitCastV<T, nint  >(value), shiftCount)); }
         throw new NotSupportedException();
     }
     
@@ -394,16 +394,16 @@ public static partial class VectorOp
     public static Vector<T> ShiftRightLogical<T>(Vector<T> value, Vector<T> shiftCount)
         where T : unmanaged
     {
-        if(typeof(T) == typeof(byte  )) { return H.Reinterpret<byte  , T>(ShiftRightLogical(H.Reinterpret<T, byte  >(value), H.Reinterpret<T, byte  >(shiftCount))); }
-        if(typeof(T) == typeof(ushort)) { return H.Reinterpret<ushort, T>(ShiftRightLogical(H.Reinterpret<T, ushort>(value), H.Reinterpret<T, ushort>(shiftCount))); }
-        if(typeof(T) == typeof(uint  )) { return H.Reinterpret<uint  , T>(ShiftRightLogical(H.Reinterpret<T, uint  >(value), H.Reinterpret<T, uint  >(shiftCount))); }
-        if(typeof(T) == typeof(ulong )) { return H.Reinterpret<ulong , T>(ShiftRightLogical(H.Reinterpret<T, ulong >(value), H.Reinterpret<T, ulong >(shiftCount))); }
-        if(typeof(T) == typeof(nuint )) { return H.Reinterpret<nuint , T>(ShiftRightLogical(H.Reinterpret<T, nuint >(value), H.Reinterpret<T, nuint >(shiftCount))); }
-        if(typeof(T) == typeof(sbyte )) { return H.Reinterpret<sbyte , T>(ShiftRightLogical(H.Reinterpret<T, sbyte >(value), H.Reinterpret<T, sbyte >(shiftCount))); }
-        if(typeof(T) == typeof(short )) { return H.Reinterpret<short , T>(ShiftRightLogical(H.Reinterpret<T, short >(value), H.Reinterpret<T, short >(shiftCount))); }
-        if(typeof(T) == typeof(int   )) { return H.Reinterpret<int   , T>(ShiftRightLogical(H.Reinterpret<T, int   >(value), H.Reinterpret<T, int   >(shiftCount))); }
-        if(typeof(T) == typeof(long  )) { return H.Reinterpret<long  , T>(ShiftRightLogical(H.Reinterpret<T, long  >(value), H.Reinterpret<T, long  >(shiftCount))); }
-        if(typeof(T) == typeof(nint  )) { return H.Reinterpret<nint  , T>(ShiftRightLogical(H.Reinterpret<T, nint  >(value), H.Reinterpret<T, nint  >(shiftCount))); }
+        if(typeof(T) == typeof(byte  )) { return H.BitCastV<byte  , T>(ShiftRightLogical(H.BitCastV<T, byte  >(value), H.BitCastV<T, byte  >(shiftCount))); }
+        if(typeof(T) == typeof(ushort)) { return H.BitCastV<ushort, T>(ShiftRightLogical(H.BitCastV<T, ushort>(value), H.BitCastV<T, ushort>(shiftCount))); }
+        if(typeof(T) == typeof(uint  )) { return H.BitCastV<uint  , T>(ShiftRightLogical(H.BitCastV<T, uint  >(value), H.BitCastV<T, uint  >(shiftCount))); }
+        if(typeof(T) == typeof(ulong )) { return H.BitCastV<ulong , T>(ShiftRightLogical(H.BitCastV<T, ulong >(value), H.BitCastV<T, ulong >(shiftCount))); }
+        if(typeof(T) == typeof(nuint )) { return H.BitCastV<nuint , T>(ShiftRightLogical(H.BitCastV<T, nuint >(value), H.BitCastV<T, nuint >(shiftCount))); }
+        if(typeof(T) == typeof(sbyte )) { return H.BitCastV<sbyte , T>(ShiftRightLogical(H.BitCastV<T, sbyte >(value), H.BitCastV<T, sbyte >(shiftCount))); }
+        if(typeof(T) == typeof(short )) { return H.BitCastV<short , T>(ShiftRightLogical(H.BitCastV<T, short >(value), H.BitCastV<T, short >(shiftCount))); }
+        if(typeof(T) == typeof(int   )) { return H.BitCastV<int   , T>(ShiftRightLogical(H.BitCastV<T, int   >(value), H.BitCastV<T, int   >(shiftCount))); }
+        if(typeof(T) == typeof(long  )) { return H.BitCastV<long  , T>(ShiftRightLogical(H.BitCastV<T, long  >(value), H.BitCastV<T, long  >(shiftCount))); }
+        if(typeof(T) == typeof(nint  )) { return H.BitCastV<nint  , T>(ShiftRightLogical(H.BitCastV<T, nint  >(value), H.BitCastV<T, nint  >(shiftCount))); }
         throw new NotSupportedException();
     }
     
@@ -412,11 +412,11 @@ public static partial class VectorOp
     public static Vector<T> ShiftRightArithmetic<T>(Vector<T> value, int shiftCount)
         where T : unmanaged
     {
-        if(typeof(T) == typeof(sbyte )) { return H.Reinterpret<sbyte , T>(ShiftRightArithmetic(H.Reinterpret<T, sbyte >(value), shiftCount)); }
-        if(typeof(T) == typeof(short )) { return H.Reinterpret<short , T>(ShiftRightArithmetic(H.Reinterpret<T, short >(value), shiftCount)); }
-        if(typeof(T) == typeof(int   )) { return H.Reinterpret<int   , T>(ShiftRightArithmetic(H.Reinterpret<T, int   >(value), shiftCount)); }
-        if(typeof(T) == typeof(long  )) { return H.Reinterpret<long  , T>(ShiftRightArithmetic(H.Reinterpret<T, long  >(value), shiftCount)); }
-        if(typeof(T) == typeof(nint  )) { return H.Reinterpret<nint  , T>(ShiftRightArithmetic(H.Reinterpret<T, nint  >(value), shiftCount)); }
+        if(typeof(T) == typeof(sbyte )) { return H.BitCastV<sbyte , T>(ShiftRightArithmetic(H.BitCastV<T, sbyte >(value), shiftCount)); }
+        if(typeof(T) == typeof(short )) { return H.BitCastV<short , T>(ShiftRightArithmetic(H.BitCastV<T, short >(value), shiftCount)); }
+        if(typeof(T) == typeof(int   )) { return H.BitCastV<int   , T>(ShiftRightArithmetic(H.BitCastV<T, int   >(value), shiftCount)); }
+        if(typeof(T) == typeof(long  )) { return H.BitCastV<long  , T>(ShiftRightArithmetic(H.BitCastV<T, long  >(value), shiftCount)); }
+        if(typeof(T) == typeof(nint  )) { return H.BitCastV<nint  , T>(ShiftRightArithmetic(H.BitCastV<T, nint  >(value), shiftCount)); }
         throw new NotSupportedException();
     }
     
@@ -425,11 +425,11 @@ public static partial class VectorOp
     public static Vector<T> ShiftRightArithmetic<T>(Vector<T> value, Vector<T> shiftCount)
         where T : unmanaged
     {
-        if(typeof(T) == typeof(sbyte )) { return H.Reinterpret<sbyte , T>(ShiftRightArithmetic(H.Reinterpret<T, sbyte >(value), H.Reinterpret<T, sbyte >(shiftCount))); }
-        if(typeof(T) == typeof(short )) { return H.Reinterpret<short , T>(ShiftRightArithmetic(H.Reinterpret<T, short >(value), H.Reinterpret<T, short >(shiftCount))); }
-        if(typeof(T) == typeof(int   )) { return H.Reinterpret<int   , T>(ShiftRightArithmetic(H.Reinterpret<T, int   >(value), H.Reinterpret<T, int   >(shiftCount))); }
-        if(typeof(T) == typeof(long  )) { return H.Reinterpret<long  , T>(ShiftRightArithmetic(H.Reinterpret<T, long  >(value), H.Reinterpret<T, long  >(shiftCount))); }
-        if(typeof(T) == typeof(nint  )) { return H.Reinterpret<nint  , T>(ShiftRightArithmetic(H.Reinterpret<T, nint  >(value), H.Reinterpret<T, nint  >(shiftCount))); }
+        if(typeof(T) == typeof(sbyte )) { return H.BitCastV<sbyte , T>(ShiftRightArithmetic(H.BitCastV<T, sbyte >(value), H.BitCastV<T, sbyte >(shiftCount))); }
+        if(typeof(T) == typeof(short )) { return H.BitCastV<short , T>(ShiftRightArithmetic(H.BitCastV<T, short >(value), H.BitCastV<T, short >(shiftCount))); }
+        if(typeof(T) == typeof(int   )) { return H.BitCastV<int   , T>(ShiftRightArithmetic(H.BitCastV<T, int   >(value), H.BitCastV<T, int   >(shiftCount))); }
+        if(typeof(T) == typeof(long  )) { return H.BitCastV<long  , T>(ShiftRightArithmetic(H.BitCastV<T, long  >(value), H.BitCastV<T, long  >(shiftCount))); }
+        if(typeof(T) == typeof(nint  )) { return H.BitCastV<nint  , T>(ShiftRightArithmetic(H.BitCastV<T, nint  >(value), H.BitCastV<T, nint  >(shiftCount))); }
         throw new NotSupportedException();
     }
 

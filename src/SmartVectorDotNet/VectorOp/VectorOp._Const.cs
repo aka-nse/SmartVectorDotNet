@@ -32,7 +32,7 @@ partial class VectorOp
 
         private protected static Vector<T> As<TFrom>(Vector<TFrom> x)
             where TFrom : unmanaged
-            => H.Reinterpret<TFrom, T>(x);
+            => H.BitCastV<TFrom, T>(x);
 
         /// <summary> Gets the vector which has <c>0</c> values. </summary>
         public static readonly Vector<T> Zero = new(ScalarOp.Const<T>.Zero);

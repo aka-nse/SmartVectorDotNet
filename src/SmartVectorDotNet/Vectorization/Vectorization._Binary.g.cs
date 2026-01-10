@@ -27,7 +27,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        AddCore(x, y, ans);
+        unsafe
+        {
+            AddCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -45,7 +48,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        AddCore(x, y, ans);
+        unsafe
+        {
+            AddCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -65,7 +71,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        AddCore(x, y, ans);
+        unsafe
+        {
+            AddCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -84,7 +93,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void AddCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -108,7 +117,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void AddCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -132,7 +141,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void AddCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -246,7 +255,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        SubtractCore(x, y, ans);
+        unsafe
+        {
+            SubtractCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -264,7 +276,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        SubtractCore(x, y, ans);
+        unsafe
+        {
+            SubtractCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -284,7 +299,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        SubtractCore(x, y, ans);
+        unsafe
+        {
+            SubtractCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -303,7 +321,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void SubtractCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -327,7 +345,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void SubtractCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -351,7 +369,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void SubtractCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -465,7 +483,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        MultiplyCore(x, y, ans);
+        unsafe
+        {
+            MultiplyCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -483,7 +504,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        MultiplyCore(x, y, ans);
+        unsafe
+        {
+            MultiplyCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -503,7 +527,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        MultiplyCore(x, y, ans);
+        unsafe
+        {
+            MultiplyCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -522,7 +549,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void MultiplyCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -546,7 +573,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void MultiplyCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -570,7 +597,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void MultiplyCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -684,7 +711,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        DivideCore(x, y, ans);
+        unsafe
+        {
+            DivideCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -702,7 +732,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        DivideCore(x, y, ans);
+        unsafe
+        {
+            DivideCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -722,7 +755,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        DivideCore(x, y, ans);
+        unsafe
+        {
+            DivideCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -741,7 +777,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void DivideCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -765,7 +801,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void DivideCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -789,7 +825,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void DivideCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -903,7 +939,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        ModuloCore(x, y, ans);
+        unsafe
+        {
+            ModuloCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -921,7 +960,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        ModuloCore(x, y, ans);
+        unsafe
+        {
+            ModuloCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -941,7 +983,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        ModuloCore(x, y, ans);
+        unsafe
+        {
+            ModuloCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -960,7 +1005,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void ModuloCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -984,7 +1029,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void ModuloCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1008,7 +1053,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void ModuloCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1122,7 +1167,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        ModuloByFloorCore(x, y, ans);
+        unsafe
+        {
+            ModuloByFloorCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -1140,7 +1188,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        ModuloByFloorCore(x, y, ans);
+        unsafe
+        {
+            ModuloByFloorCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -1160,7 +1211,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        ModuloByFloorCore(x, y, ans);
+        unsafe
+        {
+            ModuloByFloorCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -1179,7 +1233,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void ModuloByFloorCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1203,7 +1257,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void ModuloByFloorCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1227,7 +1281,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void ModuloByFloorCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1341,7 +1395,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        AddSaturateCore(x, y, ans);
+        unsafe
+        {
+            AddSaturateCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -1359,7 +1416,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        AddSaturateCore(x, y, ans);
+        unsafe
+        {
+            AddSaturateCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -1379,7 +1439,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        AddSaturateCore(x, y, ans);
+        unsafe
+        {
+            AddSaturateCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -1398,7 +1461,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void AddSaturateCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1422,7 +1485,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void AddSaturateCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1446,7 +1509,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void AddSaturateCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1560,7 +1623,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        SubtractSaturateCore(x, y, ans);
+        unsafe
+        {
+            SubtractSaturateCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -1578,7 +1644,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        SubtractSaturateCore(x, y, ans);
+        unsafe
+        {
+            SubtractSaturateCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -1598,7 +1667,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        SubtractSaturateCore(x, y, ans);
+        unsafe
+        {
+            SubtractSaturateCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -1617,7 +1689,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void SubtractSaturateCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1641,7 +1713,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void SubtractSaturateCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1665,7 +1737,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void SubtractSaturateCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1779,7 +1851,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        BitwiseAndCore(x, y, ans);
+        unsafe
+        {
+            BitwiseAndCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -1797,7 +1872,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        BitwiseAndCore(x, y, ans);
+        unsafe
+        {
+            BitwiseAndCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -1817,7 +1895,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        BitwiseAndCore(x, y, ans);
+        unsafe
+        {
+            BitwiseAndCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -1836,7 +1917,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void BitwiseAndCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1860,7 +1941,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void BitwiseAndCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -1884,7 +1965,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void BitwiseAndCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -1998,7 +2079,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        BitwiseOrCore(x, y, ans);
+        unsafe
+        {
+            BitwiseOrCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -2016,7 +2100,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        BitwiseOrCore(x, y, ans);
+        unsafe
+        {
+            BitwiseOrCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -2036,7 +2123,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        BitwiseOrCore(x, y, ans);
+        unsafe
+        {
+            BitwiseOrCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -2055,7 +2145,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void BitwiseOrCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2079,7 +2169,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void BitwiseOrCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -2103,7 +2193,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void BitwiseOrCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2217,7 +2307,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        BitwiseXorCore(x, y, ans);
+        unsafe
+        {
+            BitwiseXorCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -2235,7 +2328,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        BitwiseXorCore(x, y, ans);
+        unsafe
+        {
+            BitwiseXorCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -2255,7 +2351,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        BitwiseXorCore(x, y, ans);
+        unsafe
+        {
+            BitwiseXorCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -2274,7 +2373,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void BitwiseXorCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2298,7 +2397,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void BitwiseXorCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -2322,7 +2421,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void BitwiseXorCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2436,7 +2535,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        EqualsCore(x, y, ans);
+        unsafe
+        {
+            EqualsCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -2454,7 +2556,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        EqualsCore(x, y, ans);
+        unsafe
+        {
+            EqualsCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -2474,7 +2579,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        EqualsCore(x, y, ans);
+        unsafe
+        {
+            EqualsCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -2493,7 +2601,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void EqualsCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2517,7 +2625,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void EqualsCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -2541,7 +2649,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void EqualsCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2655,7 +2763,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        LessThanCore(x, y, ans);
+        unsafe
+        {
+            LessThanCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -2673,7 +2784,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        LessThanCore(x, y, ans);
+        unsafe
+        {
+            LessThanCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -2693,7 +2807,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        LessThanCore(x, y, ans);
+        unsafe
+        {
+            LessThanCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -2712,7 +2829,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void LessThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2736,7 +2853,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void LessThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -2760,7 +2877,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void LessThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2874,7 +2991,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        LessThanOrEqualCore(x, y, ans);
+        unsafe
+        {
+            LessThanOrEqualCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -2892,7 +3012,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        LessThanOrEqualCore(x, y, ans);
+        unsafe
+        {
+            LessThanOrEqualCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -2912,7 +3035,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        LessThanOrEqualCore(x, y, ans);
+        unsafe
+        {
+            LessThanOrEqualCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -2931,7 +3057,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void LessThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -2955,7 +3081,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -2979,7 +3105,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void LessThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -3093,7 +3219,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        GreaterThanCore(x, y, ans);
+        unsafe
+        {
+            GreaterThanCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -3111,7 +3240,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        GreaterThanCore(x, y, ans);
+        unsafe
+        {
+            GreaterThanCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -3131,7 +3263,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        GreaterThanCore(x, y, ans);
+        unsafe
+        {
+            GreaterThanCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -3150,7 +3285,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void GreaterThanCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -3174,7 +3309,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void GreaterThanCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -3198,7 +3333,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void GreaterThanCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -3312,7 +3447,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        GreaterThanOrEqualCore(x, y, ans);
+        unsafe
+        {
+            GreaterThanOrEqualCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -3330,7 +3468,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        GreaterThanOrEqualCore(x, y, ans);
+        unsafe
+        {
+            GreaterThanOrEqualCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -3350,7 +3491,10 @@ partial class Vectorization
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref y, ans);
-        GreaterThanOrEqualCore(x, y, ans);
+        unsafe
+        {
+            GreaterThanOrEqualCore(x, y, ans);
+        }
     }
     
     /// <summary>
@@ -3369,7 +3513,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void GreaterThanOrEqualCore<T>(T x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -3393,7 +3537,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, T y, Span<T> ans)
         where T : unmanaged
     {
@@ -3417,7 +3561,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void GreaterThanOrEqualCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> ans)
         where T : unmanaged
     {
@@ -3531,7 +3675,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref x, ans);
-        Atan2Core(y, x, ans);
+        unsafe
+        {
+            Atan2Core(y, x, ans);
+        }
     }
     
     /// <summary>
@@ -3549,7 +3696,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(y.Length == ans.Length, "`y` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref y, ans);
-        Atan2Core(y, x, ans);
+        unsafe
+        {
+            Atan2Core(y, x, ans);
+        }
     }
     
     /// <summary>
@@ -3569,7 +3719,10 @@ partial class Vectorization
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref y, ans);
         using var safeYBuffer = EnsureSourceSafe(ref x, ans);
-        Atan2Core(y, x, ans);
+        unsafe
+        {
+            Atan2Core(y, x, ans);
+        }
     }
     
     /// <summary>
@@ -3588,7 +3741,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void Atan2Core<T>(T y, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
@@ -3612,7 +3765,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void Atan2Core<T>(ReadOnlySpan<T> y, T x, Span<T> ans)
         where T : unmanaged
     {
@@ -3636,7 +3789,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void Atan2Core<T>(ReadOnlySpan<T> y, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
@@ -3750,7 +3903,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(newBase.Length == ans.Length, "`newBase` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref newBase, ans);
-        LogCore(x, newBase, ans);
+        unsafe
+        {
+            LogCore(x, newBase, ans);
+        }
     }
     
     /// <summary>
@@ -3768,7 +3924,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        LogCore(x, newBase, ans);
+        unsafe
+        {
+            LogCore(x, newBase, ans);
+        }
     }
     
     /// <summary>
@@ -3788,7 +3947,10 @@ partial class Vectorization
         Guard.ValidArgument(newBase.Length == ans.Length, "`newBase` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
         using var safeYBuffer = EnsureSourceSafe(ref newBase, ans);
-        LogCore(x, newBase, ans);
+        unsafe
+        {
+            LogCore(x, newBase, ans);
+        }
     }
     
     /// <summary>
@@ -3807,7 +3969,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void LogCore<T>(T x, ReadOnlySpan<T> newBase, Span<T> ans)
         where T : unmanaged
     {
@@ -3831,7 +3993,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void LogCore<T>(ReadOnlySpan<T> x, T newBase, Span<T> ans)
         where T : unmanaged
     {
@@ -3855,7 +4017,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void LogCore<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> newBase, Span<T> ans)
         where T : unmanaged
     {
@@ -3969,7 +4131,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref x, ans);
-        PowCore(a, x, ans);
+        unsafe
+        {
+            PowCore(a, x, ans);
+        }
     }
     
     /// <summary>
@@ -3987,7 +4152,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(a.Length == ans.Length, "`a` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref a, ans);
-        PowCore(a, x, ans);
+        unsafe
+        {
+            PowCore(a, x, ans);
+        }
     }
     
     /// <summary>
@@ -4007,7 +4175,10 @@ partial class Vectorization
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref a, ans);
         using var safeYBuffer = EnsureSourceSafe(ref x, ans);
-        PowCore(a, x, ans);
+        unsafe
+        {
+            PowCore(a, x, ans);
+        }
     }
     
     /// <summary>
@@ -4026,7 +4197,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void PowCore<T>(T a, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {
@@ -4050,7 +4221,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void PowCore<T>(ReadOnlySpan<T> a, T x, Span<T> ans)
         where T : unmanaged
     {
@@ -4074,7 +4245,7 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void PowCore<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> x, Span<T> ans)
         where T : unmanaged
     {

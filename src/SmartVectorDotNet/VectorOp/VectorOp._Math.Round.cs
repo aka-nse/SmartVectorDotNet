@@ -7,7 +7,7 @@ using System.Runtime.Intrinsics.X86;
 using GenericSpecialization;
 
 namespace SmartVectorDotNet;
-
+using H = InternalHelpers;
 
 partial class VectorOp
 {
@@ -36,12 +36,12 @@ partial class VectorOp
     private static Vector<double> Round(Vector<double> x)
     {
 #if NET6_0_OR_GREATER
-        if (Unsafe.SizeOf<Vector<double>>() == Unsafe.SizeOf<Vector256<double>>() && Avx.IsSupported)
+        if (H.SizeOf<Vector<double>>() == H.SizeOf<Vector256<double>>() && Avx.IsSupported)
         {
             var xx = Vector256.AsVector256(x);
             return Avx.RoundToNearestInteger(xx).AsVector();
         }
-        if (Unsafe.SizeOf<Vector<double>>() == Unsafe.SizeOf<Vector128<double>>() && Sse41.IsSupported)
+        if (H.SizeOf<Vector<double>>() == H.SizeOf<Vector128<double>>() && Sse41.IsSupported)
         {
             var xx = Vector128.AsVector128(x);
             return Sse41.RoundToNearestInteger(xx).AsVector();
@@ -54,12 +54,12 @@ partial class VectorOp
     private static Vector<float> Round(Vector<float> x)
     {
 #if NET6_0_OR_GREATER
-        if (Unsafe.SizeOf<Vector<float>>() == Unsafe.SizeOf<Vector256<float>>() && Avx.IsSupported)
+        if (H.SizeOf<Vector<float>>() == H.SizeOf<Vector256<float>>() && Avx.IsSupported)
         {
             var xx = Vector256.AsVector256(x);
             return Avx.RoundToNearestInteger(xx).AsVector();
         }
-        if (Unsafe.SizeOf<Vector<float>>() == Unsafe.SizeOf<Vector128<float>>() && Sse41.IsSupported)
+        if (H.SizeOf<Vector<float>>() == H.SizeOf<Vector128<float>>() && Sse41.IsSupported)
         {
             var xx = Vector128.AsVector128(x);
             return Sse41.RoundToNearestInteger(xx).AsVector();

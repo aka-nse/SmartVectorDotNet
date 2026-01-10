@@ -57,11 +57,11 @@ partial class ScalarOp
 
     /// <inheritdoc cref="CountPopulation_default" />
     public static float CountPopulation(float x)
-        => CountPopulation(H.Reinterpret<float, uint>(x));
+        => CountPopulation(H.BitCast<float, uint>(x));
 
     /// <inheritdoc cref="CountPopulation_default" />
     public static double CountPopulation(double x)
-        => CountPopulation(H.Reinterpret<double, ulong>(x));
+        => CountPopulation(H.BitCast<double, ulong>(x));
 
 #if NETCOREAPP3_0_OR_GREATER
     public static partial byte CountPopulation(byte x)

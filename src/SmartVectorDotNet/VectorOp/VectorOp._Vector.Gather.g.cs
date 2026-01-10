@@ -32,7 +32,7 @@ partial class VectorOp
     /// <remarks> Note that this method will not validate buffer index. </remarks>
     [GeneratedCode("T4", null)]
     public static unsafe Vector<sbyte> GatherUnsafe(sbyte* ptr, Vector<int> index0, Vector<int> index1, Vector<int> index2, Vector<int> index3)
-        => H.Reinterpret<byte, sbyte>(GatherUnsafe((byte*)ptr, index0, index1, index2, index3));
+        => H.BitCastV<byte, sbyte>(GatherUnsafe((byte*)ptr, index0, index1, index2, index3));
 
     /// <summary> Looks up the table. </summary>
     /// <param name="ptr"></param>
@@ -42,7 +42,7 @@ partial class VectorOp
     /// <remarks> Note that this method will not validate buffer index. </remarks>
     [GeneratedCode("T4", null)]
     public static unsafe Vector<short> GatherUnsafe(short* ptr, Vector<int> indexLo, Vector<int> indexHi)
-        => H.Reinterpret<ushort, short>(GatherUnsafe((ushort*)ptr, indexLo, indexHi));
+        => H.BitCastV<ushort, short>(GatherUnsafe((ushort*)ptr, indexLo, indexHi));
 
     /// <summary> Looks up the table. </summary>
     /// <param name="ptr"></param>
@@ -51,7 +51,7 @@ partial class VectorOp
     /// <remarks> Note that this method will not validate buffer index. </remarks>
     [GeneratedCode("T4", null)]
     public static unsafe Vector<int> GatherUnsafe(int* ptr, Vector<int> index)
-        => H.Reinterpret<uint, int>(GatherUnsafe((uint*)ptr, index));
+        => H.BitCastV<uint, int>(GatherUnsafe((uint*)ptr, index));
 
     /// <summary> Looks up the table. </summary>
     /// <param name="ptr"></param>
@@ -60,7 +60,7 @@ partial class VectorOp
     /// <remarks> Note that this method will not validate buffer index. </remarks>
     [GeneratedCode("T4", null)]
     public static unsafe Vector<float> GatherUnsafe(float* ptr, Vector<int> index)
-        => H.Reinterpret<uint, float>(GatherUnsafe((uint*)ptr, index));
+        => H.BitCastV<uint, float>(GatherUnsafe((uint*)ptr, index));
 
     /// <summary> Looks up the table. </summary>
     /// <param name="ptr"></param>
@@ -69,7 +69,7 @@ partial class VectorOp
     /// <remarks> Note that this method will not validate buffer index. </remarks>
     [GeneratedCode("T4", null)]
     public static unsafe Vector<long> GatherUnsafe(long* ptr, Vector<long> index)
-        => H.Reinterpret<ulong, long>(GatherUnsafe((ulong*)ptr, index));
+        => H.BitCastV<ulong, long>(GatherUnsafe((ulong*)ptr, index));
 
     /// <summary> Looks up the table. </summary>
     /// <param name="ptr"></param>
@@ -78,7 +78,7 @@ partial class VectorOp
     /// <remarks> Note that this method will not validate buffer index. </remarks>
     [GeneratedCode("T4", null)]
     public static unsafe Vector<double> GatherUnsafe(double* ptr, Vector<long> index)
-        => H.Reinterpret<ulong, double>(GatherUnsafe((ulong*)ptr, index));
+        => H.BitCastV<ulong, double>(GatherUnsafe((ulong*)ptr, index));
 
     /// <summary> Looks up the table. </summary>
     /// <param name="table"></param>
@@ -92,10 +92,10 @@ partial class VectorOp
     public static unsafe Vector<byte> Gather(ReadOnlySpan<byte> table, Vector<int> index0, Vector<int> index1, Vector<int> index2, Vector<int> index3)
     {
         var length = new Vector<uint>((uint)table.Length);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index0), length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index1), length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index2), length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index3), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<int, uint>(index0), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<int, uint>(index1), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<int, uint>(index2), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<int, uint>(index3), length), Gather_.IndexRangeError);
         fixed (byte* ptr = table)
         {
             return GatherUnsafe(ptr, index0, index1, index2, index3);
@@ -114,10 +114,10 @@ partial class VectorOp
     public static unsafe Vector<sbyte> Gather(ReadOnlySpan<sbyte> table, Vector<int> index0, Vector<int> index1, Vector<int> index2, Vector<int> index3)
     {
         var length = new Vector<uint>((uint)table.Length);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index0), length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index1), length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index2), length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index3), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<int, uint>(index0), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<int, uint>(index1), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<int, uint>(index2), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<int, uint>(index3), length), Gather_.IndexRangeError);
         fixed (sbyte* ptr = table)
         {
             return GatherUnsafe(ptr, index0, index1, index2, index3);
@@ -134,8 +134,8 @@ partial class VectorOp
     public static unsafe Vector<ushort> Gather(ReadOnlySpan<ushort> table, Vector<int> indexLo, Vector<int> indexHi)
     {
         var length = new Vector<uint>((uint)table.Length);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(indexLo), length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(indexHi), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<int, uint>(indexLo), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<int, uint>(indexHi), length), Gather_.IndexRangeError);
         fixed (ushort* ptr = table)
         {
             return GatherUnsafe(ptr, indexLo, indexHi);
@@ -152,8 +152,8 @@ partial class VectorOp
     public static unsafe Vector<short> Gather(ReadOnlySpan<short> table, Vector<int> indexLo, Vector<int> indexHi)
     {
         var length = new Vector<uint>((uint)table.Length);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(indexLo), length), Gather_.IndexRangeError);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(indexHi), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<int, uint>(indexLo), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<int, uint>(indexHi), length), Gather_.IndexRangeError);
         fixed (short* ptr = table)
         {
             return GatherUnsafe(ptr, indexLo, indexHi);
@@ -169,7 +169,7 @@ partial class VectorOp
     public static unsafe Vector<uint> Gather(ReadOnlySpan<uint> table, Vector<int> index)
     {
         var length = new Vector<uint>((uint)table.Length);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<int, uint>(index), length), Gather_.IndexRangeError);
         fixed (uint* ptr = table)
         {
             return GatherUnsafe(ptr, index);
@@ -185,7 +185,7 @@ partial class VectorOp
     public static unsafe Vector<int> Gather(ReadOnlySpan<int> table, Vector<int> index)
     {
         var length = new Vector<uint>((uint)table.Length);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<int, uint>(index), length), Gather_.IndexRangeError);
         fixed (int* ptr = table)
         {
             return GatherUnsafe(ptr, index);
@@ -201,7 +201,7 @@ partial class VectorOp
     public static unsafe Vector<float> Gather(ReadOnlySpan<float> table, Vector<int> index)
     {
         var length = new Vector<uint>((uint)table.Length);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<int, uint>(index), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<int, uint>(index), length), Gather_.IndexRangeError);
         fixed (float* ptr = table)
         {
             return GatherUnsafe(ptr, index);
@@ -217,7 +217,7 @@ partial class VectorOp
     public static unsafe Vector<ulong> Gather(ReadOnlySpan<ulong> table, Vector<long> index)
     {
         var length = new Vector<ulong>((ulong)table.Length);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<long, ulong>(index), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<long, ulong>(index), length), Gather_.IndexRangeError);
         fixed (ulong* ptr = table)
         {
             return GatherUnsafe(ptr, index);
@@ -233,7 +233,7 @@ partial class VectorOp
     public static unsafe Vector<long> Gather(ReadOnlySpan<long> table, Vector<long> index)
     {
         var length = new Vector<ulong>((ulong)table.Length);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<long, ulong>(index), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<long, ulong>(index), length), Gather_.IndexRangeError);
         fixed (long* ptr = table)
         {
             return GatherUnsafe(ptr, index);
@@ -249,7 +249,7 @@ partial class VectorOp
     public static unsafe Vector<double> Gather(ReadOnlySpan<double> table, Vector<long> index)
     {
         var length = new Vector<ulong>((ulong)table.Length);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<long, ulong>(index), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<long, ulong>(index), length), Gather_.IndexRangeError);
         fixed (double* ptr = table)
         {
             return GatherUnsafe(ptr, index);

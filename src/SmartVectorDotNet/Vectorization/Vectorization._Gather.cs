@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace SmartVectorDotNet;
@@ -29,7 +27,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(indices.Length == dst.Length, "`indices` and `dst` must have same length.");
         using var safeTableBuffer = EnsureSourceSafe(ref table, dst);
-        GatherCore(table, indices, dst);
+        unsafe
+        {
+            GatherCore(table, indices, dst);
+        }
     }
 
     /// <summary> Looks up the table. </summary>
@@ -46,7 +47,8 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    protected virtual void GatherCore<T>(ReadOnlySpan<T> table, ReadOnlySpan<int> indices, Span<T> dst)
+    [UnsafeApi]
+    protected virtual unsafe void GatherCore<T>(ReadOnlySpan<T> table, ReadOnlySpan<int> indices, Span<T> dst)
         where T : unmanaged
     {
         for(var i = 0; i < dst.Length; ++i)
@@ -60,9 +62,9 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
-    protected override void GatherCore<T>(ReadOnlySpan<T> table, ReadOnlySpan<int> indices, Span<T> dst)
+    protected override unsafe void GatherCore<T>(ReadOnlySpan<T> table, ReadOnlySpan<int> indices, Span<T> dst)
     {
-        switch(Unsafe.SizeOf<T>())
+        switch(H.SizeOf<T>())
         {
         case sizeof(byte):
             GatherCore1(MemoryMarshal.Cast<T, byte>(table), indices, MemoryMarshal.Cast<T, byte>(dst));
@@ -86,16 +88,16 @@ partial class SimdVectorization
     {
         var indexLimit = new Vector<uint>((uint)table.Length);
         var vdst = MemoryMarshal.Cast<byte, Vector<byte>>(dst);
-        var vindices = MemoryMarshal.Cast<int, Vector<int>>(indices).Slice(0, vdst.Length * 4);
+        var vindices = MemoryMarshal.Cast<int, Vector<int>>(indices)[..(vdst.Length * 4)];
         fixed (byte* ptr = table)
         {
             for (var i = 0; i < vdst.Length; ++i)
             {
                 var j = i * 4;
-                Guard.ValidArgument(OP.LessThanAll(H.Reinterpret<int, uint>(vindices[j + 0]), indexLimit), Gather_.IndexRangeError);
-                Guard.ValidArgument(OP.LessThanAll(H.Reinterpret<int, uint>(vindices[j + 1]), indexLimit), Gather_.IndexRangeError);
-                Guard.ValidArgument(OP.LessThanAll(H.Reinterpret<int, uint>(vindices[j + 2]), indexLimit), Gather_.IndexRangeError);
-                Guard.ValidArgument(OP.LessThanAll(H.Reinterpret<int, uint>(vindices[j + 3]), indexLimit), Gather_.IndexRangeError);
+                Guard.ValidArgument(OP.LessThanAll(H.BitCastV<int, uint>(vindices[j + 0]), indexLimit), Gather_.IndexRangeError);
+                Guard.ValidArgument(OP.LessThanAll(H.BitCastV<int, uint>(vindices[j + 1]), indexLimit), Gather_.IndexRangeError);
+                Guard.ValidArgument(OP.LessThanAll(H.BitCastV<int, uint>(vindices[j + 2]), indexLimit), Gather_.IndexRangeError);
+                Guard.ValidArgument(OP.LessThanAll(H.BitCastV<int, uint>(vindices[j + 3]), indexLimit), Gather_.IndexRangeError);
                 vdst[i] = OP.GatherUnsafe(ptr, vindices[j + 0], vindices[j + 1], vindices[j + 2], vindices[j + 3]);
             }
             for (var i = vdst.Length * Vector<byte>.Count; i < dst.Length; ++i)
@@ -110,14 +112,14 @@ partial class SimdVectorization
     {
         var indexLimit = new Vector<uint>((uint)table.Length);
         var vdst = MemoryMarshal.Cast<ushort, Vector<ushort>>(dst);
-        var vindices = MemoryMarshal.Cast<int, Vector<int>>(indices).Slice(0, vdst.Length * 2);
+        var vindices = MemoryMarshal.Cast<int, Vector<int>>(indices)[..(vdst.Length * 2)];
         fixed (ushort* ptr = table)
         {
             for (var i = 0; i < vdst.Length; ++i)
             {
                 var j = i * 2;
-                Guard.ValidArgument(OP.LessThanAll(H.Reinterpret<int, uint>(vindices[j + 0]), indexLimit), Gather_.IndexRangeError);
-                Guard.ValidArgument(OP.LessThanAll(H.Reinterpret<int, uint>(vindices[j + 1]), indexLimit), Gather_.IndexRangeError);
+                Guard.ValidArgument(OP.LessThanAll(H.BitCastV<int, uint>(vindices[j + 0]), indexLimit), Gather_.IndexRangeError);
+                Guard.ValidArgument(OP.LessThanAll(H.BitCastV<int, uint>(vindices[j + 1]), indexLimit), Gather_.IndexRangeError);
                 vdst[i] = OP.GatherUnsafe(ptr, vindices[j + 0], vindices[j + 1]);
             }
             for (var i = vdst.Length * Vector<ushort>.Count; i < dst.Length; ++i)
@@ -137,7 +139,7 @@ partial class SimdVectorization
         {
             for (var i = 0; i < vdst.Length; ++i)
             {
-                Guard.ValidArgument(OP.LessThanAll(H.Reinterpret<int, uint>(vindices[i]), indexLimit), Gather_.IndexRangeError);
+                Guard.ValidArgument(OP.LessThanAll(H.BitCastV<int, uint>(vindices[i]), indexLimit), Gather_.IndexRangeError);
                 vdst[i] = OP.GatherUnsafe(ptr, vindices[i]);
             }
             for (var i = vdst.Length * Vector<uint>.Count; i < dst.Length; ++i)
@@ -152,14 +154,14 @@ partial class SimdVectorization
     {
         var indexLimit = new Vector<ulong>((ulong)table.Length);
         var vindices = MemoryMarshal.Cast<int, Vector<int>>(indices);
-        var vdst = MemoryMarshal.Cast<ulong, Vector<ulong>>(dst).Slice(0, vindices.Length * 2);
+        var vdst = MemoryMarshal.Cast<ulong, Vector<ulong>>(dst)[..(vindices.Length * 2)];
         fixed (ulong* ptr = table)
         {
             for (var i = 0; i < vdst.Length; ++i)
             {
                 OP.Widen(vindices[i / 2], out var lo, out var hi);
                 var idx = (i & 1) == 0 ? lo : hi;
-                Guard.ValidArgument(OP.LessThanAll(H.Reinterpret<long, ulong>(idx), indexLimit), Gather_.IndexRangeError);
+                Guard.ValidArgument(OP.LessThanAll(H.BitCastV<long, ulong>(idx), indexLimit), Gather_.IndexRangeError);
                 vdst[i] = OP.GatherUnsafe(ptr, idx);
             }
             for (var i = vdst.Length * Vector<ulong>.Count; i < dst.Length; ++i)

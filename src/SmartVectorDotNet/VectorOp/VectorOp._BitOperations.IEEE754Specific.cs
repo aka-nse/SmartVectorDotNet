@@ -51,16 +51,16 @@ partial class VectorOp
     {
         if (typeof(T) == typeof(double))
         {
-            Decompose(H.Reinterpret<T, double>(x), out Vector<long> nn, out Vector<double> aa);
-            n = H.Reinterpret<double, T>(Vector.ConvertToDouble(nn));
-            a = H.Reinterpret<double, T>(aa);
+            Decompose(H.BitCastV<T, double>(x), out Vector<long> nn, out Vector<double> aa);
+            n = H.BitCastV<double, T>(Vector.ConvertToDouble(nn));
+            a = H.BitCastV<double, T>(aa);
             return;
         }
         if (typeof(T) == typeof(float))
         {
-            Decompose(H.Reinterpret<T, float>(x), out Vector<int> nn, out Vector<float> aa);
-            n = H.Reinterpret<float, T>(Vector.ConvertToSingle(nn));
-            a = H.Reinterpret<float, T>(aa);
+            Decompose(H.BitCastV<T, float>(x), out Vector<int> nn, out Vector<float> aa);
+            n = H.BitCastV<float, T>(Vector.ConvertToSingle(nn));
+            a = H.BitCastV<float, T>(aa);
             return;
         }
         throw new NotSupportedException();
@@ -75,7 +75,7 @@ partial class VectorOp
     /// <param name="frac"></param>
     public static void Decompose(Vector<double> x, out Vector<long> sign, out Vector<long> expo, out Vector<long> frac)
     {
-        var bin = H.Reinterpret<double, long>(x);
+        var bin = H.BitCastV<double, long>(x);
         sign = ShiftRightLogical(
             BitwiseAnd(bin, IEEE754Double_.SignPartMask),
             SC.DoubleSignBitOffset);
@@ -109,7 +109,7 @@ partial class VectorOp
     /// <param name="frac"></param>
     public static void Decompose(Vector<float> x, out Vector<int> sign, out Vector<int> expo, out Vector<int> frac)
     {
-        var bin = H.Reinterpret<float, int>(x);
+        var bin = H.BitCastV<float, int>(x);
         sign = ShiftRightLogical(
             BitwiseAnd(bin, IEEE754Single_.SignPartMask),
             SC.SingleSignBitOffset);
@@ -181,7 +181,7 @@ partial class VectorOp
     /// <param name="frac"></param>
     /// <returns></returns>
     public static Vector<double> Scale(Vector<long> sign, Vector<long> expo, Vector<long> frac)
-        => H.Reinterpret<long, double>(ShiftLeft(sign, SC.DoubleSignBitOffset) | ShiftLeft(expo, SC.DoubleExpBitOffset) | frac);
+        => H.BitCastV<long, double>(ShiftLeft(sign, SC.DoubleSignBitOffset) | ShiftLeft(expo, SC.DoubleExpBitOffset) | frac);
 
 
     /// <summary>
@@ -192,7 +192,7 @@ partial class VectorOp
     /// <param name="frac"></param>
     /// <returns></returns>
     public static Vector<float> Scale(Vector<int> sign, Vector<int> expo, Vector<int> frac)
-        => H.Reinterpret<int, float>(ShiftLeft(sign, SC.SingleSignBitOffset) | ShiftLeft(expo, SC.SingleExpBitOffset) | frac);
+        => H.BitCastV<int, float>(ShiftLeft(sign, SC.SingleSignBitOffset) | ShiftLeft(expo, SC.SingleExpBitOffset) | frac);
 
     #endregion
 
@@ -209,21 +209,21 @@ partial class VectorOp
     {
         if(typeof(T) == typeof(double))
         {
-            var xx = H.Reinterpret<T, double>(x);
+            var xx = H.BitCastV<T, double>(x);
             Decompose(xx, out _, out var exp, out _);
             var retval = Vector.BitwiseAnd(
                 Vector.GreaterThan(exp, IEEE754Double_.IntZero),
                 Vector.LessThan(exp, IEEE754Double_.NRange));
-            return H.Reinterpret<long, T>(retval);
+            return H.BitCastV<long, T>(retval);
         }
         if (typeof(T) == typeof(float))
         {
-            var xx = H.Reinterpret<T, float>(x);
+            var xx = H.BitCastV<T, float>(x);
             Decompose(xx, out _, out var exp, out _);
             var retval = Vector.BitwiseAnd(
                 Vector.GreaterThan(exp, IEEE754Single_.IntZero),
                 Vector.LessThan(exp, IEEE754Single_.NRange));
-            return H.Reinterpret<int, T>(retval);
+            return H.BitCastV<int, T>(retval);
         }
         return default;
     }
@@ -243,21 +243,21 @@ partial class VectorOp
     {
         if (typeof(T) == typeof(double))
         {
-            var xx = H.Reinterpret<T, double>(x);
+            var xx = H.BitCastV<T, double>(x);
             Decompose(xx, out _, out var exp, out var frac);
             var retval = Vector.BitwiseAnd(
                 Vector.Equals(exp, IEEE754Double_.IntZero),
                 Vector.OnesComplement(Vector.Equals(frac, IEEE754Double_.IntZero)));
-            return H.Reinterpret<long, T>(retval);
+            return H.BitCastV<long, T>(retval);
         }
         if (typeof(T) == typeof(float))
         {
-            var xx = H.Reinterpret<T, float>(x);
+            var xx = H.BitCastV<T, float>(x);
             Decompose(xx, out _, out Vector<int> exp, out var frac);
             var retval = Vector.BitwiseAnd(
                 Vector.Equals(exp, IEEE754Single_.IntZero),
                 Vector.OnesComplement(Vector.Equals(frac, IEEE754Single_.IntZero)));
-            return H.Reinterpret<int, T>(retval);
+            return H.BitCastV<int, T>(retval);
         }
         return default;
     }
@@ -277,13 +277,13 @@ partial class VectorOp
     {
         if (typeof(T) == typeof(double))
         {
-            var xx = H.Reinterpret<T, double>(x);
-            return H.Reinterpret<long, T>(IsInfinity(xx));
+            var xx = H.BitCastV<T, double>(x);
+            return H.BitCastV<long, T>(IsInfinity(xx));
         }
         if (typeof(T) == typeof(float))
         {
-            var xx = H.Reinterpret<T, float>(x);
-            return H.Reinterpret<int, T>(IsInfinity(xx));
+            var xx = H.BitCastV<T, float>(x);
+            return H.BitCastV<int, T>(IsInfinity(xx));
         }
         return default;
     }
@@ -329,13 +329,13 @@ partial class VectorOp
     {
         if (typeof(T) == typeof(double))
         {
-            var xx = H.Reinterpret<T, double>(x);
-            return H.Reinterpret<long, T>(IsPositiveInfinity(xx));
+            var xx = H.BitCastV<T, double>(x);
+            return H.BitCastV<long, T>(IsPositiveInfinity(xx));
         }
         if (typeof(T) == typeof(float))
         {
-            var xx = H.Reinterpret<T, float>(x);
-            return H.Reinterpret<int, T>(IsPositiveInfinity(xx));
+            var xx = H.BitCastV<T, float>(x);
+            return H.BitCastV<int, T>(IsPositiveInfinity(xx));
         }
         return default;
     }
@@ -389,13 +389,13 @@ partial class VectorOp
     {
         if (typeof(T) == typeof(double))
         {
-            var xx = H.Reinterpret<T, double>(x);
-            return H.Reinterpret<long, T>(IsNegativeInfinity(xx));
+            var xx = H.BitCastV<T, double>(x);
+            return H.BitCastV<long, T>(IsNegativeInfinity(xx));
         }
         if (typeof(T) == typeof(float))
         {
-            var xx = H.Reinterpret<T, float>(x);
-            return H.Reinterpret<int, T>(IsNegativeInfinity(xx));
+            var xx = H.BitCastV<T, float>(x);
+            return H.BitCastV<int, T>(IsNegativeInfinity(xx));
         }
         return default;
     }
@@ -449,13 +449,13 @@ partial class VectorOp
     {
         if (typeof(T) == typeof(double))
         {
-            var xx = H.Reinterpret<T, double>(x);
-            return H.Reinterpret<long, T>(IsNaN(xx));
+            var xx = H.BitCastV<T, double>(x);
+            return H.BitCastV<long, T>(IsNaN(xx));
         }
         if (typeof(T) == typeof(float))
         {
-            var xx = H.Reinterpret<T, float>(x);
-            return H.Reinterpret<int, T>(IsNaN(xx));
+            var xx = H.BitCastV<T, float>(x);
+            return H.BitCastV<int, T>(IsNaN(xx));
         }
         return default;
     }

@@ -41,31 +41,31 @@ partial class VectorOp
 
     /** <inheritdoc cref="CountTrailingZeros_default" /> */
     public static Vector<sbyte> CountTrailingZeros(Vector<sbyte> x)
-        => H.Reinterpret<byte, sbyte>(CountTrailingZeros(H.Reinterpret<sbyte, byte>(x)));
+        => H.BitCastV<byte, sbyte>(CountTrailingZeros(H.BitCastV<sbyte, byte>(x)));
 
     /** <inheritdoc cref="CountTrailingZeros_default" /> */
     public static Vector<short> CountTrailingZeros(Vector<short> x)
-        => H.Reinterpret<ushort, short>(CountTrailingZeros(H.Reinterpret<short, ushort>(x)));
+        => H.BitCastV<ushort, short>(CountTrailingZeros(H.BitCastV<short, ushort>(x)));
 
     /** <inheritdoc cref="CountTrailingZeros_default" /> */
     public static Vector<int> CountTrailingZeros(Vector<int> x)
-        => H.Reinterpret<uint, int>(CountTrailingZeros(H.Reinterpret<int, uint>(x)));
+        => H.BitCastV<uint, int>(CountTrailingZeros(H.BitCastV<int, uint>(x)));
 
     /** <inheritdoc cref="CountTrailingZeros_default" /> */
     public static Vector<long> CountTrailingZeros(Vector<long> x)
-        => H.Reinterpret<ulong, long>(CountTrailingZeros(H.Reinterpret<long, ulong>(x)));
+        => H.BitCastV<ulong, long>(CountTrailingZeros(H.BitCastV<long, ulong>(x)));
 
     /** <inheritdoc cref="CountTrailingZeros_default" /> */
     public static Vector<nint> CountTrailingZeros(Vector<nint> x)
-        => H.Reinterpret<nuint, nint>(CountTrailingZeros(H.Reinterpret<nint, nuint>(x)));
+        => H.BitCastV<nuint, nint>(CountTrailingZeros(H.BitCastV<nint, nuint>(x)));
 
     /** <inheritdoc cref="CountTrailingZeros_default" /> */
     public static Vector<float> CountTrailingZeros(Vector<float> x)
-        => Vector.ConvertToSingle(CountTrailingZeros(H.Reinterpret<float, uint>(x)));
+        => Vector.ConvertToSingle(CountTrailingZeros(H.BitCastV<float, uint>(x)));
 
     /** <inheritdoc cref="CountTrailingZeros_default" /> */
     public static Vector<double> CountTrailingZeros(Vector<double> x)
-        => Vector.ConvertToDouble(CountTrailingZeros(H.Reinterpret<double, ulong>(x)));
+        => Vector.ConvertToDouble(CountTrailingZeros(H.BitCastV<double, ulong>(x)));
 
 #pragma warning restore format
 }
