@@ -53,6 +53,7 @@ using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 using GenericSpecialization;
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 partial class ScalarOp
 {
@@ -127,12 +128,12 @@ public void GenerateSpecializations(string opname, string checkKeyword, bool isA
     /** <inheritdoc cref="<#=opname#>_default" /> */
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static float <#=opname#>(float x, float y)
-        => Reinterpret<uint, float>(<#=op($"Reinterpret<float, uint>(x)", $"Reinterpret<float, uint>(y)")#>);
+        => H.BitCast<uint, float>(<#=op($"H.BitCast<float, uint>(x)", $"H.BitCast<float, uint>(y)")#>);
 
     /** <inheritdoc cref="<#=opname#>_default" /> */
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double <#=opname#>(double x, double y)
-        => Reinterpret<ulong, double>(<#=op($"Reinterpret<double, ulong>(x)", $"Reinterpret<double, ulong>(y)")#>);
+        => H.BitCast<ulong, double>(<#=op($"H.BitCast<double, ulong>(x)", $"H.BitCast<double, ulong>(y)")#>);
 <#+
     }
 }

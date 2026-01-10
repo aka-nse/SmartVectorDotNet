@@ -1,22 +1,11 @@
 using System.Runtime.CompilerServices;
 
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 using NVector = System.Numerics.Vector;
 
 partial class VectorOp
 {
-    /** <summary> Operates As. </summary> **/
-    [MethodImpl(_inlining)]
-    public static Vector<TTo> As<TFrom, TTo>(Vector<TFrom> vector)
-        where TFrom : unmanaged
-        where TTo : unmanaged
-#if NET6_0_OR_GREATER
-        => NVector.As<TFrom, TTo>(vector);
-#else
-        => Unsafe.As<Vector<TFrom>, Vector<TTo>>(ref Unsafe.AsRef(vector));
-#endif
-
-
     /** <summary> Operates AsVectorByte. </summary> **/
     [MethodImpl(_inlining)]
     public static Vector<byte> AsVectorByte<T>(Vector<T> value)
@@ -59,7 +48,7 @@ partial class VectorOp
 #if NET6_0_OR_GREATER
         => NVector.AsVectorNInt(value);
 #else
-        => Unsafe.As<Vector<T>, Vector<nint>>(ref Unsafe.AsRef(value));
+        => H.BitCastV<T, nint>(value);
 #endif
 
 
@@ -70,7 +59,7 @@ partial class VectorOp
 #if NET6_0_OR_GREATER
         => NVector.AsVectorNUInt(value);
 #else
-        => Unsafe.As<Vector<T>, Vector<nuint>>(ref Unsafe.AsRef(value));
+        => H.BitCastV<T, nuint>(value);
 #endif
 
 

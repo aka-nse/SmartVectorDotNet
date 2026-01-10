@@ -60,16 +60,16 @@ partial class VectorOp
         where T : unmanaged
     {
 #pragma warning disable format
-        if (typeof(T) == typeof(byte  )) return H.Reinterpret<byte  , T>(H.Reinterpret<T, byte  >(x & ModuloByConst_<T>._1));
-        if (typeof(T) == typeof(ushort)) return H.Reinterpret<ushort, T>(H.Reinterpret<T, ushort>(x & ModuloByConst_<T>._1));
-        if (typeof(T) == typeof(uint  )) return H.Reinterpret<uint  , T>(H.Reinterpret<T, uint  >(x & ModuloByConst_<T>._1));
-        if (typeof(T) == typeof(ulong )) return H.Reinterpret<ulong , T>(H.Reinterpret<T, ulong >(x & ModuloByConst_<T>._1));
-        if (typeof(T) == typeof(sbyte )) return H.Reinterpret<sbyte , T>(H.Reinterpret<T, sbyte >(x & ModuloByConst_<T>._1));
-        if (typeof(T) == typeof(short )) return H.Reinterpret<short , T>(H.Reinterpret<T, short >(x & ModuloByConst_<T>._1));
-        if (typeof(T) == typeof(int   )) return H.Reinterpret<int   , T>(H.Reinterpret<T, int   >(x & ModuloByConst_<T>._1));
-        if (typeof(T) == typeof(long  )) return H.Reinterpret<long  , T>(H.Reinterpret<T, long  >(x & ModuloByConst_<T>._1));
-        if (typeof(T) == typeof(float )) return H.Reinterpret<float , T>(ModuloBy2(H.Reinterpret<T, float >(x)));
-        if (typeof(T) == typeof(double)) return H.Reinterpret<double, T>(ModuloBy2(H.Reinterpret<T, double>(x)));
+        if (typeof(T) == typeof(byte  )) return H.BitCastV<byte  , T>(H.BitCastV<T, byte  >(x & ModuloByConst_<T>._1));
+        if (typeof(T) == typeof(ushort)) return H.BitCastV<ushort, T>(H.BitCastV<T, ushort>(x & ModuloByConst_<T>._1));
+        if (typeof(T) == typeof(uint  )) return H.BitCastV<uint  , T>(H.BitCastV<T, uint  >(x & ModuloByConst_<T>._1));
+        if (typeof(T) == typeof(ulong )) return H.BitCastV<ulong , T>(H.BitCastV<T, ulong >(x & ModuloByConst_<T>._1));
+        if (typeof(T) == typeof(sbyte )) return H.BitCastV<sbyte , T>(H.BitCastV<T, sbyte >(x & ModuloByConst_<T>._1));
+        if (typeof(T) == typeof(short )) return H.BitCastV<short , T>(H.BitCastV<T, short >(x & ModuloByConst_<T>._1));
+        if (typeof(T) == typeof(int   )) return H.BitCastV<int   , T>(H.BitCastV<T, int   >(x & ModuloByConst_<T>._1));
+        if (typeof(T) == typeof(long  )) return H.BitCastV<long  , T>(H.BitCastV<T, long  >(x & ModuloByConst_<T>._1));
+        if (typeof(T) == typeof(float )) return H.BitCastV<float , T>(ModuloBy2(H.BitCastV<T, float >(x)));
+        if (typeof(T) == typeof(double)) return H.BitCastV<double, T>(ModuloBy2(H.BitCastV<T, double>(x)));
 #pragma warning restore format
         throw new NotSupportedException();
     }

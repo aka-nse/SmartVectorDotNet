@@ -29,11 +29,11 @@ partial class VectorOp
     {
         if (typeof(T) == typeof(float))
         {
-            return H.Reinterpret<float, T>(Modulo(H.Reinterpret<T, float>(x), H.Reinterpret<T, float>(y)));
+            return H.BitCastV<float, T>(Modulo(H.BitCastV<T, float>(x), H.BitCastV<T, float>(y)));
         }
         if (typeof(T) == typeof(double))
         {
-            return H.Reinterpret<double, T>(Modulo(H.Reinterpret<T, double>(x), H.Reinterpret<T, double>(y)));
+            return H.BitCastV<double, T>(Modulo(H.BitCastV<T, double>(x), H.BitCastV<T, double>(y)));
         }
         return x - y * (x / y);
     }
@@ -52,35 +52,35 @@ partial class VectorOp
         var i = n - m;
         var shouldReturnX = LessThan(i, Vector<int>.Zero);
 
-        var c = H.Reinterpret<int, uint>(a | Const.SingleEconomizedBit);
-        var d = H.Reinterpret<int, uint>(b | Const.SingleEconomizedBit);
+        var c = H.BitCastV<int, uint>(a | Const.SingleEconomizedBit);
+        var d = H.BitCastV<int, uint>(b | Const.SingleEconomizedBit);
         while(true)
         {
-            var condition = H.Reinterpret<int, uint>(GreaterThan(i, Const.SingleExponentBits));
+            var condition = H.BitCastV<int, uint>(GreaterThan(i, Const.SingleExponentBits));
             if(NVector.EqualsAll(condition, VectorOp.Const<uint>.FalseValue))
             {
                 break;
             }
-            var nextC = ShiftLeft(c, H.Reinterpret<int, uint>(Const.SingleExponentBits));
+            var nextC = ShiftLeft(c, H.BitCastV<int, uint>(Const.SingleExponentBits));
             nextC -= d * (nextC / d);
             c = ConditionalSelect(condition, nextC, c);
-            i = ConditionalSelect(H.Reinterpret<uint, int>(condition), i - Const.SingleExponentBits, i);
+            i = ConditionalSelect(H.BitCastV<uint, int>(condition), i - Const.SingleExponentBits, i);
         }
-        c = ShiftLeft(c, H.Reinterpret<int, uint>(i));
+        c = ShiftLeft(c, H.BitCastV<int, uint>(i));
         c -= d * (c / d);
         i = Vector<int>.Zero;
 
         var shouldReturnZero = Equals(c, Vector<uint>.Zero);
         var eBitShift = VectorOp.CountLeadingZeros(c) - Const.SingleEBitPosFromLeft;
         c = ShiftLeft(c, eBitShift);
-        i -= H.Reinterpret<uint, int>(eBitShift);
+        i -= H.BitCastV<uint, int>(eBitShift);
         
-        var retval = VectorOp.Scale(s, m + i, H.Reinterpret<uint, int>(c) & VectorOp.IEEE754Single_.FracPartMask);
+        var retval = VectorOp.Scale(s, m + i, H.BitCastV<uint, int>(c) & VectorOp.IEEE754Single_.FracPartMask);
         return ConditionalSelect(
-            H.Reinterpret<int, float>(shouldReturnX),
+            H.BitCastV<int, float>(shouldReturnX),
             x,
             ConditionalSelect(
-                H.Reinterpret<uint, float>(shouldReturnZero),
+                H.BitCastV<uint, float>(shouldReturnZero),
                 Vector<float>.Zero,
                 retval));
     }
@@ -99,35 +99,35 @@ partial class VectorOp
         var i = n - m;
         var shouldReturnX = LessThan(i, Vector<long>.Zero);
 
-        var c = H.Reinterpret<long, ulong>(a | Const.DoubleEconomizedBit);
-        var d = H.Reinterpret<long, ulong>(b | Const.DoubleEconomizedBit);
+        var c = H.BitCastV<long, ulong>(a | Const.DoubleEconomizedBit);
+        var d = H.BitCastV<long, ulong>(b | Const.DoubleEconomizedBit);
         while (true)
         {
-            var condition = H.Reinterpret<long, ulong>(GreaterThan(i, Const.DoubleExponentBits));
+            var condition = H.BitCastV<long, ulong>(GreaterThan(i, Const.DoubleExponentBits));
             if (NVector.EqualsAll(condition, VectorOp.Const<ulong>.FalseValue))
             {
                 break;
             }
-            var nextC = ShiftLeft(c, H.Reinterpret<long, ulong>(Const.DoubleExponentBits));
+            var nextC = ShiftLeft(c, H.BitCastV<long, ulong>(Const.DoubleExponentBits));
             nextC -= d * (nextC / d);
             c = ConditionalSelect(condition, nextC, c);
-            i = ConditionalSelect(H.Reinterpret<ulong, long>(condition), i - Const.DoubleExponentBits, i);
+            i = ConditionalSelect(H.BitCastV<ulong, long>(condition), i - Const.DoubleExponentBits, i);
         }
-        c = ShiftLeft(c, H.Reinterpret<long, ulong>(i));
+        c = ShiftLeft(c, H.BitCastV<long, ulong>(i));
         c -= d * (c / d);
         i = Vector<long>.Zero;
 
         var shouldReturnZero = Equals(c, Vector<ulong>.Zero);
         var eBitShift = VectorOp.CountLeadingZeros(c) - Const.DoubleEBitPosFromLeft;
         c = ShiftLeft(c, eBitShift);
-        i -= H.Reinterpret<ulong, long>(eBitShift);
+        i -= H.BitCastV<ulong, long>(eBitShift);
 
-        var retval = VectorOp.Scale(s, m + i, H.Reinterpret<ulong, long>(c) & VectorOp.IEEE754Double_.FracPartMask);
+        var retval = VectorOp.Scale(s, m + i, H.BitCastV<ulong, long>(c) & VectorOp.IEEE754Double_.FracPartMask);
         return ConditionalSelect(
-            H.Reinterpret<long, double>(shouldReturnX),
+            H.BitCastV<long, double>(shouldReturnX),
             x,
             ConditionalSelect(
-                H.Reinterpret<ulong, double>(shouldReturnZero),
+                H.BitCastV<ulong, double>(shouldReturnZero),
                 Vector<double>.Zero,
                 retval));
     }

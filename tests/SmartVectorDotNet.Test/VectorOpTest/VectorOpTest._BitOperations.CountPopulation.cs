@@ -18,7 +18,7 @@ public partial class VectorOpTest
             where T : unmanaged
         {
             var buf = (stackalloc T[Vector<T>.Count]);
-            ref readonly var testVector = ref InternalHelpers.Reinterpret<T, Vector<T>>(buf[0]);
+            var testVector = InternalHelpers.BitCast<T, Vector<T>>(buf[0]);
             foreach (var testValue in testValues)
             {
                 buf[0] = testValue;

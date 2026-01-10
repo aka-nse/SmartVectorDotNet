@@ -17,7 +17,7 @@ file class Log_<T> : VectorOp.Const<T> where T : unmanaged
             {
                 logCoeffs[i] = new(ScalarOp.Pow(-1.0, i) / (i + 1.0));
             }
-            return H.Reinterpret<Vector<double>[], Vector<T>[]>(logCoeffs);
+            return H.ReinterpretVArray<double, T>(logCoeffs);
         }
         if (IsT<float>())
         {
@@ -26,7 +26,7 @@ file class Log_<T> : VectorOp.Const<T> where T : unmanaged
             {
                 logCoeffs[i] = new(ScalarOp.Pow(-1.0f, i) / (i + 1.0f));
             }
-            return H.Reinterpret<Vector<float>[], Vector<T>[]>(logCoeffs);
+            return H.ReinterpretVArray<float, T>(logCoeffs);
         }
         return default!;
     }

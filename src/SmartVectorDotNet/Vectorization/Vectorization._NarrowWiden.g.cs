@@ -27,7 +27,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        NarrowCore(x, ans);
+        unsafe
+        {
+            NarrowCore(x, ans);
+        }
     }
     
     /// <summary>
@@ -43,8 +46,8 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void NarrowCore(ReadOnlySpan<ushort> x, Span<byte> ans)
+    [GeneratedCode("T4", null), UnsafeApi]
+    protected internal virtual unsafe void NarrowCore(ReadOnlySpan<ushort> x, Span<byte> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = (byte)x[i];
@@ -92,7 +95,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        NarrowCore(x, ans);
+        unsafe
+        {
+            NarrowCore(x, ans);
+        }
     }
     
     /// <summary>
@@ -108,8 +114,8 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void NarrowCore(ReadOnlySpan<uint> x, Span<ushort> ans)
+    [GeneratedCode("T4", null), UnsafeApi]
+    protected internal virtual unsafe void NarrowCore(ReadOnlySpan<uint> x, Span<ushort> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = (ushort)x[i];
@@ -157,7 +163,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        NarrowCore(x, ans);
+        unsafe
+        {
+            NarrowCore(x, ans);
+        }
     }
     
     /// <summary>
@@ -173,8 +182,8 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void NarrowCore(ReadOnlySpan<ulong> x, Span<uint> ans)
+    [GeneratedCode("T4", null), UnsafeApi]
+    protected internal virtual unsafe void NarrowCore(ReadOnlySpan<ulong> x, Span<uint> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = (uint)x[i];
@@ -222,7 +231,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        NarrowCore(x, ans);
+        unsafe
+        {
+            NarrowCore(x, ans);
+        }
     }
     
     /// <summary>
@@ -238,8 +250,8 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void NarrowCore(ReadOnlySpan<short> x, Span<sbyte> ans)
+    [GeneratedCode("T4", null), UnsafeApi]
+    protected internal virtual unsafe void NarrowCore(ReadOnlySpan<short> x, Span<sbyte> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = (sbyte)x[i];
@@ -287,7 +299,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        NarrowCore(x, ans);
+        unsafe
+        {
+            NarrowCore(x, ans);
+        }
     }
     
     /// <summary>
@@ -303,8 +318,8 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void NarrowCore(ReadOnlySpan<int> x, Span<short> ans)
+    [GeneratedCode("T4", null), UnsafeApi]
+    protected internal virtual unsafe void NarrowCore(ReadOnlySpan<int> x, Span<short> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = (short)x[i];
@@ -352,7 +367,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        NarrowCore(x, ans);
+        unsafe
+        {
+            NarrowCore(x, ans);
+        }
     }
     
     /// <summary>
@@ -368,8 +386,8 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    [GeneratedCode("T4", null)]
-    protected internal virtual void NarrowCore(ReadOnlySpan<long> x, Span<int> ans)
+    [GeneratedCode("T4", null), UnsafeApi]
+    protected internal virtual unsafe void NarrowCore(ReadOnlySpan<long> x, Span<int> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = (int)x[i];
@@ -413,11 +431,15 @@ partial class Vectorization
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Widen(ReadOnlySpan<byte> x, Span<ushort> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        WidenCore(x, ans);
+        unsafe
+        {
+            WidenCore(x, ans);
+        }
     }
     
     /// <summary>
@@ -433,7 +455,8 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    protected internal virtual void WidenCore(ReadOnlySpan<byte> x, Span<ushort> ans)
+    [GeneratedCode("T4", null), UnsafeApi]
+    protected internal virtual unsafe void WidenCore(ReadOnlySpan<byte> x, Span<ushort> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = (ushort)x[i];
@@ -443,6 +466,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void WidenCore(ReadOnlySpan<byte> x, Span<ushort> ans)
     {
         var vectorX = MemoryMarshal.Cast<byte, Vector<byte>>(x);
@@ -475,11 +499,15 @@ partial class Vectorization
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Widen(ReadOnlySpan<ushort> x, Span<uint> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        WidenCore(x, ans);
+        unsafe
+        {
+            WidenCore(x, ans);
+        }
     }
     
     /// <summary>
@@ -495,7 +523,8 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    protected internal virtual void WidenCore(ReadOnlySpan<ushort> x, Span<uint> ans)
+    [GeneratedCode("T4", null), UnsafeApi]
+    protected internal virtual unsafe void WidenCore(ReadOnlySpan<ushort> x, Span<uint> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = (uint)x[i];
@@ -505,6 +534,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void WidenCore(ReadOnlySpan<ushort> x, Span<uint> ans)
     {
         var vectorX = MemoryMarshal.Cast<ushort, Vector<ushort>>(x);
@@ -537,11 +567,15 @@ partial class Vectorization
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Widen(ReadOnlySpan<uint> x, Span<ulong> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        WidenCore(x, ans);
+        unsafe
+        {
+            WidenCore(x, ans);
+        }
     }
     
     /// <summary>
@@ -557,7 +591,8 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    protected internal virtual void WidenCore(ReadOnlySpan<uint> x, Span<ulong> ans)
+    [GeneratedCode("T4", null), UnsafeApi]
+    protected internal virtual unsafe void WidenCore(ReadOnlySpan<uint> x, Span<ulong> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = (ulong)x[i];
@@ -567,6 +602,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void WidenCore(ReadOnlySpan<uint> x, Span<ulong> ans)
     {
         var vectorX = MemoryMarshal.Cast<uint, Vector<uint>>(x);
@@ -599,11 +635,15 @@ partial class Vectorization
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Widen(ReadOnlySpan<sbyte> x, Span<short> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        WidenCore(x, ans);
+        unsafe
+        {
+            WidenCore(x, ans);
+        }
     }
     
     /// <summary>
@@ -619,7 +659,8 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    protected internal virtual void WidenCore(ReadOnlySpan<sbyte> x, Span<short> ans)
+    [GeneratedCode("T4", null), UnsafeApi]
+    protected internal virtual unsafe void WidenCore(ReadOnlySpan<sbyte> x, Span<short> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = (short)x[i];
@@ -629,6 +670,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void WidenCore(ReadOnlySpan<sbyte> x, Span<short> ans)
     {
         var vectorX = MemoryMarshal.Cast<sbyte, Vector<sbyte>>(x);
@@ -661,11 +703,15 @@ partial class Vectorization
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Widen(ReadOnlySpan<short> x, Span<int> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        WidenCore(x, ans);
+        unsafe
+        {
+            WidenCore(x, ans);
+        }
     }
     
     /// <summary>
@@ -681,7 +727,8 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    protected internal virtual void WidenCore(ReadOnlySpan<short> x, Span<int> ans)
+    [GeneratedCode("T4", null), UnsafeApi]
+    protected internal virtual unsafe void WidenCore(ReadOnlySpan<short> x, Span<int> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = (int)x[i];
@@ -691,6 +738,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void WidenCore(ReadOnlySpan<short> x, Span<int> ans)
     {
         var vectorX = MemoryMarshal.Cast<short, Vector<short>>(x);
@@ -723,11 +771,15 @@ partial class Vectorization
     /// <param name="x"> The operand elements. </param>
     /// <param name="ans"> The destination of answer. </param>
     /// <exception cref="ArgumentException"> <paramref name="x"/> and <paramref name="ans"/> must have same length. </exception>
+    [GeneratedCode("T4", null)]
     public void Widen(ReadOnlySpan<int> x, Span<long> ans)
     {
         Guard.ValidArgument(x.Length == ans.Length, "`x` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref x, ans);
-        WidenCore(x, ans);
+        unsafe
+        {
+            WidenCore(x, ans);
+        }
     }
     
     /// <summary>
@@ -743,7 +795,8 @@ partial class Vectorization
     /// <item> there are no offseted overlap between input and output (it means writing to the same index is safe) </item>
     /// </list>
     /// </remarks>
-    protected internal virtual void WidenCore(ReadOnlySpan<int> x, Span<long> ans)
+    [GeneratedCode("T4", null), UnsafeApi]
+    protected internal virtual unsafe void WidenCore(ReadOnlySpan<int> x, Span<long> ans)
     {
         for (var i = 0; i < ans.Length; ++i)
             ans[i] = (long)x[i];
@@ -753,6 +806,7 @@ partial class Vectorization
 partial class SimdVectorization
 {
     /// <inheritdoc />
+    [GeneratedCode("T4", null)]
     protected internal override sealed void WidenCore(ReadOnlySpan<int> x, Span<long> ans)
     {
         var vectorX = MemoryMarshal.Cast<int, Vector<int>>(x);

@@ -25,19 +25,19 @@ partial class VectorOp
 #if NETCOREAPP3_0_OR_GREATER
         if(typeof(T) == typeof(byte))
         {
-            return H.Reinterpret<byte, T>(AddSaturateCore(H.Reinterpret<T, byte>( lhs), H.Reinterpret<T, byte>(rhs)));
+            return H.BitCastV<byte, T>(AddSaturateCore(H.BitCastV<T, byte>( lhs), H.BitCastV<T, byte>(rhs)));
         }
         if (typeof(T) == typeof(sbyte))
         {
-            return H.Reinterpret<sbyte, T>(AddSaturateCore(H.Reinterpret<T, sbyte>(lhs), H.Reinterpret<T, sbyte>(rhs)));
+            return H.BitCastV<sbyte, T>(AddSaturateCore(H.BitCastV<T, sbyte>(lhs), H.BitCastV<T, sbyte>(rhs)));
         }
         if (typeof(T) == typeof(ushort))
         {
-            return H.Reinterpret<ushort, T>(AddSaturateCore(H.Reinterpret<T, ushort>(lhs), H.Reinterpret<T, ushort>(rhs)));
+            return H.BitCastV<ushort, T>(AddSaturateCore(H.BitCastV<T, ushort>(lhs), H.BitCastV<T, ushort>(rhs)));
         }
         if (typeof(T) == typeof(short))
         {
-            return H.Reinterpret<short, T>(AddSaturateCore(H.Reinterpret<T, short>(lhs), H.Reinterpret<T, short>(rhs)));
+            return H.BitCastV<short, T>(AddSaturateCore(H.BitCastV<T, short>(lhs), H.BitCastV<T, short>(rhs)));
         }
 #endif
         if (typeof(T) == typeof(byte) || typeof(T) == typeof(ushort) || typeof(T) == typeof(uint) || typeof(T) == typeof(ulong) || typeof(T) == typeof(nuint))
@@ -149,19 +149,19 @@ partial class VectorOp
 #if NETCOREAPP3_0_OR_GREATER
         if (typeof(T) == typeof(byte))
         {
-            return H.Reinterpret<byte, T>(SubtractSaturateCore(H.Reinterpret<T, byte>(lhs), H.Reinterpret<T, byte>(rhs)));
+            return H.BitCastV<byte, T>(SubtractSaturateCore(H.BitCastV<T, byte>(lhs), H.BitCastV<T, byte>(rhs)));
         }
         if (typeof(T) == typeof(sbyte))
         {
-            return H.Reinterpret<sbyte, T>(SubtractSaturateCore(H.Reinterpret<T, sbyte>(lhs), H.Reinterpret<T, sbyte>(rhs)));
+            return H.BitCastV<sbyte, T>(SubtractSaturateCore(H.BitCastV<T, sbyte>(lhs), H.BitCastV<T, sbyte>(rhs)));
         }
         if (typeof(T) == typeof(ushort))
         {
-            return H.Reinterpret<ushort, T>(SubtractSaturateCore(H.Reinterpret<T, ushort>(lhs), H.Reinterpret<T, ushort>(rhs)));
+            return H.BitCastV<ushort, T>(SubtractSaturateCore(H.BitCastV<T, ushort>(lhs), H.BitCastV<T, ushort>(rhs)));
         }
         if (typeof(T) == typeof(short))
         {
-            return H.Reinterpret<short, T>(SubtractSaturateCore(H.Reinterpret<T, short>(lhs), H.Reinterpret<T, short>(rhs)));
+            return H.BitCastV<short, T>(SubtractSaturateCore(H.BitCastV<T, short>(lhs), H.BitCastV<T, short>(rhs)));
         }
 #endif
         if (typeof(T) == typeof(byte) || typeof(T) == typeof(ushort) || typeof(T) == typeof(uint) || typeof(T) == typeof(ulong) || typeof(T) == typeof(nuint))

@@ -7,9 +7,9 @@ file class Asinh_<T> : VectorOp.Const<T> where T : unmanaged
 {
     public static readonly Vector<T> Border =
         typeof(T) == typeof(double)
-            ? H.Reinterpret<double, T>(new Vector<double>(1.35e+7))
+            ? H.BitCastV<double, T>(new Vector<double>(1.35e+7))
         : typeof(T) == typeof(float)
-            ? H.Reinterpret<float, T>(new Vector<float>(1.35e+7f))
+            ? H.BitCastV<float, T>(new Vector<float>(1.35e+7f))
             : throw new ArgumentException();
 }
 

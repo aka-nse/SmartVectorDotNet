@@ -272,11 +272,11 @@ partial class VectorOp
     {
         if (IntPtr.Size == 8)
         {
-            return H.Reinterpret<ulong, nuint>(GatherUnsafe((ulong*)ptr, H.Reinterpret<nint, long>(index)));
+            return H.BitCastV<ulong, nuint>(GatherUnsafe((ulong*)ptr, H.BitCastV<nint, long>(index)));
         }
         else if (IntPtr.Size == 4)
         {
-            return H.Reinterpret<uint, nuint>(GatherUnsafe((uint*)ptr, H.Reinterpret<nint, int>(index)));
+            return H.BitCastV<uint, nuint>(GatherUnsafe((uint*)ptr, H.BitCastV<nint, int>(index)));
         }
         throw new NotSupportedException();
     }
@@ -292,11 +292,11 @@ partial class VectorOp
     {
         if(IntPtr.Size == 8)
         {
-            return H.Reinterpret<ulong, nint>(GatherUnsafe((ulong*)ptr, H.Reinterpret<nint, long>(index)));
+            return H.BitCastV<ulong, nint>(GatherUnsafe((ulong*)ptr, H.BitCastV<nint, long>(index)));
         }
         else if(IntPtr.Size == 4)
         {
-            return H.Reinterpret<uint, nint>(GatherUnsafe((uint*)ptr, H.Reinterpret<nint, int>(index)));
+            return H.BitCastV<uint, nint>(GatherUnsafe((uint*)ptr, H.BitCastV<nint, int>(index)));
         }
         throw new NotSupportedException();
     }
@@ -311,7 +311,7 @@ partial class VectorOp
     public static unsafe Vector<nuint> Gather(ReadOnlySpan<nuint> table, Vector<nint> index)
     {
         var length = new Vector<nuint>((nuint)table.Length);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<nint, nuint>(index), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<nint, nuint>(index), length), Gather_.IndexRangeError);
         fixed (nuint* ptr = table)
         {
             return GatherUnsafe(ptr, index);
@@ -328,7 +328,7 @@ partial class VectorOp
     public static unsafe Vector<nint> Gather(ReadOnlySpan<nint> table, Vector<nint> index)
     {
         var length = new Vector<nuint>((nuint)table.Length);
-        Guard.ValidArgument(LessThanAll(H.Reinterpret<nint, nuint>(index), length), Gather_.IndexRangeError);
+        Guard.ValidArgument(LessThanAll(H.BitCastV<nint, nuint>(index), length), Gather_.IndexRangeError);
         fixed (nint* ptr = table)
         {
             return GatherUnsafe(ptr, index);

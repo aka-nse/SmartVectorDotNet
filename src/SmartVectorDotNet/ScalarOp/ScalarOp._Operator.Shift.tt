@@ -29,6 +29,7 @@ using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 using GenericSpecialization;
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 partial class ScalarOp
 {
@@ -55,11 +56,11 @@ partial class ScalarOp
 
     /** <inheritdoc cref="<#=opname#>_default" /> */
     public static float <#=opname#>(float x, int y)
-        => Reinterpret<int, float>(<#=op("Reinterpret<float, int>(x)", "y")#>);
+        => H.BitCast<int, float>(<#=op("H.BitCast<float, int>(x)", "y")#>);
 
     /** <inheritdoc cref="<#=opname#>_default" /> */
     public static double <#=opname#>(double x, int y)
-        => Reinterpret<long, double>(<#=op("Reinterpret<double, long>(x)", "y")#>);
+        => H.BitCast<long, double>(<#=op("H.BitCast<double, long>(x)", "y")#>);
 
     #endregion
 

@@ -53,13 +53,13 @@ partial class VectorOp
     /// <remarks> <c>m0, m1</c> must be <c>0 or 1</c>. </remarks>
     internal static Vector128<T> Permute2<T>(Vector128<T> v, byte m0, byte m1)
         where T : unmanaged
-        => Unsafe.SizeOf<T>() switch
+        => H.SizeOf<T>() switch
         {
 #pragma warning disable format
-            sizeof(byte  ) => H.Reinterpret<byte  , T>(PermuteX(H.Reinterpret<T, byte  >(v), m0, m1, m0, m1, Permute_.MaskBaseUInt8_Permute2)),
-            sizeof(ushort) => H.Reinterpret<ushort, T>(Permute4(H.Reinterpret<T, ushort>(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
-            sizeof(uint  ) => H.Reinterpret<uint  , T>(Permute4(H.Reinterpret<T, uint  >(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
-            sizeof(ulong ) => H.Reinterpret<ulong , T>(Permute4(H.Reinterpret<T, ulong >(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
+            sizeof(byte  ) => H.BitCast<byte  , T>(PermuteX(H.BitCast<T, byte  >(v), m0, m1, m0, m1, Permute_.MaskBaseUInt8_Permute2)),
+            sizeof(ushort) => H.BitCast<ushort, T>(Permute4(H.BitCast<T, ushort>(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
+            sizeof(uint  ) => H.BitCast<uint  , T>(Permute4(H.BitCast<T, uint  >(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
+            sizeof(ulong ) => H.BitCast<ulong , T>(Permute4(H.BitCast<T, ulong >(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
 #pragma warning restore format
             _ => throw new NotSupportedException(),
         };
@@ -67,13 +67,13 @@ partial class VectorOp
     /// <remarks> <c>m0, m1, m2, m3</c> must be <c>0, 1, 2, or 3</c>. </remarks>
     internal static Vector128<T> Permute4<T>(Vector128<T> v, byte m0, byte m1, byte m2, byte m3)
         where T : unmanaged
-        => Unsafe.SizeOf<T>() switch
+        => H.SizeOf<T>() switch
         {
 #pragma warning disable format
-            sizeof(byte  ) => H.Reinterpret<byte  , T>(PermuteX(H.Reinterpret<T, byte  >(v), m0, m1, m2, m3, Permute_.MaskBaseUInt8_Permute4)),
-            sizeof(ushort) => H.Reinterpret<ushort, T>(Permute4(H.Reinterpret<T, ushort>(v), m0, m1, m2, m3)),
-            sizeof(uint  ) => H.Reinterpret<uint  , T>(Permute4(H.Reinterpret<T, uint  >(v), m0, m1, m2, m3)),
-            sizeof(ulong ) => H.Reinterpret<ulong , T>(Permute4(H.Reinterpret<T, ulong >(v), m0, m1, m2, m3)),
+            sizeof(byte  ) => H.BitCast<byte  , T>(PermuteX(H.BitCast<T, byte  >(v), m0, m1, m2, m3, Permute_.MaskBaseUInt8_Permute4)),
+            sizeof(ushort) => H.BitCast<ushort, T>(Permute4(H.BitCast<T, ushort>(v), m0, m1, m2, m3)),
+            sizeof(uint  ) => H.BitCast<uint  , T>(Permute4(H.BitCast<T, uint  >(v), m0, m1, m2, m3)),
+            sizeof(ulong ) => H.BitCast<ulong , T>(Permute4(H.BitCast<T, ulong >(v), m0, m1, m2, m3)),
 #pragma warning restore format
             _ => throw new NotSupportedException(),
         };
@@ -85,7 +85,10 @@ partial class VectorOp
         if (Sse3.IsSupported)
         {
             var maskBytes = (stackalloc byte[Vector128<byte>.Count]);
-            MemoryMarshal.Cast<byte, uint>(maskBytes).Fill(MemoryMarshal.Cast<byte, uint>(maskOffsets)[0]);
+            unsafe
+            {
+                MemoryMarshal.Cast<byte, uint>(maskBytes).Fill(MemoryMarshal.Cast<byte, uint>(maskOffsets)[0]);
+            }
             var mask = Sse2.Add(
                 H.CreateVector128(maskBase),
                 H.CreateVector128(maskBytes));
@@ -107,7 +110,7 @@ partial class VectorOp
     {
         if (Sse2.IsSupported)
         {
-            ref readonly var vv = ref H.Reinterpret<ushort, byte>(in v);
+            var vv = H.BitCast<ushort, byte>(v);
             m0 <<= 1;
             m1 <<= 1;
             m2 <<= 1;
@@ -117,7 +120,7 @@ partial class VectorOp
                 m0, m0, m1, m1, m2, m2, m3, m3,
             });
             mask = Sse2.Add(mask, Permute_.Permute4Mask128);
-            return H.Reinterpret<byte, ushort>(Ssse3.Shuffle(vv, mask));
+            return H.BitCast<byte, ushort>(Ssse3.Shuffle(vv, mask));
         }
         else
         {
@@ -138,7 +141,7 @@ partial class VectorOp
     {
         if (Sse2.IsSupported)
         {
-            ref readonly var vv = ref H.Reinterpret<uint, float>(in v);
+            var vv = H.BitCast<uint, float>(v);
             var control = H.CreateVector128(stackalloc int[] { m0, m1, m2, m3, });
             return Vector128.As<float, uint>(Avx.PermuteVar(vv, control));
         }
@@ -165,13 +168,13 @@ partial class VectorOp
     /// <remarks> <c>m0, m1</c> must be <c>0 or 1</c>. </remarks>
     internal static Vector256<T> Permute2<T>(Vector256<T> v, byte m0, byte m1)
         where T : unmanaged
-        => Unsafe.SizeOf<T>() switch
+        => H.SizeOf<T>() switch
         {
 #pragma warning disable format
-            sizeof(byte  ) => H.Reinterpret<byte  , T>(Permute4(H.Reinterpret<T, byte  >(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
-            sizeof(ushort) => H.Reinterpret<ushort, T>(Permute4(H.Reinterpret<T, ushort>(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
-            sizeof(uint  ) => H.Reinterpret<uint  , T>(Permute4(H.Reinterpret<T, uint  >(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
-            sizeof(ulong ) => H.Reinterpret<ulong , T>(Permute4(H.Reinterpret<T, ulong >(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
+            sizeof(byte  ) => H.BitCast<byte  , T>(Permute4(H.BitCast<T, byte  >(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
+            sizeof(ushort) => H.BitCast<ushort, T>(Permute4(H.BitCast<T, ushort>(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
+            sizeof(uint  ) => H.BitCast<uint  , T>(Permute4(H.BitCast<T, uint  >(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
+            sizeof(ulong ) => H.BitCast<ulong , T>(Permute4(H.BitCast<T, ulong >(v), m0, m1, (byte)(0b10 | m0), (byte)(0b10 | m1))),
 #pragma warning restore format
             _ => throw new NotSupportedException(),
         };
@@ -179,13 +182,13 @@ partial class VectorOp
     /// <remarks> <c>m0, m1, m2, m3</c> must be <c>0, 1, 2, or 3</c>. </remarks>
     internal static Vector256<T> Permute4<T>(Vector256<T> v, byte m0, byte m1, byte m2, byte m3)
         where T : unmanaged
-        => Unsafe.SizeOf<T>() switch
+        => H.SizeOf<T>() switch
         {
 #pragma warning disable format
-            sizeof(byte  ) => H.Reinterpret<byte  , T>(PermuteX(H.Reinterpret<T, byte  >(v), m0, m1, m2, m3, Permute_.MaskBaseUInt8_Permute4)),
-            sizeof(ushort) => H.Reinterpret<ushort, T>(Permute4(H.Reinterpret<T, ushort>(v), m0, m1, m2, m3)),
-            sizeof(uint  ) => H.Reinterpret<uint  , T>(Permute4(H.Reinterpret<T, uint  >(v), m0, m1, m2, m3)),
-            sizeof(ulong ) => H.Reinterpret<ulong , T>(Permute4(H.Reinterpret<T, ulong >(v), m0, m1, m2, m3)),
+            sizeof(byte  ) => H.BitCast<byte  , T>(PermuteX(H.BitCast<T, byte  >(v), m0, m1, m2, m3, Permute_.MaskBaseUInt8_Permute4)),
+            sizeof(ushort) => H.BitCast<ushort, T>(Permute4(H.BitCast<T, ushort>(v), m0, m1, m2, m3)),
+            sizeof(uint  ) => H.BitCast<uint  , T>(Permute4(H.BitCast<T, uint  >(v), m0, m1, m2, m3)),
+            sizeof(ulong ) => H.BitCast<ulong , T>(Permute4(H.BitCast<T, ulong >(v), m0, m1, m2, m3)),
 #pragma warning restore format
             _ => throw new NotSupportedException(),
         };
@@ -197,7 +200,10 @@ partial class VectorOp
         if (Avx2.IsSupported)
         {
             var maskBytes = (stackalloc byte[Vector256<byte>.Count]);
-            MemoryMarshal.Cast<byte, uint>(maskBytes).Fill(MemoryMarshal.Cast<byte, uint>(maskOffsets)[0]);
+            unsafe
+            {
+                MemoryMarshal.Cast<byte, uint>(maskBytes).Fill(MemoryMarshal.Cast<byte, uint>(maskOffsets)[0]);
+            }
             var mask = Avx2.Add(
                 H.CreateVector256(maskBase),
                 H.CreateVector256(maskBytes));
@@ -219,7 +225,7 @@ partial class VectorOp
     {
         if (Avx2.IsSupported)
         {
-            ref readonly var vv = ref H.Reinterpret<ushort, byte>(in v);
+            var vv = H.BitCast<ushort, byte>(v);
             m0 <<= 1;
             m1 <<= 1;
             m2 <<= 1;
@@ -231,7 +237,7 @@ partial class VectorOp
                 m0, m0, m1, m1, m2, m2, m3, m3,
             });
             mask = Avx2.Add(mask, Permute_.Permute4Mask256);
-            return H.Reinterpret<byte, ushort>(Avx2.Shuffle(vv, mask));
+            return H.BitCast<byte, ushort>(Avx2.Shuffle(vv, mask));
         }
         else
         {
@@ -252,7 +258,7 @@ partial class VectorOp
     {
         if (Avx2.IsSupported)
         {
-            ref readonly var vv = ref H.Reinterpret<uint, float>(in v);
+            var vv = H.BitCast<uint, float>(v);
             var control = H.CreateVector256(stackalloc int[] { m0, m1, m2, m3, m0 + 4, m1 + 4, m2 + 4, m3 + 4, });
             return Vector256.As<float, uint>(Avx.PermuteVar(vv, control));
         }
@@ -275,7 +281,7 @@ partial class VectorOp
     {
         if (Avx2.IsSupported)
         {
-            ref readonly var vv = ref H.Reinterpret<ulong, float>(in v);
+            var vv = H.BitCast<ulong, float>(v);
             m0 <<= 1;
             m1 <<= 1;
             m2 <<= 1;

@@ -114,38 +114,38 @@ partial class VectorOp
     /** <inheritdoc cref="CountPopulation_default" /> */
     public static Vector<nuint> CountPopulation(Vector<nuint> x)
     {
-        if (Unsafe.SizeOf<nuint>() == sizeof(ulong)) { return H.Reinterpret<ulong, nuint>(CountPopulation(H.Reinterpret<nuint, ulong>(x))); }
-        if (Unsafe.SizeOf<nuint>() == sizeof(uint )) { return H.Reinterpret<uint , nuint>(CountPopulation(H.Reinterpret<nuint, uint >(x))); }
+        if (H.SizeOf<nuint>() == sizeof(ulong)) { return H.BitCastV<ulong, nuint>(CountPopulation(H.BitCastV<nuint, ulong>(x))); }
+        if (H.SizeOf<nuint>() == sizeof(uint )) { return H.BitCastV<uint , nuint>(CountPopulation(H.BitCastV<nuint, uint >(x))); }
         throw new NotSupportedException();
     }
 
     /** <inheritdoc cref="CountPopulation_default" /> */
     public static Vector<sbyte> CountPopulation(Vector<sbyte> x)
-        => H.Reinterpret<byte, sbyte>(CountPopulation(H.Reinterpret<sbyte, byte>(x)));
+        => H.BitCastV<byte, sbyte>(CountPopulation(H.BitCastV<sbyte, byte>(x)));
 
     /** <inheritdoc cref="CountPopulation_default" /> */
     public static Vector<short> CountPopulation(Vector<short> x)
-        => H.Reinterpret<ushort, short>(CountPopulation(H.Reinterpret<short, ushort>(x)));
+        => H.BitCastV<ushort, short>(CountPopulation(H.BitCastV<short, ushort>(x)));
 
     /** <inheritdoc cref="CountPopulation_default" /> */
     public static Vector<int> CountPopulation(Vector<int> x)
-        => H.Reinterpret<uint, int>(CountPopulation(H.Reinterpret<int, uint>(x)));
+        => H.BitCastV<uint, int>(CountPopulation(H.BitCastV<int, uint>(x)));
 
     /** <inheritdoc cref="CountPopulation_default" /> */
     public static Vector<long> CountPopulation(Vector<long> x)
-        => H.Reinterpret<ulong, long>(CountPopulation(H.Reinterpret<long, ulong>(x)));
+        => H.BitCastV<ulong, long>(CountPopulation(H.BitCastV<long, ulong>(x)));
 
     /** <inheritdoc cref="CountPopulation_default" /> */
     public static Vector<nint> CountPopulation(Vector<nint> x)
-        => H.Reinterpret<nuint, nint>(CountPopulation(H.Reinterpret<nint, nuint>(x)));
+        => H.BitCastV<nuint, nint>(CountPopulation(H.BitCastV<nint, nuint>(x)));
 
     /** <inheritdoc cref="CountPopulation_default" /> */
     public static Vector<float> CountPopulation(Vector<float> x)
-        => Vector.ConvertToSingle(CountPopulation(H.Reinterpret<float, uint>(x)));
+        => Vector.ConvertToSingle(CountPopulation(H.BitCastV<float, uint>(x)));
 
     /** <inheritdoc cref="CountPopulation_default" /> */
     public static Vector<double> CountPopulation(Vector<double> x)
-        => Vector.ConvertToDouble(CountPopulation(H.Reinterpret<double, ulong>(x)));
+        => Vector.ConvertToDouble(CountPopulation(H.BitCastV<double, ulong>(x)));
 
 
 #pragma warning restore format

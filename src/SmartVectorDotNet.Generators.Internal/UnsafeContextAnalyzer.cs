@@ -35,7 +35,6 @@ internal class UnsafeContextAnalyzer : DiagnosticAnalyzer
         {
             return;
         }
-        if (!member.Name.Contains("GatherCore")) { return; }
 
         switch (typeSymbol.ToDisplayString())
         {
@@ -43,8 +42,6 @@ internal class UnsafeContextAnalyzer : DiagnosticAnalyzer
         case "System.Runtime.InteropServices.MemoryMarshal":
             break;
         default:
-            var name = member.Name;
-            TextWriter.Null.WriteLine(name);
             if(member.GetAttributes().Any(static attr => attr.AttributeClass?.ToDisplayString() == "SmartVectorDotNet.UnsafeApiAttribute"))
             {
                 // UnsafeApiAttribute indicates that the type is unsafe
@@ -63,6 +60,12 @@ internal class UnsafeContextAnalyzer : DiagnosticAnalyzer
             }
             if(ancestor is MethodDeclarationSyntax methodDeclaration
                 && methodDeclaration.ChildTokens().Any(static token => token.IsKind(SyntaxKind.UnsafeKeyword)))
+            {
+                // Already in an unsafe context
+                return;
+            }
+            if(ancestor is LocalFunctionStatementSyntax localFuncDecl
+                && localFuncDecl.ChildTokens().Any(static token => token.IsKind(SyntaxKind.UnsafeKeyword)))
             {
                 // Already in an unsafe context
                 return;

@@ -115,8 +115,8 @@ partial class VectorOp
             retval[1] = input[(m1 & 0b10) >> 1][m1 & 0b01];
             retval[2] = input[(m2 & 0b10) >> 1][m2 & 0b01];
             retval[3] = input[(m3 & 0b10) >> 1][m3 & 0b01];
-            v1 = H.Reinterpret<T, Vector<T>>(retval[0]);
-            v2 = H.Reinterpret<T, Vector<T>>(retval[1]);
+            v1 = H.BitCast<T, Vector<T>>(retval[0]);
+            v2 = H.BitCast<T, Vector<T>>(retval[1]);
             return;
         }
         throw new NotSupportedException();

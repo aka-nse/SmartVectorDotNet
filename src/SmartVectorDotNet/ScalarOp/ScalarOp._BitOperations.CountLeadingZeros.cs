@@ -1,9 +1,7 @@
-using System.Runtime.CompilerServices;
 using GenericSpecialization;
 
 namespace SmartVectorDotNet;
 using H = InternalHelpers;
-
 
 partial class ScalarOp
 {
@@ -68,11 +66,11 @@ partial class ScalarOp
 
     /// <inheritdoc cref="CountLeadingZeros_default" />
     public static float CountLeadingZeros(float x)
-        => CountLeadingZeros(H.Reinterpret<float, uint>(x));
+        => CountLeadingZeros(H.BitCast<float, uint>(x));
 
     /// <inheritdoc cref="CountLeadingZeros_default" />
     public static double CountLeadingZeros(double x)
-        => CountLeadingZeros(H.Reinterpret<double, ulong>(x));
+        => CountLeadingZeros(H.BitCast<double, ulong>(x));
 
 #if NETCOREAPP3_0_OR_GREATER
 
@@ -112,11 +110,11 @@ partial class ScalarOp
 
     public static partial nuint CountLeadingZeros(nuint x)
     {
-        if (Unsafe.SizeOf<nuint>() == sizeof(uint))
+        if (H.SizeOf<nuint>() == sizeof(uint))
         {
             return CountLeadingZeros((uint)x);
         }
-        if (Unsafe.SizeOf<nuint>() == sizeof(ulong))
+        if (H.SizeOf<nuint>() == sizeof(ulong))
         {
             return (nuint)CountLeadingZeros((ulong)x);
         }

@@ -5,6 +5,7 @@ using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 using GenericSpecialization;
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 partial class ScalarOp
 {
@@ -347,12 +348,12 @@ partial class ScalarOp
     /** <inheritdoc cref="BitwiseOr_default" /> */
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static float BitwiseOr(float x, float y)
-        => Reinterpret<uint, float>(Reinterpret<float, uint>(x) | Reinterpret<float, uint>(y));
+        => H.BitCast<uint, float>(H.BitCast<float, uint>(x) | H.BitCast<float, uint>(y));
 
     /** <inheritdoc cref="BitwiseOr_default" /> */
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double BitwiseOr(double x, double y)
-        => Reinterpret<ulong, double>(Reinterpret<double, ulong>(x) | Reinterpret<double, ulong>(y));
+        => H.BitCast<ulong, double>(H.BitCast<double, ulong>(x) | H.BitCast<double, ulong>(y));
 
     #endregion BitwiseOr
 
@@ -389,12 +390,12 @@ partial class ScalarOp
     /** <inheritdoc cref="BitwiseAnd_default" /> */
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static float BitwiseAnd(float x, float y)
-        => Reinterpret<uint, float>(Reinterpret<float, uint>(x) & Reinterpret<float, uint>(y));
+        => H.BitCast<uint, float>(H.BitCast<float, uint>(x) & H.BitCast<float, uint>(y));
 
     /** <inheritdoc cref="BitwiseAnd_default" /> */
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double BitwiseAnd(double x, double y)
-        => Reinterpret<ulong, double>(Reinterpret<double, ulong>(x) & Reinterpret<double, ulong>(y));
+        => H.BitCast<ulong, double>(H.BitCast<double, ulong>(x) & H.BitCast<double, ulong>(y));
 
     #endregion BitwiseAnd
 
@@ -431,12 +432,12 @@ partial class ScalarOp
     /** <inheritdoc cref="BitwiseXor_default" /> */
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static float BitwiseXor(float x, float y)
-        => Reinterpret<uint, float>(Reinterpret<float, uint>(x) ^ Reinterpret<float, uint>(y));
+        => H.BitCast<uint, float>(H.BitCast<float, uint>(x) ^ H.BitCast<float, uint>(y));
 
     /** <inheritdoc cref="BitwiseXor_default" /> */
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double BitwiseXor(double x, double y)
-        => Reinterpret<ulong, double>(Reinterpret<double, ulong>(x) ^ Reinterpret<double, ulong>(y));
+        => H.BitCast<ulong, double>(H.BitCast<double, ulong>(x) ^ H.BitCast<double, ulong>(y));
 
     #endregion BitwiseXor
 

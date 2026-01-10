@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 /// <summary>
 /// Provides abstraction of vectorized primitive operations.
@@ -36,15 +34,11 @@ public partial class Vectorization
         where T1 : unmanaged
         where T2 : unmanaged
     {
-        static ref byte getUntypedRef<T>(in T reference)
-            => ref Unsafe.As<T, byte>(ref Unsafe.AsRef(in reference));
-
-        static bool isSameBuffer(ReadOnlySpan<T1> source, Span<T2> destination)
-            => Unsafe.SizeOf<T1>() == Unsafe.SizeOf<T2>()
-            && Unsafe.ByteOffset(ref getUntypedRef(source[0]), ref getUntypedRef(destination[0])) == IntPtr.Zero;
-
-        static bool hasOverlap(ReadOnlySpan<T1> source, Span<T2> destination)
+        static unsafe bool hasOverlap(ReadOnlySpan<T1> source, Span<T2> destination)
         {
+            static ref byte getUntypedRef<T>(in T reference)
+                => ref Unsafe.As<T, byte>(ref Unsafe.AsRef(in reference));
+
             IntPtr s0, s1, d0, d1;
             do
             {
@@ -72,7 +66,7 @@ public partial class Vectorization
         {
             return default;
         }
-        if (isSameBuffer(source, destination))
+        if (H.IsSameBuffer(source, destination))
         {
             return default;
         }

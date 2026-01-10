@@ -57,7 +57,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(<#=arg2#>.Length == ans.Length, "`<#=arg2#>` and `ans` must have same length.");
         using var safeYBuffer = EnsureSourceSafe(ref <#=arg2#>, ans);
-        <#=methodName#>Core(<#=arg1#>, <#=arg2#>, ans);
+        unsafe
+        {
+            <#=methodName#>Core(<#=arg1#>, <#=arg2#>, ans);
+        }
     }
     
     <# DocumentPublic(methodName, arg1, arg2); #>
@@ -67,7 +70,10 @@ partial class Vectorization
     {
         Guard.ValidArgument(<#=arg1#>.Length == ans.Length, "`<#=arg1#>` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref <#=arg1#>, ans);
-        <#=methodName#>Core(<#=arg1#>, <#=arg2#>, ans);
+        unsafe
+        {
+            <#=methodName#>Core(<#=arg1#>, <#=arg2#>, ans);
+        }
     }
     
     <# DocumentPublic(methodName, arg1, arg2); #>
@@ -79,11 +85,14 @@ partial class Vectorization
         Guard.ValidArgument(<#=arg2#>.Length == ans.Length, "`<#=arg2#>` and `ans` must have same length.");
         using var safeXBuffer = EnsureSourceSafe(ref <#=arg1#>, ans);
         using var safeYBuffer = EnsureSourceSafe(ref <#=arg2#>, ans);
-        <#=methodName#>Core(<#=arg1#>, <#=arg2#>, ans);
+        unsafe
+        {
+            <#=methodName#>Core(<#=arg1#>, <#=arg2#>, ans);
+        }
     }
     
     <# DocumentCore(methodName, $"{methodName}{{T}}(T, ReadOnlySpan{{T}}, Span{{T}})", arg1, arg2); #>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void <#=methodName#>Core<T>(T <#=arg1#>, ReadOnlySpan<T> <#=arg2#>, Span<T> ans)
         where T : unmanaged
     {
@@ -92,7 +101,7 @@ partial class Vectorization
     }
     
     <# DocumentCore(methodName, $"{methodName}{{T}}(ReadOnlySpan{{T}}, T, Span{{T}})", arg1, arg2); #>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void <#=methodName#>Core<T>(ReadOnlySpan<T> <#=arg1#>, T <#=arg2#>, Span<T> ans)
         where T : unmanaged
     {
@@ -101,7 +110,7 @@ partial class Vectorization
     }
     
     <# DocumentCore(methodName, $"{methodName}{{T}}(ReadOnlySpan{{T}}, ReadOnlySpan{{T}}, Span{{T}})", arg1, arg2); #>
-    [GeneratedCode("T4", null)]
+    [GeneratedCode("T4", null), UnsafeApi]
     protected internal virtual void <#=methodName#>Core<T>(ReadOnlySpan<T> <#=arg1#>, ReadOnlySpan<T> <#=arg2#>, Span<T> ans)
         where T : unmanaged
     {

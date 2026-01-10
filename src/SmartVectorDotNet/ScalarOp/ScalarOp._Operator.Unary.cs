@@ -118,10 +118,10 @@ partial class ScalarOp
 
     /** <inheritdoc cref="Complement_default"/> */
     public static float  Complement(float x)
-        => Reinterpret<int, float>(~Reinterpret<float, int>(x));
+        => H.BitCast<int, float>(~H.BitCast<float, int>(x));
 
     /** <inheritdoc cref="Complement_default"/> */
     public static double Complement(double x)
-        => Reinterpret<long, double>(~Reinterpret<double, long>(x));
+        => H.BitCast<long, double>(~H.BitCast<double, long>(x));
 }
 #pragma warning restore format

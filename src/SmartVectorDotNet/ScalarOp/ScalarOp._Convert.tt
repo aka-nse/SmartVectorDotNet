@@ -42,11 +42,13 @@ partial class ScalarOp
         where TFrom : unmanaged
         where TTo : unmanaged
     {
-        static ref readonly T to<T>(in TFrom x) => ref H.Reinterpret<TFrom, T>(in x);
-        static ref readonly TTo from<T>(in T x) => ref H.Reinterpret<T, TTo>(in x);
+        static T to<T>(TFrom x) where T : unmanaged => H.BitCast<TFrom, T>(x);
+        static TTo from<T>(T x) where T : unmanaged => H.BitCast<T, TTo>(x);
 
         if(typeof(TFrom) == typeof(TTo))
-            return Reinterpret<TFrom, TTo>(x);
+        {
+            return H.BitCast<TFrom, TTo>(x);
+        }
 
 <#  foreach(var typeA in types) { #>
         if(typeof(TFrom) == typeof(<#=typeA#>))

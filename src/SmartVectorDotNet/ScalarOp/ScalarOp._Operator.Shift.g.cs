@@ -5,6 +5,7 @@ using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 using GenericSpecialization;
 namespace SmartVectorDotNet;
+using H = InternalHelpers;
 
 partial class ScalarOp
 {
@@ -37,11 +38,11 @@ partial class ScalarOp
 
     /** <inheritdoc cref="ShiftLeft_default" /> */
     public static float ShiftLeft(float x, int y)
-        => Reinterpret<int, float>(Reinterpret<float, int>(x) << y);
+        => H.BitCast<int, float>(H.BitCast<float, int>(x) << y);
 
     /** <inheritdoc cref="ShiftLeft_default" /> */
     public static double ShiftLeft(double x, int y)
-        => Reinterpret<long, double>(Reinterpret<double, long>(x) << y);
+        => H.BitCast<long, double>(H.BitCast<double, long>(x) << y);
 
     #endregion
 
@@ -74,11 +75,11 @@ partial class ScalarOp
 
     /** <inheritdoc cref="ShiftRight_default" /> */
     public static float ShiftRight(float x, int y)
-        => Reinterpret<int, float>(Reinterpret<float, int>(x) >> y);
+        => H.BitCast<int, float>(H.BitCast<float, int>(x) >> y);
 
     /** <inheritdoc cref="ShiftRight_default" /> */
     public static double ShiftRight(double x, int y)
-        => Reinterpret<long, double>(Reinterpret<double, long>(x) >> y);
+        => H.BitCast<long, double>(H.BitCast<double, long>(x) >> y);
 
     #endregion
 
