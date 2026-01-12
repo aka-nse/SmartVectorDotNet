@@ -2,18 +2,16 @@
 #else
 using System.Diagnostics.CodeAnalysis;
 
+#pragma warning disable IDE0130
 namespace System.Runtime.CompilerServices
+#pragma warning restore IDE0130
 {
     [ExcludeFromCodeCoverage]
     [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = false)]
-    internal sealed class CallerArgumentExpressionAttribute : Attribute
+    internal sealed class CallerArgumentExpressionAttribute(string parameterName)
+        : Attribute
     {
-        public CallerArgumentExpressionAttribute(string parameterName)
-        {
-            ParameterName = parameterName;
-        }
-
-        public string ParameterName { get; }
+        public string ParameterName => parameterName;
     }
 }
 #endif
