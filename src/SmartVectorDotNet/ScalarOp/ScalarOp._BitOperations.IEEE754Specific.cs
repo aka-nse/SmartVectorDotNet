@@ -1,6 +1,6 @@
-namespace SmartVectorDotNet;
-
 using GenericSpecialization;
+
+namespace SmartVectorDotNet;
 using H = InternalHelpers;
 using static ScalarOp.Const;
 

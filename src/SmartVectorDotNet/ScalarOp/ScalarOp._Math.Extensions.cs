@@ -1,4 +1,5 @@
 using GenericSpecialization;
+
 namespace SmartVectorDotNet;
 using OP = ScalarOp;
 

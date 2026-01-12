@@ -4,6 +4,7 @@
 using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 using GenericSpecialization;
+
 namespace SmartVectorDotNet;
 using H = InternalHelpers;
 

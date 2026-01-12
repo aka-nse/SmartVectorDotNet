@@ -1,8 +1,6 @@
-using System.Runtime.CompilerServices;
 using GenericSpecialization;
 
 namespace SmartVectorDotNet;
-using H = InternalHelpers;
 
 #pragma warning disable format
 partial class ScalarOp
@@ -34,7 +32,7 @@ partial class ScalarOp
     /** <inheritdoc cref="DivideFloor_default" /> */ public static uint   DivideFloor(uint   a, uint   b) => Divide(a, b);
     /** <inheritdoc cref="DivideFloor_default" /> */ public static ulong  DivideFloor(ulong  a, ulong  b) => Divide(a, b);
     /** <inheritdoc cref="DivideFloor_default" /> */ public static nuint  DivideFloor(nuint  a, nuint  b) => Divide(a, b);
-    
+
     /** <inheritdoc cref="DivideFloor_default" /> */
     public static sbyte DivideFloor(sbyte a, sbyte b)
     {

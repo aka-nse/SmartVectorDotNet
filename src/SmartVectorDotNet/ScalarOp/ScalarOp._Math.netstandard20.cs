@@ -1,5 +1,7 @@
 #if NETSTANDARD2_0
+#pragma warning disable IDE0130
 namespace System
+#pragma warning restore IDE0130
 {
     internal static class MathF
     {
