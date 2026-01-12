@@ -1,3 +1,7 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
 namespace SmartVectorDotNet;
 
 #pragma warning disable format

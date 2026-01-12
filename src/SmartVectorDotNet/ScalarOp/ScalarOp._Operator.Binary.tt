@@ -52,7 +52,6 @@ var operations = new (string opname, string checkedKeyword, bool isArithmetic, F
 using System.CodeDom.Compiler;
 using System.Runtime.CompilerServices;
 using GenericSpecialization;
-
 namespace SmartVectorDotNet;
 using H = InternalHelpers;
 

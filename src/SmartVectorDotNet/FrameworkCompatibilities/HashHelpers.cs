@@ -7,9 +7,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-#pragma warning disable IDE0130
 namespace System.Numerics.Hashing
-#pragma warning restore IDE0130
 {
     internal static class HashHelpers
     {

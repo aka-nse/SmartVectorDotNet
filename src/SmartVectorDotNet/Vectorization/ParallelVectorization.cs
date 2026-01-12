@@ -1,3 +1,7 @@
+using System;
+using System.Buffers;
+using System.Collections.Generic;
+using System.Text;
 using SmartVectorDotNet.Internal;
 
 namespace SmartVectorDotNet;
